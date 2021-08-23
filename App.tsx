@@ -4,7 +4,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Constants from "expo-constants";
 import React from "react";
 import { StyleSheet } from "react-native";
+import ArtistDetailScreen from "./src/screens/ArtistDetailScreen";
 import HomeScreen from "./src/screens/HomeScreen";
+import { RootStackParamList } from "./src/types/routes.types";
 
 // Initialize Apollo Client
 const apolloClient = new ApolloClient({
@@ -12,7 +14,7 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
@@ -20,6 +22,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="ArtistDetail" component={ArtistDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>

@@ -1,0 +1,72 @@
+"""Exposes a URL that specifies the behaviour of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behaviour of this scalar."""
+  url: String!
+) on SCALAR
+
+type Artist {
+  id: ID!
+  name: String!
+  biography: String!
+  isVerified: Boolean!
+  coverImage: Asset!
+  avatarImage: Asset!
+  tracks(page: Int = 0, limit: Int = 10): PaginatedTrack!
+}
+
+type ArtistEdge {
+  itemCount: Float!
+  totalItems: Float!
+  itemsPerPage: Float!
+  totalPages: Float!
+  currentPage: Float!
+}
+
+type Asset {
+  id: ID!
+  type: String!
+  meta: AssetMetaUnion!
+}
+
+union AssetMetaUnion = ImageMeta | SoundMeta
+
+type ImageMeta {
+  source: String!
+  width: Float!
+  height: Float!
+}
+
+type PaginatedArtist {
+  items: [Artist!]!
+  meta: ArtistEdge!
+}
+
+type PaginatedTrack {
+  items: [Track!]!
+  meta: TrackEdge!
+}
+
+type Query {
+  getArtists(page: Int = 0, limit: Int = 10): PaginatedArtist!
+  getArtistById(id: String!): Artist!
+}
+
+type SoundMeta {
+  source: String!
+  length: Float!
+}
+
+type Track {
+  id: ID!
+  name: String!
+  sound: Asset!
+}
+
+type TrackEdge {
+  itemCount: Float!
+  totalItems: Float!
+  itemsPerPage: Float!
+  totalPages: Float!
+  currentPage: Float!
+}
+

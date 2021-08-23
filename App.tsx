@@ -1,10 +1,10 @@
-import { ApolloClient, ApolloProvider, gql, InMemoryCache } from "@apollo/client";
-import Constants from 'expo-constants';
-import { StatusBar } from "expo-status-bar";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Constants from "expo-constants";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Player from "./src/components/Player";
-
+import { StyleSheet } from "react-native";
+import HomeScreen from "./src/screens/HomeScreen";
 
 // Initialize Apollo Client
 const apolloClient = new ApolloClient({
@@ -12,32 +12,16 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const SECTIONS_QUERY = gql`
-query Sections {
-  getArtists(page: 1, limit: 5) {
-    items {
-      avatarImage {
-        type
-      }
-    }
-    meta {
-      itemCount
-      currentPage
-      totalPages
-      totalItems
-    }
-  }
-}
-`
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <ApolloProvider client={apolloClient}>
-      <View style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        <StatusBar style="auto" />
-        <Player />
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </ApolloProvider>
   );
 }

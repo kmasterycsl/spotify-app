@@ -752,7 +752,7 @@
         "specifiedByUrl": null,
         "fields": [
           {
-            "name": "getArtists",
+            "name": "artists",
             "description": null,
             "args": [
               {
@@ -793,7 +793,7 @@
             "deprecationReason": null
           },
           {
-            "name": "getArtistById",
+            "name": "artist",
             "description": null,
             "args": [
               {

@@ -21,8 +21,19 @@ export default function App() {
     <ApolloProvider client={apolloClient}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="ArtistDetail" component={ArtistDetailScreen} />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ header: () => null }}
+          />
+          <Stack.Screen
+            name="ArtistDetail"
+            component={ArtistDetailScreen}
+            options={{
+              headerTitle: () => null,
+              headerShown: false,
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>

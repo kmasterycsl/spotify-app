@@ -68,18 +68,18 @@ export type PaginatedTrack = {
 
 export type Query = {
   __typename?: 'Query';
-  getArtists: PaginatedArtist;
-  getArtistById: Artist;
+  artists: PaginatedArtist;
+  artist: Artist;
 };
 
 
-export type QueryGetArtistsArgs = {
+export type QueryArtistsArgs = {
   page?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
 
 
-export type QueryGetArtistByIdArgs = {
+export type QueryArtistArgs = {
   id: Scalars['String'];
 };
 

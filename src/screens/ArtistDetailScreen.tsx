@@ -13,6 +13,7 @@ import HorizontalPadding from "../shared/components/HorizontalPadding";
 import TracksList from "../shared/components/TracksList";
 import { Divider, Text, VStack } from "native-base";
 import VerticalPadding from "../shared/components/VerticalPadding";
+import ArtistStats from "./artist/ArtistStats";
 
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, "ArtistDetail">;
 
@@ -87,6 +88,7 @@ export default function ArtistDetailScreen() {
         </VStack>
       </FullWidthSquareImage>
       <VerticalPadding />
+      <ArtistStats />
       <HorizontalPadding>
         <Text fontSize="lg" bold>
           Popular

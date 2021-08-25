@@ -18,7 +18,9 @@ export type Artist = {
   name: Scalars['String'];
   biography: Scalars['String'];
   isVerified: Scalars['Boolean'];
+  coverImageId: Scalars['String'];
   coverImage: Asset;
+  avatarImageId: Scalars['String'];
   avatarImage: Asset;
   tracks: PaginatedTrack;
 };

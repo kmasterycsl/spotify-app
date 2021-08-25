@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React from "react";
-import { View, Text, Image, Button, TouchableHighlight } from "react-native";
+import { View, Button, TouchableHighlight } from "react-native";
 import { RootStackParamList } from "../types/routes.types";
 import { RouteProp } from "@react-navigation/native";
 import { gql, useQuery } from "@apollo/client";
@@ -9,8 +9,10 @@ import { useEffect } from "react";
 import FullWidthSquareImage from "../shared/components/FullWidthSquareImage";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import VerticalPadding from "../shared/components/VerticalPadding";
+import HorizontalPadding from "../shared/components/HorizontalPadding";
 import TracksList from "../shared/components/TracksList";
+import { Divider, Text, VStack } from "native-base";
+import VerticalPadding from "../shared/components/VerticalPadding";
 
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, "ArtistDetail">;
 
@@ -56,7 +58,6 @@ export default function ArtistDetailScreen() {
   const { params } = useRoute<ProfileScreenRouteProp>();
   const { data, loading, error, refetch } = useQuery<Query>(getArtistById, {
     variables: { id: params.artistId },
-    fetchPolicy: "no-cache",
   });
   useEffect(() => {
     refetch();
@@ -66,30 +67,30 @@ export default function ArtistDetailScreen() {
     nav.goBack();
   };
 
-  console.log(data?.artist.coverImage);
-
   return data?.artist ? (
     <View style={{ flex: 1 }}>
       <FullWidthSquareImage url={data?.artist?.coverImage?.meta?.source}>
-        <View
-          style={{
-            marginTop: insets.top,
-            flexGrow: 1,
-            justifyContent: "space-between",
-          }}
-        >
-          <VerticalPadding>
+        <VStack mt={insets.top} flexGrow={1} justifyContent="space-between">
+          <HorizontalPadding>
             <Ionicons
               onPress={goBack}
               name="chevron-back-circle-outline"
               size={32}
             />
-          </VerticalPadding>
-          <VerticalPadding>
-            <Text>{data.artist.name}</Text>
-          </VerticalPadding>
-        </View>
+          </HorizontalPadding>
+          <HorizontalPadding>
+            <Text fontSize="3xl" color="white">{data.artist.name}</Text>
+            <VerticalPadding />
+          </HorizontalPadding>
+        </VStack>
       </FullWidthSquareImage>
+      <VerticalPadding />
+      <HorizontalPadding>
+        <Text fontSize="lg" bold>
+          Popular
+        </Text>
+      </HorizontalPadding>
+      <VerticalPadding />
       <TracksList tracks={data.artist.tracks.items} />
     </View>
   ) : null;

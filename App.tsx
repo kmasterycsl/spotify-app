@@ -7,6 +7,7 @@ import { StyleSheet } from "react-native";
 import ArtistDetailScreen from "./src/screens/ArtistDetailScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import { RootStackParamList } from "./src/types/routes.types";
+import { NativeBaseProvider } from "native-base";
 
 // Initialize Apollo Client
 const apolloClient = new ApolloClient({
@@ -20,21 +21,23 @@ export default function App() {
   return (
     <ApolloProvider client={apolloClient}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ header: () => null }}
-          />
-          <Stack.Screen
-            name="ArtistDetail"
-            component={ArtistDetailScreen}
-            options={{
-              headerTitle: () => null,
-              headerShown: false,
-            }}
-          />
-        </Stack.Navigator>
+        <NativeBaseProvider>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ header: () => null }}
+            />
+            <Stack.Screen
+              name="ArtistDetail"
+              component={ArtistDetailScreen}
+              options={{
+                headerTitle: () => null,
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        </NativeBaseProvider>
       </NavigationContainer>
     </ApolloProvider>
   );

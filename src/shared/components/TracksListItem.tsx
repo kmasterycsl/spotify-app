@@ -7,6 +7,7 @@ import HorizontalPadding, {
 } from "./HorizontalPadding";
 import { Text } from "native-base";
 import VerticalPadding from "./VerticalPadding";
+import { Ionicons } from "@expo/vector-icons";
 
 export interface ITracksListItemProps {
   track: Track;
@@ -21,7 +22,11 @@ export default function TracksListItem({
 }: ITracksListItemProps) {
   return (
     <HorizontalPadding>
-      <HStack alignItems="center" style={style} space={3}>
+      <HStack
+        alignItems="center"
+        style={style}
+        space={DEFAULT_HORIZONTAL_PADDING}
+      >
         <HStack width={DEFAULT_HORIZONTAL_PADDING} justifyContent="flex-start">
           <Text>{index + 1}</Text>
         </HStack>
@@ -34,12 +39,13 @@ export default function TracksListItem({
             uri: `https://picsum.photos/${50}/${50}?random=${Math.random()}`,
           }}
         ></Image>
-        <VStack justifyContent="space-between">
+        <VStack justifyContent="space-between" flexGrow={1}>
           <Text bold>{track.name}</Text>
           <Text fontSize="sm" pt={1}>
             {Math.floor(Math.random() * 100000)}
           </Text>
         </VStack>
+        <Ionicons name="ellipsis-horizontal-outline" size={18} />
       </HStack>
     </HorizontalPadding>
   );

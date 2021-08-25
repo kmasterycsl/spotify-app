@@ -79,8 +79,10 @@ export default function ArtistDetailScreen() {
             />
           </HorizontalPadding>
           <HorizontalPadding>
-            <Text fontSize="3xl" color="white">{data.artist.name}</Text>
-            <VerticalPadding />
+            <Text fontSize="3xl" color="white">
+              {data.artist.name}
+            </Text>
+            <VerticalPadding multiple={2} />
           </HorizontalPadding>
         </VStack>
       </FullWidthSquareImage>

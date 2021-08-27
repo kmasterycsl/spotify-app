@@ -49,6 +49,7 @@ const getArtistById = gql`
       }
       tracks(page: 1, limit: 100) {
         items {
+          id
           name
         }
       }

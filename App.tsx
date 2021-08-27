@@ -13,6 +13,9 @@ import {
   useFonts,
   RobotoMono_400Regular,
 } from "@expo-google-fonts/roboto-mono";
+import {
+  Roboto_400Regular,
+} from "@expo-google-fonts/roboto";
 import AppLoading from "expo-app-loading";
 
 const theme = extendTheme({
@@ -34,6 +37,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function App() {
   const [fontsLoaded] = useFonts({
     RobotoMono: RobotoMono_400Regular,
+    Roboto: Roboto_400Regular,
   });
 
   if (!fontsLoaded) {

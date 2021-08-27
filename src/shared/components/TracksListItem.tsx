@@ -27,8 +27,8 @@ export default function TracksListItem({
         style={style}
         space={DEFAULT_HORIZONTAL_PADDING}
       >
-        <HStack width={DEFAULT_HORIZONTAL_PADDING} justifyContent="flex-start">
-          <Text>{index + 1}</Text>
+        <HStack minWidth={DEFAULT_HORIZONTAL_PADDING} justifyContent="flex-start">
+          <Text fontFamily="mono">{(index + 1).toString().padStart(2, '0')}</Text>
         </HStack>
         <Image
           style={{

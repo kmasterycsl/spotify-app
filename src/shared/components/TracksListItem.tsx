@@ -1,10 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
-import { HStack, Text, VStack } from "native-base";
+import { HStack, Icon, Text, useTheme, VStack } from "native-base";
 import React from "react";
 import { Image, ViewStyle } from "react-native";
 import { Track } from "../../types/graphql";
 import HorizontalPadding, {
-  DEFAULT_HORIZONTAL_PADDING
+  DEFAULT_HORIZONTAL_PADDING,
 } from "./HorizontalPadding";
 
 export interface ITracksListItemProps {
@@ -18,12 +18,15 @@ export default function TracksListItem({
   index,
   style,
 }: ITracksListItemProps) {
+  // const {colors} = useTheme();
+
   return (
     <HorizontalPadding>
       <HStack
         alignItems="center"
         style={style}
         space={DEFAULT_HORIZONTAL_PADDING}
+        // bgColor={colors.white}
       >
         <HStack
           minWidth={DEFAULT_HORIZONTAL_PADDING}
@@ -48,7 +51,10 @@ export default function TracksListItem({
             {+track.id * 10000}
           </Text>
         </VStack>
-        <Ionicons name="ellipsis-horizontal-outline" size={18} />
+        <Icon
+          size="xs"
+          as={<Ionicons name="ellipsis-horizontal-outline" />}
+        ></Icon>
       </HStack>
     </HorizontalPadding>
   );

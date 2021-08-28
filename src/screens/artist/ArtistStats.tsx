@@ -1,4 +1,4 @@
-import { Button, HStack, Text, VStack } from "native-base";
+import { Button, HStack, Icon, Text, VStack } from "native-base";
 import React, { useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import HorizontalPadding from "../../shared/components/HorizontalPadding";
@@ -11,8 +11,6 @@ export interface IArtistStatsProps {
 }
 
 export default function ArtistStats({ onPressPlay }: IArtistStatsProps) {
-  const { dispatch } = useContext(AppStateContext);
-
   return (
     <HorizontalPadding>
       <HStack justifyContent="space-between">
@@ -25,7 +23,7 @@ export default function ArtistStats({ onPressPlay }: IArtistStatsProps) {
           </Button>
         </VStack>
         <TouchableOpacity onPress={onPressPlay}>
-          <Ionicons name="play-circle-outline" size={48} />
+          <Icon as={<Ionicons name="play-circle-outline" size={48} />}></Icon>
         </TouchableOpacity>
       </HStack>
     </HorizontalPadding>

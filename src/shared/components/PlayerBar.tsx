@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { HStack, IconButton, Progress, Text, VStack } from "native-base";
+import { HStack, Icon, IconButton, Progress, Text, VStack } from "native-base";
 import React, { useContext } from "react";
 import { Image } from "react-native";
 import { actionPause, actionResume } from "../../store/actions";
@@ -52,7 +52,12 @@ export default function PlayerBar() {
             variant="ghost"
             size="lg"
             onPress={onResume}
-            icon={<Ionicons name="play-circle-outline" size={24} />}
+            icon={
+              <Icon
+                size="sm"
+                as={<Ionicons name="play-circle-outline" />}
+              ></Icon>
+            }
           />
         )}
         {player.playingState === "playing" && (
@@ -60,7 +65,12 @@ export default function PlayerBar() {
             variant="ghost"
             size="lg"
             onPress={onPause}
-            icon={<Ionicons name="pause-circle-outline" size={24} />}
+            icon={
+              <Icon
+                size="sm"
+                as={<Ionicons name="pause-circle-outline" />}
+              ></Icon>
+            }
           />
         )}
       </HStack>

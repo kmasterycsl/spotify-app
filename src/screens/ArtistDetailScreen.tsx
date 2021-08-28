@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { Text, VStack } from "native-base";
+import { Icon, Text, VStack } from "native-base";
 import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
@@ -131,22 +131,25 @@ export default function ArtistDetailScreen() {
     <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
       <FullWidthSquareImage url={data?.artist?.coverImage?.meta?.source}>
         <VStack
-          style={{ marginTop: insets.top }}
+          style={{ marginTop: insets.top, backgroundColor: "transparent" }}
           flexGrow={1}
           justifyContent="space-between"
         >
-          <HorizontalPadding>
-            <Ionicons
+          <HorizontalPadding style={{ backgroundColor: "transparent" }}>
+            <Icon
               onPress={goBack}
-              name="chevron-back-circle-outline"
-              size={32}
-            />
+              size="md"
+              as={<Ionicons name="chevron-back-circle-outline" />}
+            ></Icon>
           </HorizontalPadding>
-          <HorizontalPadding>
+          <HorizontalPadding style={{ backgroundColor: "transparent" }}>
             <Text fontSize="3xl" color="white">
               {data.artist.name}
             </Text>
-            <VerticalPadding multiple={2} />
+            <VerticalPadding
+              multiple={2}
+              style={{ backgroundColor: "transparent" }}
+            />
           </HorizontalPadding>
         </VStack>
       </FullWidthSquareImage>

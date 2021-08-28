@@ -1,7 +1,7 @@
-import { Box } from "native-base";
+import { Box, Text } from "native-base";
 import React from "react";
 import { useState } from "react";
-import { FlatList, View } from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 import { Track } from "../../types/graphql";
 import TracksListItem from "./TracksListItem";
 import VerticalPadding from "./VerticalPadding";
@@ -9,9 +9,13 @@ import VerticalPadding from "./VerticalPadding";
 export default function TracksList({
   tracks,
   onLoadMore,
+  isLoading,
+  isFinished,
 }: {
   tracks: Track[];
   onLoadMore: () => void;
+  isLoading: boolean;
+  isFinished: boolean;
 }) {
   const [callOnScrollEnd, setCallOnScrollEnd] = useState(false);
 
@@ -28,6 +32,16 @@ export default function TracksList({
         setCallOnScrollEnd(false);
       }}
       renderItem={renderItem}
+      ListFooterComponent={
+        <>
+          {isLoading && <ActivityIndicator />}
+          {isFinished && (
+            <Text fontSize="sm" italic textAlign="center">
+              That's all for now
+            </Text>
+          )}
+        </>
+      }
     ></FlatList>
   );
 }

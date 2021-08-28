@@ -2,12 +2,14 @@ import { useApolloClient } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, Button } from "react-native";
-import { useToast } from "native-base";
+import { useColorMode, useToast } from "native-base";
+import PlayerBar from "../shared/components/PlayerBar";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const client = useApolloClient();
   const toast = useToast();
+  const { toggleColorMode } = useColorMode();
 
   const goToArtist = (artistId: string) => {
     navigation.navigate("ArtistDetail", { artistId });
@@ -19,9 +21,14 @@ export default function HomeScreen() {
     });
   };
 
+  const toggleDark = () => {
+    toggleColorMode()
+  }
+
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Home Screen</Text>
+      <Button onPress={toggleDark} title="Toggle dark"></Button>
       <Button onPress={resetCache} title="Reset cache"></Button>
       <Button
         onPress={() => goToArtist("1")}
@@ -35,6 +42,7 @@ export default function HomeScreen() {
         onPress={() => goToArtist("3")}
         title="Go to detail artist 3"
       ></Button>
+      <PlayerBar />
     </View>
   );
 }

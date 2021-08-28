@@ -6,6 +6,7 @@ export default {
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/icon.png",
+  backgroundColor: "#000000",
   splash: {
     image: "./assets/splash.png",
     resizeMode: "contain",

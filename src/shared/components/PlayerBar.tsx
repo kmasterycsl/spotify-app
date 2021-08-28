@@ -1,26 +1,24 @@
 import { Ionicons } from "@expo/vector-icons";
 import { HStack, Icon, IconButton, Progress, Text, VStack } from "native-base";
-import React, { useContext } from "react";
+import React from "react";
 import { Image } from "react-native";
-import { actionPause, actionResume } from "../../store/actions";
-import { AppStateContext } from "../../store/store";
+import { useStore } from "../../store/store";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export default function PlayerBar() {
-  const {
-    state: { player },
-    dispatch,
-  } = useContext(AppStateContext);
+  const player = useStore((store) => store.player);
+  const actionPause = useStore((store) => store.actionPause);
+  const actionResume = useStore((store) => store.actionResume);
 
   const currentTrack =
     player.playingIndex === undefined
       ? null
       : player.tracksQueue[player.playingIndex];
   const onPause = () => {
-    actionPause(dispatch)();
+    actionPause();
   };
   const onResume = () => {
-    actionResume(dispatch)();
+    actionResume();
   };
 
   if (!currentTrack) return null;

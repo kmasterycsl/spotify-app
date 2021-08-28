@@ -1,7 +1,6 @@
 import { Sound } from 'expo-av/build/Audio';
-import React from 'react';
 import { Track } from '../types/graphql';
-import { StoreAction } from './actions';
+import create from 'zustand'
 
 interface PlayerState {
     playingState: 'idle' | 'playing' | 'paused',
@@ -12,7 +11,6 @@ interface PlayerState {
     player?: Sound,
     repeatMode: 'none' | 'once' | 'all',
     tracksQueue: Track[],
-    // _totalQueueTime: number,
 }
 
 const INIT_PLAYER_STATE: PlayerState = {
@@ -28,19 +26,92 @@ const INIT_PLAYER_STATE: PlayerState = {
 
 export interface AppState {
     player: PlayerState,
+    actionPlay: (track: Track) => void,
+    actionPause: () => void,
+    actionResume: () => void,
+    actionUpdatePosition: (position: number) => void,
+    actionUpdateTotalDuration: (duration: number) => void,
 }
 
 export const INIT_APP_STATE: AppState = {
     player: INIT_PLAYER_STATE,
+    actionPlay: () => {},
+    actionPause: () => {},
+    actionResume: () => {},
+    actionUpdatePosition: () => {},
+    actionUpdateTotalDuration: () => {},
 }
 
+const useStore = create<AppState>(set => ({
+    ...INIT_APP_STATE,
+    actionPlay: (track: Track) => {
+        set(state => {
+            const trackIndexInQueue = state.player.tracksQueue.findIndex(t => t.id === track.id);
 
-export const AppStateContext = React.createContext<{
-    state: AppState,
-    dispatch: (action: StoreAction) => any,
-}>({
-    state: INIT_APP_STATE,
-    dispatch: () => { }
-});
+            if (trackIndexInQueue > -1) {
+                return {
+                    ...state,
+                    player: {
+                        ...state.player,
+                        playingState: 'playing',
+                        playingIndex: trackIndexInQueue,
+                        playingTrack: track,
+                    }
+                }
+            }
+            return {
+                ...state,
+                player: {
+                    ...state.player,
+                    tracksQueue: [
+                        track,
+                        ...state.player.tracksQueue
+                    ],
+                    playingState: 'playing',
+                    playingIndex: 0,
+                    playingTrack: track,
+                }
+            }
+        })
+    },
+    actionPause: () => {
+        set(state => ({
+            ...state,
+            player: {
+                ...state.player,
+                playingState: 'paused',
+            }
+        }))
+    },
+    actionResume: () => {
+        set(state => ({
+            ...state,
+            player: {
+                ...state.player,
+                playingState: 'playing',
+            }
+        }))
+    },
+    actionUpdatePosition: (position: number) => {
+        set(state => ({
+            ...state,
+            player: {
+                ...state.player,
+                playingPosition: position,
+            }
+        }));
+    },
+    actionUpdateTotalDuration: (duration: number) => {
+        set(state => ({
+            ...state,
+            player: {
+                ...state.player,
+                playingTotalDuration: duration,
+            }
+        }));
+    },
+}))
 
-
+export {
+    useStore,
+}

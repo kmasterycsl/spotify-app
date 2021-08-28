@@ -1,10 +1,8 @@
-import { Button, HStack, Icon, Text, VStack } from "native-base";
-import React, { useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import HorizontalPadding from "../../shared/components/HorizontalPadding";
+import { Button, HStack, Icon, Text, VStack } from "native-base";
+import React from "react";
 import { TouchableOpacity } from "react-native";
-import { AppStateContext } from "../../store/store";
-import { ActionTypes } from "../../store/actions";
+import HorizontalPadding from "../../shared/components/HorizontalPadding";
 
 export interface IArtistStatsProps {
   onPressPlay: () => void;

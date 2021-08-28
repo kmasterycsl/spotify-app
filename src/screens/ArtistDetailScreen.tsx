@@ -89,8 +89,6 @@ export default function ArtistDetailScreen() {
     nav.goBack();
   };
 
-  console.log(paginationMeta);
-
   const onLoadMore = () => {
     if (loading) return;
     if (paginationMeta.currentPage >= paginationMeta.totalPages) return;

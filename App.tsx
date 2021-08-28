@@ -18,12 +18,31 @@ import AppLoading from "expo-app-loading";
 import { PaginatedTrack } from "./src/types/graphql";
 import { rootReducer } from "./src/store/reducer";
 import { AppState, AppStateContext, INIT_APP_STATE } from "./src/store/store";
+import PlayerController from "./src/shared/components/PlayerController";
 
 const theme = extendTheme({
+  colors: {
+    // Add new color
+    primary: {
+      50: "#e0ffeb",
+      100: "#b8f6cf",
+      200: "#8eefb1",
+      300: "#63e792",
+      400: "#39e074",
+      500: "#1fc65a",
+      600: "#149a45",
+      700: "#096e30",
+      800: "#00431b",
+      900: "#001804",
+    },
+  },
   fonts: {
     heading: "Roboto",
     body: "Roboto",
     mono: "RobotoMono",
+  },
+  config: {
+    initialColorMode: "dark",
   },
 });
 
@@ -76,7 +95,7 @@ export default function App() {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <AppStateContext.Provider value={{state, dispatch}}>
+      <AppStateContext.Provider value={{ state, dispatch }}>
         <NavigationContainer>
           <SafeAreaProvider>
             <NativeBaseProvider theme={theme}>
@@ -95,6 +114,7 @@ export default function App() {
                   }}
                 />
               </Stack.Navigator>
+              <PlayerController />
             </NativeBaseProvider>
           </SafeAreaProvider>
         </NavigationContainer>

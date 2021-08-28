@@ -1,8 +1,14 @@
 import { StoreAction, ActionTypes, ActionPayloads } from "./actions";
 import { AppState } from "./store";
 
+const IGNORE_LOG_TYPES = [
+    ActionTypes.UPDATE_POSITION,
+]
+
 export function rootReducer(state: AppState, action: StoreAction): AppState {
-    console.log('ACTION TO STORE: ', action);
+    if (!IGNORE_LOG_TYPES.includes(action.type)) {
+        console.log('ACTION TO STORE: ', action);
+    }
     switch (action.type) {
         case ActionTypes.ADD_TRACK:
             return {
@@ -33,7 +39,8 @@ export function rootReducer(state: AppState, action: StoreAction): AppState {
                     player: {
                         ...state.player,
                         playingState: 'playing',
-                        playingIndex: trackIndexInQueue
+                        playingIndex: trackIndexInQueue,
+                        playingTrack: track,
                     }
                 }
             }
@@ -46,7 +53,8 @@ export function rootReducer(state: AppState, action: StoreAction): AppState {
                         ...state.player.tracksQueue
                     ],
                     playingState: 'playing',
-                    playingIndex: 0
+                    playingIndex: 0,
+                    playingTrack: track,
                 }
             }
         case ActionTypes.PAUSE:
@@ -65,7 +73,25 @@ export function rootReducer(state: AppState, action: StoreAction): AppState {
                     playingState: 'playing',
                 }
             }
+        case ActionTypes.UPDATE_POSITION:
+            const { position } = (action.payload as ActionPayloads[ActionTypes.UPDATE_POSITION])
+            return {
+                ...state,
+                player: {
+                    ...state.player,
+                    playingPosition: position,
+                }
+            }
+        case ActionTypes.UPDATE_TOTAL_DURATION:
+            const { duration } = (action.payload as ActionPayloads[ActionTypes.UPDATE_TOTAL_DURATION])
+            return {
+                ...state,
+                player: {
+                    ...state.player,
+                    playingTotalDuration: duration,
+                }
+            }
         default:
-            throw new Error();
+            throw new Error('Unsupport dispatch action. Check again!');
     }
 }

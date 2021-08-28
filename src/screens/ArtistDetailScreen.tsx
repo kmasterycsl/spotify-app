@@ -5,10 +5,11 @@ import { Text, VStack } from "native-base";
 import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
-  useSafeAreaInsets
+  useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import FullWidthSquareImage from "../shared/components/FullWidthSquareImage";
 import HorizontalPadding from "../shared/components/HorizontalPadding";
+import PlayerBar from "../shared/components/PlayerBar";
 import TracksList from "../shared/components/TracksList";
 import VerticalPadding from "../shared/components/VerticalPadding";
 import { Query, TrackEdge } from "../types/graphql";
@@ -48,6 +49,15 @@ const getArtistById = gql`
         items {
           id
           name
+          sound {
+            id
+            meta {
+              ... on SoundMeta {
+                source
+                length
+              }
+            }
+          }
         }
         meta {
           itemCount
@@ -65,6 +75,7 @@ export default function ArtistDetailScreen() {
   const insets = useSafeAreaInsets();
   const nav = useNavigation();
   const { params } = useRoute<ProfileScreenRouteProp>();
+  // const { dispatch } = useContext(AppStateContext);
   const [paginationMeta, setPaginationMeta] = useState<
     Pick<TrackEdge, "currentPage" | "totalPages">
   >({
@@ -87,6 +98,16 @@ export default function ArtistDetailScreen() {
 
   const goBack = () => {
     nav.goBack();
+  };
+
+  const onPressPlay = () => {
+    // if (!data) return;
+    // dispatch({
+    //   type: ActionTypes.ADD_TRACKS,
+    //   payload: {
+    //     tracks: data.artist.tracks.items || [],
+    //   },
+    // });
   };
 
   const onLoadMore = () => {
@@ -130,7 +151,7 @@ export default function ArtistDetailScreen() {
         </VStack>
       </FullWidthSquareImage>
       <VerticalPadding />
-      <ArtistStats />
+      <ArtistStats onPressPlay={onPressPlay} />
       <HorizontalPadding>
         <Text fontSize="lg" bold>
           Popular
@@ -143,6 +164,7 @@ export default function ArtistDetailScreen() {
         onLoadMore={onLoadMore}
         tracks={data.artist.tracks.items}
       />
+      <PlayerBar />
     </SafeAreaView>
   ) : null;
 }

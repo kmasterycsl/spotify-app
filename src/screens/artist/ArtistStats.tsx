@@ -1,12 +1,18 @@
 import { Button, HStack, Text, VStack } from "native-base";
-import React from "react";
+import React, { useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import HorizontalPadding from "../../shared/components/HorizontalPadding";
 import { TouchableOpacity } from "react-native";
+import { AppStateContext } from "../../store/store";
+import { ActionTypes } from "../../store/actions";
 
-export interface IArtistStatsProps {}
+export interface IArtistStatsProps {
+  onPressPlay: () => void;
+}
 
-export default function ArtistStats({}: IArtistStatsProps) {
+export default function ArtistStats({ onPressPlay }: IArtistStatsProps) {
+  const { dispatch } = useContext(AppStateContext);
+
   return (
     <HorizontalPadding>
       <HStack justifyContent="space-between">
@@ -18,7 +24,7 @@ export default function ArtistStats({}: IArtistStatsProps) {
             Follow
           </Button>
         </VStack>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPressPlay}>
           <Ionicons name="play-circle-outline" size={48} />
         </TouchableOpacity>
       </HStack>

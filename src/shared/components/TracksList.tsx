@@ -1,7 +1,8 @@
-import { Box, Text } from "native-base";
-import React from "react";
-import { useState } from "react";
-import { ActivityIndicator, FlatList, View } from "react-native";
+import { Text } from "native-base";
+import React, { useState } from "react";
+import { ActivityIndicator, FlatList, TouchableOpacity } from "react-native";
+import { useAppDispatch } from "../../hooks/useAppState";
+import { actionPlay } from "../../store/actions";
 import { Track } from "../../types/graphql";
 import TracksListItem from "./TracksListItem";
 import VerticalPadding from "./VerticalPadding";
@@ -18,6 +19,18 @@ export default function TracksList({
   isFinished: boolean;
 }) {
   const [callOnScrollEnd, setCallOnScrollEnd] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const onPressItem = (track: Track) => {
+    actionPlay(dispatch)(track);
+  };
+
+  const renderItem = ({ item, index }: { item: Track; index: number }) => (
+    <TouchableOpacity onPress={() => onPressItem(item)}>
+      <TracksListItem track={item} index={index}></TracksListItem>
+      <VerticalPadding />
+    </TouchableOpacity>
+  );
 
   return (
     <FlatList
@@ -45,10 +58,3 @@ export default function TracksList({
     ></FlatList>
   );
 }
-
-const renderItem = ({ item, index }: { item: Track; index: number }) => (
-  <Box>
-    <TracksListItem track={item} index={index}></TracksListItem>
-    <VerticalPadding />
-  </Box>
-);

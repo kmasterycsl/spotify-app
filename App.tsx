@@ -2,7 +2,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Constants from "expo-constants";
-import React from "react";
+import React, { useReducer } from "react";
 import { StyleSheet } from "react-native";
 import ArtistDetailScreen from "./src/screens/ArtistDetailScreen";
 import HomeScreen from "./src/screens/HomeScreen";
@@ -16,6 +16,8 @@ import {
 import { Roboto_400Regular } from "@expo-google-fonts/roboto";
 import AppLoading from "expo-app-loading";
 import { PaginatedTrack } from "./src/types/graphql";
+import { rootReducer } from "./src/store/reducer";
+import { AppState, AppStateContext, INIT_APP_STATE } from "./src/store/store";
 
 const theme = extendTheme({
   fonts: {
@@ -66,33 +68,37 @@ export default function App() {
     Roboto: Roboto_400Regular,
   });
 
+  const [state, dispatch] = useReducer(rootReducer, INIT_APP_STATE);
+
   if (!fontsLoaded) {
     return <AppLoading />;
   }
 
   return (
     <ApolloProvider client={apolloClient}>
-      <NavigationContainer>
-        <SafeAreaProvider>
-          <NativeBaseProvider theme={theme}>
-            <Stack.Navigator initialRouteName="Home">
-              <Stack.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{ header: () => null }}
-              />
-              <Stack.Screen
-                name="ArtistDetail"
-                component={ArtistDetailScreen}
-                options={{
-                  headerTitle: () => null,
-                  headerShown: false,
-                }}
-              />
-            </Stack.Navigator>
-          </NativeBaseProvider>
-        </SafeAreaProvider>
-      </NavigationContainer>
+      <AppStateContext.Provider value={{state, dispatch}}>
+        <NavigationContainer>
+          <SafeAreaProvider>
+            <NativeBaseProvider theme={theme}>
+              <Stack.Navigator initialRouteName="Home">
+                <Stack.Screen
+                  name="Home"
+                  component={HomeScreen}
+                  options={{ header: () => null }}
+                />
+                <Stack.Screen
+                  name="ArtistDetail"
+                  component={ArtistDetailScreen}
+                  options={{
+                    headerTitle: () => null,
+                    headerShown: false,
+                  }}
+                />
+              </Stack.Navigator>
+            </NativeBaseProvider>
+          </SafeAreaProvider>
+        </NavigationContainer>
+      </AppStateContext.Provider>
     </ApolloProvider>
   );
 }

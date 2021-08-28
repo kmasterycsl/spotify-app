@@ -1,13 +1,11 @@
-import { Box, HStack, VStack } from "native-base";
+import { Ionicons } from "@expo/vector-icons";
+import { HStack, Text, VStack } from "native-base";
 import React from "react";
 import { Image, ViewStyle } from "react-native";
 import { Track } from "../../types/graphql";
 import HorizontalPadding, {
-  DEFAULT_HORIZONTAL_PADDING,
+  DEFAULT_HORIZONTAL_PADDING
 } from "./HorizontalPadding";
-import { Text } from "native-base";
-import VerticalPadding from "./VerticalPadding";
-import { Ionicons } from "@expo/vector-icons";
 
 export interface ITracksListItemProps {
   track: Track;
@@ -27,8 +25,13 @@ export default function TracksListItem({
         style={style}
         space={DEFAULT_HORIZONTAL_PADDING}
       >
-        <HStack minWidth={DEFAULT_HORIZONTAL_PADDING} justifyContent="flex-start">
-          <Text fontFamily="mono">{(index + 1).toString().padStart(2, '0')}</Text>
+        <HStack
+          minWidth={DEFAULT_HORIZONTAL_PADDING}
+          justifyContent="flex-start"
+        >
+          <Text fontFamily="mono">
+            {(index + 1).toString().padStart(2, "0")}
+          </Text>
         </HStack>
         <Image
           style={{

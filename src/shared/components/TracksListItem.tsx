@@ -36,13 +36,13 @@ export default function TracksListItem({
             height: 50,
           }}
           source={{
-            uri: `https://picsum.photos/${50}/${50}?random=${Math.random()}`,
+            uri: `https://picsum.photos/${50}/${50}?random=${track.id}`,
           }}
         ></Image>
         <VStack justifyContent="space-between" flexGrow={1}>
           <Text bold>{track.name}</Text>
           <Text fontSize="sm" pt={1}>
-            {Math.floor(Math.random() * 100000)}
+            {+track.id * 10000}
           </Text>
         </VStack>
         <Ionicons name="ellipsis-horizontal-outline" size={18} />

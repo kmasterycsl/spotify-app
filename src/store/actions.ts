@@ -4,6 +4,8 @@ import { AppState } from "./store";
 
 export enum ActionTypes {
   PLAY = 'PLAY',
+  UPDATE_POSITION = 'UPDATE_POSITION',
+  UPDATE_TOTAL_DURATION = 'UPDATE_TOTAL_DURATION',
   PAUSE = 'PAUSE',
   RESUME = 'RESUME',
   ADD_TRACK = 'ADD_TRACK',
@@ -12,6 +14,8 @@ export enum ActionTypes {
 
 export interface ActionPayloads {
   [ActionTypes.PLAY]: { track: Track };
+  [ActionTypes.UPDATE_POSITION]: { position: number };
+  [ActionTypes.UPDATE_TOTAL_DURATION]: { duration: number };
   [ActionTypes.PAUSE]: {};
   [ActionTypes.RESUME]: {};
   [ActionTypes.ADD_TRACK]: { track: Track };
@@ -24,7 +28,7 @@ export interface StoreAction {
 }
 
 
-export const actionPlay = (dispatch: Dispatch<StoreAction>) => (track: Track) => {
+export const actionPlay = (dispatch: Dispatch<StoreAction>) => async (track: Track) => {
   dispatch({
     type: ActionTypes.PLAY,
     payload: {
@@ -44,5 +48,23 @@ export const actionResume = (dispatch: Dispatch<StoreAction>) => () => {
   dispatch({
     type: ActionTypes.RESUME,
     payload: {}
+  })
+}
+
+export const actionUpdatePosition = (dispatch: Dispatch<StoreAction>) => (position: number) => {
+  dispatch({
+    type: ActionTypes.UPDATE_POSITION,
+    payload: {
+      position
+    }
+  })
+}
+
+export const actionUpdateTotalDuration = (dispatch: Dispatch<StoreAction>) => (duration: number) => {
+  dispatch({
+    type: ActionTypes.UPDATE_TOTAL_DURATION,
+    payload: {
+      duration
+    }
   })
 }

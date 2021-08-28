@@ -3,16 +3,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { Text, VStack } from "native-base";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator } from "react-native";
 import {
   SafeAreaView,
-  useSafeAreaInsets,
+  useSafeAreaInsets
 } from "react-native-safe-area-context";
 import FullWidthSquareImage from "../shared/components/FullWidthSquareImage";
 import HorizontalPadding from "../shared/components/HorizontalPadding";
 import TracksList from "../shared/components/TracksList";
 import VerticalPadding from "../shared/components/VerticalPadding";
-import { Query } from "../types/graphql";
+import { Query, TrackEdge } from "../types/graphql";
 import { RootStackParamList } from "../types/routes.types";
 import ArtistStats from "./artist/ArtistStats";
 
@@ -66,7 +65,12 @@ export default function ArtistDetailScreen() {
   const insets = useSafeAreaInsets();
   const nav = useNavigation();
   const { params } = useRoute<ProfileScreenRouteProp>();
-  const [page, setPage] = useState(1);
+  const [paginationMeta, setPaginationMeta] = useState<
+    Pick<TrackEdge, "currentPage" | "totalPages">
+  >({
+    currentPage: 1,
+    totalPages: Infinity,
+  });
   const [loading, setLoading] = useState(false);
   const { data, error, refetch, fetchMore } = useQuery<Query>(getArtistById, {
     variables: {
@@ -85,16 +89,19 @@ export default function ArtistDetailScreen() {
     nav.goBack();
   };
 
+  console.log(paginationMeta);
+
   const onLoadMore = () => {
     if (loading) return;
+    if (paginationMeta.currentPage >= paginationMeta.totalPages) return;
     setLoading(true);
     fetchMore({
       variables: {
-        page: page + 1,
+        page: paginationMeta.currentPage + 1,
       },
     })
-      .then(() => {
-        setPage((page) => page + 1);
+      .then(({ data }) => {
+        setPaginationMeta(data.artist.tracks.meta);
       })
       .finally(() => {
         setLoading(false);
@@ -132,8 +139,12 @@ export default function ArtistDetailScreen() {
         </Text>
       </HorizontalPadding>
       <VerticalPadding />
-      <TracksList onLoadMore={onLoadMore} tracks={data.artist.tracks.items} />
-      {loading && <ActivityIndicator />}
+      <TracksList
+        isFinished={paginationMeta.currentPage >= paginationMeta.totalPages}
+        isLoading={loading}
+        onLoadMore={onLoadMore}
+        tracks={data.artist.tracks.items}
+      />
     </SafeAreaView>
   ) : null;
 }

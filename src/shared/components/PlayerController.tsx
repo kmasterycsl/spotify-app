@@ -1,26 +1,15 @@
-import { Ionicons } from "@expo/vector-icons";
-import { HStack, IconButton, Text, useToast, VStack } from "native-base";
-import React, { useContext } from "react";
-import { Image } from "react-native";
-import {
-  actionPause,
-  actionResume,
-  actionUpdatePosition,
-  actionUpdateTotalDuration,
-} from "../../store/actions";
-import { AppStateContext } from "../../store/store";
-import HorizontalPadding, {
-  DEFAULT_HORIZONTAL_PADDING,
-} from "./HorizontalPadding";
 import { Audio } from "expo-av";
-import { useEffect } from "react";
 import { Sound } from "expo-av/build/Audio";
+import { useToast } from "native-base";
+import React, { useEffect } from "react";
+import { useStore } from "../../store/store";
 
 export default function PlayerController() {
-  const {
-    state: { player },
-    dispatch,
-  } = useContext(AppStateContext);
+  const player = useStore((store) => store.player);
+  const actionUpdateTotalDuration = useStore(
+    (store) => store.actionUpdateTotalDuration
+  );
+  const actionUpdatePosition = useStore((store) => store.actionUpdatePosition);
   const toast = useToast();
   const [soundCtrl, setSoundCtrl] = React.useState<Sound>();
 
@@ -49,12 +38,12 @@ export default function PlayerController() {
         });
         console.log({ statusCreateAsync: status });
         if (status.isLoaded) {
-          actionUpdateTotalDuration(dispatch)(status.durationMillis || 0);
+          actionUpdateTotalDuration(status.durationMillis || 0);
         }
         sound.setOnPlaybackStatusUpdate((playbackStatus) => {
           // console.log({ playbackStatus });
           if (playbackStatus.isLoaded) {
-            actionUpdatePosition(dispatch)(playbackStatus.positionMillis);
+            actionUpdatePosition(playbackStatus.positionMillis);
           }
         });
         sound.playAsync();

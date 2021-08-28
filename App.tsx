@@ -13,10 +13,9 @@ import {
   useFonts,
   RobotoMono_400Regular,
 } from "@expo-google-fonts/roboto-mono";
-import {
-  Roboto_400Regular,
-} from "@expo-google-fonts/roboto";
+import { Roboto_400Regular } from "@expo-google-fonts/roboto";
 import AppLoading from "expo-app-loading";
+import { PaginatedTrack } from "./src/types/graphql";
 
 const theme = extendTheme({
   fonts: {
@@ -26,10 +25,37 @@ const theme = extendTheme({
   },
 });
 
+const apolloCache = new InMemoryCache({
+  typePolicies: {
+    Artist: {
+      fields: {
+        tracks: {
+          keyArgs: false,
+          merge(
+            existing: PaginatedTrack | undefined,
+            incoming: PaginatedTrack
+          ) {
+            if (existing?.meta.currentPage === incoming.meta.currentPage) {
+              return existing;
+            }
+
+            return {
+              items: [...(existing?.items || []), ...incoming.items],
+              meta: incoming.meta,
+            };
+          },
+        },
+      },
+    },
+  },
+});
+
+console.log({ apolloCache });
+
 // Initialize Apollo Client
 const apolloClient = new ApolloClient({
   uri: Constants?.manifest?.extra?.GRAPHQL_ENDPOINT,
-  cache: new InMemoryCache(),
+  cache: apolloCache,
 });
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

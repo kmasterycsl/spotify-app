@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { Text, VStack } from "native-base";
 import React, { useEffect, useState } from "react";
+import { ActivityIndicator } from "react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -66,15 +67,13 @@ export default function ArtistDetailScreen() {
   const nav = useNavigation();
   const { params } = useRoute<ProfileScreenRouteProp>();
   const [page, setPage] = useState(1);
-  const { data, loading, error, refetch, fetchMore } = useQuery<Query>(
-    getArtistById,
-    {
-      variables: {
-        id: params.artistId,
-        page: 1,
-      },
-    }
-  );
+  const [loading, setLoading] = useState(false);
+  const { data, error, refetch, fetchMore } = useQuery<Query>(getArtistById, {
+    variables: {
+      id: params.artistId,
+      page: 1,
+    },
+  });
   if (error) {
     console.error(error);
   }
@@ -88,14 +87,18 @@ export default function ArtistDetailScreen() {
 
   const onLoadMore = () => {
     if (loading) return;
-    console.log('Prepare to fetch page: ', page + 1)
+    setLoading(true);
     fetchMore({
       variables: {
         page: page + 1,
       },
-    }).then(() => {
-      setPage((page) => page + 1);
-    });
+    })
+      .then(() => {
+        setPage((page) => page + 1);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return data?.artist ? (
@@ -130,7 +133,7 @@ export default function ArtistDetailScreen() {
       </HorizontalPadding>
       <VerticalPadding />
       <TracksList onLoadMore={onLoadMore} tracks={data.artist.tracks.items} />
-      {loading && <Text>Loading...</Text>}
+      {loading && <ActivityIndicator />}
     </SafeAreaView>
   ) : null;
 }

@@ -1,24 +1,29 @@
 import { Ionicons } from "@expo/vector-icons";
-import { HStack, Icon, IconButton, Slider, Text, VStack } from "native-base";
+import {
+  HStack,
+  Icon,
+  IconButton,
+  Slider,
+  Spinner,
+  Text,
+  VStack
+} from "native-base";
 import React from "react";
 import { Image } from "react-native";
-import { usePlayerNativeControllerStore } from "../../store/player-native-controller.store";
 import { useStore } from "../../store/store";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export default function PlayerBar() {
-  const player = useStore((store) => store.player);
   const actionPause = useStore((store) => store.actionPause);
   const actionResume = useStore((store) => store.actionResume);
-  const actionUpdatePosition = useStore((store) => store.actionUpdatePosition);
-  const soundController = usePlayerNativeControllerStore(
-    (state) => state.soundController
+  const actionUpdatePositionPercentage = useStore(
+    (store) => store.actionUpdatePositionPercentage
+  );
+  const playingTrack = useStore((state) => state.playingTrack);
+  const soundControllerStatus = useStore(
+    (state) => state.soundControllerStatus
   );
 
-  const currentTrack =
-    player.playingIndex === undefined
-      ? null
-      : player.tracksQueue[player.playingIndex];
   const onPause = () => {
     actionPause();
   };
@@ -26,18 +31,16 @@ export default function PlayerBar() {
     actionResume();
   };
 
-  if (!currentTrack) return null;
+  if (!playingTrack) return null;
 
   const progess =
-    (player.playingPosition * 100) / (player.playingTotalDuration || 1);
+    soundControllerStatus && soundControllerStatus.isLoaded
+      ? (soundControllerStatus.positionMillis * 100) /
+        (soundControllerStatus.durationMillis || 1)
+      : 0;
 
   const onProgressChange = (progress: number) => {
-    if (soundController) {
-      console.log({ progress });
-      soundController.setPositionAsync(
-        (progress * player.playingTotalDuration) / 100
-      );
-    }
+    actionUpdatePositionPercentage(progress);
   };
 
   return (
@@ -60,29 +63,30 @@ export default function PlayerBar() {
             height: 50,
           }}
           source={{
-            uri: `https://picsum.photos/${50}/${50}?random=${currentTrack.id}`,
+            uri: `https://picsum.photos/${50}/${50}?random=${playingTrack.id}`,
           }}
         ></Image>
         <VStack justifyContent="space-between" flexGrow={1}>
-          <Text bold>{currentTrack.name}</Text>
+          <Text bold>{playingTrack.name}</Text>
           <Text fontSize="sm" pt={1}>
-            {+currentTrack.id * 10000}
+            {+playingTrack.id * 10000}
           </Text>
         </VStack>
-        {player.playingState === "paused" && (
-          <IconButton
-            variant="ghost"
-            size="lg"
-            onPress={onResume}
-            icon={
-              <Icon
-                size="sm"
-                as={<Ionicons name="play-circle-outline" />}
-              ></Icon>
-            }
-          />
-        )}
-        {player.playingState === "playing" && (
+        {soundControllerStatus?.isLoaded &&
+          !soundControllerStatus.isPlaying && (
+            <IconButton
+              variant="ghost"
+              size="lg"
+              onPress={onResume}
+              icon={
+                <Icon
+                  size="sm"
+                  as={<Ionicons name="play-circle-outline" />}
+                ></Icon>
+              }
+            />
+          )}
+        {soundControllerStatus?.isLoaded && soundControllerStatus.isPlaying && (
           <IconButton
             variant="ghost"
             size="lg"
@@ -94,6 +98,9 @@ export default function PlayerBar() {
               ></Icon>
             }
           />
+        )}
+        {!soundControllerStatus?.isLoaded && (
+          <IconButton variant="ghost" size="lg" icon={<Spinner size="sm" />} />
         )}
       </HStack>
     </>

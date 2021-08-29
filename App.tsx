@@ -7,7 +7,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { apolloClient } from "./src/config/apollo";
 import useCustomFonts from "./src/hooks/useCustomFonts";
 import MainStack from "./src/routers/main-stack";
-import PlayerController from "./src/shared/components/PlayerController";
+import GlobalToast from "./src/shared/components/GlobalToast";
 
 export default function App() {
   const fontsLoaded = useCustomFonts();
@@ -22,7 +22,7 @@ export default function App() {
         <NavigationContainer>
           <SafeAreaProvider>
             <MainStack />
-            <PlayerController />
+            <GlobalToast />
           </SafeAreaProvider>
         </NavigationContainer>
       </ApolloProvider>

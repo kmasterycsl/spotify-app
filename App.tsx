@@ -17,15 +17,15 @@ export default function App() {
   }
 
   return (
-    <ApolloProvider client={apolloClient}>
-      <NavigationContainer>
-        <SafeAreaProvider>
-          <NativeBaseProvider theme={theme}>
+    <NativeBaseProvider theme={theme}>
+      <ApolloProvider client={apolloClient}>
+        <NavigationContainer>
+          <SafeAreaProvider>
             <MainStack />
             <PlayerController />
-          </NativeBaseProvider>
-        </SafeAreaProvider>
-      </NavigationContainer>
-    </ApolloProvider>
+          </SafeAreaProvider>
+        </NavigationContainer>
+      </ApolloProvider>
+    </NativeBaseProvider>
   );
 }

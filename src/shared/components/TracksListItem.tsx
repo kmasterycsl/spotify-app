@@ -1,11 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
-import { HStack, Icon, Text, useTheme, VStack } from "native-base";
+import { HStack, Icon, IconButton, Text, useTheme, VStack } from "native-base";
 import React from "react";
+import { useState } from "react";
 import { Image, ViewStyle } from "react-native";
 import { Track } from "../../types/graphql";
 import HorizontalPadding, {
   DEFAULT_HORIZONTAL_PADDING,
 } from "./HorizontalPadding";
+import TrackMenu from "./TrackMenu";
 
 export interface ITracksListItemProps {
   track: Track;
@@ -18,7 +20,10 @@ export default function TracksListItem({
   index,
   style,
 }: ITracksListItemProps) {
-  // const {colors} = useTheme();
+  const [menuVisible, setMenuVisible] = useState(false);
+  const onOpenMenu = () => {
+    setMenuVisible(true);
+  };
 
   return (
     <HorizontalPadding>
@@ -51,11 +56,18 @@ export default function TracksListItem({
             {+track.id * 10000}
           </Text>
         </VStack>
-        <Icon
+        <IconButton
+          variant="ghost"
+          onPress={onOpenMenu}
           size="xs"
-          as={<Ionicons name="ellipsis-horizontal-outline" />}
-        ></Icon>
+          icon={<Ionicons name="ellipsis-horizontal-outline" />}
+        />
       </HStack>
+      <TrackMenu
+        track={track}
+        visible={menuVisible}
+        setVisible={setMenuVisible}
+      />
     </HorizontalPadding>
   );
 }

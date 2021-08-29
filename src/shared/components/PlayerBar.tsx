@@ -1,18 +1,25 @@
 import { Ionicons } from "@expo/vector-icons";
-import { HStack, Icon, IconButton, Spinner, Text, VStack } from "native-base";
+import {
+  HStack,
+  Icon,
+  IconButton,
+  Spinner,
+  Text,
+  useTheme,
+  VStack,
+} from "native-base";
 import React, { useState } from "react";
 import { Image, TouchableOpacity } from "react-native";
 import { useStore } from "../../store/store";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
-import Slider from "@react-native-community/slider";
+import { Slider } from "native-base";
 import Player from "./Player";
 
 export default function PlayerBar() {
+  const { colors } = useTheme();
   const actionPause = useStore((store) => store.actionPause);
   const actionResume = useStore((store) => store.actionResume);
-  const actionUpdatePositionPercentage = useStore(
-    (store) => store.actionUpdatePositionPercentage
-  );
+  const actionUpdatePosition = useStore((store) => store.actionUpdatePosition);
   const playingTrack = useStore((state) => state.playingTrack);
   const soundControllerStatus = useStore(
     (state) => state.soundControllerStatus
@@ -30,18 +37,17 @@ export default function PlayerBar() {
 
   const progess =
     soundControllerStatus && soundControllerStatus.isLoaded
-      ? soundControllerStatus.positionMillis /
-        (soundControllerStatus.durationMillis || 1)
+      ? soundControllerStatus.positionMillis
       : 0;
 
   const onProgressChange = (progress: number) => {
-    actionUpdatePositionPercentage(progress);
+    actionUpdatePosition(progress);
   };
 
   return (
     <>
       <Player visible={modalVisible} setVisible={setModalVisible} />
-      <Slider value={progess} onSlidingComplete={onProgressChange} />
+
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <HStack alignItems="center" space={DEFAULT_HORIZONTAL_PADDING}>
           <Image
@@ -98,6 +104,23 @@ export default function PlayerBar() {
           )}
         </HStack>
       </TouchableOpacity>
+      <Slider
+        value={progess}
+        onChangeEnd={onProgressChange}
+        minValue={0}
+        maxValue={
+          soundControllerStatus?.isLoaded
+            ? soundControllerStatus?.durationMillis || 0
+            : 0
+        }
+        bg="black"
+        size="sm"
+      >
+        <Slider.Track>
+          <Slider.FilledTrack />
+        </Slider.Track>
+        <Slider.Thumb width="0" height="0" />
+      </Slider>
     </>
   );
 }

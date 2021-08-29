@@ -3,6 +3,7 @@ import { Track } from '../types/graphql';
 import create from 'zustand';
 import produce from 'immer';
 import { IToastProps } from "native-base";
+
 export interface AppState {
     playingIndex?: number,
     playingTrack?: Track,
@@ -11,34 +12,56 @@ export interface AppState {
     repeatMode: 'none' | 'once' | 'all',
     tracksQueue: Track[],
     toastMessage?: IToastProps,
+    actionAddToQueue: (track: Track) => void,
     actionPlay: (track: Track) => void,
     actionPause: () => void,
     actionResume: () => void,
     actionUpdatePosition: (position: number) => void,
     actionUpdatePositionPercentage: (percentage: number) => void,
     actionNext: () => void,
+    actionPrev: () => void,
 }
 
 
 const useStore = create<AppState>((set, get) => ({
     repeatMode: 'none',
     tracksQueue: [],
+    actionAddToQueue: (track: Track) => set(produce<AppState>(state => {
+        const trackIndexInQueue = state.tracksQueue.findIndex(t => t.id === track.id);
+        if (trackIndexInQueue > -1) {
+            state.toastMessage = {
+                title: 'This song is already in queue',
+                status: 'warning',
+            }
+        } else {
+            state.toastMessage = {
+                title: 'Added',
+                status: 'info',
+            }
+            state.tracksQueue.push(track);
+        }
+    })),
     actionPlay: async (track: Track) => {
         const state = get();
-        set({ playingTrack: track });
-
-        const trackIndexInQueue = state.tracksQueue.findIndex(t => t.id === track.id);
-
-        if (trackIndexInQueue > -1) {
-            set({ playingIndex: trackIndexInQueue });
-        } else {
-            set({ tracksQueue: [track] });
-            set({ playingIndex: 0 });
-        }
 
         if (state.soundController) {
             console.log('Unload previous sound controller.')
             await state.soundController.unloadAsync();
+        }
+
+        const trackIndexInQueue = state.tracksQueue.findIndex(t => t.id === track.id);
+
+        if (trackIndexInQueue > -1) {
+            set({
+                playingTrack: track,
+                playingIndex: trackIndexInQueue,
+            });
+        } else {
+            set({
+                playingTrack: track,
+                tracksQueue: [track],
+                playingIndex: 0
+            });
         }
 
         try {
@@ -69,12 +92,17 @@ const useStore = create<AppState>((set, get) => ({
         }
     },
     actionNext: () => set(produce<AppState>((state) => {
-        const canNext = (state.playingIndex || 0) < state.tracksQueue.length - 1;
-        if (canNext) {
-            const nextIndex = (state.playingIndex || 0) + 1;
-            const nextTrack = state.tracksQueue[nextIndex];
-            state.actionPlay(nextTrack);
-        } else {
+        console.log('actionNext called!');
+        const nextIndex = (get().playingIndex || 0) + 1;
+        if (nextIndex <= get().tracksQueue.length - 1) {
+            state.actionPlay(get().tracksQueue[nextIndex]);
+        }
+
+    })),
+    actionPrev: () => set(produce<AppState>((state) => {
+        const prevIndex = (get().playingIndex || 0) - 1;
+        if (prevIndex >= 0) {
+            state.actionPlay(get().tracksQueue[prevIndex]);
         }
     })),
     actionPause: () => set(produce<AppState>(state => {

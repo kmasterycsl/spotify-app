@@ -1,4 +1,4 @@
-import { HStack, Icon, Text, VStack } from "native-base";
+import { HStack, Icon, IconButton, Text, VStack, Slider } from "native-base";
 import React from "react";
 import { Modal, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -9,8 +9,8 @@ import HorizontalPadding, {
   _DEFAULT_HORIZONTAL_PADDING,
 } from "./HorizontalPadding";
 import { Ionicons } from "@expo/vector-icons";
-import Slider from "@react-native-community/slider";
 import { milisToMinAndSec } from "../../utils/convert";
+import VerticalPadding from "./VerticalPadding";
 
 export default function Player({
   visible,
@@ -21,8 +21,13 @@ export default function Player({
 }) {
   const insets = useSafeAreaInsets();
   const playingTrack = useStore((state) => state.playingTrack);
+  const tracksQueue = useStore((state) => state.tracksQueue);
+  const playingIndex = useStore((state) => state.playingIndex);
   const actionResume = useStore((state) => state.actionResume);
   const actionPause = useStore((state) => state.actionPause);
+  const actionNext = useStore((state) => state.actionNext);
+  const actionPrev = useStore((state) => state.actionPrev);
+  const actionUpdatePosition = useStore((state) => state.actionUpdatePosition);
   const soundControllerStatus = useStore(
     (state) => state.soundControllerStatus
   );
@@ -31,11 +36,12 @@ export default function Player({
 
   const progess =
     soundControllerStatus && soundControllerStatus.isLoaded
-      ? soundControllerStatus.positionMillis /
-        (soundControllerStatus.durationMillis || 1)
+      ? soundControllerStatus.positionMillis
       : 0;
 
-  //   console.log({ progess });
+  const onProgressChange = (progress: number) => {
+    actionUpdatePosition(progress);
+  };
 
   return (
     <Modal
@@ -43,11 +49,10 @@ export default function Player({
       presentationStyle="fullScreen"
       visible={visible}
     >
-      <VStack>
+      <VStack flexGrow={1}>
         {/* Top btns */}
         <VStack
           style={{ marginTop: insets.top, backgroundColor: "transparent" }}
-          flexGrow={1}
           justifyContent="space-between"
         >
           <HorizontalPadding style={{ backgroundColor: "transparent" }}>
@@ -69,6 +74,8 @@ export default function Player({
           ></FullWidthSquareImage>
         </HStack>
 
+        <VerticalPadding multiple={2} />
+
         {/* Song name */}
         <HStack>
           <HorizontalPadding>
@@ -81,53 +88,104 @@ export default function Player({
           </HorizontalPadding>
         </HStack>
 
-        {/* Song progress bar */}
-        <Slider value={progess} />
-        <HStack justifyContent="space-between">
-          {soundControllerStatus?.isLoaded && (
-            <>
-              <Text fontSize="xs">
-                {milisToMinAndSec(soundControllerStatus.positionMillis)}
-              </Text>
-              <Text fontSize="xs">
-                {soundControllerStatus.durationMillis
-                  ? milisToMinAndSec(soundControllerStatus.durationMillis)
-                  : "-"}
-              </Text>
-            </>
-          )}
-        </HStack>
+        <VerticalPadding />
 
-        <HStack justifyContent="space-between">
-          {soundControllerStatus?.isLoaded && (
-            <>
-              <Icon size="md" as={<Ionicons name="shuffle-outline" />}></Icon>
-              <Icon
-                size="md"
-                as={<Ionicons name="play-skip-back-outline" />}
-              ></Icon>
-              {soundControllerStatus.isPlaying && (
-                <Icon
-                  size="md"
-                  onPress={actionPause}
-                  as={<Ionicons name="pause-outline" />}
-                ></Icon>
-              )}
-              {!soundControllerStatus.isPlaying && (
-                <Icon
-                  size="md"
-                  onPress={actionResume}
-                  as={<Ionicons name="play-outline" />}
-                ></Icon>
-              )}
-              <Icon
-                size="md"
-                as={<Ionicons name="play-skip-forward-outline" />}
-              ></Icon>
-              <Icon size="md" as={<Ionicons name="repeat-outline" />}></Icon>
-            </>
-          )}
-        </HStack>
+        {/* Song progress bar */}
+        <HorizontalPadding>
+          <Slider
+            value={progess}
+            onChangeEnd={onProgressChange}
+            minValue={0}
+            maxValue={
+              soundControllerStatus?.isLoaded
+                ? soundControllerStatus?.durationMillis || 0
+                : 0
+            }
+            bg="black"
+            size="sm"
+          >
+            <Slider.Track>
+              <Slider.FilledTrack />
+            </Slider.Track>
+            <Slider.Thumb width="3" height="3" />
+          </Slider>
+          {/* Song time */}
+          <HStack justifyContent="space-between">
+            {soundControllerStatus?.isLoaded && (
+              <>
+                <Text fontSize="xs">
+                  {milisToMinAndSec(soundControllerStatus.positionMillis)}
+                </Text>
+                <Text fontSize="xs">
+                  {soundControllerStatus.durationMillis
+                    ? milisToMinAndSec(soundControllerStatus.durationMillis)
+                    : "-"}
+                </Text>
+              </>
+            )}
+          </HStack>
+        </HorizontalPadding>
+
+        <VerticalPadding />
+
+        {/* Song controls */}
+        <HorizontalPadding>
+          <HStack justifyContent="space-between" alignItems="center">
+            {soundControllerStatus?.isLoaded && (
+              <>
+                <IconButton
+                  icon={
+                    <Icon size="sm" as={<Ionicons name="shuffle-outline" />} />
+                  }
+                ></IconButton>
+                <IconButton
+                  onPress={actionPrev}
+                  disabled={
+                    playingIndex === undefined ? true : playingIndex < 1
+                  }
+                  icon={
+                    <Icon size="sm" as={<Ionicons name="play-skip-back" />} />
+                  }
+                ></IconButton>
+                {soundControllerStatus.isPlaying && (
+                  <IconButton
+                    onPress={actionPause}
+                    icon={
+                      <Icon size="2xl" as={<Ionicons name="pause-circle" />} />
+                    }
+                  ></IconButton>
+                )}
+                {!soundControllerStatus.isPlaying && (
+                  <IconButton
+                    onPress={actionResume}
+                    icon={
+                      <Icon size="2xl" as={<Ionicons name="play-circle" />} />
+                    }
+                  ></IconButton>
+                )}
+                <IconButton
+                  onPress={actionNext}
+                  disabled={
+                    playingIndex === undefined
+                      ? true
+                      : playingIndex >= tracksQueue.length - 1
+                  }
+                  icon={
+                    <Icon
+                      size="sm"
+                      as={<Ionicons name="play-skip-forward" />}
+                    />
+                  }
+                ></IconButton>
+                <IconButton
+                  icon={
+                    <Icon size="sm" as={<Ionicons name="repeat-outline" />} />
+                  }
+                ></IconButton>
+              </>
+            )}
+          </HStack>
+        </HorizontalPadding>
       </VStack>
     </Modal>
   );

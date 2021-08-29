@@ -3,7 +3,8 @@ import React from "react";
 import { ReactNode } from "react";
 import { ViewStyle } from "react-native";
 
-export const DEFAULT_HORIZONTAL_PADDING = 3;
+export const DEFAULT_HORIZONTAL_PADDING = 3; // native base unit
+export const _DEFAULT_HORIZONTAL_PADDING = 12; // default unit
 
 export default function HorizontalPadding({
   children,

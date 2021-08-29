@@ -6,14 +6,16 @@ import { Dimensions, Image, ImageBackground } from "react-native";
 
 export default function FullWidthSquareImage({
   url,
+  padding,
   children,
 }: {
   url: string;
+  padding?: number;
   children?: ReactNode;
 }) {
   const [{ imgWidth, imgHeight }, setSize] = useState({
-    imgWidth: Dimensions.get("screen").width,
-    imgHeight: Dimensions.get("screen").width,
+    imgWidth: Dimensions.get("screen").width - (padding || 0) * 2,
+    imgHeight: Dimensions.get("screen").width - (padding || 0) * 2,
   });
 
   return (

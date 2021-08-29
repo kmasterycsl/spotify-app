@@ -111,18 +111,18 @@ export default function Player({
           </Slider>
           {/* Song time */}
           <HStack justifyContent="space-between">
-            {soundControllerStatus?.isLoaded && (
-              <>
-                <Text fontSize="xs">
-                  {milisToMinAndSec(soundControllerStatus.positionMillis)}
-                </Text>
-                <Text fontSize="xs">
-                  {soundControllerStatus.durationMillis
-                    ? milisToMinAndSec(soundControllerStatus.durationMillis)
-                    : "-"}
-                </Text>
-              </>
-            )}
+            <Text fontSize="xs">
+              {soundControllerStatus?.isLoaded
+                ? milisToMinAndSec(soundControllerStatus.positionMillis)
+                : "-"}
+            </Text>
+            <Text fontSize="xs">
+              {soundControllerStatus?.isLoaded
+                ? soundControllerStatus.durationMillis
+                  ? milisToMinAndSec(soundControllerStatus.durationMillis)
+                  : "-"
+                : "-"}
+            </Text>
           </HStack>
         </HorizontalPadding>
 
@@ -131,22 +131,16 @@ export default function Player({
         {/* Song controls */}
         <HorizontalPadding>
           <HStack justifyContent="space-between" alignItems="center">
-            {soundControllerStatus?.isLoaded && (
+            <IconButton
+              icon={<Icon size="sm" as={<Ionicons name="shuffle-outline" />} />}
+            ></IconButton>
+            <IconButton
+              onPress={actionPrev}
+              disabled={playingIndex === undefined ? true : playingIndex < 1}
+              icon={<Icon size="sm" as={<Ionicons name="play-skip-back" />} />}
+            ></IconButton>
+            {soundControllerStatus?.isLoaded ? (
               <>
-                <IconButton
-                  icon={
-                    <Icon size="sm" as={<Ionicons name="shuffle-outline" />} />
-                  }
-                ></IconButton>
-                <IconButton
-                  onPress={actionPrev}
-                  disabled={
-                    playingIndex === undefined ? true : playingIndex < 1
-                  }
-                  icon={
-                    <Icon size="sm" as={<Ionicons name="play-skip-back" />} />
-                  }
-                ></IconButton>
                 {soundControllerStatus.isPlaying && (
                   <IconButton
                     onPress={actionPause}
@@ -163,27 +157,28 @@ export default function Player({
                     }
                   ></IconButton>
                 )}
-                <IconButton
-                  onPress={actionNext}
-                  disabled={
-                    playingIndex === undefined
-                      ? true
-                      : playingIndex >= tracksQueue.length - 1
-                  }
-                  icon={
-                    <Icon
-                      size="sm"
-                      as={<Ionicons name="play-skip-forward" />}
-                    />
-                  }
-                ></IconButton>
-                <IconButton
-                  icon={
-                    <Icon size="sm" as={<Ionicons name="repeat-outline" />} />
-                  }
-                ></IconButton>
               </>
+            ) : (
+              <IconButton
+                disabled
+                icon={<Icon size="2xl" as={<Ionicons name="pause-circle" />} />}
+              ></IconButton>
             )}
+
+            <IconButton
+              onPress={actionNext}
+              disabled={
+                playingIndex === undefined
+                  ? true
+                  : playingIndex >= tracksQueue.length - 1
+              }
+              icon={
+                <Icon size="sm" as={<Ionicons name="play-skip-forward" />} />
+              }
+            ></IconButton>
+            <IconButton
+              icon={<Icon size="sm" as={<Ionicons name="repeat-outline" />} />}
+            ></IconButton>
           </HStack>
         </HorizontalPadding>
       </VStack>

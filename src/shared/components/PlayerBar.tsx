@@ -1,7 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
-import { HStack, Icon, IconButton, Progress, Text, VStack } from "native-base";
+import { HStack, Icon, IconButton, Slider, Text, VStack } from "native-base";
 import React from "react";
 import { Image } from "react-native";
+import { usePlayerNativeControllerStore } from "../../store/player-native-controller.store";
 import { useStore } from "../../store/store";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
@@ -9,6 +10,10 @@ export default function PlayerBar() {
   const player = useStore((store) => store.player);
   const actionPause = useStore((store) => store.actionPause);
   const actionResume = useStore((store) => store.actionResume);
+  const actionUpdatePosition = useStore((store) => store.actionUpdatePosition);
+  const soundController = usePlayerNativeControllerStore(
+    (state) => state.soundController
+  );
 
   const currentTrack =
     player.playingIndex === undefined
@@ -26,9 +31,28 @@ export default function PlayerBar() {
   const progess =
     (player.playingPosition * 100) / (player.playingTotalDuration || 1);
 
+  const onProgressChange = (progress: number) => {
+    if (soundController) {
+      console.log({ progress });
+      soundController.setPositionAsync(
+        (progress * player.playingTotalDuration) / 100
+      );
+    }
+  };
+
   return (
     <>
-      <Progress colorScheme="primary" size="xs" value={progess} />
+      <Slider
+        value={progess}
+        size="sm"
+        colorScheme="cyan"
+        onChangeEnd={onProgressChange}
+      >
+        <Slider.Track>
+          <Slider.FilledTrack />
+        </Slider.Track>
+        <Slider.Thumb />
+      </Slider>
       <HStack alignItems="center" space={DEFAULT_HORIZONTAL_PADDING}>
         <Image
           style={{

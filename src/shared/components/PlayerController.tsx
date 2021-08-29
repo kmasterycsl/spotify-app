@@ -2,6 +2,7 @@ import { Audio } from "expo-av";
 import { Sound } from "expo-av/build/Audio";
 import { useToast } from "native-base";
 import React, { useEffect } from "react";
+import { usePlayerNativeControllerStore } from "../../store/player-native-controller.store";
 import { useStore } from "../../store/store";
 
 export default function PlayerController() {
@@ -12,24 +13,25 @@ export default function PlayerController() {
   const actionUpdatePosition = useStore((store) => store.actionUpdatePosition);
   const actionNext = useStore((store) => store.actionNext);
   const toast = useToast();
-  const [soundCtrl, setSoundCtrl] = React.useState<Sound>();
+  const { soundController, actionSetSoundController } =
+    usePlayerNativeControllerStore();
 
   React.useEffect(() => {
-    if (soundCtrl) {
+    if (soundController) {
       // Cleanup
       return () => {
-        soundCtrl.unloadAsync();
+        soundController.unloadAsync();
       };
     }
-  }, [soundCtrl]);
+  }, [soundController]);
 
   useEffect(() => {
     (async () => {
       if (!player.playingTrack) {
         return;
       }
-      if (soundCtrl) {
-        await soundCtrl.unloadAsync();
+      if (soundController) {
+        await soundController.unloadAsync();
       }
       try {
         const { sound, status } = await Audio.Sound.createAsync({
@@ -37,7 +39,6 @@ export default function PlayerController() {
         });
         if (status.isLoaded) {
           actionUpdateTotalDuration(status.durationMillis || 0);
-          sound.setPositionAsync((status.durationMillis || 0) * 0.95);
         }
         sound.setOnPlaybackStatusUpdate((playbackStatus) => {
           if (playbackStatus.isLoaded) {
@@ -52,12 +53,12 @@ export default function PlayerController() {
           }
         });
         sound.playAsync();
-        setSoundCtrl(sound);
+        actionSetSoundController(sound);
       } catch (e) {
         toast.show({
           status: "error",
           title: "Can't load track",
-          width: '100%'
+          width: "100%",
         });
         console.error({ e });
       }
@@ -67,17 +68,15 @@ export default function PlayerController() {
   // Update sound controller state based on store's state
   useEffect(() => {
     (async () => {
-      if (soundCtrl) {
+      if (soundController) {
         if (player.playingState === "paused") {
-          await soundCtrl.pauseAsync();
+          await soundController.pauseAsync();
         } else if (player.playingState === "playing") {
-          await soundCtrl.playAsync();
+          await soundController.playAsync();
         }
       }
     })();
   }, [player.playingState]);
-
-  soundCtrl?.loadAsync;
 
   return null;
 }

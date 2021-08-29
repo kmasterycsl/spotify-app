@@ -94,7 +94,7 @@ const useStore = create<AppState>((set, get) => ({
     })),
     actionUpdatePositionPercentage: (percentage: number) => set(produce<AppState>(state => {
         if (state.soundController && state.soundControllerStatus?.isLoaded) {
-            state.soundController.setPositionAsync(percentage * (state.soundControllerStatus.durationMillis || 0) / 100);
+            state.soundController.setPositionAsync(percentage * (state.soundControllerStatus.durationMillis || 0));
         }
     })),
 

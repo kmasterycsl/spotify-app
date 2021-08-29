@@ -13,6 +13,7 @@
     "@apollo/client": "^3.4.8",
     "@expo-google-fonts/roboto": "^0.2.0",
     "@expo-google-fonts/roboto-mono": "^0.2.0",
+    "@react-native-community/slider": "3.0.3",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
     "expo": "~42.0.1",

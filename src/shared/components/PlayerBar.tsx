@@ -1,17 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
-import {
-  HStack,
-  Icon,
-  IconButton,
-  Slider,
-  Spinner,
-  Text,
-  VStack
-} from "native-base";
+import { HStack, Icon, IconButton, Spinner, Text, VStack } from "native-base";
 import React from "react";
 import { Image } from "react-native";
 import { useStore } from "../../store/store";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
+import Slider from "@react-native-community/slider";
 
 export default function PlayerBar() {
   const actionPause = useStore((store) => store.actionPause);
@@ -35,7 +28,7 @@ export default function PlayerBar() {
 
   const progess =
     soundControllerStatus && soundControllerStatus.isLoaded
-      ? (soundControllerStatus.positionMillis * 100) /
+      ? soundControllerStatus.positionMillis /
         (soundControllerStatus.durationMillis || 1)
       : 0;
 
@@ -45,17 +38,7 @@ export default function PlayerBar() {
 
   return (
     <>
-      <Slider
-        value={progess}
-        size="sm"
-        colorScheme="cyan"
-        onChangeEnd={onProgressChange}
-      >
-        <Slider.Track>
-          <Slider.FilledTrack />
-        </Slider.Track>
-        <Slider.Thumb />
-      </Slider>
+      <Slider value={progess} onSlidingComplete={onProgressChange} />
       <HStack alignItems="center" space={DEFAULT_HORIZONTAL_PADDING}>
         <Image
           style={{

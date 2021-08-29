@@ -10,6 +10,7 @@ export default function PlayerController() {
     (store) => store.actionUpdateTotalDuration
   );
   const actionUpdatePosition = useStore((store) => store.actionUpdatePosition);
+  const actionNext = useStore((store) => store.actionNext);
   const toast = useToast();
   const [soundCtrl, setSoundCtrl] = React.useState<Sound>();
 
@@ -27,8 +28,6 @@ export default function PlayerController() {
       if (!player.playingTrack) {
         return;
       }
-
-      console.log(soundCtrl, player.playingTrack.sound.meta.source);
       if (soundCtrl) {
         await soundCtrl.unloadAsync();
       }
@@ -36,14 +35,20 @@ export default function PlayerController() {
         const { sound, status } = await Audio.Sound.createAsync({
           uri: player.playingTrack.sound.meta.source,
         });
-        console.log({ statusCreateAsync: status });
         if (status.isLoaded) {
           actionUpdateTotalDuration(status.durationMillis || 0);
+          sound.setPositionAsync((status.durationMillis || 0) * 0.95);
         }
         sound.setOnPlaybackStatusUpdate((playbackStatus) => {
-          // console.log({ playbackStatus });
           if (playbackStatus.isLoaded) {
             actionUpdatePosition(playbackStatus.positionMillis);
+
+            if (
+              playbackStatus.durationMillis &&
+              playbackStatus.positionMillis >= playbackStatus.durationMillis
+            ) {
+              actionNext();
+            }
           }
         });
         sound.playAsync();
@@ -52,6 +57,7 @@ export default function PlayerController() {
         toast.show({
           status: "error",
           title: "Can't load track",
+          width: '100%'
         });
         console.error({ e });
       }

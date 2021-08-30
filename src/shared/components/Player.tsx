@@ -1,10 +1,15 @@
-import { HStack, Icon, IconButton, Text, VStack, Slider } from "native-base";
+import {
+  HStack,
+  Icon,
+  IconButton,
+  Text,
+  VStack,
+  Slider,
+  Box,
+} from "native-base";
 import React from "react";
 import { Modal, Image } from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useStore } from "../../store/store";
 import FullWidthSquareImage from "./FullWidthSquareImage";
 import HorizontalPadding, {
@@ -16,6 +21,7 @@ import { milisToMinAndSec } from "../../utils/convert";
 import VerticalPadding from "./VerticalPadding";
 import { useState } from "react";
 import PlayerList from "./PlayerList";
+import SafeAreaView from "./SafeAreaView";
 
 export default function Player({
   visible,
@@ -59,24 +65,17 @@ export default function Player({
       presentationStyle="fullScreen"
       visible={visible}
     >
-      <SafeAreaView
-        style={{ flexGrow: 1, backgroundColor: "black" }}
-        mode="padding"
-      >
+      <SafeAreaView style={{ flexGrow: 1 }} mode="padding">
         <VStack flexGrow={1}>
           {/* Top btns */}
-
-          <HorizontalPadding style={{ backgroundColor: "transparent", alignSelf: 'flex-start' }}>
+          <Box
+            style={{ backgroundColor: "transparent", alignSelf: "flex-start" }}
+          >
             <IconButton
               onPress={() => setVisible(false)}
-              icon={
-                <Icon
-                  size="md"
-                  as={<Ionicons name="chevron-down-outline" />}
-                ></Icon>
-              }
+              icon={<Icon as={<Ionicons name="chevron-down-outline" />}></Icon>}
             />
-          </HorizontalPadding>
+          </Box>
 
           <VerticalPadding />
 
@@ -84,9 +83,7 @@ export default function Player({
           <HStack justifyContent="center">
             <FullWidthSquareImage
               padding={_DEFAULT_HORIZONTAL_PADDING}
-              url={`https://picsum.photos/${350}/${350}?random=${
-                playingTrack.id
-              }`}
+              url={`https://picsum.photos/id/${playingTrack.id}/${350}/${350}`}
             ></FullWidthSquareImage>
           </HStack>
 
@@ -117,8 +114,7 @@ export default function Player({
                   ? soundControllerStatus?.durationMillis || 0
                   : 0
               }
-              bg="black"
-              size="sm"
+              size="xs"
             >
               <Slider.Track>
                 <Slider.FilledTrack />
@@ -145,7 +141,10 @@ export default function Player({
           <VerticalPadding />
 
           {/* Song controls */}
-          <HorizontalPadding style={{ flexGrow: 1 }}>
+          <HorizontalPadding
+            style={{ flexGrow: 1 }}
+            multiple={(1.5 + 4) / DEFAULT_HORIZONTAL_PADDING}
+          >
             <HStack justifyContent="space-between" alignItems="center">
               <IconButton
                 icon={
@@ -210,7 +209,7 @@ export default function Player({
           </HorizontalPadding>
 
           {/* Bottom bar */}
-          <HorizontalPadding>
+          <HorizontalPadding multiple={(4 + 1.5) / DEFAULT_HORIZONTAL_PADDING}>
             <HStack justifyContent="flex-end">
               <IconButton
                 onPress={onShowPlaylist}

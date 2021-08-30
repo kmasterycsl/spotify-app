@@ -15,7 +15,7 @@ export interface ITracksListItemProps {
   style?: ViewStyle;
 }
 
-export default function TracksListItem({
+export default React.memo(function TracksListItem({
   track,
   index,
   style,
@@ -31,7 +31,6 @@ export default function TracksListItem({
         alignItems="center"
         style={style}
         space={DEFAULT_HORIZONTAL_PADDING}
-        // bgColor={colors.white}
       >
         <HStack
           minWidth={DEFAULT_HORIZONTAL_PADDING}
@@ -47,10 +46,10 @@ export default function TracksListItem({
             height: 50,
           }}
           source={{
-            uri: `https://picsum.photos/${50}/${50}?random=${track.id}`,
+            uri: `https://picsum.photos/id/${track.id}/${50}/${50}`,
           }}
         ></Image>
-        <VStack justifyContent="space-between" flexGrow={1}>
+        <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
           <Text bold>{track.name}</Text>
           <Text fontSize="sm" pt={1}>
             {+track.id * 10000}
@@ -59,8 +58,12 @@ export default function TracksListItem({
         <IconButton
           variant="ghost"
           onPress={onOpenMenu}
-          size="xs"
-          icon={<Ionicons name="ellipsis-horizontal-outline" />}
+          icon={
+            <Icon
+              size="xs"
+              as={<Ionicons name="ellipsis-horizontal-outline" />}
+            />
+          }
         />
       </HStack>
       <TrackMenu
@@ -70,4 +73,4 @@ export default function TracksListItem({
       />
     </HorizontalPadding>
   );
-}
+});

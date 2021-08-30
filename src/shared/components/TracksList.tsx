@@ -44,6 +44,7 @@ export default function TracksList({
         setCallOnScrollEnd(false);
       }}
       renderItem={renderItem}
+      onEndReachedThreshold={0.7}
       ListFooterComponent={
         <>
           {isLoading && <ActivityIndicator />}

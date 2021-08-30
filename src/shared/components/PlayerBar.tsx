@@ -56,9 +56,7 @@ export default function PlayerBar() {
               height: 50,
             }}
             source={{
-              uri: `https://picsum.photos/${50}/${50}?random=${
-                playingTrack.id
-              }`,
+              uri: `https://picsum.photos/id/${playingTrack.id}/${50}/${50}`,
             }}
           ></Image>
           <VStack justifyContent="space-between" flexGrow={1}>
@@ -113,12 +111,9 @@ export default function PlayerBar() {
             ? soundControllerStatus?.durationMillis || 0
             : 0
         }
-        bg="black"
-        size="sm"
+        size="xs"
       >
-        <Slider.Track>
-          <Slider.FilledTrack />
-        </Slider.Track>
+        <Slider.FilledTrack />
         <Slider.Thumb width="0" height="0" />
       </Slider>
     </>

@@ -17,7 +17,7 @@ export default function ArtistStats({ onPressPlay }: IArtistStatsProps) {
             {Math.floor(Math.random() * 10000)} monthly listeners
           </Text>
           <Button size="xs" alignSelf="flex-start">
-            Follow
+          Follow
           </Button>
         </VStack>
         <TouchableOpacity onPress={onPressPlay}>

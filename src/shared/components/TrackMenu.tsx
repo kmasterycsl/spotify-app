@@ -6,10 +6,7 @@ import {
   useWindowDimensions,
   TouchableOpacity,
 } from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useStore } from "../../store/store";
 import FullWidthSquareImage from "./FullWidthSquareImage";
 import HorizontalPadding, {
@@ -20,6 +17,8 @@ import { Ionicons } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
 import { milisToMinAndSec } from "../../utils/convert";
 import { Track } from "../../types/graphql";
+import SafeAreaView from "./SafeAreaView";
+import VerticalPadding from "./VerticalPadding";
 
 interface TrackMenuProps {
   track: Track;
@@ -57,11 +56,14 @@ export default function TrackMenu({
             >
               <FullWidthSquareImage
                 padding={dimessions.width * 0.3}
-                url={`https://picsum.photos/${350}/${350}?random=${track.id}`}
+                url={`https://picsum.photos/id/${track.id}/${350}/${350}`}
               ></FullWidthSquareImage>
             </HStack>
+
+            <VerticalPadding />
+
             {/* Title */}
-            <VStack alignItems="center" mt={DEFAULT_HORIZONTAL_PADDING}>
+            <VStack alignItems="center">
               <Text fontWeight="600" fontSize="lg">
                 {track.name}
               </Text>
@@ -69,6 +71,8 @@ export default function TrackMenu({
                 {track.name}
               </Text>
             </VStack>
+
+            <VerticalPadding multiple={3} />
 
             {/* Actions */}
             <VStack>

@@ -9,7 +9,7 @@ import useCustomFonts from "./src/hooks/useCustomFonts";
 import useDebugStore from "./src/hooks/useDebugStore";
 import MainStack from "./src/routers/main-stack";
 import GlobalToast from "./src/shared/components/GlobalToast";
-import theme from "./src/config/theme";
+import theme, { colorModeManager } from "./src/config/theme";
 
 export default function App() {
   useDebugStore();
@@ -20,7 +20,7 @@ export default function App() {
   }
 
   return (
-    <NativeBaseProvider theme={theme}>
+    <NativeBaseProvider theme={theme} colorModeManager={colorModeManager}>
       <ApolloProvider client={apolloClient}>
         <NavigationContainer>
           <SafeAreaProvider>

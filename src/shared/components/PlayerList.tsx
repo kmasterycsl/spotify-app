@@ -60,20 +60,18 @@ export default function PlayerList({
         <VStack flexGrow={1} alignItems="flex-start">
           {/* Top btns */}
 
-          <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-            <IconButton
-              onPress={() => setVisible(false)}
-              icon={
-                <Icon size="md" as={<Ionicons name="close-outline" />}></Icon>
-              }
-            />
-          </HorizontalPadding>
+          <IconButton
+            onPress={() => setVisible(false)}
+            icon={<Icon as={<Ionicons name="close-outline" />}></Icon>}
+          />
 
           <VerticalPadding />
 
-          {tracksQueue.map((track, index) => (
-            <TracksListItem key={track.id} track={track} index={index} />
-          ))}
+          <VStack alignSelf="stretch">
+            {tracksQueue.map((track, index) => (
+              <TracksListItem key={track.id} track={track} index={index} />
+            ))}
+          </VStack>
         </VStack>
       </SafeAreaView>
     </Modal>

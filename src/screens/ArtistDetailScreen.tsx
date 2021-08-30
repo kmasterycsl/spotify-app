@@ -1,15 +1,15 @@
 import { gql, useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { Icon, Text, VStack } from "native-base";
+import { Box, Icon, IconButton, Text, VStack } from "native-base";
 import React, { useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import FullWidthSquareImage from "../shared/components/FullWidthSquareImage";
-import HorizontalPadding from "../shared/components/HorizontalPadding";
+import HorizontalPadding, {
+  DEFAULT_HORIZONTAL_PADDING,
+} from "../shared/components/HorizontalPadding";
 import PlayerBar from "../shared/components/PlayerBar";
+import SafeAreaView from "../shared/components/SafeAreaView";
 import TracksList from "../shared/components/TracksList";
 import VerticalPadding from "../shared/components/VerticalPadding";
 import { Query, TrackEdge } from "../types/graphql";
@@ -131,16 +131,29 @@ export default function ArtistDetailScreen() {
     <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
       <FullWidthSquareImage url={data?.artist?.coverImage?.meta?.source}>
         <VStack
-          style={{ marginTop: insets.top, backgroundColor: "transparent" }}
+          style={{ marginTop: insets.top }}
+          bgColor="transparent"
           flexGrow={1}
           justifyContent="space-between"
         >
-          <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-            <Icon
+          <HorizontalPadding
+            multiple={5.5 / DEFAULT_HORIZONTAL_PADDING}
+            style={{ backgroundColor: "transparent", alignSelf: "flex-start" }}
+          >
+            {/* <Box > */}
+            <IconButton
+              size="sm"
+              variant="ghost"
               onPress={goBack}
-              size="md"
-              as={<Ionicons name="chevron-back-circle-outline" />}
-            ></Icon>
+              icon={
+                <Icon
+                  color="gray.400"
+                  as={<Ionicons name="chevron-back-circle-outline" />}
+                ></Icon>
+              }
+            />
+
+            {/* </Box> */}
           </HorizontalPadding>
           <HorizontalPadding style={{ backgroundColor: "transparent" }}>
             <Text fontSize="3xl" color="white">

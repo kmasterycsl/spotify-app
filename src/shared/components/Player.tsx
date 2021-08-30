@@ -14,6 +14,8 @@ import HorizontalPadding, {
 import { Ionicons } from "@expo/vector-icons";
 import { milisToMinAndSec } from "../../utils/convert";
 import VerticalPadding from "./VerticalPadding";
+import { useState } from "react";
+import PlayerList from "./PlayerList";
 
 export default function Player({
   visible,
@@ -34,6 +36,7 @@ export default function Player({
   const soundControllerStatus = useStore(
     (state) => state.soundControllerStatus
   );
+  const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);
 
   if (!playingTrack) return null;
 
@@ -44,6 +47,10 @@ export default function Player({
 
   const onProgressChange = (progress: number) => {
     actionUpdatePosition(progress);
+  };
+
+  const onShowPlaylist = () => {
+    setIsPlaylistOpen(true);
   };
 
   return (
@@ -59,12 +66,16 @@ export default function Player({
         <VStack flexGrow={1}>
           {/* Top btns */}
 
-          <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-            <Icon
+          <HorizontalPadding style={{ backgroundColor: "transparent", alignSelf: 'flex-start' }}>
+            <IconButton
               onPress={() => setVisible(false)}
-              size="md"
-              as={<Ionicons name="chevron-down-outline" />}
-            ></Icon>
+              icon={
+                <Icon
+                  size="md"
+                  as={<Ionicons name="chevron-down-outline" />}
+                ></Icon>
+              }
+            />
           </HorizontalPadding>
 
           <VerticalPadding />
@@ -202,12 +213,15 @@ export default function Player({
           <HorizontalPadding>
             <HStack justifyContent="flex-end">
               <IconButton
+                onPress={onShowPlaylist}
                 icon={<Icon size="sm" as={<Ionicons name="list-outline" />} />}
               ></IconButton>
             </HStack>
           </HorizontalPadding>
         </VStack>
       </SafeAreaView>
+
+      <PlayerList visible={isPlaylistOpen} setVisible={setIsPlaylistOpen} />
     </Modal>
   );
 }

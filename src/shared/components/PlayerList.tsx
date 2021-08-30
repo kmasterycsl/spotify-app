@@ -2,7 +2,6 @@ import { HStack, Icon, IconButton, Text, VStack } from "native-base";
 import React from "react";
 import { Modal, Image } from "react-native";
 import {
-  SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { useStore } from "../../store/store";
@@ -15,6 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { milisToMinAndSec } from "../../utils/convert";
 import VerticalPadding from "./VerticalPadding";
 import TracksListItem from "./TracksListItem";
+import SafeAreaView from "./SafeAreaView";
 
 export default function PlayerList({
   visible,
@@ -54,7 +54,7 @@ export default function PlayerList({
       visible={visible}
     >
       <SafeAreaView
-        style={{ flexGrow: 1, backgroundColor: "black" }}
+        style={{ flexGrow: 1 }}
         mode="padding"
       >
         <VStack flexGrow={1} alignItems="flex-start">

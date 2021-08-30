@@ -184,7 +184,7 @@ export default function Player({
                 <IconButton
                   disabled
                   icon={
-                    <Icon size="2xl" as={<Ionicons name="pause-circle" />} />
+                    <Icon size="2xl" as={<Ionicons name="play-circle" />} />
                   }
                 ></IconButton>
               )}

@@ -11,7 +11,10 @@ export interface AppState {
     soundControllerStatus?: AVPlaybackStatus;
     repeatMode: 'none' | 'once' | 'all',
     tracksQueue: Track[],
-    toastMessage?: IToastProps,
+    toastMessage?: {
+        title: string,
+        status: 'warning' | 'info' | 'error'
+    },
     actionAddToQueue: (track: Track) => void,
     actionPlay: (track: Track) => void,
     actionPause: () => void,

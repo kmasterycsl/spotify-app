@@ -3,6 +3,7 @@ import { HStack, Icon, IconButton, Text, useTheme, VStack } from "native-base";
 import React from "react";
 import { useState } from "react";
 import { Image, ViewStyle } from "react-native";
+import { useStore } from "../../store/store";
 import { Track } from "../../types/graphql";
 import HorizontalPadding, {
   DEFAULT_HORIZONTAL_PADDING,
@@ -21,6 +22,8 @@ export default React.memo(function TracksListItem({
   style,
 }: ITracksListItemProps) {
   const [menuVisible, setMenuVisible] = useState(false);
+  const playingTrack = useStore((state) => state.playingTrack);
+
   const onOpenMenu = () => {
     setMenuVisible(true);
   };
@@ -50,7 +53,13 @@ export default React.memo(function TracksListItem({
           }}
         ></Image>
         <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
-          <Text bold>{track.name}</Text>
+          {playingTrack?.id === track.id ? (
+            <Text bold color="primary.500">
+              {track.name}
+            </Text>
+          ) : (
+            <Text bold>{track.name}</Text>
+          )}
           <Text fontSize="sm" pt={1}>
             {+track.id * 10000}
           </Text>

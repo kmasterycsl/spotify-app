@@ -15,6 +15,10 @@ export default function HomeScreen() {
     navigation.navigate("ArtistDetail", { artistId });
   };
 
+  const goToLogin = () => {
+    navigation.navigate("Login", {});
+  };
+
   const resetCache = () => {
     client.clearStore().then(() => {
       toast.show({ title: "Clear cache ok!" });
@@ -22,14 +26,15 @@ export default function HomeScreen() {
   };
 
   const toggleDark = () => {
-    toggleColorMode()
-  }
+    toggleColorMode();
+  };
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Home Screen</Text>
       <Button onPress={toggleDark} title="Toggle dark"></Button>
       <Button onPress={resetCache} title="Reset cache"></Button>
+      <Button onPress={() => goToLogin()} title="Go to login"></Button>
       <Button
         onPress={() => goToArtist("1")}
         title="Go to detail artist 1"

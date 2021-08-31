@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ArtistDetailScreen from "../screens/ArtistDetailScreen";
 import HomeScreen from "../screens/HomeScreen";
 import { RootStackParamList } from "../types/routes.types";
+import LoginScreen from '../screens/LoginScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -13,6 +14,10 @@ export default function MainStack() {
         name="Home"
         component={HomeScreen}
         options={{ header: () => null }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
       />
       <Stack.Screen
         name="ArtistDetail"

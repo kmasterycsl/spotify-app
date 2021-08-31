@@ -1,5 +1,6 @@
 export type RootStackParamList = {
     Home: {},
+    Login: {},
     ArtistDetail: { artistId: string };
 };
 

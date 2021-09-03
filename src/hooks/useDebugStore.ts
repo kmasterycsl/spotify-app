@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { useStore } from "../store/store";
+import { usePlayerStore } from "../store/player.store";
 import shallow from 'zustand/shallow';
 
 export default function useDebugStore() {
     useEffect(() => {
-        const unSubscription = useStore.subscribe(
+        const unSubscription = usePlayerStore.subscribe(
             value => {
                 console.log('Store update data: ', value);
             },

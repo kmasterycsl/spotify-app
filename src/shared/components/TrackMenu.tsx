@@ -6,7 +6,7 @@ import {
 } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useStore } from "../../store/store";
+import { usePlayerStore } from "../../store/player.store";
 import { Track } from "../../types/graphql";
 import FullWidthSquareImage from "./FullWidthSquareImage";
 import {
@@ -27,8 +27,8 @@ export default function TrackMenu({
   setVisible,
 }: TrackMenuProps) {
   const insets = useSafeAreaInsets();
-  const actionPlay = useStore((state) => state.actionPlay);
-  const actionAddToQueue = useStore((state) => state.actionAddToQueue);
+  const actionPlay = usePlayerStore((state) => state.actionPlay);
+  const actionAddToQueue = usePlayerStore((state) => state.actionAddToQueue);
   const dimessions = useWindowDimensions();
 
   const onAddToQueue = () => {

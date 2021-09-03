@@ -1,7 +1,7 @@
 import { Text } from "native-base";
 import React, { useState } from "react";
 import { ActivityIndicator, FlatList, TouchableOpacity } from "react-native";
-import { useStore } from "../../store/store";
+import { usePlayerStore } from "../../store/player.store";
 import { Track } from "../../types/graphql";
 import TracksListItem from "./TracksListItem";
 import VerticalPadding from "./VerticalPadding";
@@ -18,7 +18,7 @@ export default function TracksList({
   isFinished: boolean;
 }) {
   const [callOnScrollEnd, setCallOnScrollEnd] = useState(false);
-  const actionPlay = useStore((store) => store.actionPlay);
+  const actionPlay = usePlayerStore((store) => store.actionPlay);
 
   const onPressItem = (track: Track) => {
     actionPlay(track);

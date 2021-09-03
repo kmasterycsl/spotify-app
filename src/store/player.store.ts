@@ -2,9 +2,8 @@ import { Audio, AVPlaybackStatus } from "expo-av";
 import { Track } from '../types/graphql';
 import create from 'zustand';
 import produce from 'immer';
-import { IToastProps } from "native-base";
 
-export interface AppState {
+export interface PlayerState {
     playingIndex?: number,
     playingTrack?: Track,
     soundController?: Audio.Sound;
@@ -26,10 +25,10 @@ export interface AppState {
 }
 
 
-const useStore = create<AppState>((set, get) => ({
+const usePlayerStore = create<PlayerState>((set, get) => ({
     repeatMode: 'none',
     tracksQueue: [],
-    actionAddToQueue: (track: Track) => set(produce<AppState>(state => {
+    actionAddToQueue: (track: Track) => set(produce<PlayerState>(state => {
         const trackIndexInQueue = state.tracksQueue.findIndex(t => t.id === track.id);
         if (trackIndexInQueue > -1) {
             state.toastMessage = {
@@ -94,7 +93,7 @@ const useStore = create<AppState>((set, get) => ({
             console.error(e);
         }
     },
-    actionNext: () => set(produce<AppState>((state) => {
+    actionNext: () => set(produce<PlayerState>((state) => {
         console.log('actionNext called!');
         const nextIndex = (get().playingIndex || 0) + 1;
         if (nextIndex <= get().tracksQueue.length - 1) {
@@ -102,28 +101,28 @@ const useStore = create<AppState>((set, get) => ({
         }
 
     })),
-    actionPrev: () => set(produce<AppState>((state) => {
+    actionPrev: () => set(produce<PlayerState>((state) => {
         const prevIndex = (get().playingIndex || 0) - 1;
         if (prevIndex >= 0) {
             state.actionPlay(get().tracksQueue[prevIndex]);
         }
     })),
-    actionPause: () => set(produce<AppState>(state => {
+    actionPause: () => set(produce<PlayerState>(state => {
         if (state.soundController) {
             state.soundController.pauseAsync();
         }
     })),
-    actionResume: () => set(produce<AppState>(state => {
+    actionResume: () => set(produce<PlayerState>(state => {
         if (state.soundController) {
             state.soundController.playAsync();
         }
     })),
-    actionUpdatePosition: (position: number) => set(produce<AppState>(state => {
+    actionUpdatePosition: (position: number) => set(produce<PlayerState>(state => {
         if (state.soundController) {
             state.soundController.setPositionAsync(position);
         }
     })),
-    actionUpdatePositionPercentage: (percentage: number) => set(produce<AppState>(state => {
+    actionUpdatePositionPercentage: (percentage: number) => set(produce<PlayerState>(state => {
         if (state.soundController && state.soundControllerStatus?.isLoaded) {
             state.soundController.setPositionAsync(percentage * (state.soundControllerStatus.durationMillis || 0));
         }
@@ -132,5 +131,5 @@ const useStore = create<AppState>((set, get) => ({
 }))
 
 export {
-    useStore,
+    usePlayerStore,
 }

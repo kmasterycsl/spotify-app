@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { Modal, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useStore } from "../../store/store";
+import { usePlayerStore } from "../../store/player.store";
 import FullWidthSquareImage from "./FullWidthSquareImage";
 import HorizontalPadding, {
   DEFAULT_HORIZONTAL_PADDING,
@@ -31,15 +31,15 @@ export default function Player({
   setVisible: (visible: boolean) => void;
 }) {
   const insets = useSafeAreaInsets();
-  const playingTrack = useStore((state) => state.playingTrack);
-  const tracksQueue = useStore((state) => state.tracksQueue);
-  const playingIndex = useStore((state) => state.playingIndex);
-  const actionResume = useStore((state) => state.actionResume);
-  const actionPause = useStore((state) => state.actionPause);
-  const actionNext = useStore((state) => state.actionNext);
-  const actionPrev = useStore((state) => state.actionPrev);
-  const actionUpdatePosition = useStore((state) => state.actionUpdatePosition);
-  const soundControllerStatus = useStore(
+  const playingTrack = usePlayerStore((state) => state.playingTrack);
+  const tracksQueue = usePlayerStore((state) => state.tracksQueue);
+  const playingIndex = usePlayerStore((state) => state.playingIndex);
+  const actionResume = usePlayerStore((state) => state.actionResume);
+  const actionPause = usePlayerStore((state) => state.actionPause);
+  const actionNext = usePlayerStore((state) => state.actionNext);
+  const actionPrev = usePlayerStore((state) => state.actionPrev);
+  const actionUpdatePosition = usePlayerStore((state) => state.actionUpdatePosition);
+  const soundControllerStatus = usePlayerStore(
     (state) => state.soundControllerStatus
   );
   const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);

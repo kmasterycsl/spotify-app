@@ -44,7 +44,6 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
         const state = get();
 
         if (state.soundController) {
-            console.log('Unload previous sound controller.')
             await state.soundController.unloadAsync();
         }
 
@@ -94,7 +93,6 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
         }
     },
     actionNext: () => set(produce<PlayerState>((state) => {
-        console.log('actionNext called!');
         const nextIndex = (get().playingIndex || 0) + 1;
         if (nextIndex <= get().tracksQueue.length - 1) {
             state.actionPlay(get().tracksQueue[nextIndex]);

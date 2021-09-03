@@ -10,6 +10,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: any;
 };
 
 export type Artist = {
@@ -49,6 +51,7 @@ export type Asset = {
 
 export type AssetMetaUnion = ImageMeta | SoundMeta;
 
+
 export type ImageMeta = {
   __typename?: 'ImageMeta';
   source: Scalars['String'];
@@ -72,6 +75,7 @@ export type Query = {
   __typename?: 'Query';
   artists: PaginatedArtist;
   artist: Artist;
+  user: User;
 };
 
 
@@ -82,6 +86,11 @@ export type QueryArtistsArgs = {
 
 
 export type QueryArtistArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryUserArgs = {
   id: Scalars['String'];
 };
 
@@ -105,4 +114,12 @@ export type TrackEdge = {
   itemsPerPage: Scalars['Float'];
   totalPages: Scalars['Float'];
   currentPage: Scalars['Float'];
+};
+
+export type User = {
+  __typename?: 'User';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };

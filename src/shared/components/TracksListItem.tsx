@@ -3,7 +3,7 @@ import { HStack, Icon, IconButton, Text, useTheme, VStack } from "native-base";
 import React from "react";
 import { useState } from "react";
 import { Image, ViewStyle } from "react-native";
-import { useStore } from "../../store/store";
+import { usePlayerStore } from "../../store/player.store";
 import { Track } from "../../types/graphql";
 import HorizontalPadding, {
   DEFAULT_HORIZONTAL_PADDING,
@@ -22,7 +22,7 @@ export default React.memo(function TracksListItem({
   style,
 }: ITracksListItemProps) {
   const [menuVisible, setMenuVisible] = useState(false);
-  const playingTrack = useStore((state) => state.playingTrack);
+  const playingTrack = usePlayerStore((state) => state.playingTrack);
 
   const onOpenMenu = () => {
     setMenuVisible(true);

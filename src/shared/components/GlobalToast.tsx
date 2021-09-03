@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { useStore } from "../../store/store";
+import { usePlayerStore } from "../../store/player.store";
 import Toast from "react-native-root-toast";
 import { useTheme } from "native-base";
 
 export default function GlobalToast() {
-  const toastMessage = useStore((store) => store.toastMessage);
+  const toastMessage = usePlayerStore((store) => store.toastMessage);
   const theme = useTheme();
 
   useEffect(() => {

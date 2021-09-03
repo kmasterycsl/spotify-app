@@ -10,18 +10,18 @@ import {
 } from "native-base";
 import React, { useState } from "react";
 import { Image, TouchableOpacity } from "react-native";
-import { useStore } from "../../store/store";
+import { usePlayerStore } from "../../store/player.store";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 import { Slider } from "native-base";
 import Player from "./Player";
 
 export default function PlayerBar() {
   const { colors } = useTheme();
-  const actionPause = useStore((store) => store.actionPause);
-  const actionResume = useStore((store) => store.actionResume);
-  const actionUpdatePosition = useStore((store) => store.actionUpdatePosition);
-  const playingTrack = useStore((state) => state.playingTrack);
-  const soundControllerStatus = useStore(
+  const actionPause = usePlayerStore((store) => store.actionPause);
+  const actionResume = usePlayerStore((store) => store.actionResume);
+  const actionUpdatePosition = usePlayerStore((store) => store.actionUpdatePosition);
+  const playingTrack = usePlayerStore((state) => state.playingTrack);
+  const soundControllerStatus = usePlayerStore(
     (state) => state.soundControllerStatus
   );
   const [modalVisible, setModalVisible] = useState(false);

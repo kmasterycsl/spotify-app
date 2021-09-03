@@ -6,8 +6,7 @@ import { useCommonStore } from "../store/common.store";
 
 export default function LoginScreen() {
   const { request, response, promptAsync } = useLoginByGoogle();
-  const logout = useLogout();
-  const currentUser = useCommonStore((state) => state.currentUser);
+
 
   React.useEffect(() => {
     if (response?.type === "success") {
@@ -23,16 +22,9 @@ export default function LoginScreen() {
           promptAsync();
         }}
       >
-        Google x {currentUser?.name}
+        Google
       </Button>
-      <Button
-        disabled={!currentUser}
-        onPress={() => {
-          logout();
-        }}
-      >
-        Logout
-      </Button>
+      
     </>
   );
 }

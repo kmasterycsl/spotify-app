@@ -1,8 +1,9 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, createHttpLink, from, InMemoryCache } from "@apollo/client";
 import { PaginatedTrack } from "../types/graphql";
 import Constants from "expo-constants";
 import { setContext } from '@apollo/client/link/context';
 import { useCommonStore } from "../store/common.store";
+import { onError } from "@apollo/client/link/error";
 
 const httpLink = createHttpLink({
   uri: Constants?.manifest?.extra?.GRAPHQL_ENDPOINT,
@@ -16,6 +17,29 @@ const authLink = setContext((_, { headers }) => {
       ...headers,
       authorization: accessToken ? `Bearer ${accessToken}` : "",
     }
+  }
+});
+
+const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
+  if (operation.operationName === 'whoAmI') {
+    return;
+  }
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message, locations, path, extensions }) => {
+      if (extensions?.code === 'UNAUTHENTICATED') {
+
+      }
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+      )
+    });
+
+  if (networkError) {
+    useCommonStore.getState().actionSetToastMessage({
+      title: `[Network error]: ${networkError}`,
+      status: 'warning',
+    })
+    console.log(`[Network error]: ${networkError}`);
   }
 });
 
@@ -45,8 +69,7 @@ const apolloCache = new InMemoryCache({
 });
 
 const apolloClient = new ApolloClient({
-  link: authLink.concat(httpLink),
-  // uri: Constants?.manifest?.extra?.GRAPHQL_ENDPOINT,
+  link: from([errorLink, authLink, httpLink]),
   cache: apolloCache,
 });
 

@@ -4,12 +4,16 @@ import React from "react";
 import { View, Text, Button } from "react-native";
 import { useColorMode, useToast } from "native-base";
 import PlayerBar from "../shared/components/PlayerBar";
+import useLogout from "../hooks/useLogout";
+import { useCommonStore } from "../store/common.store";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const client = useApolloClient();
   const toast = useToast();
   const { toggleColorMode } = useColorMode();
+  const logout = useLogout();
+  const currentUser = useCommonStore((state) => state.currentUser);
 
   const goToArtist = (artistId: string) => {
     navigation.navigate("ArtistDetail", { artistId });
@@ -37,7 +41,9 @@ export default function HomeScreen() {
       <Text>Home Screen</Text>
       <Button onPress={toggleDark} title="Toggle dark"></Button>
       <Button onPress={resetCache} title="Reset cache"></Button>
-      <Button onPress={() => goToLogin()} title="Go to login"></Button>
+      {!currentUser && (
+        <Button onPress={() => goToLogin()} title="Go to login"></Button>
+      )}
       <Button onPress={() => goToProfile()} title="Go to profile"></Button>
       <Button
         onPress={() => goToArtist("1")}
@@ -52,6 +58,14 @@ export default function HomeScreen() {
         title="Go to detail artist 3"
       ></Button>
       <PlayerBar />
+      {currentUser && (
+        <Button
+          onPress={() => {
+            logout();
+          }}
+          title="Logout"
+        ></Button>
+      )}
     </View>
   );
 }

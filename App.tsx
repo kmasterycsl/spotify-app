@@ -1,9 +1,9 @@
 import { ApolloProvider } from "@apollo/client";
 import { NavigationContainer } from "@react-navigation/native";
+import AppLoading from "expo-app-loading";
 import * as SplashScreen from "expo-splash-screen";
 import { NativeBaseProvider } from "native-base";
-import React, { useCallback } from "react";
-import { View } from "react-native";
+import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { apolloClient } from "./src/config/apollo";
 import theme, { colorModeManager } from "./src/config/theme";
@@ -28,23 +28,14 @@ export default function App() {
 function AppBoostraper() {
   const appIsReady = useAppStartup();
 
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      await SplashScreen.hideAsync();
-    }
-  }, [appIsReady]);
+  if (!appIsReady) {
+    return <AppLoading />;
+  }
 
   return (
-    <View
-      style={{
-        flex: 1,
-      }}
-      onLayout={onLayoutRootView}
-    >
-      <SafeAreaProvider>
-        <MainStack />
-        <GlobalToast />
-      </SafeAreaProvider>
-    </View>
+    <SafeAreaProvider>
+      <MainStack />
+      <GlobalToast />
+    </SafeAreaProvider>
   );
 }

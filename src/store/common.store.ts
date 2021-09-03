@@ -41,5 +41,3 @@ export {
     useCommonStore,
 };
 
-
-console.log('COMMONSTATE:', useCommonStore.getState());

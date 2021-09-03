@@ -18,6 +18,9 @@ export default function HomeScreen() {
   const goToLogin = () => {
     navigation.navigate("Login", {});
   };
+  const goToProfile = () => {
+    navigation.navigate("Profile", {});
+  };
 
   const resetCache = () => {
     client.clearStore().then(() => {
@@ -35,6 +38,7 @@ export default function HomeScreen() {
       <Button onPress={toggleDark} title="Toggle dark"></Button>
       <Button onPress={resetCache} title="Reset cache"></Button>
       <Button onPress={() => goToLogin()} title="Go to login"></Button>
+      <Button onPress={() => goToProfile()} title="Go to profile"></Button>
       <Button
         onPress={() => goToArtist("1")}
         title="Go to detail artist 1"

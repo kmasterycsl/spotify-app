@@ -86,6 +86,7 @@ export type Query = {
   __typename?: 'Query';
   artists: PaginatedArtist;
   artist: Artist;
+  whoAmI: User;
   user: User;
 };
 

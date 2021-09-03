@@ -14,7 +14,6 @@ export default function FullWidthImage({ url }: { url: string }) {
       const screenWidth = Dimensions.get("screen").width;
       const scaleFactor = width / screenWidth;
       const imageHeight = height / scaleFactor;
-      console.log(Dimensions.get("screen"), {screenWidth, imageHeight})
       setSize({ imgWidth: screenWidth, imgHeight: imageHeight });
     });
   }, [url]);

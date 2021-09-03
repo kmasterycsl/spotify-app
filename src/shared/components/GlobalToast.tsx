@@ -5,6 +5,7 @@ import { useCommonStore } from "../../store/common.store";
 
 export default function GlobalToast() {
   const toastMessage = useCommonStore((store) => store.toastMessage);
+  const actionSetToastMessage = useCommonStore((store) => store.actionSetToastMessage);
   const theme = useTheme();
 
   useEffect(() => {
@@ -17,6 +18,8 @@ export default function GlobalToast() {
         duration: 2000,
         textColor,
       });
+
+      actionSetToastMessage();
     }
   }, [toastMessage]);
 

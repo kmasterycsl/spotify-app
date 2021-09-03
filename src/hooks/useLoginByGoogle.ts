@@ -24,7 +24,7 @@ export default function useLoginByGoogle() {
     const actionSetCurrentUser = useCommonStore(state => state.actionSetCurrentUser);
     const actionSetAccessToken = useCommonStore(state => state.actionSetAccessToken);
     const actionSetToastMessage = useCommonStore(state => state.actionSetToastMessage);
-    const [loginByGoogle, { data, loading, error }] = useMutation<Mutation>(LOGIN_GOOGLE_MUTATION);
+    const [loginByGoogle, { data, error }] = useMutation<Mutation>(LOGIN_GOOGLE_MUTATION);
 
     const [request, response, promptAsync] = Google.useAuthRequest({
         expoClientId: "1046589284135-jlm6k2ob8opn14vppvjh6sueqmk1e7sj.apps.googleusercontent.com",
@@ -36,11 +36,6 @@ export default function useLoginByGoogle() {
 
     useEffect(() => {
         if (response?.type === "success") {
-            console.log('responseGoogle: ', {
-                idToken: response.params.id_token,
-                providerId: 'GOOGLE',
-            });
-
             loginByGoogle({
                 variables: {
                     idToken: response.params.id_token,
@@ -52,15 +47,15 @@ export default function useLoginByGoogle() {
 
     useEffect(() => {
         if (!error) {
-            actionSetCurrentUser(data?.loginBySocialProvider.user);
-            actionSetAccessToken(data?.loginBySocialProvider?.accessToken);
-            actionSetToastMessage({ title: 'Login successfully.', status: 'info' })
+            if (data) {
+                actionSetCurrentUser(data.loginBySocialProvider.user);
+                actionSetAccessToken(data.loginBySocialProvider.accessToken);
+                actionSetToastMessage({ title: 'Login successfully.', status: 'info' })
+            }
         } else {
             actionSetToastMessage({ title: error.message, status: 'error' })
         }
     }, [data, error]);
-
-    console.log({ data, loading, error });
 
     return {
         request,

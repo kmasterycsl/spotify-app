@@ -94,6 +94,6 @@ const theme = extendTheme({
   },
 });
 
-console.log('App theme value: ', theme);
+// console.log('App theme value: ', theme);
 
 export default theme;

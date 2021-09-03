@@ -1,6 +1,8 @@
 import produce from 'immer';
 import create from 'zustand';
 import { User } from '../types/graphql';
+import { persist } from "zustand/middleware"
+import storage from '../utils/storage';
 
 export interface CommonState {
     currentUser?: User,
@@ -17,7 +19,7 @@ export interface CommonState {
     }) => void,
 }
 
-const useCommonStore = create<CommonState>((set, get) => ({
+const useCommonStore = create<CommonState>(persist((set, get) => ({
     actionSetCurrentUser: (user?: User) => set(produce<CommonState>(state => {
         state.currentUser = user;
     })),
@@ -30,8 +32,14 @@ const useCommonStore = create<CommonState>((set, get) => ({
     }) => set(produce<CommonState>(state => {
         state.toastMessage = toastMessage;
     })),
+}), {
+    name: "@common-store",
+    getStorage: () => storage,
 }))
 
 export {
     useCommonStore,
 };
+
+
+console.log('COMMONSTATE:', useCommonStore.getState());

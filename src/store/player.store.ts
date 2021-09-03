@@ -2,7 +2,8 @@ import { Audio, AVPlaybackStatus } from "expo-av";
 import { Track } from '../types/graphql';
 import create from 'zustand';
 import produce from 'immer';
-
+import { useCommonStore } from "./common.store";
+const commonStoreState = useCommonStore.getState();
 export interface PlayerState {
     playingIndex?: number,
     playingTrack?: Track,
@@ -10,10 +11,6 @@ export interface PlayerState {
     soundControllerStatus?: AVPlaybackStatus;
     repeatMode: 'none' | 'once' | 'all',
     tracksQueue: Track[],
-    toastMessage?: {
-        title: string,
-        status: 'warning' | 'info' | 'error'
-    },
     actionAddToQueue: (track: Track) => void,
     actionPlay: (track: Track) => void,
     actionPause: () => void,
@@ -31,15 +28,15 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
     actionAddToQueue: (track: Track) => set(produce<PlayerState>(state => {
         const trackIndexInQueue = state.tracksQueue.findIndex(t => t.id === track.id);
         if (trackIndexInQueue > -1) {
-            state.toastMessage = {
+            commonStoreState.actionSetToastMessage({
                 title: 'This song is already in queue',
                 status: 'warning',
-            }
+            })
         } else {
-            state.toastMessage = {
+            commonStoreState.actionSetToastMessage({
                 title: 'Added',
                 status: 'info',
-            }
+            });
             state.tracksQueue.push(track);
         }
     })),
@@ -89,7 +86,10 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                 }
             });
         } catch (e) {
-            set({ toastMessage: { title: "Can't load song", status: 'error' } })
+            commonStoreState.actionSetToastMessage({
+                title: "Can't load song",
+                status: 'error'
+            });
             console.error(e);
         }
     },

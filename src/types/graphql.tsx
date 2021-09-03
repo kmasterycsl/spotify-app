@@ -59,6 +59,17 @@ export type ImageMeta = {
   height: Scalars['Float'];
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  loginBySocialProvider: UserWithAccessToken;
+};
+
+
+export type MutationLoginBySocialProviderArgs = {
+  idToken: Scalars['String'];
+  providerId: Scalars['String'];
+};
+
 export type PaginatedArtist = {
   __typename?: 'PaginatedArtist';
   items: Array<Artist>;
@@ -122,4 +133,10 @@ export type User = {
   name: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+};
+
+export type UserWithAccessToken = {
+  __typename?: 'UserWithAccessToken';
+  user: User;
+  accessToken: Scalars['String'];
 };

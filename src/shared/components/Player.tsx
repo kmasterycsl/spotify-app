@@ -1,27 +1,24 @@
+import { Ionicons } from "@expo/vector-icons";
 import {
-  HStack,
+  Box, HStack,
   Icon,
   IconButton,
   Text,
-  VStack,
-  Slider,
-  Box,
+  VStack
 } from "native-base";
-import React from "react";
-import { Modal, Image } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import React, { useState } from "react";
+import { Modal } from "react-native";
 import { usePlayerStore } from "../../store/player.store";
+import { milisToMinAndSec } from "../../utils/convert";
 import FullWidthSquareImage from "./FullWidthSquareImage";
 import HorizontalPadding, {
   DEFAULT_HORIZONTAL_PADDING,
-  _DEFAULT_HORIZONTAL_PADDING,
+  _DEFAULT_HORIZONTAL_PADDING
 } from "./HorizontalPadding";
-import { Ionicons } from "@expo/vector-icons";
-import { milisToMinAndSec } from "../../utils/convert";
-import VerticalPadding from "./VerticalPadding";
-import { useState } from "react";
+import PlayerBarProgress from "./PlayerBarProgress";
 import PlayerList from "./PlayerList";
 import SafeAreaView from "./SafeAreaView";
+import VerticalPadding from "./VerticalPadding";
 
 export default function Player({
   visible,
@@ -30,7 +27,6 @@ export default function Player({
   visible: boolean;
   setVisible: (visible: boolean) => void;
 }) {
-  const insets = useSafeAreaInsets();
   const playingTrack = usePlayerStore((state) => state.playingTrack);
   const tracksQueue = usePlayerStore((state) => state.tracksQueue);
   const playingIndex = usePlayerStore((state) => state.playingIndex);
@@ -38,22 +34,12 @@ export default function Player({
   const actionPause = usePlayerStore((state) => state.actionPause);
   const actionNext = usePlayerStore((state) => state.actionNext);
   const actionPrev = usePlayerStore((state) => state.actionPrev);
-  const actionUpdatePosition = usePlayerStore((state) => state.actionUpdatePosition);
   const soundControllerStatus = usePlayerStore(
     (state) => state.soundControllerStatus
   );
   const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);
 
   if (!playingTrack) return null;
-
-  const progess =
-    soundControllerStatus && soundControllerStatus.isLoaded
-      ? soundControllerStatus.positionMillis
-      : 0;
-
-  const onProgressChange = (progress: number) => {
-    actionUpdatePosition(progress);
-  };
 
   const onShowPlaylist = () => {
     setIsPlaylistOpen(true);
@@ -105,22 +91,7 @@ export default function Player({
 
           {/* Song progress bar */}
           <HorizontalPadding>
-            <Slider
-              value={progess}
-              onChangeEnd={onProgressChange}
-              minValue={0}
-              maxValue={
-                soundControllerStatus?.isLoaded
-                  ? soundControllerStatus?.durationMillis || 0
-                  : 0
-              }
-              size="xs"
-            >
-              <Slider.Track>
-                <Slider.FilledTrack />
-              </Slider.Track>
-              <Slider.Thumb width="3" height="3" />
-            </Slider>
+            <PlayerBarProgress />
             {/* Song time */}
             <HStack justifyContent="space-between">
               <Text fontSize="xs">

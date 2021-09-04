@@ -57,7 +57,6 @@ export default function HomeScreen() {
         onPress={() => goToArtist("3")}
         title="Go to detail artist 3"
       ></Button>
-      <PlayerBar />
       {currentUser && (
         <Button
           onPress={() => {

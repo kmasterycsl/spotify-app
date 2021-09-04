@@ -1,48 +1,27 @@
 import { Ionicons } from "@expo/vector-icons";
-import {
-  HStack,
-  Icon,
-  IconButton,
-  Spinner,
-  Text,
-  useTheme,
-  VStack,
-} from "native-base";
+import { HStack, Icon, IconButton, Spinner, Text, VStack } from "native-base";
 import React, { useState } from "react";
 import { Image, TouchableOpacity } from "react-native";
 import { usePlayerStore } from "../../store/player.store";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
-import { Slider } from "native-base";
 import Player from "./Player";
+import PlayerBarProgress from "./PlayerBarProgress";
 
 export default function PlayerBar() {
-  const { colors } = useTheme();
   const actionPause = usePlayerStore((store) => store.actionPause);
   const actionResume = usePlayerStore((store) => store.actionResume);
-  const actionUpdatePosition = usePlayerStore((store) => store.actionUpdatePosition);
   const playingTrack = usePlayerStore((state) => state.playingTrack);
-  const soundControllerStatus = usePlayerStore(
-    (state) => state.soundControllerStatus
+  const soundControllerStatusIsLoaded = usePlayerStore(
+    (state) => state.soundControllerStatus?.isLoaded
+  );
+  const soundControllerStatusIsPlaying = usePlayerStore(
+    (state) =>
+      state.soundControllerStatus?.isLoaded &&
+      state.soundControllerStatus?.isPlaying
   );
   const [modalVisible, setModalVisible] = useState(false);
 
-  const onPause = () => {
-    actionPause();
-  };
-  const onResume = () => {
-    actionResume();
-  };
-
   if (!playingTrack) return null;
-
-  const progess =
-    soundControllerStatus && soundControllerStatus.isLoaded
-      ? soundControllerStatus.positionMillis
-      : 0;
-
-  const onProgressChange = (progress: number) => {
-    actionUpdatePosition(progress);
-  };
 
   return (
     <>
@@ -65,35 +44,33 @@ export default function PlayerBar() {
               {+playingTrack.id * 10000}
             </Text>
           </VStack>
-          {soundControllerStatus?.isLoaded &&
-            !soundControllerStatus.isPlaying && (
-              <IconButton
-                variant="ghost"
-                size="lg"
-                onPress={onResume}
-                icon={
-                  <Icon
-                    size="sm"
-                    as={<Ionicons name="play-circle-outline" />}
-                  ></Icon>
-                }
-              />
-            )}
-          {soundControllerStatus?.isLoaded &&
-            soundControllerStatus.isPlaying && (
-              <IconButton
-                variant="ghost"
-                size="lg"
-                onPress={onPause}
-                icon={
-                  <Icon
-                    size="sm"
-                    as={<Ionicons name="pause-circle-outline" />}
-                  ></Icon>
-                }
-              />
-            )}
-          {!soundControllerStatus?.isLoaded && (
+          {soundControllerStatusIsLoaded && !soundControllerStatusIsPlaying && (
+            <IconButton
+              variant="ghost"
+              size="lg"
+              onPress={actionResume}
+              icon={
+                <Icon
+                  size="sm"
+                  as={<Ionicons name="play-circle-outline" />}
+                ></Icon>
+              }
+            />
+          )}
+          {soundControllerStatusIsLoaded && soundControllerStatusIsPlaying && (
+            <IconButton
+              variant="ghost"
+              size="lg"
+              onPress={actionPause}
+              icon={
+                <Icon
+                  size="sm"
+                  as={<Ionicons name="pause-circle-outline" />}
+                ></Icon>
+              }
+            />
+          )}
+          {!soundControllerStatusIsLoaded && (
             <IconButton
               variant="ghost"
               size="lg"
@@ -102,20 +79,7 @@ export default function PlayerBar() {
           )}
         </HStack>
       </TouchableOpacity>
-      <Slider
-        value={progess}
-        onChangeEnd={onProgressChange}
-        minValue={0}
-        maxValue={
-          soundControllerStatus?.isLoaded
-            ? soundControllerStatus?.durationMillis || 0
-            : 0
-        }
-        size="xs"
-      >
-        <Slider.FilledTrack />
-        <Slider.Thumb width="0" height="0" />
-      </Slider>
+      <PlayerBarProgress />
     </>
   );
 }

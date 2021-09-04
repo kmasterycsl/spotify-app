@@ -71,6 +71,8 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
 
             sound.playAsync();
 
+            sound.setProgressUpdateIntervalAsync(1000);
+
             sound.setOnPlaybackStatusUpdate((playbackStatus) => {
                 set({
                     soundControllerStatus: playbackStatus

@@ -2,13 +2,16 @@ import { Audio, AVPlaybackStatus } from "expo-av";
 import { Track } from '../types/graphql';
 import create from 'zustand';
 import produce from 'immer';
+import _shuffle from 'lodash.shuffle';
 import { useCommonStore } from "./common.store";
 const commonStoreState = useCommonStore.getState();
+
 export interface PlayerState {
     playingIndex?: number,
     playingTrack?: Track,
     soundController?: Audio.Sound;
     soundControllerStatus?: AVPlaybackStatus;
+    shuffle: boolean,
     repeatMode: 'none' | 'once' | 'all',
     tracksQueue: Track[],
     actionAddToQueue: (track: Track) => void,
@@ -16,6 +19,7 @@ export interface PlayerState {
     actionPlay: (track: Track) => void,
     actionPause: () => void,
     actionResume: () => void,
+    actionToggleShuffleMode: () => void,
     actionUpdatePosition: (position: number) => void,
     actionUpdatePositionPercentage: (percentage: number) => void,
     actionNext: () => void,
@@ -27,6 +31,7 @@ const ENDING_CAP = 0.999;
 
 const usePlayerStore = create<PlayerState>((set, get) => ({
     repeatMode: 'none',
+    shuffle: false,
     tracksQueue: [],
     actionAddToQueue: (track: Track) => set(produce<PlayerState>(state => {
         const trackIndexInQueue = state.tracksQueue.findIndex(t => t.id === track.id);
@@ -138,6 +143,15 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
     actionUpdatePosition: (position: number) => set(produce<PlayerState>(state => {
         if (state.soundController) {
             state.soundController.setPositionAsync(position);
+        }
+    })),
+    actionToggleShuffleMode: () => set(produce<PlayerState>(state => {
+        state.shuffle = !state.shuffle;
+        if (state.shuffle) {
+            state.tracksQueue = _shuffle(state.tracksQueue);
+            if (state.playingTrack) {
+                state.playingIndex = state.tracksQueue.findIndex(t => t.id === state.playingTrack!.id);
+            }
         }
     })),
     actionUpdatePositionPercentage: (percentage: number) => set(produce<PlayerState>(state => {

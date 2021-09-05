@@ -5,7 +5,7 @@ import { Query } from "../types/graphql";
 import useCustomFonts from "./useCustomFonts";
 import useDebugStore from "./useDebugStore";
 
-const WHOAMI_QUERY = gql`
+export const WHOAMI_QUERY = gql`
   query whoAmI {
     whoAmI {
       id

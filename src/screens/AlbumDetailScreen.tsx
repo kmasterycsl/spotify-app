@@ -61,8 +61,8 @@ const getAlbumById = gql`
           }
         }
         artists {
-            id
-            name
+          id
+          name
         }
         album {
           id

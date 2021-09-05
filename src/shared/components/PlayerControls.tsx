@@ -3,12 +3,16 @@ import { HStack, Icon, IconButton } from "native-base";
 import React from "react";
 import { usePlayerStore } from "../../store/player.store";
 import HorizontalPadding, {
-  DEFAULT_HORIZONTAL_PADDING,
+  DEFAULT_HORIZONTAL_PADDING
 } from "./HorizontalPadding";
 
 export default function PlayerControls() {
+  const shuffle = usePlayerStore((state) => state.shuffle);
   const tracksQueue = usePlayerStore((state) => state.tracksQueue);
   const playingIndex = usePlayerStore((state) => state.playingIndex);
+  const actionToggleShuffleMode = usePlayerStore(
+    (state) => state.actionToggleShuffleMode
+  );
   const actionResume = usePlayerStore((state) => state.actionResume);
   const actionPause = usePlayerStore((state) => state.actionPause);
   const actionNext = usePlayerStore((state) => state.actionNext);
@@ -29,7 +33,14 @@ export default function PlayerControls() {
     >
       <HStack justifyContent="space-between" alignItems="center">
         <IconButton
-          icon={<Icon size="sm" as={<Ionicons name="shuffle-outline" />} />}
+          onPress={actionToggleShuffleMode}
+          icon={
+            <Icon
+              size="sm"
+              color={shuffle ? "primary.500" : undefined}
+              as={<Ionicons name="shuffle-outline" />}
+            />
+          }
         ></IconButton>
         <IconButton
           onPress={actionPrev}

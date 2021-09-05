@@ -12,6 +12,7 @@ export interface PlayerState {
     repeatMode: 'none' | 'once' | 'all',
     tracksQueue: Track[],
     actionAddToQueue: (track: Track) => void,
+    actionRemoveFromQueue: (track: Track) => void,
     actionPlay: (track: Track) => void,
     actionPause: () => void,
     actionResume: () => void,
@@ -40,6 +41,21 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                 status: 'info',
             });
             state.tracksQueue.push(track);
+        }
+    })),
+    actionRemoveFromQueue: (track: Track) => set(produce<PlayerState>(state => {
+        const trackIndexInQueue = state.tracksQueue.findIndex(t => t.id === track.id);
+        if (trackIndexInQueue > -1) {
+            state.tracksQueue.splice(trackIndexInQueue, 1);
+            commonStoreState.actionSetToastMessage({
+                title: 'Removed',
+                status: 'info',
+            });
+        } else {
+            commonStoreState.actionSetToastMessage({
+                title: 'This song is not in queue',
+                status: 'warning',
+            });
         }
     })),
     actionPlay: async (track: Track) => {

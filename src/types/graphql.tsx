@@ -14,6 +14,9 @@ export type Scalars = {
   DateTime: any;
 };
 
+
+
+
 export type Album = {
   __typename?: 'Album';
   id: Scalars['ID'];
@@ -70,6 +73,7 @@ export type AssetMetaUnion = ImageMeta | SoundMeta;
 export type ImageMeta = {
   __typename?: 'ImageMeta';
   source: Scalars['String'];
+  dominantColor: Scalars['String'];
   width: Scalars['Float'];
   height: Scalars['Float'];
 };

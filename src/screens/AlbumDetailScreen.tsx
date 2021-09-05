@@ -21,7 +21,7 @@ import PlayerBar from "../shared/components/PlayerBar";
 import SafeAreaView from "../shared/components/SafeAreaView";
 import TracksList from "../shared/components/TracksList";
 import VerticalPadding from "../shared/components/VerticalPadding";
-import { Artist, Query } from "../types/graphql";
+import { Artist, ImageMeta, Query } from "../types/graphql";
 import { RootStackParamList } from "../types/routes.types";
 
 type AlbumDetailScreenRouteProp = RouteProp<RootStackParamList, "AlbumDetail">;
@@ -45,6 +45,7 @@ const getAlbumById = gql`
             source
             width
             height
+            dominantColor
           }
         }
       }
@@ -105,7 +106,7 @@ export default function AlbumDetailScreen() {
 
   return data?.album ? (
     <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
-      <VStack bgColor="transparent" justifyContent="space-between" bg="#827d8c">
+      <VStack justifyContent="space-between" bg={(data.album.coverImage.meta as ImageMeta).dominantColor}>
         <HStack
           justifyContent="center"
           position="relative"

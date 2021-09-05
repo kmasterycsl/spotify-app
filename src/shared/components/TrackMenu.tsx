@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
 import { Button, HStack, Icon, ScrollView, Text, VStack } from "native-base";
 import React from "react";
 import { Modal, TouchableOpacity, useWindowDimensions } from "react-native";
@@ -31,7 +32,7 @@ export default function TrackMenu({
       ],
       shallow
     );
-
+  const nav = useNavigation();
   const dimessions = useWindowDimensions();
 
   const onAddToQueue = () => {
@@ -41,6 +42,11 @@ export default function TrackMenu({
 
   const onRemoveFromQueue = () => {
     actionRemoveFromQueue(track);
+    setVisible(false);
+  };
+
+  const goToAlbum = () => {
+    nav.navigate("AlbumDetail", { albumId: track.album.id });
     setVisible(false);
   };
 
@@ -105,6 +111,15 @@ export default function TrackMenu({
                     </HStack>
                   </TouchableOpacity>
                 )}
+                <TouchableOpacity onPress={goToAlbum}>
+                  <HStack
+                    padding={DEFAULT_HORIZONTAL_PADDING}
+                    alignItems="center"
+                  >
+                    <Icon as={<Ionicons name="musical-note" />}></Icon>
+                    <Text ml={DEFAULT_HORIZONTAL_PADDING}>Go to album</Text>
+                  </HStack>
+                </TouchableOpacity>
               </VStack>
             </VStack>
           </ScrollView>

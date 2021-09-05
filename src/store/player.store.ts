@@ -21,6 +21,8 @@ export interface PlayerState {
     actionPrev: () => void,
 }
 
+const UPDATE_INTERVAL = 1000;
+const ENDING_CAP = 0.999;
 
 const usePlayerStore = create<PlayerState>((set, get) => ({
     repeatMode: 'none',
@@ -71,7 +73,7 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
 
             sound.playAsync();
 
-            sound.setProgressUpdateIntervalAsync(1000);
+            sound.setProgressUpdateIntervalAsync(UPDATE_INTERVAL);
 
             sound.setOnPlaybackStatusUpdate((playbackStatus) => {
                 set({
@@ -80,7 +82,7 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                 if (playbackStatus.isLoaded) {
                     if (
                         playbackStatus.durationMillis &&
-                        playbackStatus.positionMillis >= playbackStatus.durationMillis
+                        playbackStatus.positionMillis >= playbackStatus.durationMillis * ENDING_CAP
                     ) {
                         state.actionNext();
                     }

@@ -23,7 +23,10 @@ export type Album = {
   coverImageId: Scalars['String'];
   coverImage: Asset;
   artistId: Scalars['String'];
+  allArtists: Array<Artist>;
   tracks: Array<Track>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type Artist = {
@@ -142,6 +145,7 @@ export type Track = {
   name: Scalars['String'];
   albumId: Scalars['String'];
   sound: Asset;
+  artists: Array<Artist>;
   album: Album;
 };
 

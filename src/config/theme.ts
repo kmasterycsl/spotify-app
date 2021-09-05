@@ -21,31 +21,6 @@ export const colorModeManager: StorageManager = {
   },
 };
 
-const HAS_COLOR_COMPONENTS = ['Icon', 'Text', 'Heading'];
-const HAS_BACKGROUND_COMPONENTS = ['View', 'HStack', 'VStack'];
-
-const hasColorComponentsStyle: any = {};
-HAS_COLOR_COMPONENTS.forEach(name => {
-  hasColorComponentsStyle[name] = {
-    baseStyle: (props: any) => {
-      return {
-        color: themeTools.mode("black", "white")(props),
-      };
-    }
-  }
-});
-
-const hasBgColorComponentsStyle: any = {};
-HAS_BACKGROUND_COMPONENTS.forEach(name => {
-  hasBgColorComponentsStyle[name] = {
-    baseStyle: (props: any) => {
-      return {
-        bg: themeTools.mode("white", "black")(props),
-      };
-    }
-  }
-})
-
 const theme = extendTheme({
   colors: {
     // Add new color
@@ -71,18 +46,6 @@ const theme = extendTheme({
         }
       }
     },
-    // ...hasColorComponentsStyle,
-    // ...hasBgColorComponentsStyle,
-    // Button: {
-    //   baseStyle: (props: any) => {
-    //     return {
-    //       _text: {
-    //         color: themeTools.mode("white", "black")(props),
-    //         bg: props.colorScheme + '.500',
-    //       },
-    //     };
-    //   },
-    // },
   },
   fonts: {
     heading: "Raleway",
@@ -93,7 +56,5 @@ const theme = extendTheme({
     initialColorMode: "dark",
   },
 });
-
-// console.log('App theme value: ', theme);
 
 export default theme;

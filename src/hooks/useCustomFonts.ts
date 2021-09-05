@@ -1,4 +1,3 @@
-import { Roboto_400Regular } from "@expo-google-fonts/roboto";
 import {
     RobotoMono_400Regular,
     useFonts,

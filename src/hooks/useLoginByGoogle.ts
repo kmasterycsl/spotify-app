@@ -5,6 +5,7 @@ import * as WebBrowser from "expo-web-browser";
 import { gql, useMutation } from "@apollo/client";
 import { Mutation } from "../types/graphql";
 import { useEffect } from "react";
+import Constants from "expo-constants";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -27,10 +28,10 @@ export default function useLoginByGoogle() {
     const [loginByGoogle, { data, error }] = useMutation<Mutation>(LOGIN_GOOGLE_MUTATION);
 
     const [request, response, promptAsync] = Google.useAuthRequest({
-        expoClientId: "1046589284135-jlm6k2ob8opn14vppvjh6sueqmk1e7sj.apps.googleusercontent.com",
-        iosClientId: "1046589284135-jlm6k2ob8opn14vppvjh6sueqmk1e7sj.apps.googleusercontent.com",
-        androidClientId: "1046589284135-jlm6k2ob8opn14vppvjh6sueqmk1e7sj.apps.googleusercontent.com",
-        webClientId: "1046589284135-jlm6k2ob8opn14vppvjh6sueqmk1e7sj.apps.googleusercontent.com",
+        expoClientId: Constants?.manifest?.extra?.GOOGLE_EXPO_CLIENT_ID,
+        iosClientId: Constants?.manifest?.extra?.GOOGLE_IOS_CLIENT_ID,
+        androidClientId: Constants?.manifest?.extra?.GOOGLE_ANDROID_CLIENT_ID,
+        webClientId: Constants?.manifest?.extra?.GOOGLE_WEB_CLIENT_ID,
         responseType: ResponseType.IdToken,
     });
 

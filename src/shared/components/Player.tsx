@@ -3,7 +3,7 @@ import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
 import React, { useState } from "react";
 import { Modal } from "react-native";
 import { usePlayerStore } from "../../store/player.store";
-import PlayerTimeline from "../PlayerTimeline";
+import PlayerTimeline from "./PlayerTimeline";
 import FullWidthSquareImage from "./FullWidthSquareImage";
 import HorizontalPadding, {
   DEFAULT_HORIZONTAL_PADDING,

@@ -5,8 +5,7 @@ import { Modal } from "react-native";
 import { usePlayerStore } from "../../store/player.store";
 import Empty from "./Empty";
 import SafeAreaView from "./SafeAreaView";
-import TracksListItem from "./TracksListItem";
-import VerticalPadding from "./VerticalPadding";
+import TracksList from "./TracksList";
 
 export default function PlayerList({
   visible,
@@ -24,23 +23,23 @@ export default function PlayerList({
       visible={visible}
     >
       <SafeAreaView style={{ flexGrow: 1 }} mode="padding">
-        <VStack flexGrow={1} alignItems="flex-start">
+        <VStack flexGrow={1}>
           {/* Top btns */}
 
           <IconButton
+            alignSelf="flex-start"
             onPress={() => setVisible(false)}
             icon={<Icon as={<Ionicons name="close-outline" />}></Icon>}
           />
 
-          <VerticalPadding />
+          {tracksQueue.length === 0 && <Empty text="Empty tracks queue" />}
 
-          <VStack alignSelf="stretch">
-            {tracksQueue.length === 0 && <Empty text="Empty tracks queue" />}
-
-            {tracksQueue.map((track, index) => (
-              <TracksListItem key={track.id} track={track} index={index} />
-            ))}
-          </VStack>
+          <TracksList
+            tracks={tracksQueue}
+            onLoadMore={() => {}}
+            isLoading={false}
+            isFinished={false}
+          />
         </VStack>
       </SafeAreaView>
     </Modal>

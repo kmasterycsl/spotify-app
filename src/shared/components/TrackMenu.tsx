@@ -1,17 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Button, HStack, Icon, ScrollView, Text, VStack } from "native-base";
 import React from "react";
-import {
-  Modal, TouchableOpacity, useWindowDimensions
-} from "react-native";
+import { Modal, TouchableOpacity, useWindowDimensions } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { usePlayerStore } from "../../store/player.store";
 import { Track } from "../../types/graphql";
 import FullWidthSquareImage from "./FullWidthSquareImage";
-import {
-  DEFAULT_HORIZONTAL_PADDING
-} from "./HorizontalPadding";
+import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 import SafeAreaView from "./SafeAreaView";
 import VerticalPadding from "./VerticalPadding";
 
@@ -26,13 +21,21 @@ export default function TrackMenu({
   visible,
   setVisible,
 }: TrackMenuProps) {
-  const insets = useSafeAreaInsets();
-  const actionPlay = usePlayerStore((state) => state.actionPlay);
   const actionAddToQueue = usePlayerStore((state) => state.actionAddToQueue);
+  const actionRemoveFromQueue = usePlayerStore((state) => state.actionRemoveFromQueue);
+  const trackInQueue = usePlayerStore((state) =>
+    state.tracksQueue.find((t) => t.id === track.id)
+  );
   const dimessions = useWindowDimensions();
 
   const onAddToQueue = () => {
     actionAddToQueue(track);
+    setVisible(false);
+  };
+
+  const onRemoveFromQueue = () => {
+    actionRemoveFromQueue(track);
+    setVisible(false);
   };
 
   return (
@@ -73,15 +76,27 @@ export default function TrackMenu({
 
               {/* Actions */}
               <VStack>
-                <TouchableOpacity onPress={onAddToQueue}>
-                  <HStack
-                    padding={DEFAULT_HORIZONTAL_PADDING}
-                    alignItems="center"
-                  >
-                    <Icon as={<Ionicons name="list-outline" />}></Icon>
-                    <Text ml={DEFAULT_HORIZONTAL_PADDING}>Add to queue</Text>
-                  </HStack>
-                </TouchableOpacity>
+                {!trackInQueue ? (
+                  <TouchableOpacity onPress={onAddToQueue}>
+                    <HStack
+                      padding={DEFAULT_HORIZONTAL_PADDING}
+                      alignItems="center"
+                    >
+                      <Icon as={<Ionicons name="list-outline" />}></Icon>
+                      <Text ml={DEFAULT_HORIZONTAL_PADDING}>Add to queue</Text>
+                    </HStack>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity onPress={onRemoveFromQueue}>
+                    <HStack
+                      padding={DEFAULT_HORIZONTAL_PADDING}
+                      alignItems="center"
+                    >
+                      <Icon as={<Ionicons name="list-outline" />}></Icon>
+                      <Text ml={DEFAULT_HORIZONTAL_PADDING}>Remove from queue</Text>
+                    </HStack>
+                  </TouchableOpacity>
+                )}
               </VStack>
             </VStack>
           </ScrollView>

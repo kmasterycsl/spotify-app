@@ -17,6 +17,7 @@ export default function GlobalToast() {
         backgroundColor: bgColor,
         duration: 2000,
         textColor,
+        position: 0,
       });
 
       actionSetToastMessage();

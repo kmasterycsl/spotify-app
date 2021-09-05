@@ -3,6 +3,7 @@ export type RootStackParamList = {
     Login: {},
     Profile: {},
     ArtistDetail: { artistId: string };
+    AlbumDetail: { albumId: string };
 };
 
 declare global {

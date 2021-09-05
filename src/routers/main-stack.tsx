@@ -5,6 +5,7 @@ import HomeScreen from "../screens/HomeScreen";
 import { RootStackParamList } from "../types/routes.types";
 import LoginScreen from '../screens/LoginScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import AlbumDetailScreen from '../screens/AlbumDetailScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -27,6 +28,14 @@ export default function MainStack() {
       <Stack.Screen
         name="ArtistDetail"
         component={ArtistDetailScreen}
+        options={{
+          headerTitle: () => null,
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AlbumDetail"
+        component={AlbumDetailScreen}
         options={{
           headerTitle: () => null,
           headerShown: false,

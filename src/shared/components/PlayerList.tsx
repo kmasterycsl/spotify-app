@@ -1,20 +1,12 @@
-import { HStack, Icon, IconButton, Text, VStack } from "native-base";
-import React from "react";
-import { Modal, Image } from "react-native";
-import {
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
-import { usePlayerStore } from "../../store/player.store";
-import FullWidthSquareImage from "./FullWidthSquareImage";
-import HorizontalPadding, {
-  DEFAULT_HORIZONTAL_PADDING,
-  _DEFAULT_HORIZONTAL_PADDING,
-} from "./HorizontalPadding";
 import { Ionicons } from "@expo/vector-icons";
-import { milisToMinAndSec } from "../../utils/convert";
-import VerticalPadding from "./VerticalPadding";
-import TracksListItem from "./TracksListItem";
+import { Icon, IconButton, VStack } from "native-base";
+import React from "react";
+import { Modal } from "react-native";
+import { usePlayerStore } from "../../store/player.store";
+import Empty from "./Empty";
 import SafeAreaView from "./SafeAreaView";
+import TracksListItem from "./TracksListItem";
+import VerticalPadding from "./VerticalPadding";
 
 export default function PlayerList({
   visible,
@@ -23,29 +15,7 @@ export default function PlayerList({
   visible: boolean;
   setVisible: (visible: boolean) => void;
 }) {
-  const insets = useSafeAreaInsets();
-  const playingTrack = usePlayerStore((state) => state.playingTrack);
   const tracksQueue = usePlayerStore((state) => state.tracksQueue);
-  const playingIndex = usePlayerStore((state) => state.playingIndex);
-  const actionResume = usePlayerStore((state) => state.actionResume);
-  const actionPause = usePlayerStore((state) => state.actionPause);
-  const actionNext = usePlayerStore((state) => state.actionNext);
-  const actionPrev = usePlayerStore((state) => state.actionPrev);
-  const actionUpdatePosition = usePlayerStore((state) => state.actionUpdatePosition);
-  const soundControllerStatus = usePlayerStore(
-    (state) => state.soundControllerStatus
-  );
-
-  if (!playingTrack) return null;
-
-  const progess =
-    soundControllerStatus && soundControllerStatus.isLoaded
-      ? soundControllerStatus.positionMillis
-      : 0;
-
-  const onProgressChange = (progress: number) => {
-    actionUpdatePosition(progress);
-  };
 
   return (
     <Modal
@@ -53,10 +23,7 @@ export default function PlayerList({
       presentationStyle="fullScreen"
       visible={visible}
     >
-      <SafeAreaView
-        style={{ flexGrow: 1 }}
-        mode="padding"
-      >
+      <SafeAreaView style={{ flexGrow: 1 }} mode="padding">
         <VStack flexGrow={1} alignItems="flex-start">
           {/* Top btns */}
 
@@ -68,6 +35,8 @@ export default function PlayerList({
           <VerticalPadding />
 
           <VStack alignSelf="stretch">
+            {tracksQueue.length === 0 && <Empty text="Empty tracks queue" />}
+
             {tracksQueue.map((track, index) => (
               <TracksListItem key={track.id} track={track} index={index} />
             ))}

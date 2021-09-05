@@ -58,18 +58,22 @@ const getArtistById = gql`
               }
             }
           }
+          artists {
+            id
+            name
+          }
           album {
-                id
-                coverImage {
-                    id
-                    meta {
-                        ... on ImageMeta {
-                            source
-                            width
-                            height
-                        }
-                    }
+            id
+            coverImage {
+              id
+              meta {
+                ... on ImageMeta {
+                  source
+                  width
+                  height
                 }
+              }
+            }
           }
         }
         meta {

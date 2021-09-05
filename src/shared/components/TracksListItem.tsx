@@ -1,10 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
-import { HStack, Icon, IconButton, Text, useTheme, VStack } from "native-base";
+import {
+  Box,
+  HStack,
+  Icon,
+  IconButton,
+  Text,
+  useTheme,
+  VStack,
+} from "native-base";
 import React from "react";
 import { useState } from "react";
 import { Image, ViewStyle } from "react-native";
 import { usePlayerStore } from "../../store/player.store";
 import { ImageMeta, Track } from "../../types/graphql";
+import ArtistNames from "./ArtistNames";
 import HorizontalPadding, {
   DEFAULT_HORIZONTAL_PADDING,
 } from "./HorizontalPadding";
@@ -49,7 +58,7 @@ export default React.memo(function TracksListItem({
             height: 50,
           }}
           source={{
-            uri: (track.album.coverImage.meta as ImageMeta).source
+            uri: (track.album.coverImage.meta as ImageMeta).source,
           }}
         ></Image>
         <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
@@ -60,9 +69,9 @@ export default React.memo(function TracksListItem({
           ) : (
             <Text bold>{track.name}</Text>
           )}
-          <Text fontSize="sm" pt={1}>
-            {+track.id * 10000}
-          </Text>
+          <Box pt={1} overflow="hidden">
+            <ArtistNames artists={track.artists} />
+          </Box>
         </VStack>
         <IconButton
           variant="ghost"

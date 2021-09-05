@@ -7,6 +7,7 @@ import { RootSiblingParent } from "react-native-root-siblings";
 import shallow from "zustand/shallow";
 import { usePlayerStore } from "../../store/player.store";
 import { Track } from "../../types/graphql";
+import ArtistNames from "./ArtistNames";
 import FullWidthSquareImage from "./FullWidthSquareImage";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 import SafeAreaView from "./SafeAreaView";
@@ -68,7 +69,7 @@ export default function TrackMenu({
               >
                 <FullWidthSquareImage
                   padding={dimessions.width * 0.3}
-                  url={`https://picsum.photos/id/${track.id}/${350}/${350}`}
+                  url={track.album.coverImage.meta.source}
                 ></FullWidthSquareImage>
               </HStack>
 
@@ -79,9 +80,7 @@ export default function TrackMenu({
                 <Text fontWeight="600" fontSize="lg">
                   {track.name}
                 </Text>
-                <Text color="gray.400" fontSize="sm">
-                  {track.name}
-                </Text>
+                <ArtistNames artists={track.artists} />
               </VStack>
 
               <VerticalPadding multiple={3} />
@@ -90,33 +89,34 @@ export default function TrackMenu({
               <VStack>
                 {!trackInQueue ? (
                   <TouchableOpacity onPress={onAddToQueue}>
-                    <HStack
-                      padding={DEFAULT_HORIZONTAL_PADDING}
-                      alignItems="center"
-                    >
-                      <Icon as={<Ionicons name="list-outline" />}></Icon>
+                    <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                      <Icon
+                        size="sm"
+                        as={<Ionicons name="list-outline" />}
+                      ></Icon>
                       <Text ml={DEFAULT_HORIZONTAL_PADDING}>Add to queue</Text>
                     </HStack>
                   </TouchableOpacity>
                 ) : (
                   <TouchableOpacity onPress={onRemoveFromQueue}>
-                    <HStack
-                      padding={DEFAULT_HORIZONTAL_PADDING}
-                      alignItems="center"
-                    >
-                      <Icon as={<Ionicons name="list-outline" />}></Icon>
+                    <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                      <Icon
+                        size="sm"
+                        as={<Ionicons name="list-outline" />}
+                      ></Icon>
                       <Text ml={DEFAULT_HORIZONTAL_PADDING}>
                         Remove from queue
                       </Text>
                     </HStack>
                   </TouchableOpacity>
                 )}
+                <VerticalPadding />
                 <TouchableOpacity onPress={goToAlbum}>
-                  <HStack
-                    padding={DEFAULT_HORIZONTAL_PADDING}
-                    alignItems="center"
-                  >
-                    <Icon as={<Ionicons name="musical-note" />}></Icon>
+                  <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                    <Icon
+                      size="sm"
+                      as={<Ionicons name="musical-note" />}
+                    ></Icon>
                     <Text ml={DEFAULT_HORIZONTAL_PADDING}>Go to album</Text>
                   </HStack>
                 </TouchableOpacity>

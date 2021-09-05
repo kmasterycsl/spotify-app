@@ -1,6 +1,6 @@
 import React from "react";
-import { usePlayerStore } from "../store/player.store";
-import { milisToMinAndSec } from "../utils/convert";
+import { usePlayerStore } from "../../store/player.store";
+import { milisToMinAndSec } from "../../utils/convert";
 import { HStack, Text } from "native-base";
 
 export default function PlayerTimeline() {

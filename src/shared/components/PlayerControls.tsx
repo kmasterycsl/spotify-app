@@ -1,29 +1,39 @@
 import { Ionicons } from "@expo/vector-icons";
 import { HStack, Icon, IconButton } from "native-base";
 import React from "react";
+import shallow from "zustand/shallow";
 import { usePlayerStore } from "../../store/player.store";
 import HorizontalPadding, {
-  DEFAULT_HORIZONTAL_PADDING
+  DEFAULT_HORIZONTAL_PADDING,
 } from "./HorizontalPadding";
 
 export default function PlayerControls() {
-  const shuffle = usePlayerStore((state) => state.shuffle);
-  const tracksQueue = usePlayerStore((state) => state.tracksQueue);
-  const playingIndex = usePlayerStore((state) => state.playingIndex);
-  const actionToggleShuffleMode = usePlayerStore(
-    (state) => state.actionToggleShuffleMode
-  );
-  const actionResume = usePlayerStore((state) => state.actionResume);
-  const actionPause = usePlayerStore((state) => state.actionPause);
-  const actionNext = usePlayerStore((state) => state.actionNext);
-  const actionPrev = usePlayerStore((state) => state.actionPrev);
-  const soundControllerStatusIsLoaded = usePlayerStore(
-    (state) => state.soundControllerStatus?.isLoaded
-  );
-  const soundControllerStatusIsPlaying = usePlayerStore(
-    (state) =>
+  const [
+    shuffle,
+    tracksQueue,
+    playingIndex,
+    soundControllerStatusIsLoaded,
+    soundControllerStatusIsPlaying,
+    actionToggleShuffleMode,
+    actionResume,
+    actionPause,
+    actionNext,
+    actionPrev,
+  ] = usePlayerStore(
+    (state) => [
+      state.shuffle,
+      state.tracksQueue,
+      state.playingIndex,
+      state.soundControllerStatus?.isLoaded,
       state.soundControllerStatus?.isLoaded &&
-      state.soundControllerStatus?.isPlaying
+        state.soundControllerStatus?.isPlaying,
+      state.actionToggleShuffleMode,
+      state.actionResume,
+      state.actionPause,
+      state.actionNext,
+      state.actionPrev,
+    ],
+    shallow
   );
 
   return (

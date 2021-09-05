@@ -3,6 +3,7 @@ import { Button, HStack, Icon, ScrollView, Text, VStack } from "native-base";
 import React from "react";
 import { Modal, TouchableOpacity, useWindowDimensions } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
+import shallow from "zustand/shallow";
 import { usePlayerStore } from "../../store/player.store";
 import { Track } from "../../types/graphql";
 import FullWidthSquareImage from "./FullWidthSquareImage";
@@ -21,11 +22,16 @@ export default function TrackMenu({
   visible,
   setVisible,
 }: TrackMenuProps) {
-  const actionAddToQueue = usePlayerStore((state) => state.actionAddToQueue);
-  const actionRemoveFromQueue = usePlayerStore((state) => state.actionRemoveFromQueue);
-  const trackInQueue = usePlayerStore((state) =>
-    state.tracksQueue.find((t) => t.id === track.id)
-  );
+  const [actionAddToQueue, actionRemoveFromQueue, trackInQueue] =
+    usePlayerStore(
+      (state) => [
+        state.actionAddToQueue,
+        state.actionRemoveFromQueue,
+        state.tracksQueue.find((t) => t.id === track.id),
+      ],
+      shallow
+    );
+
   const dimessions = useWindowDimensions();
 
   const onAddToQueue = () => {
@@ -93,7 +99,9 @@ export default function TrackMenu({
                       alignItems="center"
                     >
                       <Icon as={<Ionicons name="list-outline" />}></Icon>
-                      <Text ml={DEFAULT_HORIZONTAL_PADDING}>Remove from queue</Text>
+                      <Text ml={DEFAULT_HORIZONTAL_PADDING}>
+                        Remove from queue
+                      </Text>
                     </HStack>
                   </TouchableOpacity>
                 )}

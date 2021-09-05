@@ -4,7 +4,7 @@ import React from "react";
 import { useState } from "react";
 import { Image, ViewStyle } from "react-native";
 import { usePlayerStore } from "../../store/player.store";
-import { Track } from "../../types/graphql";
+import { ImageMeta, Track } from "../../types/graphql";
 import HorizontalPadding, {
   DEFAULT_HORIZONTAL_PADDING,
 } from "./HorizontalPadding";
@@ -49,7 +49,7 @@ export default React.memo(function TracksListItem({
             height: 50,
           }}
           source={{
-            uri: `https://picsum.photos/id/${track.id}/${50}/${50}`,
+            uri: (track.album.coverImage.meta as ImageMeta).source
           }}
         ></Image>
         <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>

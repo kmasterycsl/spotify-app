@@ -7,7 +7,6 @@ import HorizontalPadding, {
 } from "./HorizontalPadding";
 
 export default function PlayerControls() {
-  console.log("PlayerControls");
   const tracksQueue = usePlayerStore((state) => state.tracksQueue);
   const playingIndex = usePlayerStore((state) => state.playingIndex);
   const actionResume = usePlayerStore((state) => state.actionResume);

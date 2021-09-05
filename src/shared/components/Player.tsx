@@ -32,8 +32,6 @@ export default React.memo(function Player({
     setIsPlaylistOpen(true);
   };
 
-  console.log("Player");
-
   return (
     <Modal
       animationType="slide"

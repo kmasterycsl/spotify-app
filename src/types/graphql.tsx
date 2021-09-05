@@ -14,6 +14,18 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type Album = {
+  __typename?: 'Album';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  description: Scalars['String'];
+  type: Scalars['String'];
+  coverImageId: Scalars['String'];
+  coverImage: Asset;
+  artistId: Scalars['String'];
+  tracks: Array<Track>;
+};
+
 export type Artist = {
   __typename?: 'Artist';
   id: Scalars['ID'];
@@ -86,6 +98,8 @@ export type Query = {
   __typename?: 'Query';
   artists: PaginatedArtist;
   artist: Artist;
+  track: Track;
+  album: Album;
   whoAmI: User;
   user: User;
 };
@@ -98,6 +112,16 @@ export type QueryArtistsArgs = {
 
 
 export type QueryArtistArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryTrackArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryAlbumArgs = {
   id: Scalars['String'];
 };
 
@@ -116,7 +140,9 @@ export type Track = {
   __typename?: 'Track';
   id: Scalars['ID'];
   name: Scalars['String'];
+  albumId: Scalars['String'];
   sound: Asset;
+  album: Album;
 };
 
 export type TrackEdge = {

@@ -2,23 +2,31 @@ import { Ionicons } from "@expo/vector-icons";
 import { HStack, Icon, IconButton, Spinner, Text, VStack } from "native-base";
 import React, { useState } from "react";
 import { Image, TouchableOpacity } from "react-native";
+import shallow from "zustand/shallow";
 import { usePlayerStore } from "../../store/player.store";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 import Player from "./Player";
 import PlayerBarProgress from "./PlayerBarProgress";
 
 export default function PlayerBar() {
-  const actionPause = usePlayerStore((store) => store.actionPause);
-  const actionResume = usePlayerStore((store) => store.actionResume);
-  const playingTrack = usePlayerStore((state) => state.playingTrack);
-  const soundControllerStatusIsLoaded = usePlayerStore(
-    (state) => state.soundControllerStatus?.isLoaded
-  );
-  const soundControllerStatusIsPlaying = usePlayerStore(
-    (state) =>
+  const [
+    actionPause,
+    actionResume,
+    playingTrack,
+    soundControllerStatusIsLoaded,
+    soundControllerStatusIsPlaying,
+  ] = usePlayerStore(
+    (state) => [
+      state.actionPause,
+      state.actionResume,
+      state.playingTrack,
+      state.soundControllerStatus?.isLoaded,
       state.soundControllerStatus?.isLoaded &&
-      state.soundControllerStatus?.isPlaying
+        state.soundControllerStatus?.isPlaying,
+    ],
+    shallow
   );
+
   const [modalVisible, setModalVisible] = useState(false);
 
   if (!playingTrack) return null;

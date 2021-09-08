@@ -3,7 +3,7 @@ import { HStack, Text } from "native-base";
 import React from "react";
 import { Artist } from "../../types/graphql";
 
-export default function ArtistNames({ artists }: { artists: Artist[] }) {
+export default function ArtistNames({ artists, color }: { artists: Artist[], color?: string }) {
   const nav = useNavigation();
 
   const goToArtist = (artist: Artist) => {
@@ -16,13 +16,13 @@ export default function ArtistNames({ artists }: { artists: Artist[] }) {
         <Text key={artist.id}>
           <Text
             fontSize="xs"
-            color="gray.500"
+            color={color}
             onPress={() => goToArtist(artist)}
           >
             {artist.name}
           </Text>
           {index !== artists.length - 1 && (
-            <Text fontSize="xs" color="gray.500">
+            <Text fontSize="xs" color={color}>
               {", "}
             </Text>
           )}

@@ -23,6 +23,8 @@ import TracksList from "../shared/components/TracksList";
 import VerticalPadding from "../shared/components/VerticalPadding";
 import { Artist, ImageMeta, Query } from "../types/graphql";
 import { RootStackParamList } from "../types/routes.types";
+import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet } from "react-native";
 
 type AlbumDetailScreenRouteProp = RouteProp<RootStackParamList, "AlbumDetail">;
 
@@ -106,7 +108,14 @@ export default function AlbumDetailScreen() {
 
   return data?.album ? (
     <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
-      <VStack justifyContent="space-between" bg={(data.album.coverImage.meta as ImageMeta).dominantColor}>
+      <VStack justifyContent="space-between">
+        <LinearGradient
+          colors={[
+            (data.album.coverImage.meta as ImageMeta).dominantColor,
+            "gray",
+          ]}
+          style={styles.background}
+        />
         <HStack
           justifyContent="center"
           position="relative"
@@ -145,12 +154,12 @@ export default function AlbumDetailScreen() {
           <Text fontSize="2xl" color="white">
             {data.album.name}
           </Text>
-          <ArtistNames artists={data.album.allArtists} />
+          <ArtistNames color="white" artists={data.album.allArtists} />
           <Text>
-            <Text color="gray.300" textTransform="capitalize">
+            <Text color="white" textTransform="capitalize">
               {data.album.type}
             </Text>
-            <Text color="gray.300">
+            <Text color="white">
               {" "}
               - {new Date(data.album.createdAt).getFullYear()}
             </Text>
@@ -175,3 +184,13 @@ export default function AlbumDetailScreen() {
     </SafeAreaView>
   ) : null;
 }
+
+const styles = StyleSheet.create({
+  background: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    height: "100%",
+  },
+});

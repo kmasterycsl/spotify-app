@@ -154,18 +154,20 @@ export default function ArtistDetailScreen() {
           justifyContent="space-between"
         >
           <HorizontalPadding
-            multiple={5.5 / DEFAULT_HORIZONTAL_PADDING}
+            // multiple={5.5 / DEFAULT_HORIZONTAL_PADDING}
             style={{ backgroundColor: "transparent", alignSelf: "flex-start" }}
           >
             {/* <Box > */}
             <IconButton
-              size="sm"
               variant="ghost"
               onPress={goBack}
+              borderRadius={100}
+              bg="gray.600"
               icon={
                 <Icon
-                  color="gray.400"
-                  as={<Ionicons name="chevron-back-circle-outline" />}
+                  color="gray.500"
+                  size="sm"
+                  as={<Ionicons  name="chevron-back-outline" />}
                 ></Icon>
               }
             />

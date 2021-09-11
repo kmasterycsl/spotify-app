@@ -1,19 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import {
-  Box,
-  HStack,
-  Icon,
-  IconButton,
-  Text,
-  VStack,
-  Image,
-} from "native-base";
+import { LinearGradient } from "expo-linear-gradient";
+import { HStack, Icon, IconButton, Image, Text, VStack } from "native-base";
 import React, { useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import ArtistNames from "../shared/components/ArtistNames";
-import FullWidthSquareImage from "../shared/components/FullWidthSquareImage";
 import HorizontalPadding, {
   DEFAULT_HORIZONTAL_PADDING,
 } from "../shared/components/HorizontalPadding";
@@ -21,11 +14,9 @@ import PlayerBar from "../shared/components/PlayerBar";
 import SafeAreaView from "../shared/components/SafeAreaView";
 import TracksList from "../shared/components/TracksList";
 import VerticalPadding from "../shared/components/VerticalPadding";
-import { Artist, ImageMeta, Query } from "../types/graphql";
-import { RootStackParamList } from "../types/routes.types";
-import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet } from "react-native";
 import { usePlayerStore } from "../store/player.store";
+import { ImageMeta, Query } from "../types/graphql";
+import { RootStackParamList } from "../types/routes.types";
 
 type AlbumDetailScreenRouteProp = RouteProp<RootStackParamList, "AlbumDetail">;
 
@@ -127,7 +118,7 @@ export default function AlbumDetailScreen() {
 
   return data?.album ? (
     <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
-      <VStack justifyContent="space-between">
+      <VStack justifyContent="flex-start">
         <LinearGradient
           colors={[
             (data.album.coverImage.meta as ImageMeta).dominantColor,
@@ -139,21 +130,21 @@ export default function AlbumDetailScreen() {
           justifyContent="center"
           position="relative"
           mx={DEFAULT_HORIZONTAL_PADDING}
-          mt={insets.top}
+          style={{ marginTop: insets.top }}
         >
           <IconButton
-            p={0}
             position="absolute"
             hitSlop={10}
             top={0}
             left={0}
-            size="sm"
             variant="ghost"
             mr="auto"
             onPress={goBack}
+            borderRadius={100}
+            bg="gray.600"
             icon={
               <Icon
-                ml={-2}
+                size="sm"
                 color="gray.400"
                 as={<Ionicons name="chevron-back-outline" />}
               ></Icon>
@@ -186,9 +177,8 @@ export default function AlbumDetailScreen() {
           <VerticalPadding style={{ backgroundColor: "transparent" }} />
         </HorizontalPadding>
       </VStack>
-      <VerticalPadding />
       <HorizontalPadding>
-        <HStack justifyContent="space-between">
+        <HStack justifyContent="space-between" alignItems="center">
           <Text>Info</Text>
           {isPlaying && playingAlbumId === data.album.id ? (
             <IconButton
@@ -217,7 +207,6 @@ export default function AlbumDetailScreen() {
           )}
         </HStack>
       </HorizontalPadding>
-      <VerticalPadding />
       <TracksList
         isFinished={false}
         isLoading={loading}

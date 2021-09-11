@@ -25,6 +25,7 @@ import { Artist, ImageMeta, Query } from "../types/graphql";
 import { RootStackParamList } from "../types/routes.types";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
+import { usePlayerStore } from "../store/player.store";
 
 type AlbumDetailScreenRouteProp = RouteProp<RootStackParamList, "AlbumDetail">;
 
@@ -88,6 +89,14 @@ const getAlbumById = gql`
 export default function AlbumDetailScreen() {
   const insets = useSafeAreaInsets();
   const nav = useNavigation();
+  const actionPlayAlbum = usePlayerStore((state) => state.actionPlayAlbum);
+  const actionPause = usePlayerStore((state) => state.actionPause);
+  const playingAlbumId = usePlayerStore((state) => state.playingAlbumId);
+  const isPlaying = usePlayerStore(
+    (state) =>
+      state.soundControllerStatus?.isLoaded &&
+      state.soundControllerStatus.isPlaying
+  );
   const { params } = useRoute<AlbumDetailScreenRouteProp>();
   const [loading, setLoading] = useState(false);
   const { data, error, refetch } = useQuery<Query>(getAlbumById, {
@@ -104,6 +113,16 @@ export default function AlbumDetailScreen() {
 
   const goBack = () => {
     nav.goBack();
+  };
+
+  const onPlay = () => {
+    if (data?.album) {
+      actionPlayAlbum(data.album);
+    }
+  };
+
+  const onPause = () => {
+    actionPause();
   };
 
   return data?.album ? (
@@ -142,7 +161,7 @@ export default function AlbumDetailScreen() {
           />
           <Image
             shadow={2}
-            alt=""
+            alt={data.album.name}
             source={{ uri: data.album.coverImage.meta.source }}
             style={{ width: 250, height: 250 }}
           />
@@ -169,9 +188,34 @@ export default function AlbumDetailScreen() {
       </VStack>
       <VerticalPadding />
       <HorizontalPadding>
-        <Text fontSize="lg" bold>
-          Popular
-        </Text>
+        <HStack justifyContent="space-between">
+          <Text>Info</Text>
+          {isPlaying && playingAlbumId === data.album.id ? (
+            <IconButton
+              size="sm"
+              variant="ghost"
+              onPress={onPause}
+              icon={
+                <Icon
+                  color="gray.400"
+                  as={<Ionicons name="pause-circle-outline" />}
+                ></Icon>
+              }
+            />
+          ) : (
+            <IconButton
+              size="sm"
+              variant="ghost"
+              onPress={onPlay}
+              icon={
+                <Icon
+                  color="gray.400"
+                  as={<Ionicons name="play-circle-outline" />}
+                ></Icon>
+              }
+            />
+          )}
+        </HStack>
       </HorizontalPadding>
       <VerticalPadding />
       <TracksList

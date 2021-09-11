@@ -13,14 +13,14 @@ export default function PlayerTimeline() {
       <Text fontSize="xs">
         {soundControllerStatus?.isLoaded
           ? milisToMinAndSec(soundControllerStatus.positionMillis)
-          : "-"}
+          : "0:00"}
       </Text>
       <Text fontSize="xs">
         {soundControllerStatus?.isLoaded
           ? soundControllerStatus.durationMillis
             ? milisToMinAndSec(soundControllerStatus.durationMillis)
             : "-"
-          : "-"}
+          : "0:00"}
       </Text>
     </HStack>
   );

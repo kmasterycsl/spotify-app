@@ -15,7 +15,7 @@ export const WHOAMI_QUERY = gql`
 `;
 
 export default function useAppStartup() {
-  useDebugStore();
+  // useDebugStore();
   const [done, setDone] = useState(false);
   const actionSetCurrentUser = useCommonStore(state => state.actionSetCurrentUser);
   const actionSetAccessToken = useCommonStore(state => state.actionSetAccessToken);

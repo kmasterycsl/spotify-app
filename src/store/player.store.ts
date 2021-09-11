@@ -1,5 +1,5 @@
 import { Audio, AVPlaybackStatus } from "expo-av";
-import { Track } from '../types/graphql';
+import { Album, Track } from '../types/graphql';
 import create from 'zustand';
 import produce from 'immer';
 import _shuffle from 'lodash.shuffle';
@@ -9,6 +9,7 @@ const commonStoreState = useCommonStore.getState();
 export interface PlayerState {
     playingIndex?: number,
     playingTrack?: Track,
+    playingAlbumId?: string,
     soundController?: Audio.Sound;
     soundControllerStatus?: AVPlaybackStatus;
     shuffle: boolean,
@@ -17,6 +18,7 @@ export interface PlayerState {
     actionAddToQueue: (track: Track) => void,
     actionRemoveFromQueue: (track: Track) => void,
     actionPlay: (track: Track) => void,
+    actionPlayAlbum: (album: Album) => void,
     actionPause: () => void,
     actionResume: () => void,
     actionToggleShuffleMode: () => void,
@@ -117,12 +119,31 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
             console.error(e);
         }
     },
+    actionPlayAlbum: async (album: Album) => {
+        const state = get();
+
+        // re-play same album
+        if (album.id === state.playingAlbumId) {
+            state.actionResume();
+        } else {
+            // play new album
+            if (state.soundController) {
+                await state.soundController.unloadAsync();
+            }
+
+            set({
+                playingAlbumId: album.id,
+                tracksQueue: album.tracks,
+            });
+
+            state.actionPlay(album.tracks[0]);
+        }
+    },
     actionNext: () => set(produce<PlayerState>((state) => {
         const nextIndex = (get().playingIndex || 0) + 1;
         if (nextIndex <= get().tracksQueue.length - 1) {
             state.actionPlay(get().tracksQueue[nextIndex]);
         }
-
     })),
     actionPrev: () => set(produce<PlayerState>((state) => {
         const prevIndex = (get().playingIndex || 0) - 1;

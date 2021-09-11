@@ -19,6 +19,7 @@ export interface PlayerState {
     actionRemoveFromQueue: (track: Track) => void,
     actionPlay: (track: Track) => void,
     actionPlayAlbum: (album: Album) => void,
+    actionUpdateQueue: (queue: Track[]) => void,
     actionPause: () => void,
     actionResume: () => void,
     actionToggleShuffleMode: () => void,
@@ -139,6 +140,11 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
             state.actionPlay(album.tracks[0]);
         }
     },
+    actionUpdateQueue: (tracks: Track[]) => set(produce<PlayerState>((state) => {
+        state.tracksQueue = tracks;
+        const trackIndexInQueue = state.tracksQueue.findIndex(t => t.id === get().playingTrack?.id);
+        state.playingIndex = trackIndexInQueue;
+    })),
     actionNext: () => set(produce<PlayerState>((state) => {
         const nextIndex = (get().playingIndex || 0) + 1;
         if (nextIndex <= get().tracksQueue.length - 1) {

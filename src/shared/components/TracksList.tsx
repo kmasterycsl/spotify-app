@@ -1,6 +1,9 @@
 import { Text } from "native-base";
 import React, { useState } from "react";
-import { ActivityIndicator, FlatList, TouchableOpacity } from "react-native";
+import { ActivityIndicator, TouchableOpacity } from "react-native";
+import DraggableFlatList, {
+  RenderItemParams,
+} from "react-native-draggable-flatlist";
 import { usePlayerStore } from "../../store/player.store";
 import { Track } from "../../types/graphql";
 import TracksListItem from "./TracksListItem";
@@ -11,9 +14,11 @@ export default function TracksList({
   onLoadMore,
   isLoading,
   isFinished,
+  onReorderList,
 }: {
   tracks: Track[];
   onLoadMore: () => void;
+  onReorderList?: (tracks: Track[]) => void;
   isLoading: boolean;
   isFinished: boolean;
 }) {
@@ -24,17 +29,25 @@ export default function TracksList({
     actionPlay(track);
   };
 
-  const renderItem = ({ item, index }: { item: Track; index: number }) => (
-    <TouchableOpacity onPress={() => onPressItem(item)}>
-      <TracksListItem track={item} index={index}></TracksListItem>
+  const renderItem = (params: RenderItemParams<Track>) => (
+    <TouchableOpacity
+      onPress={() => onPressItem(params.item)}
+      onLongPress={onReorderList ? params.drag : undefined}
+    >
+      <TracksListItem
+        track={params.item}
+        index={params.index!}
+      ></TracksListItem>
       <VerticalPadding />
     </TouchableOpacity>
   );
 
   return (
-    <FlatList
+    <DraggableFlatList
       data={tracks}
-      keyExtractor={(item) => item.id}
+      renderItem={renderItem}
+      keyExtractor={(item) => `draggable-item-${item.id}`}
+      onDragEnd={({ data }) => onReorderList && onReorderList(data)}
       initialNumToRender={10}
       onEndReached={() => setCallOnScrollEnd(true)}
       onMomentumScrollEnd={() => {
@@ -43,7 +56,6 @@ export default function TracksList({
         }
         setCallOnScrollEnd(false);
       }}
-      renderItem={renderItem}
       onEndReachedThreshold={0.7}
       ListFooterComponent={
         <>
@@ -55,6 +67,6 @@ export default function TracksList({
           )}
         </>
       }
-    ></FlatList>
+    />
   );
 }

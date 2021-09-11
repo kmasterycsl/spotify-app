@@ -15,6 +15,7 @@ export default function PlayerList({
   setVisible: (visible: boolean) => void;
 }) {
   const tracksQueue = usePlayerStore((state) => state.tracksQueue);
+  const actionUpdateQueue = usePlayerStore((store) => store.actionUpdateQueue);
 
   return (
     <Modal
@@ -24,7 +25,6 @@ export default function PlayerList({
     >
       <SafeAreaView style={{ flexGrow: 1 }} mode="padding">
         <VStack flexGrow={1}>
-          {/* Top btns */}
 
           <IconButton
             alignSelf="flex-start"
@@ -35,6 +35,7 @@ export default function PlayerList({
           {tracksQueue.length === 0 && <Empty text="Empty tracks queue" />}
 
           <TracksList
+            onReorderList={actionUpdateQueue}
             tracks={tracksQueue}
             onLoadMore={() => {}}
             isLoading={false}

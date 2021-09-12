@@ -23,7 +23,7 @@ interface TrackMenuProps {
     setVisible: (visible: boolean) => void;
 }
 
-const LIKE_MUTATION = gql`
+export const LIKE_MUTATION = gql`
     mutation like($likeableType: LikeableType!, $likeableId: String!) {
         like(likeableType: $likeableType, likeableId: $likeableId)
     }
@@ -129,6 +129,7 @@ export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps
                                             >
                                                 <Icon
                                                     size="sm"
+                                                    color="primary.400"
                                                     as={
                                                         track.isLiked ? (
                                                             <Ionicons name="heart" />

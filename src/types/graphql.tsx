@@ -28,6 +28,7 @@ export type Album = {
   artistId: Scalars['String'];
   allArtists: Array<Artist>;
   tracks: Array<Track>;
+  isLiked: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };

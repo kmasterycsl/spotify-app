@@ -14,28 +14,28 @@ import GlobalToast from "./src/shared/components/GlobalToast";
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
 export default function App() {
-  return (
-    <NativeBaseProvider theme={theme} colorModeManager={colorModeManager}>
-      <ApolloProvider client={apolloClient}>
-        <NavigationContainer>
-          <AppBoostraper />
-        </NavigationContainer>
-      </ApolloProvider>
-    </NativeBaseProvider>
-  );
+    return (
+        <NativeBaseProvider theme={theme} colorModeManager={colorModeManager}>
+            <ApolloProvider client={apolloClient}>
+                <NavigationContainer>
+                    <AppBoostraper />
+                </NavigationContainer>
+            </ApolloProvider>
+        </NativeBaseProvider>
+    );
 }
 
 function AppBoostraper() {
-  const appIsReady = useAppStartup();
+    const appIsReady = useAppStartup();
 
-  if (!appIsReady) {
-    return <AppLoading />;
-  }
+    if (!appIsReady) {
+        return <AppLoading />;
+    }
 
-  return (
-    <SafeAreaProvider>
-      <MainStack />
-      <GlobalToast />
-    </SafeAreaProvider>
-  );
+    return (
+        <SafeAreaProvider>
+            <MainStack />
+            <GlobalToast />
+        </SafeAreaProvider>
+    );
 }

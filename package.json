@@ -7,7 +7,8 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "download-schema": "source .env && apollo schema:download --endpoint=$GRAPHQL_ENDPOINT schema.gql.json",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "pretty": "npx prettier --write \"./**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@apollo/client": "^3.4.8",

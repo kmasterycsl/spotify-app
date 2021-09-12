@@ -1,8 +1,5 @@
-import {
-    RobotoMono_400Regular,
-    useFonts,
-} from "@expo-google-fonts/roboto-mono";
-import { Raleway_400Regular } from '@expo-google-fonts/raleway';
+import { RobotoMono_400Regular, useFonts } from "@expo-google-fonts/roboto-mono";
+import { Raleway_400Regular } from "@expo-google-fonts/raleway";
 
 export default function useCustomFonts() {
     const [fontsLoaded] = useFonts({
@@ -10,5 +7,5 @@ export default function useCustomFonts() {
         Raleway: Raleway_400Regular,
     });
 
-    return fontsLoaded
+    return fontsLoaded;
 }

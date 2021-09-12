@@ -5,26 +5,24 @@ import useLogout from "../hooks/useLogout";
 import { useCommonStore } from "../store/common.store";
 
 export default function LoginScreen() {
-  const { request, response, promptAsync } = useLoginByGoogle();
+    const { request, response, promptAsync } = useLoginByGoogle();
 
+    React.useEffect(() => {
+        if (response?.type === "success") {
+            const { authentication } = response;
+        }
+    }, [response]);
 
-  React.useEffect(() => {
-    if (response?.type === "success") {
-      const { authentication } = response;
-    }
-  }, [response]);
-
-  return (
-    <>
-      <Button
-        disabled={!request}
-        onPress={() => {
-          promptAsync();
-        }}
-      >
-        Google
-      </Button>
-      
-    </>
-  );
+    return (
+        <>
+            <Button
+                disabled={!request}
+                onPress={() => {
+                    promptAsync();
+                }}
+            >
+                Google
+            </Button>
+        </>
+    );
 }

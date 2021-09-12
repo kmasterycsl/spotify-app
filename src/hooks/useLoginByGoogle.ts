@@ -40,8 +40,8 @@ export default function useLoginByGoogle() {
             loginByGoogle({
                 variables: {
                     idToken: response.params.id_token,
-                    providerId: 'GOOGLE',
-                }
+                    providerId: "GOOGLE",
+                },
             });
         }
     }, [response]);
@@ -51,16 +51,16 @@ export default function useLoginByGoogle() {
             if (data) {
                 actionSetCurrentUser(data.loginBySocialProvider.user);
                 actionSetAccessToken(data.loginBySocialProvider.accessToken);
-                actionSetToastMessage({ title: 'Login successfully.', status: 'info' })
+                actionSetToastMessage({ title: "Login successfully.", status: "info" });
             }
         } else {
-            actionSetToastMessage({ title: error.message, status: 'error' })
+            actionSetToastMessage({ title: error.message, status: "error" });
         }
     }, [data, error]);
 
     return {
         request,
         response,
-        promptAsync
-    }
+        promptAsync,
+    };
 }

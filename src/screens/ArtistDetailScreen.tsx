@@ -49,6 +49,7 @@ const getArtistById = gql`
                 items {
                     id
                     name
+                    isLiked
                     sound {
                         id
                         meta {

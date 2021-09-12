@@ -1,166 +1,190 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-    ID: string;
-    String: string;
-    Boolean: boolean;
-    Int: number;
-    Float: number;
-    /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
-    DateTime: any;
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: any;
 };
 
+
+
+
 export type Album = {
-    __typename?: "Album";
-    id: Scalars["ID"];
-    name: Scalars["String"];
-    description: Scalars["String"];
-    type: Scalars["String"];
-    coverImageId: Scalars["String"];
-    coverImage: Asset;
-    artistId: Scalars["String"];
-    allArtists: Array<Artist>;
-    tracks: Array<Track>;
-    createdAt: Scalars["DateTime"];
-    updatedAt: Scalars["DateTime"];
+  __typename?: 'Album';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  description: Scalars['String'];
+  type: Scalars['String'];
+  coverImageId: Scalars['String'];
+  coverImage: Asset;
+  artistId: Scalars['String'];
+  allArtists: Array<Artist>;
+  tracks: Array<Track>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type Artist = {
-    __typename?: "Artist";
-    id: Scalars["ID"];
-    name: Scalars["String"];
-    biography: Scalars["String"];
-    isVerified: Scalars["Boolean"];
-    coverImageId: Scalars["String"];
-    coverImage: Asset;
-    avatarImageId: Scalars["String"];
-    avatarImage: Asset;
-    tracks: PaginatedTrack;
+  __typename?: 'Artist';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  biography: Scalars['String'];
+  isVerified: Scalars['Boolean'];
+  coverImageId: Scalars['String'];
+  coverImage: Asset;
+  avatarImageId: Scalars['String'];
+  avatarImage: Asset;
+  tracks: PaginatedTrack;
 };
 
+
 export type ArtistTracksArgs = {
-    page?: Maybe<Scalars["Int"]>;
-    limit?: Maybe<Scalars["Int"]>;
+  page?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
 };
 
 export type ArtistEdge = {
-    __typename?: "ArtistEdge";
-    itemCount: Scalars["Float"];
-    totalItems: Scalars["Float"];
-    itemsPerPage: Scalars["Float"];
-    totalPages: Scalars["Float"];
-    currentPage: Scalars["Float"];
+  __typename?: 'ArtistEdge';
+  itemCount: Scalars['Float'];
+  totalItems: Scalars['Float'];
+  itemsPerPage: Scalars['Float'];
+  totalPages: Scalars['Float'];
+  currentPage: Scalars['Float'];
 };
 
 export type Asset = {
-    __typename?: "Asset";
-    id: Scalars["ID"];
-    type: Scalars["String"];
-    meta: AssetMetaUnion;
+  __typename?: 'Asset';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  meta: AssetMetaUnion;
 };
 
 export type AssetMetaUnion = ImageMeta | SoundMeta;
 
+
 export type ImageMeta = {
-    __typename?: "ImageMeta";
-    source: Scalars["String"];
-    dominantColor: Scalars["String"];
-    width: Scalars["Float"];
-    height: Scalars["Float"];
+  __typename?: 'ImageMeta';
+  source: Scalars['String'];
+  dominantColor: Scalars['String'];
+  width: Scalars['Float'];
+  height: Scalars['Float'];
 };
+
+export type LikeableType =
+  | 'TRACK'
+  | 'ALBUM'
+  | 'PLAYLIST';
 
 export type Mutation = {
-    __typename?: "Mutation";
-    loginBySocialProvider: UserWithAccessToken;
+  __typename?: 'Mutation';
+  like: Scalars['Boolean'];
+  loginBySocialProvider: UserWithAccessToken;
 };
 
+
+export type MutationLikeArgs = {
+  likeableType: LikeableType;
+  likeableId: Scalars['String'];
+};
+
+
 export type MutationLoginBySocialProviderArgs = {
-    idToken: Scalars["String"];
-    providerId: Scalars["String"];
+  idToken: Scalars['String'];
+  providerId: Scalars['String'];
 };
 
 export type PaginatedArtist = {
-    __typename?: "PaginatedArtist";
-    items: Array<Artist>;
-    meta: ArtistEdge;
+  __typename?: 'PaginatedArtist';
+  items: Array<Artist>;
+  meta: ArtistEdge;
 };
 
 export type PaginatedTrack = {
-    __typename?: "PaginatedTrack";
-    items: Array<Track>;
-    meta: TrackEdge;
+  __typename?: 'PaginatedTrack';
+  items: Array<Track>;
+  meta: TrackEdge;
 };
 
 export type Query = {
-    __typename?: "Query";
-    artists: PaginatedArtist;
-    artist: Artist;
-    track: Track;
-    album: Album;
-    whoAmI: User;
-    user: User;
+  __typename?: 'Query';
+  artists: PaginatedArtist;
+  artist: Artist;
+  track: Track;
+  album: Album;
+  whoAmI: User;
+  user: User;
 };
+
 
 export type QueryArtistsArgs = {
-    page?: Maybe<Scalars["Int"]>;
-    limit?: Maybe<Scalars["Int"]>;
+  page?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
 };
+
 
 export type QueryArtistArgs = {
-    id: Scalars["String"];
+  id: Scalars['String'];
 };
+
 
 export type QueryTrackArgs = {
-    id: Scalars["String"];
+  id: Scalars['String'];
 };
+
 
 export type QueryAlbumArgs = {
-    id: Scalars["String"];
+  id: Scalars['String'];
 };
 
+
 export type QueryUserArgs = {
-    id: Scalars["String"];
+  id: Scalars['String'];
 };
 
 export type SoundMeta = {
-    __typename?: "SoundMeta";
-    source: Scalars["String"];
-    length: Scalars["Float"];
+  __typename?: 'SoundMeta';
+  source: Scalars['String'];
+  length: Scalars['Float'];
 };
 
 export type Track = {
-    __typename?: "Track";
-    id: Scalars["ID"];
-    name: Scalars["String"];
-    albumId: Scalars["String"];
-    sound: Asset;
-    artists: Array<Artist>;
-    album: Album;
+  __typename?: 'Track';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  albumId: Scalars['String'];
+  sound: Asset;
+  artists: Array<Artist>;
+  isLiked: Scalars['Boolean'];
+  album: Album;
 };
 
 export type TrackEdge = {
-    __typename?: "TrackEdge";
-    itemCount: Scalars["Float"];
-    totalItems: Scalars["Float"];
-    itemsPerPage: Scalars["Float"];
-    totalPages: Scalars["Float"];
-    currentPage: Scalars["Float"];
+  __typename?: 'TrackEdge';
+  itemCount: Scalars['Float'];
+  totalItems: Scalars['Float'];
+  itemsPerPage: Scalars['Float'];
+  totalPages: Scalars['Float'];
+  currentPage: Scalars['Float'];
 };
 
 export type User = {
-    __typename?: "User";
-    id: Scalars["ID"];
-    name: Scalars["String"];
-    createdAt: Scalars["DateTime"];
-    updatedAt: Scalars["DateTime"];
+  __typename?: 'User';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type UserWithAccessToken = {
-    __typename?: "UserWithAccessToken";
-    user: User;
-    accessToken: Scalars["String"];
+  __typename?: 'UserWithAccessToken';
+  user: User;
+  accessToken: Scalars['String'];
 };

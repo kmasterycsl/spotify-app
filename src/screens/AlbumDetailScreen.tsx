@@ -17,15 +17,17 @@ import VerticalPadding from "../shared/components/VerticalPadding";
 import { usePlayerStore } from "../store/player.store";
 import { ImageMeta, Query } from "../types/graphql";
 import { RootStackParamList } from "../types/routes.types";
+import AlbumActions from "./album/AlbumActions";
 
 type AlbumDetailScreenRouteProp = RouteProp<RootStackParamList, "AlbumDetail">;
 
-const getAlbumById = gql`
+export const GET_ALBUM_BY_ID_QUERY = gql`
     query getAlbumById($id: String!) {
         album(id: $id) {
             id
             name
             type
+            isLiked
             description
             createdAt
             allArtists {
@@ -88,7 +90,7 @@ export default function AlbumDetailScreen() {
     );
     const { params } = useRoute<AlbumDetailScreenRouteProp>();
     const [loading, setLoading] = useState(false);
-    const { data, error, refetch } = useQuery<Query>(getAlbumById, {
+    const { data, error, refetch } = useQuery<Query>(GET_ALBUM_BY_ID_QUERY, {
         variables: {
             id: params.albumId,
         },
@@ -171,7 +173,7 @@ export default function AlbumDetailScreen() {
             </VStack>
             <HorizontalPadding>
                 <HStack justifyContent="space-between" alignItems="center">
-                    <Text>Info</Text>
+                    <AlbumActions album={data.album} />
                     {isPlaying && playingAlbumId === data.album.id ? (
                         <IconButton
                             size="sm"

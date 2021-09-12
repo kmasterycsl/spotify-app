@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { HStack, Icon, IconButton } from "native-base";
+import { Box, HStack, Icon, IconButton, Text } from "native-base";
 import React from "react";
 import shallow from "zustand/shallow";
 import { usePlayerStore } from "../../store/player.store";
@@ -8,11 +8,13 @@ import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPaddi
 export default function PlayerControls() {
     const [
         shuffle,
+        repeatMode,
         tracksQueue,
         playingIndex,
         soundControllerStatusIsLoaded,
         soundControllerStatusIsPlaying,
         actionToggleShuffleMode,
+        actionToggleRepeatMode,
         actionResume,
         actionPause,
         actionNext,
@@ -20,11 +22,13 @@ export default function PlayerControls() {
     ] = usePlayerStore(
         state => [
             state.shuffle,
+            state.repeatMode,
             state.tracksQueue,
             state.playingIndex,
             state.soundControllerStatus?.isLoaded,
             state.soundControllerStatus?.isLoaded && state.soundControllerStatus?.isPlaying,
             state.actionToggleShuffleMode,
+            state.actionToggleRepeatMode,
             state.actionResume,
             state.actionPause,
             state.actionNext,
@@ -39,6 +43,7 @@ export default function PlayerControls() {
             multiple={(1.5 + 4) / DEFAULT_HORIZONTAL_PADDING}
         >
             <HStack justifyContent="space-between" alignItems="center">
+                {/* shuffle */}
                 <IconButton
                     onPress={actionToggleShuffleMode}
                     icon={
@@ -49,11 +54,15 @@ export default function PlayerControls() {
                         />
                     }
                 ></IconButton>
+
+                {/* prev */}
                 <IconButton
                     onPress={actionPrev}
                     disabled={playingIndex === undefined ? true : playingIndex < 1}
                     icon={<Icon size="sm" as={<Ionicons name="play-skip-back" />} />}
                 ></IconButton>
+
+                {/* play/pause */}
                 {soundControllerStatusIsLoaded ? (
                     <>
                         {soundControllerStatusIsPlaying && (
@@ -76,6 +85,7 @@ export default function PlayerControls() {
                     ></IconButton>
                 )}
 
+                {/* next */}
                 <IconButton
                     onPress={actionNext}
                     disabled={
@@ -83,9 +93,49 @@ export default function PlayerControls() {
                     }
                     icon={<Icon size="sm" as={<Ionicons name="play-skip-forward" />} />}
                 ></IconButton>
-                <IconButton
-                    icon={<Icon size="sm" as={<Ionicons name="repeat-outline" />} />}
-                ></IconButton>
+
+                {/* repeat */}
+                {repeatMode === "none" && (
+                    <IconButton
+                        onPress={actionToggleRepeatMode}
+                        icon={<Icon size="sm" as={<Ionicons name="repeat-outline" />} />}
+                    ></IconButton>
+                )}
+                {repeatMode === "once" && (
+                    <IconButton
+                        onPress={actionToggleRepeatMode}
+                        icon={
+                            <Box position="relative">
+                                <Icon
+                                    size="sm"
+                                    color={"primary.500"}
+                                    as={<Ionicons name="repeat-outline" />}
+                                />
+                                <Text
+                                    position="absolute"
+                                    top={-6}
+                                    right={0}
+                                    fontSize="xs"
+                                    color="primary.500"
+                                >
+                                    1
+                                </Text>
+                            </Box>
+                        }
+                    ></IconButton>
+                )}
+                {repeatMode === "all" && (
+                    <IconButton
+                        onPress={actionToggleRepeatMode}
+                        icon={
+                            <Icon
+                                size="sm"
+                                color={"primary.500"}
+                                as={<Ionicons name="repeat-outline" />}
+                            />
+                        }
+                    ></IconButton>
+                )}
             </HStack>
         </HorizontalPadding>
     );

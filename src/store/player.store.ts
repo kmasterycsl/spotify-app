@@ -23,14 +23,16 @@ export interface PlayerState {
     actionPause: () => void;
     actionResume: () => void;
     actionToggleShuffleMode: () => void;
+    actionToggleRepeatMode: () => void;
     actionUpdatePosition: (position: number) => void;
     actionUpdatePositionPercentage: (percentage: number) => void;
     actionNext: () => void;
+    actionNextWithCheckRepeatMode: () => void;
     actionPrev: () => void;
 }
 
 const UPDATE_INTERVAL = 1000;
-const ENDING_CAP = 0.999;
+const ENDING_CAP = 0.995;
 
 const usePlayerStore = create<PlayerState>((set, get) => ({
     repeatMode: "none",
@@ -110,11 +112,13 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                     soundControllerStatus: playbackStatus,
                 });
                 if (playbackStatus.isLoaded) {
+                    console.log(playbackStatus.positionMillis, playbackStatus.durationMillis);
+
                     if (
                         playbackStatus.durationMillis &&
                         playbackStatus.positionMillis >= playbackStatus.durationMillis * ENDING_CAP
                     ) {
-                        state.actionNext();
+                        state.actionNextWithCheckRepeatMode();
                     }
                 }
             });
@@ -160,7 +164,27 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
         set(
             produce<PlayerState>(state => {
                 const nextIndex = (get().playingIndex || 0) + 1;
-                if (nextIndex <= get().tracksQueue.length - 1) {
+
+                if (nextIndex !== undefined && nextIndex <= get().tracksQueue.length - 1) {
+                    state.actionPlay(get().tracksQueue[nextIndex]);
+                }
+            })
+        ),
+    actionNextWithCheckRepeatMode: () =>
+        set(
+            produce<PlayerState>(state => {
+                let nextIndex;
+                if (state.repeatMode === 'none') {
+                    nextIndex = (get().playingIndex || 0) + 1;
+                }
+                else if (state.repeatMode === 'once') {
+                    nextIndex = (get().playingIndex || 0);
+                }
+                else if (state.repeatMode === 'all') {
+                    nextIndex = 0;
+                }
+
+                if (nextIndex !== undefined && nextIndex <= get().tracksQueue.length - 1) {
                     state.actionPlay(get().tracksQueue[nextIndex]);
                 }
             })
@@ -209,6 +233,20 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                             t => t.id === state.playingTrack!.id
                         );
                     }
+                }
+            })
+        ),
+    actionToggleRepeatMode: () =>
+        set(
+            produce<PlayerState>(state => {
+                if (state.repeatMode === 'none') {
+                    state.repeatMode = 'once';
+                }
+                else if (state.repeatMode === 'once') {
+                    state.repeatMode = 'all';
+                }
+                else if (state.repeatMode === 'all') {
+                    state.repeatMode = 'none';
                 }
             })
         ),

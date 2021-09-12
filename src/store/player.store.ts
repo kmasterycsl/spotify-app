@@ -112,8 +112,6 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                     soundControllerStatus: playbackStatus,
                 });
                 if (playbackStatus.isLoaded) {
-                    console.log(playbackStatus.positionMillis, playbackStatus.durationMillis);
-
                     if (
                         playbackStatus.durationMillis &&
                         playbackStatus.positionMillis >= playbackStatus.durationMillis * ENDING_CAP

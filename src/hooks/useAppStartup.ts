@@ -4,6 +4,7 @@ import { useCommonStore } from "../store/common.store";
 import { Query } from "../types/graphql";
 import useCustomFonts from "./useCustomFonts";
 import useDebugStore from "./useDebugStore";
+import useIgnoreLogs from "./useIgnoreLogs";
 
 export const WHOAMI_QUERY = gql`
     query whoAmI {
@@ -16,6 +17,7 @@ export const WHOAMI_QUERY = gql`
 
 export default function useAppStartup() {
     // useDebugStore();
+    useIgnoreLogs();
     const [done, setDone] = useState(false);
     const actionSetCurrentUser = useCommonStore(state => state.actionSetCurrentUser);
     const actionSetAccessToken = useCommonStore(state => state.actionSetAccessToken);

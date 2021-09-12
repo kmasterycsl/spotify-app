@@ -1,0 +1,15 @@
+module.exports = {
+    arrowParens: "avoid",
+    bracketSpacing: true,
+    jsxBracketSameLine: false,
+    jsxSingleQuote: false,
+    printWidth: 100,
+    quoteProps: "as-needed",
+    rangeStart: 0,
+    rangeEnd: Infinity,
+    semi: true,
+    singleQuote: false,
+    tabWidth: 4,
+    trailingComma: "es5",
+    useTabs: false,
+};

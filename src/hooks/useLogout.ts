@@ -1,7 +1,6 @@
 import { apolloClient } from "../config/apollo";
 import { useCommonStore } from "../store/common.store";
 
-
 export default function useLogout() {
     const actionSetCurrentUser = useCommonStore(state => state.actionSetCurrentUser);
     const actionSetAccessToken = useCommonStore(state => state.actionSetAccessToken);
@@ -12,8 +11,8 @@ export default function useLogout() {
         actionSetCurrentUser();
         actionSetAccessToken();
         actionSetToastMessage({
-            title: 'Logout successfully!',
-            status: 'info',
+            title: "Logout successfully!",
+            status: "info",
         });
-    }
+    };
 }

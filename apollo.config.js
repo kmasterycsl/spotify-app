@@ -1,11 +1,11 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  client: {
-    service: {
-      name: "open-spotify",
-      localSchemaFile: path.resolve(__dirname, 'schema.gql.json')
+    client: {
+        service: {
+            name: "open-spotify",
+            localSchemaFile: path.resolve(__dirname, "schema.gql.json"),
+        },
+        includes: ["src/**/*.gql", "src/**/*.ts", "src/**/*.tsx"],
     },
-    includes: ['src/**/*.gql', 'src/**/*.ts', 'src/**/*.tsx']
-  },
 };

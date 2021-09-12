@@ -5,13 +5,12 @@ import { WHOAMI_QUERY } from "../hooks/useAppStartup";
 import SafeAreaView from "../shared/components/SafeAreaView";
 import { Query } from "../types/graphql";
 
-
 export default function ProfileScreen() {
-  const { data } = useQuery<Query>(WHOAMI_QUERY, {});
+    const { data } = useQuery<Query>(WHOAMI_QUERY, {});
 
-  return (
-    <SafeAreaView>
-      <Text>{data?.whoAmI?.name || "NOT FOUND"}</Text>
-    </SafeAreaView>
-  );
+    return (
+        <SafeAreaView>
+            <Text>{data?.whoAmI?.name || "NOT FOUND"}</Text>
+        </SafeAreaView>
+    );
 }

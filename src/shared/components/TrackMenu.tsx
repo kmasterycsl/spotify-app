@@ -1,3 +1,5 @@
+import { useMutation } from "@apollo/client";
+import { gql } from "@apollo/client/core";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { Button, HStack, Icon, ScrollView, Text, VStack } from "native-base";
@@ -5,8 +7,9 @@ import React from "react";
 import { Modal, TouchableOpacity, useWindowDimensions } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
 import shallow from "zustand/shallow";
+import { useCommonStore } from "../../store/common.store";
 import { usePlayerStore } from "../../store/player.store";
-import { Track } from "../../types/graphql";
+import { Mutation, Track } from "../../types/graphql";
 import ArtistNames from "./ArtistNames";
 import FullWidthSquareImage from "./FullWidthSquareImage";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
@@ -19,7 +22,14 @@ interface TrackMenuProps {
     setVisible: (visible: boolean) => void;
 }
 
+const LIKE_MUTATION = gql`
+    mutation like($likeableType: LikeableType!, $likeableId: String!) {
+        like(likeableType: $likeableType, likeableId: $likeableId)
+    }
+`;
+
 export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps) {
+    const [doLike, { data, error }] = useMutation<Mutation>(LIKE_MUTATION);
     const [actionAddToQueue, actionRemoveFromQueue, trackInQueue] = usePlayerStore(
         state => [
             state.actionAddToQueue,
@@ -28,6 +38,8 @@ export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps
         ],
         shallow
     );
+    const actionSetToastMessage = useCommonStore(store => store.actionSetToastMessage);
+    const currentUser = useCommonStore(state => state.currentUser);
     const nav = useNavigation();
     const dimessions = useWindowDimensions();
 
@@ -39,6 +51,28 @@ export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps
     const onRemoveFromQueue = () => {
         actionRemoveFromQueue(track);
         setVisible(false);
+    };
+
+    const like = () => {
+        doLike({
+            variables: {
+                likeableId: track.id,
+                likeableType: "TRACK",
+            },
+        })
+            .then(res => {
+                actionSetToastMessage({
+                    title: "Liked",
+                    status: "info",
+                });
+            })
+            .catch(e => {
+                actionSetToastMessage({
+                    title: e.message,
+                    status: "error",
+                });
+                console.error(e);
+            });
     };
 
     const goToAlbum = () => {
@@ -82,6 +116,32 @@ export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps
 
                             {/* Actions */}
                             <VStack>
+                                {/* Like */}
+                                {currentUser && (
+                                    <>
+                                        <TouchableOpacity onPress={like}>
+                                            <HStack
+                                                px={DEFAULT_HORIZONTAL_PADDING}
+                                                alignItems="center"
+                                            >
+                                                <Icon
+                                                    size="sm"
+                                                    as={
+                                                        track.isLiked ? (
+                                                            <Ionicons name="heart" />
+                                                        ) : (
+                                                            <Ionicons name="heart-outline" />
+                                                        )
+                                                    }
+                                                ></Icon>
+                                                <Text ml={DEFAULT_HORIZONTAL_PADDING}>Like</Text>
+                                            </HStack>
+                                        </TouchableOpacity>
+                                        <VerticalPadding />
+                                    </>
+                                )}
+
+                                {/* Add/remove from queue */}
                                 {!trackInQueue ? (
                                     <TouchableOpacity onPress={onAddToQueue}>
                                         <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
@@ -108,6 +168,7 @@ export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps
                                     </TouchableOpacity>
                                 )}
                                 <VerticalPadding />
+                                {/* Go to album */}
                                 <TouchableOpacity onPress={goToAlbum}>
                                     <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
                                         <Icon

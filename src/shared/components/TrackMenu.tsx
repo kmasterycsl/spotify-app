@@ -7,6 +7,7 @@ import React from "react";
 import { Modal, TouchableOpacity, useWindowDimensions } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
 import shallow from "zustand/shallow";
+import { GET_ARTIST_BY_ID_QUERY } from "../../screens/ArtistDetailScreen";
 import { useCommonStore } from "../../store/common.store";
 import { usePlayerStore } from "../../store/player.store";
 import { Mutation, Track } from "../../types/graphql";
@@ -29,7 +30,9 @@ const LIKE_MUTATION = gql`
 `;
 
 export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps) {
-    const [doLike, { data, error }] = useMutation<Mutation>(LIKE_MUTATION);
+    const [doLike, { data, error }] = useMutation<Mutation>(LIKE_MUTATION, {
+        refetchQueries: [GET_ARTIST_BY_ID_QUERY],
+    });
     const [actionAddToQueue, actionRemoveFromQueue, trackInQueue] = usePlayerStore(
         state => [
             state.actionAddToQueue,
@@ -62,7 +65,7 @@ export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps
         })
             .then(res => {
                 actionSetToastMessage({
-                    title: "Liked",
+                    title: res.data?.like ? "Liked" : "Unliked",
                     status: "info",
                 });
             })

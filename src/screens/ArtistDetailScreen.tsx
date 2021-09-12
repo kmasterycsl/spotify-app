@@ -18,7 +18,7 @@ import ArtistStats from "./artist/ArtistStats";
 
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, "ArtistDetail">;
 
-const getArtistById = gql`
+export const GET_ARTIST_BY_ID_QUERY = gql`
     query getArtistById($id: String!, $page: Int!) {
         artist(id: $id) {
             id
@@ -101,7 +101,7 @@ export default function ArtistDetailScreen() {
         totalPages: Infinity,
     });
     const [loading, setLoading] = useState(false);
-    const { data, error, refetch, fetchMore } = useQuery<Query>(getArtistById, {
+    const { data, error, refetch, fetchMore } = useQuery<Query>(GET_ARTIST_BY_ID_QUERY, {
         variables: {
             id: params.artistId,
             page: 1,

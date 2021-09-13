@@ -1,11 +1,18 @@
-import { Text } from "native-base";
-import React, { useState } from "react";
-import { ActivityIndicator, TouchableOpacity } from "react-native";
+import { FlatList, Text } from "native-base";
+import React, { ReactNode, useState } from "react";
+import { ActivityIndicator, TouchableOpacity, ViewStyle } from "react-native";
 import DraggableFlatList, { RenderItemParams } from "react-native-draggable-flatlist";
 import { usePlayerStore } from "../../store/player.store";
 import { Track } from "../../types/graphql";
 import TracksListItem from "./TracksListItem";
 import VerticalPadding from "./VerticalPadding";
+import Animated, {
+    useSharedValue,
+    useAnimatedStyle,
+    useAnimatedScrollHandler,
+} from "react-native-reanimated";
+
+const AnimatedFlatlist = Animated.createAnimatedComponent(FlatList);
 
 export default function TracksList({
     tracks,
@@ -13,12 +20,18 @@ export default function TracksList({
     isLoading,
     isFinished,
     onReorderList,
+    headerComponent,
+    onScroll,
+    style,
 }: {
     tracks: Track[];
     onLoadMore: () => void;
     onReorderList?: (tracks: Track[]) => void;
     isLoading: boolean;
     isFinished: boolean;
+    onScroll?: any;
+    headerComponent?: React.ReactElement;
+    style?: ViewStyle;
 }) {
     const [callOnScrollEnd, setCallOnScrollEnd] = useState(false);
     const actionPlay = usePlayerStore(store => store.actionPlay);
@@ -27,22 +40,22 @@ export default function TracksList({
         actionPlay(track);
     };
 
-    const renderItem = (params: RenderItemParams<Track>) => (
-        <TouchableOpacity
-            onPress={() => onPressItem(params.item)}
-            onLongPress={onReorderList ? params.drag : undefined}
-        >
-            <TracksListItem track={params.item} index={params.index!}></TracksListItem>
+    const renderItem = ({ item, index }: { item: Track; index: number }) => (
+        <TouchableOpacity key={item.id} onPress={() => onPressItem(item)}>
+            <TracksListItem track={item} index={index!}></TracksListItem>
             <VerticalPadding />
         </TouchableOpacity>
     );
 
     return (
-        <DraggableFlatList
+        <AnimatedFlatlist
+            style={style}
+            onScroll={onScroll}
+            ListHeaderComponent={headerComponent}
             data={tracks}
+            scrollEventThrottle={16}
             renderItem={renderItem}
             keyExtractor={item => `draggable-item-${item.id}`}
-            onDragEnd={({ data }) => onReorderList && onReorderList(data)}
             initialNumToRender={10}
             onEndReached={() => setCallOnScrollEnd(true)}
             onMomentumScrollEnd={() => {

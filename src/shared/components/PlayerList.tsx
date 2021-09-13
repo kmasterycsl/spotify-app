@@ -3,6 +3,7 @@ import { Icon, IconButton, VStack } from "native-base";
 import React from "react";
 import { Modal } from "react-native";
 import { usePlayerStore } from "../../store/player.store";
+import DraggableTracksList from "./DraggableTrackList";
 import Empty from "./Empty";
 import SafeAreaView from "./SafeAreaView";
 import TracksList from "./TracksList";
@@ -29,7 +30,7 @@ export default function PlayerList({
 
                     {tracksQueue.length === 0 && <Empty text="Empty tracks queue" />}
 
-                    <TracksList
+                    <DraggableTracksList
                         onReorderList={actionUpdateQueue}
                         tracks={tracksQueue}
                         onLoadMore={() => {}}

@@ -1,17 +1,11 @@
 import { FlatList, Text, VStack } from "native-base";
-import React, { ReactNode, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, ViewStyle } from "react-native";
-import DraggableFlatList, { RenderItemParams } from "react-native-draggable-flatlist";
+import Animated from "react-native-reanimated";
 import { usePlayerStore } from "../../store/player.store";
 import { Track } from "../../types/graphql";
 import TracksListItem from "./TracksListItem";
 import VerticalPadding from "./VerticalPadding";
-import Animated, {
-    useSharedValue,
-    useAnimatedStyle,
-    useAnimatedScrollHandler,
-} from "react-native-reanimated";
-import { IFlatListProps } from "native-base/lib/typescript/components/basic/FlatList/types";
 
 const AnimatedFlatlist = Animated.createAnimatedComponent(FlatList);
 
@@ -29,7 +23,7 @@ export default function TracksList({
     isLoading: boolean;
     isFinished: boolean;
     onScroll?: any;
-    headerComponent?: React.ReactElement;
+    headerComponent?: React.ReactElement | null;
     styles?: {
         listContainer?: ViewStyle;
         footer?: ViewStyle;

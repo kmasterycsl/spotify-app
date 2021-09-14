@@ -44,6 +44,7 @@ export type Artist = {
   avatarImageId: Scalars['String'];
   avatarImage: Asset;
   tracks: PaginatedTrack;
+  isLiked: Scalars['Boolean'];
 };
 
 
@@ -82,6 +83,7 @@ export type ImageMeta = {
 export type LikeableType =
   | 'TRACK'
   | 'ALBUM'
+  | 'ARTIST'
   | 'PLAYLIST';
 
 export type Mutation = {

@@ -1,15 +1,51 @@
+import { useMutation } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { Button, HStack, Icon, Text, VStack } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import HorizontalPadding from "../../shared/components/HorizontalPadding";
+import { LIKE_MUTATION } from "../../shared/components/TrackMenu";
 import VerticalPadding from "../../shared/components/VerticalPadding";
+import { GET_ARTIST_BY_ID_QUERY } from "../../shared/queries/GET_ARTIST_BY_ID_QUERY";
+import { useCommonStore } from "../../store/common.store";
+import { Artist, Mutation } from "../../types/graphql";
 
 export interface IArtistStatsProps {
     onPressPlay: () => void;
+    artist: Artist;
 }
 
-export default function ArtistStats({ onPressPlay }: IArtistStatsProps) {
+export default function ArtistStats({ onPressPlay, artist }: IArtistStatsProps) {
+    const [doLike] = useMutation<Mutation>(LIKE_MUTATION, {
+        refetchQueries: [GET_ARTIST_BY_ID_QUERY],
+    });
+    const actionSetToastMessage = useCommonStore(store => store.actionSetToastMessage);
+    const currentUser = useCommonStore(state => state.currentUser);
+
+    const like = () => {
+        const liked = doLike({
+            variables: {
+                likeableId: artist.id,
+                likeableType: "ARTIST",
+            },
+        });
+
+        liked.then(res => {
+            actionSetToastMessage({
+                title: res.data?.like ? "Liked" : "Unliked",
+                status: "info",
+            });
+        });
+
+        liked.catch(e => {
+            actionSetToastMessage({
+                title: e.message,
+                status: "error",
+            });
+            console.error(e);
+        });
+    };
+
     return (
         <HorizontalPadding>
             <VerticalPadding>
@@ -18,9 +54,16 @@ export default function ArtistStats({ onPressPlay }: IArtistStatsProps) {
                         <Text fontSize="sm">
                             {Math.floor(Math.random() * 10000)} monthly listeners
                         </Text>
-                        <Button size="xs" alignSelf="flex-start">
-                            Follow
-                        </Button>
+                        {currentUser && (
+                            <Button
+                                size="xs"
+                                alignSelf="flex-start"
+                                onPress={like}
+                                variant={artist.isLiked ? "outline" : "solid"}
+                            >
+                                {artist.isLiked ? "Unfollow" : "Follow"}
+                            </Button>
+                        )}
                     </VStack>
                     <TouchableOpacity onPress={onPressPlay}>
                         <Icon as={<Ionicons name="play-circle-outline" size={48} />}></Icon>

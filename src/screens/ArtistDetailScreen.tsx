@@ -100,24 +100,25 @@ export default function ArtistDetailScreen() {
     };
 
     const ListHeaderComponent = useMemo(
-        () => (
-            <VStack>
-                <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-                    <Text fontSize="3xl" color="white">
-                        {data?.artist?.name}
-                    </Text>
-                </HorizontalPadding>
-                <VerticalPadding multiple={1} style={{ backgroundColor: "transparent" }} />
-                <ArtistStats onPressPlay={onPressPlay} />
-                <HorizontalPadding>
-                    <Text fontSize="lg" bold>
-                        Popular
-                    </Text>
-                </HorizontalPadding>
-                <VerticalPadding />
-            </VStack>
-        ),
-        [data?.artist?.name]
+        () =>
+            data?.artist ? (
+                <VStack>
+                    <HorizontalPadding style={{ backgroundColor: "transparent" }}>
+                        <Text fontSize="3xl" color="white">
+                            {data.artist.name}
+                        </Text>
+                    </HorizontalPadding>
+                    <VerticalPadding multiple={1} style={{ backgroundColor: "transparent" }} />
+                    <ArtistStats artist={data.artist} onPressPlay={onPressPlay} />
+                    <HorizontalPadding>
+                        <Text fontSize="lg" bold>
+                            Popular
+                        </Text>
+                    </HorizontalPadding>
+                    <VerticalPadding />
+                </VStack>
+            ) : null,
+        [data?.artist]
     );
 
     return data?.artist ? (

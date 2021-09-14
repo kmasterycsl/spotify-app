@@ -14,70 +14,13 @@ import PlayerBar from "../shared/components/PlayerBar";
 import SafeAreaView from "../shared/components/SafeAreaView";
 import TracksList from "../shared/components/TracksList";
 import VerticalPadding from "../shared/components/VerticalPadding";
+import { GET_ALBUM_BY_ID_QUERY } from "../shared/queries/GET_ALBUM_BY_ID_QUERY";
 import { usePlayerStore } from "../store/player.store";
 import { ImageMeta, Query } from "../types/graphql";
 import { RootStackParamList } from "../types/routes.types";
 import AlbumActions from "./album/AlbumActions";
 
 type AlbumDetailScreenRouteProp = RouteProp<RootStackParamList, "AlbumDetail">;
-
-export const GET_ALBUM_BY_ID_QUERY = gql`
-    query getAlbumById($id: String!) {
-        album(id: $id) {
-            id
-            name
-            type
-            isLiked
-            description
-            createdAt
-            allArtists {
-                id
-                name
-            }
-            coverImage {
-                id
-                meta {
-                    ... on ImageMeta {
-                        source
-                        width
-                        height
-                        dominantColor
-                    }
-                }
-            }
-            tracks {
-                id
-                name
-                sound {
-                    id
-                    meta {
-                        ... on SoundMeta {
-                            source
-                            length
-                        }
-                    }
-                }
-                artists {
-                    id
-                    name
-                }
-                album {
-                    id
-                    coverImage {
-                        id
-                        meta {
-                            ... on ImageMeta {
-                                source
-                                width
-                                height
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-`;
 
 export default function AlbumDetailScreen() {
     const insets = useSafeAreaInsets();

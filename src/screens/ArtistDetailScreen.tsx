@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { Box, HStack, Icon, Text, VStack } from "native-base";
+import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import Animated, {
@@ -20,6 +20,7 @@ import SafeAreaView from "../shared/components/SafeAreaView";
 import TracksList from "../shared/components/TracksList";
 import VerticalPadding from "../shared/components/VerticalPadding";
 import { GET_ARTIST_BY_ID_QUERY } from "../shared/queries/GET_ARTIST_BY_ID_QUERY";
+import { usePlayerStore } from "../store/player.store";
 import { ImageMeta, Query, TrackEdge } from "../types/graphql";
 import { RootStackParamList } from "../types/routes.types";
 import ArtistStats from "./artist/ArtistStats";
@@ -45,6 +46,12 @@ export default function ArtistDetailScreen() {
             page: 1,
         },
     });
+    const actionPlayArtist = usePlayerStore(store => store.actionPlayArtist);
+    const actionPause = usePlayerStore(store => store.actionPause);
+    const isPlaying = usePlayerStore(
+        state => state.soundControllerStatus?.isLoaded && state.soundControllerStatus.isPlaying
+    );
+    const playingArtistId = usePlayerStore(store => store.playingArtistId);
 
     useEffect(() => {
         refetch();
@@ -72,14 +79,9 @@ export default function ArtistDetailScreen() {
         nav.goBack();
     };
 
-    const onPressPlay = () => {
-        // if (!data) return;
-        // dispatch({
-        //   type: ActionTypes.ADD_TRACKS,
-        //   payload: {
-        //     tracks: data.artist.tracks.items || [],
-        //   },
-        // });
+    const onPlay = () => {
+        if (!data?.artist) return;
+        actionPlayArtist(data.artist.id, data.artist.tracks.items);
     };
 
     const onLoadMore = () => {
@@ -109,7 +111,36 @@ export default function ArtistDetailScreen() {
                         </Text>
                     </HorizontalPadding>
                     <VerticalPadding multiple={1} style={{ backgroundColor: "transparent" }} />
-                    <ArtistStats artist={data.artist} onPressPlay={onPressPlay} />
+                    <HorizontalPadding>
+                        <HStack w="100%" justifyContent="space-between">
+                            <ArtistStats artist={data.artist} />
+                            {isPlaying && playingArtistId === data.artist.id ? (
+                                <IconButton
+                                    size="sm"
+                                    variant="ghost"
+                                    onPress={actionPause}
+                                    icon={
+                                        <Icon
+                                            color="gray.400"
+                                            as={<Ionicons name="pause-circle-outline" />}
+                                        ></Icon>
+                                    }
+                                />
+                            ) : (
+                                <IconButton
+                                    size="sm"
+                                    variant="ghost"
+                                    onPress={onPlay}
+                                    icon={
+                                        <Icon
+                                            color="gray.400"
+                                            as={<Ionicons name="play-circle-outline" />}
+                                        ></Icon>
+                                    }
+                                />
+                            )}
+                        </HStack>
+                    </HorizontalPadding>
                     <HorizontalPadding>
                         <Text fontSize="lg" bold>
                             Popular
@@ -118,7 +149,7 @@ export default function ArtistDetailScreen() {
                     <VerticalPadding />
                 </VStack>
             ) : null,
-        [data?.artist]
+        [data?.artist, isPlaying, playingArtistId]
     );
 
     return data?.artist ? (

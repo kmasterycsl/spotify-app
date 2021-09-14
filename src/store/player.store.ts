@@ -1,5 +1,5 @@
 import { Audio, AVPlaybackStatus } from "expo-av";
-import { Album, Track } from "../types/graphql";
+import { Album, Artist, Track } from "../types/graphql";
 import create from "zustand";
 import produce from "immer";
 import _shuffle from "lodash.shuffle";
@@ -10,6 +10,7 @@ export interface PlayerState {
     playingIndex?: number;
     playingTrack?: Track;
     playingAlbumId?: string;
+    playingArtistId?: string;
     soundController?: Audio.Sound;
     soundControllerStatus?: AVPlaybackStatus;
     shuffle: boolean;
@@ -19,6 +20,7 @@ export interface PlayerState {
     actionRemoveFromQueue: (track: Track) => void;
     actionPlay: (track: Track) => void;
     actionPlayAlbum: (album: Album) => void;
+    actionPlayArtist: (artistId: string, tracks: Track[]) => void;
     actionUpdateQueue: (queue: Track[]) => void;
     actionPause: () => void;
     actionResume: () => void;
@@ -148,6 +150,26 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
             state.actionPlay(album.tracks[0]);
         }
     },
+    actionPlayArtist: async (artistId: string, tracks: Track[]) => {
+        const state = get();
+
+        // re-play same artist
+        if (artistId === state.playingArtistId) {
+            state.actionResume();
+        } else {
+            // play new artist
+            if (state.soundController) {
+                await state.soundController.unloadAsync();
+            }
+
+            set({
+                playingArtistId: artistId,
+                tracksQueue: tracks,
+            });
+
+            state.actionPlay(tracks[0]);
+        }
+    },
     actionUpdateQueue: (tracks: Track[]) =>
         set(
             produce<PlayerState>(state => {
@@ -172,13 +194,11 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
         set(
             produce<PlayerState>(state => {
                 let nextIndex;
-                if (state.repeatMode === 'none') {
+                if (state.repeatMode === "none") {
                     nextIndex = (get().playingIndex || 0) + 1;
-                }
-                else if (state.repeatMode === 'once') {
-                    nextIndex = (get().playingIndex || 0);
-                }
-                else if (state.repeatMode === 'all') {
+                } else if (state.repeatMode === "once") {
+                    nextIndex = get().playingIndex || 0;
+                } else if (state.repeatMode === "all") {
                     nextIndex = 0;
                 }
 
@@ -237,14 +257,12 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
     actionToggleRepeatMode: () =>
         set(
             produce<PlayerState>(state => {
-                if (state.repeatMode === 'none') {
-                    state.repeatMode = 'once';
-                }
-                else if (state.repeatMode === 'once') {
-                    state.repeatMode = 'all';
-                }
-                else if (state.repeatMode === 'all') {
-                    state.repeatMode = 'none';
+                if (state.repeatMode === "none") {
+                    state.repeatMode = "once";
+                } else if (state.repeatMode === "once") {
+                    state.repeatMode = "all";
+                } else if (state.repeatMode === "all") {
+                    state.repeatMode = "none";
                 }
             })
         ),

@@ -36,11 +36,12 @@ export default function PlayerBar() {
     );
 
     const [modalVisible, setModalVisible] = useState(false);
+    const bg = useColorModeValue("white", "black");
 
     if (!playingTrack) return null;
 
     return (
-        <VStack bg={useColorModeValue("white", "black")}>
+        <VStack bg={bg}>
             <Player visible={modalVisible} setVisible={setModalVisible} />
 
             <TouchableOpacity onPress={() => setModalVisible(true)}>

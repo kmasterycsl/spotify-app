@@ -1,5 +1,5 @@
 import { Audio, AVPlaybackStatus } from "expo-av";
-import { Album, Artist, Track } from "../types/graphql";
+import { Album, Track } from "../types/graphql";
 import create from "zustand";
 import produce from "immer";
 import _shuffle from "lodash.shuffle";
@@ -16,6 +16,7 @@ export interface PlayerState {
     shuffle: boolean;
     repeatMode: "none" | "once" | "all";
     tracksQueue: Track[];
+    actionBulkAddToQueue: (tracks: Track[]) => void;
     actionAddToQueue: (track: Track) => void;
     actionRemoveFromQueue: (track: Track) => void;
     actionPlay: (track: Track) => void;
@@ -56,6 +57,15 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                     });
                     state.tracksQueue.push(track);
                 }
+            })
+        ),
+    actionBulkAddToQueue: (tracks: Track[]) =>
+        set(
+            produce<PlayerState>(state => {
+                // @TODO: improve algo
+                const currentKeys = get().tracksQueue.map(t => t.id);
+                const pendindTracksToAdd = tracks.filter(t => !currentKeys.includes(t.id));
+                state.tracksQueue.push(...pendindTracksToAdd);
             })
         ),
     actionRemoveFromQueue: (track: Track) =>

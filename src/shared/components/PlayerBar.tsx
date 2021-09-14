@@ -1,5 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
-import { HStack, Icon, IconButton, Spinner, Text, VStack } from "native-base";
+import {
+    HStack,
+    Icon,
+    IconButton,
+    Spinner,
+    Text,
+    useColorMode,
+    useColorModeValue,
+    VStack,
+} from "native-base";
 import React, { useState } from "react";
 import { Image, TouchableOpacity } from "react-native";
 import shallow from "zustand/shallow";
@@ -31,7 +40,7 @@ export default function PlayerBar() {
     if (!playingTrack) return null;
 
     return (
-        <>
+        <VStack bg={useColorModeValue("white", "black")}>
             <Player visible={modalVisible} setVisible={setModalVisible} />
 
             <TouchableOpacity onPress={() => setModalVisible(true)}>
@@ -80,6 +89,6 @@ export default function PlayerBar() {
                 </HStack>
             </TouchableOpacity>
             <PlayerBarProgress />
-        </>
+        </VStack>
     );
 }

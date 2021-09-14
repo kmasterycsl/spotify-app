@@ -4,7 +4,11 @@ import { ViewStyle } from "react-native";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export default function VerticalPadding(
-    { multiple, style }: { multiple?: number; style?: ViewStyle } = {
+    {
+        multiple,
+        style,
+        children,
+    }: { multiple?: number; style?: ViewStyle; children?: React.ReactElement } = {
         multiple: 1,
     }
 ) {
@@ -15,6 +19,8 @@ export default function VerticalPadding(
             py={((multiple || 1) * DEFAULT_HORIZONTAL_PADDING) / 2}
             bgColor={bgColor}
             style={style}
-        ></Box>
+        >
+            {children}
+        </Box>
     );
 }

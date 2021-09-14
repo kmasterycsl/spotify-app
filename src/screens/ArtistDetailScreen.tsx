@@ -2,7 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Dimensions } from "react-native";
 import Animated, {
     useSharedValue,
@@ -20,84 +20,12 @@ import PlayerBar from "../shared/components/PlayerBar";
 import SafeAreaView from "../shared/components/SafeAreaView";
 import TracksList from "../shared/components/TracksList";
 import VerticalPadding from "../shared/components/VerticalPadding";
+import { GET_ARTIST_BY_ID_QUERY } from "../shared/queries/GET_ARTIST_BY_ID_QUERY";
 import { ImageMeta, Query, TrackEdge } from "../types/graphql";
 import { RootStackParamList } from "../types/routes.types";
 import ArtistStats from "./artist/ArtistStats";
 
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, "ArtistDetail">;
-
-export const GET_ARTIST_BY_ID_QUERY = gql`
-    query getArtistById($id: String!, $page: Int!) {
-        artist(id: $id) {
-            id
-            name
-            isVerified
-            biography
-            coverImage {
-                id
-                meta {
-                    ... on ImageMeta {
-                        source
-                        width
-                        height
-                        dominantColor
-                    }
-                }
-            }
-            avatarImage {
-                id
-                meta {
-                    ... on ImageMeta {
-                        source
-                        width
-                        height
-                        dominantColor
-                    }
-                }
-            }
-            tracks(page: $page, limit: 15) {
-                items {
-                    id
-                    name
-                    isLiked
-                    sound {
-                        id
-                        meta {
-                            ... on SoundMeta {
-                                source
-                                length
-                            }
-                        }
-                    }
-                    artists {
-                        id
-                        name
-                    }
-                    album {
-                        id
-                        coverImage {
-                            id
-                            meta {
-                                ... on ImageMeta {
-                                    source
-                                    width
-                                    height
-                                }
-                            }
-                        }
-                    }
-                }
-                meta {
-                    itemCount
-                    totalItems
-                    itemsPerPage
-                    totalPages
-                    currentPage
-                }
-            }
-        }
-    }
-`;
 
 const screenWidth = Dimensions.get("screen").width;
 
@@ -105,7 +33,6 @@ export default function ArtistDetailScreen() {
     const insets = useSafeAreaInsets();
     const nav = useNavigation();
     const { params } = useRoute<ProfileScreenRouteProp>();
-    // const { dispatch } = useContext(AppStateContext);
     const [paginationMeta, setPaginationMeta] = useState<
         Pick<TrackEdge, "currentPage" | "totalPages">
     >({
@@ -135,11 +62,6 @@ export default function ArtistDetailScreen() {
     const stylez = useAnimatedStyle(() => {
         return {
             opacity: 1 - translationY.value / screenWidth,
-            // transform: [
-            //     {
-            //         scale: 1 - translationY.value / 600,
-            //     },
-            // ],
         };
     });
 
@@ -186,6 +108,27 @@ export default function ArtistDetailScreen() {
             });
     };
 
+    const headerComponent = useMemo(
+        () => (
+            <VStack>
+                <HorizontalPadding style={{ backgroundColor: "transparent" }}>
+                    <Text fontSize="3xl" color="white">
+                        {data?.artist?.name}
+                    </Text>
+                </HorizontalPadding>
+                <VerticalPadding multiple={1} style={{ backgroundColor: "transparent" }} />
+                <ArtistStats onPressPlay={onPressPlay} />
+                <HorizontalPadding>
+                    <Text fontSize="lg" bold>
+                        Popular
+                    </Text>
+                </HorizontalPadding>
+                <VerticalPadding />
+            </VStack>
+        ),
+        [data?.artist?.name]
+    );
+
     return data?.artist ? (
         <SafeAreaView style={{ flex: 1, position: "relative" }} edges={["bottom"]}>
             <Animated.View
@@ -220,7 +163,6 @@ export default function ArtistDetailScreen() {
                             top: insets.top,
                             left: _DEFAULT_HORIZONTAL_PADDING,
                         },
-                        // styleBackIcon,
                     ]}
                 >
                     <Animated.View
@@ -233,6 +175,7 @@ export default function ArtistDetailScreen() {
                         ]}
                     >
                         <Icon
+                            onPress={goBack}
                             size={5}
                             color="gray.400"
                             as={<Ionicons name="chevron-back-outline" />}
@@ -248,42 +191,29 @@ export default function ArtistDetailScreen() {
             </Animated.View>
 
             <TracksList
-                style={{
-                    position: "absolute",
-                    paddingTop: screenWidth - 40,
-                    paddingBottom: 500,
-                    top: 0,
-                    left: 0,
-                    height: "100%",
-                    zIndex: 2,
+                styles={{
+                    listContainer: {
+                        position: "absolute",
+                        paddingTop: screenWidth - 40,
+                        top: 0,
+                        left: 0,
+                        height: "100%",
+                        zIndex: 2,
+                    },
+                    footer: {
+                        paddingBottom: screenWidth + 80 - 40, // + playerbar
+                    },
                 }}
                 onScroll={scrollHandler}
-                headerComponent={
-                    <>
-                        <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-                            <Text fontSize="3xl" color="white">
-                                {data.artist.name}
-                            </Text>
-                            <VerticalPadding
-                                multiple={2}
-                                style={{ backgroundColor: "transparent" }}
-                            />
-                        </HorizontalPadding>
-                        <ArtistStats onPressPlay={onPressPlay} />
-                        <HorizontalPadding>
-                            <Text fontSize="lg" bold>
-                                Popular
-                            </Text>
-                        </HorizontalPadding>
-                        <VerticalPadding />
-                    </>
-                }
+                headerComponent={headerComponent}
                 isFinished={paginationMeta.currentPage >= paginationMeta.totalPages}
                 isLoading={loading}
                 onLoadMore={onLoadMore}
                 tracks={data.artist.tracks.items}
             />
-            <PlayerBar />
+            <Box style={{ position: "absolute", zIndex: 4, bottom: insets.bottom, width: "100%" }}>
+                <PlayerBar />
+            </Box>
         </SafeAreaView>
     ) : null;
 }

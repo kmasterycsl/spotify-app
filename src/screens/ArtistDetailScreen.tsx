@@ -56,23 +56,17 @@ export default function ArtistDetailScreen() {
         scrollOffsetY.value = event.contentOffset.y;
     });
 
-    const coverImgStyle = useAnimatedStyle(() => {
-        return {
-            opacity: 1 - scrollOffsetY.value / screenWidth,
-        };
-    });
+    const coverImgStyle = useAnimatedStyle(() => ({
+        opacity: 1 - scrollOffsetY.value / screenWidth,
+    }));
 
-    const hiddenHeaderStyle = useAnimatedStyle(() => {
-        return {
-            opacity: (scrollOffsetY.value * 1.4) / screenWidth,
-        };
-    });
+    const hiddenHeaderStyle = useAnimatedStyle(() => ({
+        opacity: (scrollOffsetY.value * 1.4) / screenWidth,
+    }));
 
-    const backIconStyle = useAnimatedProps(() => {
-        return {
-            backgroundColor: scrollOffsetY.value / screenWidth > 0.5 ? "transparent" : "gray",
-        };
-    });
+    const backIconStyle = useAnimatedProps(() => ({
+        backgroundColor: scrollOffsetY.value / screenWidth > 0.5 ? "transparent" : "gray",
+    }));
 
     const goBack = () => {
         nav.goBack();
@@ -92,17 +86,17 @@ export default function ArtistDetailScreen() {
         if (loading) return;
         if (paginationMeta.currentPage >= paginationMeta.totalPages) return;
         setLoading(true);
-        fetchMore({
+        const fetched = fetchMore({
             variables: {
                 page: paginationMeta.currentPage + 1,
             },
-        })
-            .then(({ data }) => {
-                setPaginationMeta(data.artist.tracks.meta);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+        });
+        fetched.then(({ data }) => {
+            setPaginationMeta(data.artist.tracks.meta);
+        });
+        fetched.finally(() => {
+            setLoading(false);
+        });
     };
 
     const ListHeaderComponent = useMemo(

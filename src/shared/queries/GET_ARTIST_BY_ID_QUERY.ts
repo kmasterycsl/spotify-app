@@ -4,6 +4,7 @@ export const GET_ARTIST_BY_ID_QUERY = gql`
     query getArtistById($id: String!, $page: Int!) {
         artist(id: $id) {
             id
+            isLiked
             name
             isVerified
             biography

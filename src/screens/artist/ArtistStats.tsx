@@ -1,8 +1,6 @@
 import { useMutation } from "@apollo/client";
-import { Ionicons } from "@expo/vector-icons";
-import { Button, HStack, Icon, Text, VStack } from "native-base";
+import { Button, HStack, Text, VStack } from "native-base";
 import React from "react";
-import { TouchableOpacity } from "react-native";
 import HorizontalPadding from "../../shared/components/HorizontalPadding";
 import { LIKE_MUTATION } from "../../shared/components/TrackMenu";
 import VerticalPadding from "../../shared/components/VerticalPadding";
@@ -11,11 +9,10 @@ import { useCommonStore } from "../../store/common.store";
 import { Artist, Mutation } from "../../types/graphql";
 
 export interface IArtistStatsProps {
-    onPressPlay: () => void;
     artist: Artist;
 }
 
-export default function ArtistStats({ onPressPlay, artist }: IArtistStatsProps) {
+export default function ArtistStats({ artist }: IArtistStatsProps) {
     const [doLike] = useMutation<Mutation>(LIKE_MUTATION, {
         refetchQueries: [GET_ARTIST_BY_ID_QUERY],
     });
@@ -47,29 +44,22 @@ export default function ArtistStats({ onPressPlay, artist }: IArtistStatsProps) 
     };
 
     return (
-        <HorizontalPadding>
-            <VerticalPadding>
-                <HStack justifyContent="space-between">
-                    <VStack space={2}>
-                        <Text fontSize="sm">
-                            {Math.floor(Math.random() * 10000)} monthly listeners
-                        </Text>
-                        {currentUser && (
-                            <Button
-                                size="xs"
-                                alignSelf="flex-start"
-                                onPress={like}
-                                variant={artist.isLiked ? "outline" : "solid"}
-                            >
-                                {artist.isLiked ? "Unfollow" : "Follow"}
-                            </Button>
-                        )}
-                    </VStack>
-                    <TouchableOpacity onPress={onPressPlay}>
-                        <Icon as={<Ionicons name="play-circle-outline" size={48} />}></Icon>
-                    </TouchableOpacity>
-                </HStack>
-            </VerticalPadding>
-        </HorizontalPadding>
+        <VerticalPadding>
+            <HStack justifyContent="space-between">
+                <VStack space={2}>
+                    <Text fontSize="sm">{Math.floor(Math.random() * 10000)} monthly listeners</Text>
+                    {currentUser && (
+                        <Button
+                            size="xs"
+                            alignSelf="flex-start"
+                            onPress={like}
+                            variant={artist.isLiked ? "outline" : "solid"}
+                        >
+                            {artist.isLiked ? "Unfollow" : "Follow"}
+                        </Button>
+                    )}
+                </VStack>
+            </HStack>
+        </VerticalPadding>
     );
 }

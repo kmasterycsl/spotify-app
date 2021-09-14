@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
@@ -46,6 +46,16 @@ export default function ArtistDetailScreen() {
             page: 1,
         },
     });
+    const [getFullData, { data: fullData }] = useLazyQuery<Query>(GET_ARTIST_BY_ID_QUERY, {
+        variables: {
+            id: params.artistId,
+            page: 1,
+            limit: 100000,
+        },
+        fetchPolicy: "no-cache",
+    });
+    const [waitingToAdd, setWaitingToAdd] = useState(false);
+    const actionBulkAddToQueue = usePlayerStore(store => store.actionBulkAddToQueue);
     const actionPlayArtist = usePlayerStore(store => store.actionPlayArtist);
     const actionPause = usePlayerStore(store => store.actionPause);
     const isPlaying = usePlayerStore(
@@ -75,13 +85,24 @@ export default function ArtistDetailScreen() {
         backgroundColor: scrollOffsetY.value / screenWidth > 0.5 ? "transparent" : "gray",
     }));
 
+    useEffect(() => {
+        if (waitingToAdd && fullData) {
+            actionBulkAddToQueue(fullData.artist.tracks.items);
+            setWaitingToAdd(false);
+        }
+    }, [waitingToAdd, fullData]);
+
     const goBack = () => {
         nav.goBack();
     };
 
     const onPlay = () => {
         if (!data?.artist) return;
+        // add current loaded
         actionPlayArtist(data.artist.id, data.artist.tracks.items);
+        // then fetch all and add later
+        setWaitingToAdd(true);
+        getFullData();
     };
 
     const onLoadMore = () => {
@@ -99,6 +120,7 @@ export default function ArtistDetailScreen() {
         fetched.finally(() => {
             setLoading(false);
         });
+        return fetched;
     };
 
     const ListHeaderComponent = useMemo(

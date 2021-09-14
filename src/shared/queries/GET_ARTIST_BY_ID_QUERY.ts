@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_ARTIST_BY_ID_QUERY = gql`
-    query getArtistById($id: String!, $page: Int!) {
+    query getArtistById($id: String!, $page: Int!, $limit: Int = 15) {
         artist(id: $id) {
             id
             isLiked
@@ -30,7 +30,7 @@ export const GET_ARTIST_BY_ID_QUERY = gql`
                     }
                 }
             }
-            tracks(page: $page, limit: 15) {
+            tracks(page: $page, limit: $limit) {
                 items {
                     id
                     name

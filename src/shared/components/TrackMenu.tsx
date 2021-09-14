@@ -57,25 +57,27 @@ export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps
     };
 
     const like = () => {
-        doLike({
+        const liked = doLike({
             variables: {
                 likeableId: track.id,
                 likeableType: "TRACK",
             },
-        })
-            .then(res => {
-                actionSetToastMessage({
-                    title: res.data?.like ? "Liked" : "Unliked",
-                    status: "info",
-                });
-            })
-            .catch(e => {
-                actionSetToastMessage({
-                    title: e.message,
-                    status: "error",
-                });
-                console.error(e);
+        });
+
+        liked.then(res => {
+            actionSetToastMessage({
+                title: res.data?.like ? "Liked" : "Unliked",
+                status: "info",
             });
+        });
+
+        liked.catch(e => {
+            actionSetToastMessage({
+                title: e.message,
+                status: "error",
+            });
+            console.error(e);
+        });
     };
 
     const goToAlbum = () => {

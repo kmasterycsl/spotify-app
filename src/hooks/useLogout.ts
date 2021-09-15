@@ -1,5 +1,5 @@
-import { apolloClient } from "../config/apollo";
-import { useCommonStore } from "../store/common.store";
+import { apolloClient } from "@/config/apollo";
+import { useCommonStore } from "@/store/common.store";
 
 export default function useLogout() {
     const actionSetCurrentUser = useCommonStore(state => state.actionSetCurrentUser);

@@ -3,10 +3,10 @@ import Ionicons from "@expo/vector-icons/build/Ionicons";
 import { HStack, Icon } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { LIKE_MUTATION } from "../../shared/components/TrackMenu";
-import { GET_ALBUM_BY_ID_QUERY } from "../../shared/queries/GET_ALBUM_BY_ID_QUERY";
-import { useCommonStore } from "../../store/common.store";
-import { Album, Mutation } from "../../types/graphql";
+import { LIKE_MUTATION } from "@/shared/components/TrackMenu";
+import { GET_ALBUM_BY_ID_QUERY } from "@/shared/queries/GET_ALBUM_BY_ID_QUERY";
+import { useCommonStore } from "@/store/common.store";
+import { Album, Mutation } from "@/types/graphql";
 
 export interface IAlbumActionsProp {
     album: Album;

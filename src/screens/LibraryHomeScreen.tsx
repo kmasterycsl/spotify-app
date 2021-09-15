@@ -1,3 +1,4 @@
+import VerticalPadding from "@/shared/components/VerticalPadding";
 import { gql, useQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/core";
 import { Text } from "native-base";
@@ -5,13 +6,12 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { RenderItemParams } from "react-native-draggable-flatlist";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import AlbumListItem, { AlbumListItemFragment } from "../shared/components/AlbumListItem";
-import ArtistListItem, { ArtistListItemFragment } from "../shared/components/ArtistListItem";
-import InfiniteFlatList from "../shared/components/InfiniteFlatlist";
-import SafeAreaView from "../shared/components/SafeAreaView";
-import TracksListItem, { TrackListItemFragment } from "../shared/components/TrackListItem";
-import VerticalPadding from "../shared/components/VerticalPadding";
-import { Likeable, Query, TrackEdge } from "../types/graphql";
+import AlbumListItem, { AlbumListItemFragment } from "@/shared/components/AlbumListItem";
+import ArtistListItem, { ArtistListItemFragment } from "@/shared/components/ArtistListItem";
+import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
+import SafeAreaView from "@/shared/components/SafeAreaView";
+import TracksListItem, { TrackListItemFragment } from "@/shared/components/TrackListItem";
+import { Likeable, Query, TrackEdge } from "@/types/graphql";
 
 export const GET_LIKEABLES_QUERY = gql`
     ${AlbumListItemFragment}

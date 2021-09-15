@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import LibraryHomeScreen from "../screens/LibraryHomeScreen";
-import { RootStackParamList } from "../types/routes.types";
+import LibraryHomeScreen from "@/screens/LibraryHomeScreen";
+import { RootStackParamList } from "@/types/routes.types";
 
 const LibraryStack = createNativeStackNavigator<RootStackParamList>();
 

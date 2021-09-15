@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { useNavigation } from "@react-navigation/core";
 import { HStack, Text } from "native-base";
 import React from "react";
-import { Artist } from "../../types/graphql";
+import { Artist } from "@/types/graphql";
 
 export const ArtistNamesFragment = gql`
     fragment ArtistNamesFragment on Artist {

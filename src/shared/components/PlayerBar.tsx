@@ -12,7 +12,7 @@ import {
 import React, { useState } from "react";
 import { Image, TouchableOpacity } from "react-native";
 import shallow from "zustand/shallow";
-import { usePlayerStore } from "../../store/player.store";
+import { usePlayerStore } from "@/store/player.store";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 import Player from "./Player";
 import PlayerBarProgress from "./PlayerBarProgress";

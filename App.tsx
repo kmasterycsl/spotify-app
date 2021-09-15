@@ -8,7 +8,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { apolloClient } from "./src/config/apollo";
 import theme, { colorModeManager } from "./src/config/theme";
 import useAppStartup from "./src/hooks/useAppStartup";
-import MainStack from "./src/routers/main-stack";
+import MainTab from "./src/routers/main-tab";
 import GlobalToast from "./src/shared/components/GlobalToast";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -34,7 +34,7 @@ function AppBoostraper() {
 
     return (
         <SafeAreaProvider>
-            <MainStack />
+            <MainTab />
             <GlobalToast />
         </SafeAreaProvider>
     );

@@ -1,23 +1,38 @@
+import { gql } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { Box, HStack, Icon, IconButton, Text, useTheme, VStack } from "native-base";
 import React from "react";
 import { useState } from "react";
 import { Image, ViewStyle } from "react-native";
 import { usePlayerStore } from "../../store/player.store";
-import { ImageMeta, Track } from "../../types/graphql";
-import ArtistNames from "./ArtistNames";
+import { ImageMeta, Artist } from "../../types/graphql";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
-import TrackMenu from "./TrackMenu";
 
-export interface ITracksListItemProps {
-    track: Track;
-    index: number;
+export interface IArtistsListItemProps {
+    artist: Artist;
+    index?: number;
     style?: ViewStyle;
 }
 
-export default React.memo(function TracksListItem({ track, index, style }: ITracksListItemProps) {
+export const ArtistListItemFragment = gql`
+    fragment ArtistListItemFragment on Artist {
+        id
+        name
+        avatarImage {
+            meta {
+                ... on ImageMeta {
+                    source
+                    width
+                    height
+                }
+            }
+        }
+    }
+`;
+
+export default React.memo(function ArtistListItem({ artist, style }: IArtistsListItemProps) {
     const [menuVisible, setMenuVisible] = useState(false);
-    const playingTrack = usePlayerStore(state => state.playingTrack);
+    const playingArtistId = usePlayerStore(state => state.playingArtistId);
 
     const onOpenMenu = () => {
         setMenuVisible(true);
@@ -26,29 +41,26 @@ export default React.memo(function TracksListItem({ track, index, style }: ITrac
     return (
         <HorizontalPadding>
             <HStack alignItems="center" style={style} space={DEFAULT_HORIZONTAL_PADDING}>
-                <HStack minWidth={DEFAULT_HORIZONTAL_PADDING} justifyContent="flex-start">
-                    <Text fontFamily="mono">{(index + 1).toString().padStart(2, "0")}</Text>
-                </HStack>
                 <Image
                     style={{
                         width: 50,
                         height: 50,
                     }}
                     source={{
-                        uri: (track.album.coverImage.meta as ImageMeta).source,
+                        uri: (artist.avatarImage.meta as ImageMeta).source,
                     }}
                 ></Image>
                 <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
-                    {playingTrack?.id === track.id ? (
+                    {playingArtistId === artist.id ? (
                         <Text bold color="primary.500">
-                            {track.name}
+                            {artist.name}
                         </Text>
                     ) : (
-                        <Text bold>{track.name}</Text>
+                        <Text bold>{artist.name}</Text>
                     )}
-                    <Box pt={1} overflow="hidden">
-                        <ArtistNames artists={track.artists} />
-                    </Box>
+                    {/* <Box pt={1} overflow="hidden">
+                        <ArtistNames artists={artist.artists} />
+                    </Box> */}
                 </VStack>
                 <IconButton
                     variant="ghost"
@@ -56,7 +68,6 @@ export default React.memo(function TracksListItem({ track, index, style }: ITrac
                     icon={<Icon size="xs" as={<Ionicons name="ellipsis-horizontal-outline" />} />}
                 />
             </HStack>
-            <TrackMenu track={track} visible={menuVisible} setVisible={setMenuVisible} />
         </HorizontalPadding>
     );
 });

@@ -1,30 +1,35 @@
-import React, { useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import SafeAreaView from "../shared/components/SafeAreaView";
 import { gql, useQuery } from "@apollo/client";
-import { Likeable, Query, Track, TrackEdge } from "../types/graphql";
-import { useCommonStore } from "../store/common.store";
-import { RenderItemParams } from "react-native-draggable-flatlist";
-import TracksListItem from "../shared/components/TracksListItem";
-import VerticalPadding from "../shared/components/VerticalPadding";
-import InfiniteFlatList from "../shared/components/InfiniteFlatlist";
+import { useNavigation } from "@react-navigation/core";
 import { Text } from "native-base";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { RenderItemParams } from "react-native-draggable-flatlist";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import AlbumListItem, { AlbumListItemFragment } from "../shared/components/AlbumListItem";
+import ArtistListItem, { ArtistListItemFragment } from "../shared/components/ArtistListItem";
+import InfiniteFlatList from "../shared/components/InfiniteFlatlist";
+import SafeAreaView from "../shared/components/SafeAreaView";
+import TracksListItem, { TrackListItemFragment } from "../shared/components/TrackListItem";
+import VerticalPadding from "../shared/components/VerticalPadding";
+import { Likeable, Query, TrackEdge } from "../types/graphql";
 
 export const GET_LIKEABLES_QUERY = gql`
+    ${AlbumListItemFragment}
+    ${TrackListItemFragment}
+    ${ArtistListItemFragment}
     query getLikeables($page: Int!, $limit: Int = 15) {
         likeables(page: $page, limit: $limit) {
             items {
                 likeableId
                 likeableType
                 album {
-                    name
+                    ...AlbumListItemFragment
                 }
                 track {
-                    name
+                    ...TrackListItemFragment
                 }
                 artist {
-                    name
+                    ...ArtistListItemFragment
                 }
             }
             meta {
@@ -40,6 +45,7 @@ export const GET_LIKEABLES_QUERY = gql`
 
 export default function LibraryHomeScreen() {
     const insets = useSafeAreaInsets();
+    const navigation = useNavigation();
     const [paginationMeta, setPaginationMeta] = useState<
         Pick<TrackEdge, "currentPage" | "totalPages">
     >({
@@ -53,6 +59,14 @@ export default function LibraryHomeScreen() {
             page: 1,
         },
     });
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener("focus", () => {
+            refetch();
+        });
+
+        return unsubscribe;
+    }, []);
 
     const onLoadMore = () => {
         if (loading) return;
@@ -75,6 +89,9 @@ export default function LibraryHomeScreen() {
     const renderItem = (params: RenderItemParams<Likeable>) => (
         <TouchableOpacity>
             <Text>{params.item.likeableType}</Text>
+            {params.item.track && <TracksListItem track={params.item.track} />}
+            {params.item.album && <AlbumListItem album={params.item.album} />}
+            {params.item.artist && <ArtistListItem artist={params.item.artist} />}
             <VerticalPadding />
         </TouchableOpacity>
     );

@@ -4,7 +4,7 @@ import { ActivityIndicator, TouchableOpacity, ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
 import { usePlayerStore } from "../../store/player.store";
 import { Track } from "../../types/graphql";
-import TracksListItem from "./TracksListItem";
+import TracksListItem from "./TrackListItem";
 import VerticalPadding from "./VerticalPadding";
 
 const AnimatedFlatlist = Animated.createAnimatedComponent(FlatList);

@@ -7,15 +7,15 @@ import LoginScreen from "../screens/LoginScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import AlbumDetailScreen from "../screens/AlbumDetailScreen";
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const HomeStack = createNativeStackNavigator<RootStackParamList>();
 
-export default function MainStack() {
+export default function HomeStackScreen() {
     return (
-        <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={HomeScreen} options={{ header: () => null }} />
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
-            <Stack.Screen
+        <HomeStack.Navigator initialRouteName="Home">
+            <HomeStack.Screen name="Home" component={HomeScreen} options={{ header: () => null }} />
+            <HomeStack.Screen name="Login" component={LoginScreen} />
+            <HomeStack.Screen name="Profile" component={ProfileScreen} />
+            <HomeStack.Screen
                 name="ArtistDetail"
                 component={ArtistDetailScreen}
                 options={{
@@ -23,7 +23,7 @@ export default function MainStack() {
                     headerShown: false,
                 }}
             />
-            <Stack.Screen
+            <HomeStack.Screen
                 name="AlbumDetail"
                 component={AlbumDetailScreen}
                 options={{
@@ -31,6 +31,6 @@ export default function MainStack() {
                     headerShown: false,
                 }}
             />
-        </Stack.Navigator>
+        </HomeStack.Navigator>
     );
 }

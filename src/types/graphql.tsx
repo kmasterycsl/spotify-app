@@ -80,6 +80,27 @@ export type ImageMeta = {
   height: Scalars['Float'];
 };
 
+export type Likeable = {
+  __typename?: 'Likeable';
+  likeableId: Scalars['String'];
+  likeableType: Scalars['String'];
+  userId: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  album?: Maybe<Album>;
+  artist?: Maybe<Artist>;
+  track?: Maybe<Track>;
+};
+
+export type LikeableEdge = {
+  __typename?: 'LikeableEdge';
+  itemCount: Scalars['Float'];
+  totalItems: Scalars['Float'];
+  itemsPerPage: Scalars['Float'];
+  totalPages: Scalars['Float'];
+  currentPage: Scalars['Float'];
+};
+
 export type LikeableType =
   | 'TRACK'
   | 'ALBUM'
@@ -110,6 +131,12 @@ export type PaginatedArtist = {
   meta: ArtistEdge;
 };
 
+export type PaginatedLikeable = {
+  __typename?: 'PaginatedLikeable';
+  items: Array<Likeable>;
+  meta: LikeableEdge;
+};
+
 export type PaginatedTrack = {
   __typename?: 'PaginatedTrack';
   items: Array<Track>;
@@ -121,6 +148,7 @@ export type Query = {
   artists: PaginatedArtist;
   artist: Artist;
   track: Track;
+  likeables: PaginatedLikeable;
   album: Album;
   whoAmI: User;
   user: User;
@@ -140,6 +168,12 @@ export type QueryArtistArgs = {
 
 export type QueryTrackArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryLikeablesArgs = {
+  page?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
 };
 
 

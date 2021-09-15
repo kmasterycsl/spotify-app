@@ -1,5 +1,5 @@
 import { Audio, AVPlaybackStatus } from "expo-av";
-import { Album, Track } from "../types/graphql";
+import { Album, Track } from "@/types/graphql";
 import create from "zustand";
 import produce from "immer";
 import _shuffle from "lodash.shuffle";

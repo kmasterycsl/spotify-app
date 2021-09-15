@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStackScreen from "./home-stack";
 import LibraryStackScreen from "./library-stack";
-import { useCommonStore } from "../store/common.store";
+import { useCommonStore } from "@/store/common.store";
 
 function SettingsScreen() {
     return (

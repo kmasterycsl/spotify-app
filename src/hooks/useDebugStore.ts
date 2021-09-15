@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { usePlayerStore } from "../store/player.store";
+import { usePlayerStore } from "@/store/player.store";
 import shallow from "zustand/shallow";
 
 export default function useDebugStore() {

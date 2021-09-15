@@ -6,18 +6,18 @@ import { HStack, Icon, IconButton, Image, Text, VStack } from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import ArtistNames from "../shared/components/ArtistNames";
+import ArtistNames from "@/shared/components/ArtistNames";
 import HorizontalPadding, {
     DEFAULT_HORIZONTAL_PADDING,
-} from "../shared/components/HorizontalPadding";
-import PlayerBar from "../shared/components/PlayerBar";
-import SafeAreaView from "../shared/components/SafeAreaView";
-import TracksList from "../shared/components/TracksList";
-import VerticalPadding from "../shared/components/VerticalPadding";
-import { GET_ALBUM_BY_ID_QUERY } from "../shared/queries/GET_ALBUM_BY_ID_QUERY";
-import { usePlayerStore } from "../store/player.store";
-import { ImageMeta, Query } from "../types/graphql";
-import { RootStackParamList } from "../types/routes.types";
+} from "@/shared/components/HorizontalPadding";
+import PlayerBar from "@/shared/components/PlayerBar";
+import SafeAreaView from "@/shared/components/SafeAreaView";
+import TracksList from "@/shared/components/TracksList";
+import VerticalPadding from "@/shared/components/VerticalPadding";
+import { GET_ALBUM_BY_ID_QUERY } from "@/shared/queries/GET_ALBUM_BY_ID_QUERY";
+import { usePlayerStore } from "@/store/player.store";
+import { ImageMeta, Query } from "@/types/graphql";
+import { RootStackParamList } from "@/types/routes.types";
 import AlbumActions from "./album/AlbumActions";
 
 type AlbumDetailScreenRouteProp = RouteProp<RootStackParamList, "AlbumDetail">;

@@ -3,9 +3,9 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, Button } from "react-native";
 import { useColorMode, useToast } from "native-base";
-import PlayerBar from "../shared/components/PlayerBar";
-import useLogout from "../hooks/useLogout";
-import { useCommonStore } from "../store/common.store";
+import PlayerBar from "@/shared/components/PlayerBar";
+import useLogout from "@/hooks/useLogout";
+import { useCommonStore } from "@/store/common.store";
 
 export default function HomeScreen() {
     const navigation = useNavigation();

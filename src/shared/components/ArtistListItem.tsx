@@ -4,8 +4,8 @@ import { Box, HStack, Icon, IconButton, Text, useTheme, VStack } from "native-ba
 import React from "react";
 import { useState } from "react";
 import { Image, ViewStyle } from "react-native";
-import { usePlayerStore } from "../../store/player.store";
-import { ImageMeta, Artist } from "../../types/graphql";
+import { usePlayerStore } from "@/store/player.store";
+import { ImageMeta, Artist } from "@/types/graphql";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export interface IArtistsListItemProps {

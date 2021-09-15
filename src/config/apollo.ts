@@ -1,8 +1,8 @@
 import { ApolloClient, createHttpLink, from, InMemoryCache } from "@apollo/client";
-import { PaginatedTrack } from "../types/graphql";
+import { PaginatedTrack } from "@/types/graphql";
 import Constants from "expo-constants";
 import { setContext } from "@apollo/client/link/context";
-import { useCommonStore } from "../store/common.store";
+import { useCommonStore } from "@/store/common.store";
 import { onError } from "@apollo/client/link/error";
 
 const httpLink = createHttpLink({

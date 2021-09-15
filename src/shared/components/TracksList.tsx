@@ -2,8 +2,8 @@ import { FlatList, Text, VStack } from "native-base";
 import React, { useCallback, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
-import { usePlayerStore } from "../../store/player.store";
-import { Track } from "../../types/graphql";
+import { usePlayerStore } from "@/store/player.store";
+import { Track } from "@/types/graphql";
 import TracksListItem from "./TrackListItem";
 import VerticalPadding from "./VerticalPadding";
 

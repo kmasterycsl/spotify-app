@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
 import React, { useState } from "react";
 import { Modal } from "react-native";
-import { usePlayerStore } from "../../store/player.store";
+import { usePlayerStore } from "@/store/player.store";
 import PlayerTimeline from "./PlayerTimeline";
 import FullWidthSquareImage from "./FullWidthSquareImage";
 import HorizontalPadding, {

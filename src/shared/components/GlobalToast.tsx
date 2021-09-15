@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Toast from "react-native-root-toast";
 import { useTheme } from "native-base";
-import { useCommonStore } from "../../store/common.store";
+import { useCommonStore } from "@/store/common.store";
 
 export default function GlobalToast() {
     const toastMessage = useCommonStore(store => store.toastMessage);

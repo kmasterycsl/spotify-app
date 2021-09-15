@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Icon, IconButton, VStack } from "native-base";
 import React from "react";
 import { Modal } from "react-native";
-import { usePlayerStore } from "../../store/player.store";
+import { usePlayerStore } from "@/store/player.store";
 import DraggableTracksList from "./DraggableTrackList";
 import Empty from "./Empty";
 import SafeAreaView from "./SafeAreaView";

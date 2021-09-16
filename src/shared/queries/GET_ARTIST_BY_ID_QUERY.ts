@@ -1,6 +1,12 @@
 import { gql } from "@apollo/client";
+import { ImageMetaFragment } from "../fragments/image-meta.fragment";
+import { PaginationFragment } from "../fragments/pagination.fragment";
+import { SoundMetaFragment } from "../fragments/sound-meta.fragment";
 
 export const GET_ARTIST_BY_ID_QUERY = gql`
+    ${PaginationFragment}
+    ${ImageMetaFragment}
+    ${SoundMetaFragment}
     query getArtistById($id: String!, $page: Int!, $limit: Int = 15) {
         artist(id: $id) {
             id
@@ -11,22 +17,14 @@ export const GET_ARTIST_BY_ID_QUERY = gql`
             coverImage {
                 id
                 meta {
-                    ... on ImageMeta {
-                        source
-                        width
-                        height
-                        dominantColor
-                    }
+                    ...ImageMetaFragment
                 }
             }
             avatarImage {
                 id
                 meta {
                     ... on ImageMeta {
-                        source
-                        width
-                        height
-                        dominantColor
+                        ...ImageMetaFragment
                     }
                 }
             }
@@ -38,10 +36,7 @@ export const GET_ARTIST_BY_ID_QUERY = gql`
                     sound {
                         id
                         meta {
-                            ... on SoundMeta {
-                                source
-                                length
-                            }
+                            ...SoundMetaFragment
                         }
                     }
                     artists {
@@ -53,21 +48,13 @@ export const GET_ARTIST_BY_ID_QUERY = gql`
                         coverImage {
                             id
                             meta {
-                                ... on ImageMeta {
-                                    source
-                                    width
-                                    height
-                                }
+                                ...ImageMetaFragment
                             }
                         }
                     }
                 }
-                meta {
-                    itemCount
-                    totalItems
-                    itemsPerPage
-                    totalPages
-                    currentPage
+                pageInfo {
+                    ...PaginationFragment
                 }
             }
         }

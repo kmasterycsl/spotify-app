@@ -49,13 +49,13 @@ const apolloCache = new InMemoryCache({
                 tracks: {
                     keyArgs: false,
                     merge(existing: PaginatedTrack | undefined, incoming: PaginatedTrack) {
-                        if (existing?.meta.currentPage === incoming.meta.currentPage) {
+                        if (existing?.pageInfo.currentPage === incoming.pageInfo.currentPage) {
                             return existing;
                         }
 
                         return {
                             items: [...(existing?.items || []), ...incoming.items],
-                            meta: incoming.meta,
+                            pageInfo: incoming.pageInfo,
                         };
                     },
                 },

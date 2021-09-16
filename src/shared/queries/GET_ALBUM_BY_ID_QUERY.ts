@@ -1,6 +1,10 @@
 import { gql } from "@apollo/client";
+import { ImageMetaFragment } from "../fragments/image-meta.fragment";
+import { SoundMetaFragment } from "../fragments/sound-meta.fragment";
 
 export const GET_ALBUM_BY_ID_QUERY = gql`
+    ${ImageMetaFragment}
+    ${SoundMetaFragment}
     query getAlbumById($id: String!) {
         album(id: $id) {
             id
@@ -16,12 +20,7 @@ export const GET_ALBUM_BY_ID_QUERY = gql`
             coverImage {
                 id
                 meta {
-                    ... on ImageMeta {
-                        source
-                        width
-                        height
-                        dominantColor
-                    }
+                    ...ImageMetaFragment
                 }
             }
             tracks {
@@ -30,10 +29,7 @@ export const GET_ALBUM_BY_ID_QUERY = gql`
                 sound {
                     id
                     meta {
-                        ... on SoundMeta {
-                            source
-                            length
-                        }
+                        ...SoundMetaFragment
                     }
                 }
                 artists {
@@ -45,11 +41,7 @@ export const GET_ALBUM_BY_ID_QUERY = gql`
                     coverImage {
                         id
                         meta {
-                            ... on ImageMeta {
-                                source
-                                width
-                                height
-                            }
+                            ...ImageMetaFragment
                         }
                     }
                 }

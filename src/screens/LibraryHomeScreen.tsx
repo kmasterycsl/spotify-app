@@ -11,12 +11,14 @@ import ArtistListItem, { ArtistListItemFragment } from "@/shared/components/Arti
 import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import TracksListItem, { TrackListItemFragment } from "@/shared/components/TrackListItem";
-import { Likeable, Query, TrackEdge } from "@/types/graphql";
+import { Likeable, PaginationMeta, Query } from "@/types/graphql";
+import { PaginationFragment } from "@/shared/fragments/pagination.fragment";
 
 export const GET_LIKEABLES_QUERY = gql`
     ${AlbumListItemFragment}
     ${TrackListItemFragment}
     ${ArtistListItemFragment}
+    ${PaginationFragment}
     query getLikeables($page: Int!, $limit: Int = 15) {
         likeables(page: $page, limit: $limit) {
             items {
@@ -32,12 +34,8 @@ export const GET_LIKEABLES_QUERY = gql`
                     ...ArtistListItemFragment
                 }
             }
-            meta {
-                itemCount
-                totalItems
-                itemsPerPage
-                totalPages
-                currentPage
+            pageInfo {
+                ...PaginationFragment
             }
         }
     }
@@ -47,7 +45,7 @@ export default function LibraryHomeScreen() {
     const insets = useSafeAreaInsets();
     const navigation = useNavigation();
     const [paginationMeta, setPaginationMeta] = useState<
-        Pick<TrackEdge, "currentPage" | "totalPages">
+        Pick<PaginationMeta, "currentPage" | "totalPages">
     >({
         currentPage: 1,
         totalPages: Infinity,
@@ -78,7 +76,7 @@ export default function LibraryHomeScreen() {
             },
         });
         fetched.then(({ data }) => {
-            setPaginationMeta(data.likeables.meta);
+            setPaginationMeta(data.likeables.pageInfo);
         });
         fetched.finally(() => {
             setLoading(false);

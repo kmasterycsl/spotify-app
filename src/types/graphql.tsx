@@ -53,15 +53,6 @@ export type ArtistTracksArgs = {
   limit?: Maybe<Scalars['Int']>;
 };
 
-export type ArtistEdge = {
-  __typename?: 'ArtistEdge';
-  itemCount: Scalars['Float'];
-  totalItems: Scalars['Float'];
-  itemsPerPage: Scalars['Float'];
-  totalPages: Scalars['Float'];
-  currentPage: Scalars['Float'];
-};
-
 export type Asset = {
   __typename?: 'Asset';
   id: Scalars['ID'];
@@ -92,15 +83,6 @@ export type Likeable = {
   track?: Maybe<Track>;
 };
 
-export type LikeableEdge = {
-  __typename?: 'LikeableEdge';
-  itemCount: Scalars['Float'];
-  totalItems: Scalars['Float'];
-  itemsPerPage: Scalars['Float'];
-  totalPages: Scalars['Float'];
-  currentPage: Scalars['Float'];
-};
-
 export type LikeableType =
   | 'TRACK'
   | 'ALBUM'
@@ -128,19 +110,28 @@ export type MutationLoginBySocialProviderArgs = {
 export type PaginatedArtist = {
   __typename?: 'PaginatedArtist';
   items: Array<Artist>;
-  meta: ArtistEdge;
+  pageInfo: PaginationMeta;
 };
 
 export type PaginatedLikeable = {
   __typename?: 'PaginatedLikeable';
   items: Array<Likeable>;
-  meta: LikeableEdge;
+  pageInfo: PaginationMeta;
 };
 
 export type PaginatedTrack = {
   __typename?: 'PaginatedTrack';
   items: Array<Track>;
-  meta: TrackEdge;
+  pageInfo: PaginationMeta;
+};
+
+export type PaginationMeta = {
+  __typename?: 'PaginationMeta';
+  itemCount: Scalars['Float'];
+  totalItems: Scalars['Float'];
+  itemsPerPage: Scalars['Float'];
+  totalPages: Scalars['Float'];
+  currentPage: Scalars['Float'];
 };
 
 export type Query = {
@@ -201,15 +192,6 @@ export type Track = {
   artists: Array<Artist>;
   isLiked: Scalars['Boolean'];
   album: Album;
-};
-
-export type TrackEdge = {
-  __typename?: 'TrackEdge';
-  itemCount: Scalars['Float'];
-  totalItems: Scalars['Float'];
-  itemsPerPage: Scalars['Float'];
-  totalPages: Scalars['Float'];
-  currentPage: Scalars['Float'];
 };
 
 export type User = {

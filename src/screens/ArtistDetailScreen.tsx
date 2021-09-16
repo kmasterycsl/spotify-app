@@ -21,7 +21,7 @@ import TracksList from "@/shared/components/TracksList";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_ARTIST_BY_ID_QUERY } from "@/shared/queries/GET_ARTIST_BY_ID_QUERY";
 import { usePlayerStore } from "@/store/player.store";
-import { ImageMeta, Query, TrackEdge } from "@/types/graphql";
+import { ImageMeta, PaginationMeta, Query } from "@/types/graphql";
 import { RootStackParamList } from "@/types/routes.types";
 import ArtistStats from "./artist/ArtistStats";
 
@@ -34,7 +34,7 @@ export default function ArtistDetailScreen() {
     const nav = useNavigation();
     const { params } = useRoute<ProfileScreenRouteProp>();
     const [paginationMeta, setPaginationMeta] = useState<
-        Pick<TrackEdge, "currentPage" | "totalPages">
+        Pick<PaginationMeta, "currentPage" | "totalPages">
     >({
         currentPage: 1,
         totalPages: Infinity,
@@ -115,7 +115,7 @@ export default function ArtistDetailScreen() {
             },
         });
         fetched.then(({ data }) => {
-            setPaginationMeta(data.artist.tracks.meta);
+            setPaginationMeta(data.artist.tracks.pageInfo);
         });
         fetched.finally(() => {
             setLoading(false);

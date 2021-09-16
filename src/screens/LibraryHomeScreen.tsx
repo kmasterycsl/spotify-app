@@ -11,13 +11,16 @@ import ArtistListItem, { ArtistListItemFragment } from "@/shared/components/Arti
 import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import TracksListItem, { TrackListItemFragment } from "@/shared/components/TrackListItem";
-import { Likeable, PaginationMeta, Query } from "@/types/graphql";
+import { Album, Artist, Likeable, PaginationMeta, Query } from "@/types/graphql";
 import { PaginationFragment } from "@/shared/fragments/pagination.fragment";
+import { usePlayerStore } from "@/store/player.store";
+import { SoundMetaFragment } from "@/shared/fragments/sound-meta.fragment";
 
 export const GET_LIKEABLES_QUERY = gql`
     ${AlbumListItemFragment}
     ${TrackListItemFragment}
     ${ArtistListItemFragment}
+    ${SoundMetaFragment}
     ${PaginationFragment}
     query getLikeables($page: Int!, $limit: Int = 15) {
         likeables(page: $page, limit: $limit) {
@@ -29,6 +32,11 @@ export const GET_LIKEABLES_QUERY = gql`
                 }
                 track {
                     ...TrackListItemFragment
+                    sound {
+                        meta {
+                            ...SoundMetaFragment
+                        }
+                    }
                 }
                 artist {
                     ...ArtistListItemFragment
@@ -44,6 +52,7 @@ export const GET_LIKEABLES_QUERY = gql`
 export default function LibraryHomeScreen() {
     const insets = useSafeAreaInsets();
     const navigation = useNavigation();
+    const actionPlay = usePlayerStore(store => store.actionPlay);
     const [paginationMeta, setPaginationMeta] = useState<
         Pick<PaginationMeta, "currentPage" | "totalPages">
     >({
@@ -84,24 +93,43 @@ export default function LibraryHomeScreen() {
         return fetched;
     };
 
+    const goToAlbum = (album: Album) => {
+        navigation.navigate("AlbumDetail", { albumId: album.id });
+    };
+
+    const goToArtist = (artist: Artist) => {
+        navigation.navigate("ArtistDetail", { artistId: artist.id });
+    };
+
     const renderItem = (params: RenderItemParams<Likeable>) => (
-        <TouchableOpacity>
-            <Text>{params.item.likeableType}</Text>
-            {params.item.track && <TracksListItem track={params.item.track} />}
-            {params.item.album && <AlbumListItem album={params.item.album} />}
-            {params.item.artist && <ArtistListItem artist={params.item.artist} />}
+        <>
+            {params.item.track && (
+                <TouchableOpacity onPress={() => actionPlay(params.item.track!)}>
+                    <TracksListItem showType hideMenu track={params.item.track} />
+                </TouchableOpacity>
+            )}
+            {params.item.album && (
+                <TouchableOpacity onPress={() => goToAlbum(params.item.album!)}>
+                    <AlbumListItem album={params.item.album} />
+                </TouchableOpacity>
+            )}
+            {params.item.artist && (
+                <TouchableOpacity onPress={() => goToArtist(params.item.artist!)}>
+                    <ArtistListItem artist={params.item.artist} />
+                </TouchableOpacity>
+            )}
             <VerticalPadding />
-        </TouchableOpacity>
+        </>
     );
 
     return (
-        <SafeAreaView style={styles.container} edges={["bottom"]}>
+        <SafeAreaView style={styles.container}>
             <InfiniteFlatList
                 data={data?.likeables?.items || []}
                 renderItem={renderItem}
                 onLoadMore={onLoadMore}
                 isLoading={loading}
-                isFinished={paginationMeta.currentPage >= paginationMeta.totalPages}
+                isFinished={false}
                 keyExtractor={item => item.likeableType + item.likeableId}
             />
         </SafeAreaView>

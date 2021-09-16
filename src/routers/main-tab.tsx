@@ -1,10 +1,56 @@
 import * as React from "react";
-import { Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStackScreen from "./home-stack";
 import LibraryStackScreen from "./library-stack";
 import { useCommonStore } from "@/store/common.store";
+import { Ionicons } from "@expo/vector-icons";
+import { useColorModeValue, useTheme, Text } from "native-base";
+
+function getTabIconName(screenName: string, props: any): React.ReactNode {
+    let iconName: typeof Ionicons["name"];
+    switch (screenName) {
+        case "HomeStack":
+            iconName = `home${props.focused ? "-sharp" : "-outline"}`;
+            break;
+        case "Search":
+            iconName = `search${props.focused ? "-sharp" : "-outline"}`;
+            break;
+        case "Library":
+            iconName = `library${props.focused ? "-sharp" : "-outline"}`;
+            break;
+        default:
+            iconName = "ios-information-circle";
+            break;
+    }
+
+    return <Ionicons name={iconName as any} size={18} color={props.color} />;
+}
+
+function getTabName(screenName: string, props: any): React.ReactNode {
+    switch (screenName) {
+        case "HomeStack":
+            return (
+                <Text fontSize="sm" color={props.color}>
+                    Home
+                </Text>
+            );
+        case "Search":
+            return (
+                <Text fontSize="sm" color={props.color}>
+                    Search
+                </Text>
+            );
+        case "Library":
+            return (
+                <Text fontSize="sm" color={props.color}>
+                    Library
+                </Text>
+            );
+        default:
+            return <Text></Text>;
+    }
+}
 
 function SettingsScreen() {
     return (
@@ -18,9 +64,21 @@ const Tab = createBottomTabNavigator();
 
 export default function MainTab() {
     const currentUser = useCommonStore(state => state.currentUser);
+    const bg = useColorModeValue("white", "black");
+    const { colors } = useTheme();
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: props => getTabIconName(route.name, props),
+                tabBarActiveTintColor: colors.primary["300"],
+                tabBarStyle: {
+                    backgroundColor: bg,
+                    paddingTop: 10,
+                },
+                tabBarLabel: props => getTabName(route.name, props),
+            })}
+        >
             <Tab.Screen name="HomeStack" component={HomeStackScreen} />
             <Tab.Screen name="Search" component={SettingsScreen} />
             {currentUser && <Tab.Screen name="Library" component={LibraryStackScreen} />}

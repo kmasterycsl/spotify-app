@@ -7,6 +7,7 @@ import { Image, ViewStyle } from "react-native";
 import { usePlayerStore } from "@/store/player.store";
 import { ImageMeta, Artist } from "@/types/graphql";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
+import { ImageMetaFragment } from "../fragments/image-meta.fragment";
 
 export interface IArtistsListItemProps {
     artist: Artist;
@@ -15,16 +16,13 @@ export interface IArtistsListItemProps {
 }
 
 export const ArtistListItemFragment = gql`
+    ${ImageMetaFragment}
     fragment ArtistListItemFragment on Artist {
         id
         name
         avatarImage {
             meta {
-                ... on ImageMeta {
-                    source
-                    width
-                    height
-                }
+                ...ImageMetaFragment
             }
         }
     }
@@ -58,15 +56,17 @@ export default React.memo(function ArtistListItem({ artist, style }: IArtistsLis
                     ) : (
                         <Text bold>{artist.name}</Text>
                     )}
-                    {/* <Box pt={1} overflow="hidden">
-                        <ArtistNames artists={artist.artists} />
-                    </Box> */}
+                    <Box pt={1} overflow="hidden">
+                        <Text fontSize="xs" color="gray.200">
+                            Artist
+                        </Text>
+                    </Box>
                 </VStack>
-                <IconButton
+                {/* <IconButton
                     variant="ghost"
                     onPress={onOpenMenu}
                     icon={<Icon size="xs" as={<Ionicons name="ellipsis-horizontal-outline" />} />}
-                />
+                /> */}
             </HStack>
         </HorizontalPadding>
     );

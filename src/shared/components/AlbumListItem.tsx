@@ -1,11 +1,11 @@
-import { gql } from "@apollo/client";
-import { Ionicons } from "@expo/vector-icons";
-import { Box, HStack, Icon, IconButton, Text, useTheme, VStack } from "native-base";
-import React from "react";
-import { useState } from "react";
-import { Image, ViewStyle } from "react-native";
 import { usePlayerStore } from "@/store/player.store";
-import { ImageMeta, Album } from "@/types/graphql";
+import { Album, ImageMeta } from "@/types/graphql";
+import { gql } from "@apollo/client";
+import { Box, HStack, Text, VStack } from "native-base";
+import React, { useState } from "react";
+import { Image, ViewStyle } from "react-native";
+import { ImageMetaFragment } from "../fragments/image-meta.fragment";
+import ArtistNames from "./ArtistNames";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export interface IAlbumsListItemProps {
@@ -15,16 +15,17 @@ export interface IAlbumsListItemProps {
 }
 
 export const AlbumListItemFragment = gql`
+    ${ImageMetaFragment}
     fragment AlbumListItemFragment on Album {
         id
         name
+        allArtists {
+            id
+            name
+        }
         coverImage {
             meta {
-                ... on ImageMeta {
-                    source
-                    width
-                    height
-                }
+                ...ImageMetaFragment
             }
         }
     }
@@ -52,21 +53,25 @@ export default React.memo(function AlbumListItem({ album, style }: IAlbumsListIt
                 ></Image>
                 <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
                     {playingAlbumId === album.id ? (
-                        <Text bold color="primary.500">
+                        <Text numberOfLines={1} bold color="primary.500">
                             {album.name}
                         </Text>
                     ) : (
-                        <Text bold>{album.name}</Text>
+                        <Text numberOfLines={1} bold>
+                            {album.name}
+                        </Text>
                     )}
-                    {/* <Box pt={1} overflow="hidden">
-                        <ArtistNames artists={album.artists} />
-                    </Box> */}
+                    <Box pt={1} overflow="hidden">
+                        <Text fontSize="xs" color="gray.200">
+                            Album · <ArtistNames artists={album.allArtists} />
+                        </Text>
+                    </Box>
                 </VStack>
-                <IconButton
+                {/* <IconButton
                     variant="ghost"
                     onPress={onOpenMenu}
                     icon={<Icon size="xs" as={<Ionicons name="ellipsis-horizontal-outline" />} />}
-                />
+                /> */}
             </HStack>
         </HorizontalPadding>
     );

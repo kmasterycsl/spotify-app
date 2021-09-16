@@ -9,26 +9,26 @@ import { ImageMeta, Track } from "@/types/graphql";
 import ArtistNames, { ArtistNamesFragment } from "./ArtistNames";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 import TrackMenu from "./TrackMenu";
+import { ImageMetaFragment } from "../fragments/image-meta.fragment";
 
 export interface ITracksListItemProps {
     track: Track;
     index?: number;
     style?: ViewStyle;
+    hideMenu?: boolean;
+    showType?: boolean;
 }
 
 export const TrackListItemFragment = gql`
     ${ArtistNamesFragment}
+    ${ImageMetaFragment}
     fragment TrackListItemFragment on Track {
         id
         name
         album {
             coverImage {
                 meta {
-                    ... on ImageMeta {
-                        source
-                        width
-                        height
-                    }
+                    ...ImageMetaFragment
                 }
             }
         }
@@ -38,7 +38,13 @@ export const TrackListItemFragment = gql`
     }
 `;
 
-export default React.memo(function TracksListItem({ track, index, style }: ITracksListItemProps) {
+export default React.memo(function TracksListItem({
+    track,
+    index,
+    style,
+    hideMenu,
+    showType,
+}: ITracksListItemProps) {
     const [menuVisible, setMenuVisible] = useState(false);
     const playingTrack = usePlayerStore(state => state.playingTrack);
 
@@ -72,14 +78,21 @@ export default React.memo(function TracksListItem({ track, index, style }: ITrac
                         <Text bold>{track.name}</Text>
                     )}
                     <Box pt={1} overflow="hidden">
-                        <ArtistNames artists={track.artists} />
+                        <Text>
+                            {showType && <Text fontSize="xs">Song · </Text>}
+                            <ArtistNames artists={track.artists} />
+                        </Text>
                     </Box>
                 </VStack>
-                <IconButton
-                    variant="ghost"
-                    onPress={onOpenMenu}
-                    icon={<Icon size="xs" as={<Ionicons name="ellipsis-horizontal-outline" />} />}
-                />
+                {!hideMenu && (
+                    <IconButton
+                        variant="ghost"
+                        onPress={onOpenMenu}
+                        icon={
+                            <Icon size="xs" as={<Ionicons name="ellipsis-horizontal-outline" />} />
+                        }
+                    />
+                )}
             </HStack>
             <TrackMenu track={track} visible={menuVisible} setVisible={setMenuVisible} />
         </HorizontalPadding>

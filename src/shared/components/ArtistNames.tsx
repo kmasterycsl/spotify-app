@@ -19,7 +19,7 @@ export default function ArtistNames({ artists, color }: { artists: Artist[]; col
     };
 
     return (
-        <HStack>
+        <Text>
             {artists.map((artist, index) => (
                 <Text key={artist.id}>
                     <Text fontSize="xs" color={color} onPress={() => goToArtist(artist)}>
@@ -27,11 +27,11 @@ export default function ArtistNames({ artists, color }: { artists: Artist[]; col
                     </Text>
                     {index !== artists.length - 1 && (
                         <Text fontSize="xs" color={color}>
-                            {", "}
+                            {" · "}
                         </Text>
                     )}
                 </Text>
             ))}
-        </HStack>
+        </Text>
     );
 }

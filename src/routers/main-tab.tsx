@@ -16,7 +16,7 @@ function getTabIconName(screenName: string, props: any): React.ReactNode {
         case "Search":
             iconName = `search${props.focused ? "-sharp" : "-outline"}`;
             break;
-        case "Library":
+        case "LibraryStack":
             iconName = `library${props.focused ? "-sharp" : "-outline"}`;
             break;
         default:
@@ -41,7 +41,7 @@ function getTabName(screenName: string, props: any): React.ReactNode {
                     Search
                 </Text>
             );
-        case "Library":
+        case "LibraryStack":
             return (
                 <Text fontSize="sm" color={props.color}>
                     Library
@@ -77,11 +77,12 @@ export default function MainTab() {
                     paddingTop: 10,
                 },
                 tabBarLabel: props => getTabName(route.name, props),
+                header: () => null,
             })}
         >
             <Tab.Screen name="HomeStack" component={HomeStackScreen} />
             <Tab.Screen name="Search" component={SettingsScreen} />
-            {currentUser && <Tab.Screen name="Library" component={LibraryStackScreen} />}
+            {currentUser && <Tab.Screen name="LibraryStack" component={LibraryStackScreen} />}
         </Tab.Navigator>
     );
 }

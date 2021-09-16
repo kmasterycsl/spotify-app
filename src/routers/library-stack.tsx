@@ -7,7 +7,10 @@ const LibraryStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function LibraryStackScreen() {
     return (
-        <LibraryStack.Navigator initialRouteName="LibraryHome">
+        <LibraryStack.Navigator
+            initialRouteName="LibraryHome"
+            screenOptions={{ header: () => null }}
+        >
             <LibraryStack.Screen name="LibraryHome" component={LibraryHomeScreen} />
         </LibraryStack.Navigator>
     );

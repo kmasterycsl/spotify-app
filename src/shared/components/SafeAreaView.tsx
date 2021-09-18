@@ -10,10 +10,10 @@ export default function SafeAreaView({ style, ...rest }: NativeSafeAreaViewProps
     return (
         <BaseSafeAreaView
             style={[
-                style,
                 {
                     backgroundColor: bg,
                 },
+                style,
             ]}
             {...rest}
         />

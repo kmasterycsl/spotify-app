@@ -10,6 +10,8 @@ import ArtistNames, { ArtistNamesFragment } from "./ArtistNames";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 import TrackMenu from "./TrackMenu";
 import { ImageMetaFragment } from "../fragments/image-meta.fragment";
+import TrackArtists from "./TrackArtists";
+import { useNavigation } from "@react-navigation/core";
 
 export interface ITracksListItemProps {
     track: Track;
@@ -46,10 +48,27 @@ export default React.memo(function TracksListItem({
     showType,
 }: ITracksListItemProps) {
     const [menuVisible, setMenuVisible] = useState(false);
+    const [viewArtistsVisible, setViewArtistsVisible] = useState(false);
     const playingTrack = usePlayerStore(state => state.playingTrack);
+    const nav = useNavigation();
 
     const onOpenMenu = () => {
         setMenuVisible(true);
+    };
+
+    const onViewArtists = () => {
+        setMenuVisible(false);
+        if (track.artists.length === 1) {
+            nav.navigate({
+                name: "ArtistDetail",
+                key: `ArtistDetail${track.artists[0].id}`,
+                params: {
+                    artistId: track.artists[0].id,
+                },
+            });
+        } else {
+            setViewArtistsVisible(true);
+        }
     };
 
     return (
@@ -94,7 +113,17 @@ export default React.memo(function TracksListItem({
                     />
                 )}
             </HStack>
-            <TrackMenu track={track} visible={menuVisible} setVisible={setMenuVisible} />
+            <TrackMenu
+                track={track}
+                visible={menuVisible}
+                setVisible={setMenuVisible}
+                onViewArtists={onViewArtists}
+            />
+            <TrackArtists
+                artists={track.artists}
+                visible={viewArtistsVisible}
+                setVisible={setViewArtistsVisible}
+            />
         </HorizontalPadding>
     );
 });

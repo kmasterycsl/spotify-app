@@ -223,7 +223,7 @@ export default function ArtistDetailScreen() {
             />
 
             {/* Player bar */}
-            <Box style={styles.playerBarContainer} bottom={insets.bottom}>
+            <Box style={styles.playerBarContainer} bottom={0}>
                 <PlayerBar />
             </Box>
         </SafeAreaView>

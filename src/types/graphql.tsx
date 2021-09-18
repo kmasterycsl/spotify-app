@@ -81,6 +81,7 @@ export type Likeable = {
   album?: Maybe<Album>;
   artist?: Maybe<Artist>;
   track?: Maybe<Track>;
+  playlist?: Maybe<Playlist>;
 };
 
 export type LikeableType =
@@ -92,6 +93,7 @@ export type LikeableType =
 export type Mutation = {
   __typename?: 'Mutation';
   like: Scalars['Boolean'];
+  createPlaylist: Playlist;
   loginBySocialProvider: UserWithAccessToken;
 };
 
@@ -99,6 +101,11 @@ export type Mutation = {
 export type MutationLikeArgs = {
   likeableType: LikeableType;
   likeableId: Scalars['String'];
+};
+
+
+export type MutationCreatePlaylistArgs = {
+  name: Scalars['String'];
 };
 
 
@@ -132,6 +139,14 @@ export type PaginationMeta = {
   itemsPerPage: Scalars['Float'];
   totalPages: Scalars['Float'];
   currentPage: Scalars['Float'];
+};
+
+export type Playlist = {
+  __typename?: 'Playlist';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type Query = {

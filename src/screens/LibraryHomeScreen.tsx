@@ -1,7 +1,7 @@
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { gql, useQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/core";
-import { Text } from "native-base";
+import { Button, Text } from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { RenderItemParams } from "react-native-draggable-flatlist";
@@ -15,11 +15,14 @@ import { Album, Artist, Likeable, PaginationMeta, Query } from "@/types/graphql"
 import { PaginationFragment } from "@/shared/fragments/pagination.fragment";
 import { usePlayerStore } from "@/store/player.store";
 import { SoundMetaFragment } from "@/shared/fragments/sound-meta.fragment";
+import CreateNewPlaylist from "./playlist/CreateNewPlaylist";
+import PlaylistListItem, { PlaylistListItemFragment } from "@/shared/components/PlaylistListItem";
 
 export const GET_LIKEABLES_QUERY = gql`
     ${AlbumListItemFragment}
     ${TrackListItemFragment}
     ${ArtistListItemFragment}
+    ${PlaylistListItemFragment}
     ${SoundMetaFragment}
     ${PaginationFragment}
     query getLikeables($page: Int!, $limit: Int = 15) {
@@ -41,6 +44,9 @@ export const GET_LIKEABLES_QUERY = gql`
                 artist {
                     ...ArtistListItemFragment
                 }
+                playlist {
+                    ...PlaylistListItemFragment
+                }
             }
             pageInfo {
                 ...PaginationFragment
@@ -60,6 +66,7 @@ export default function LibraryHomeScreen() {
         totalPages: Infinity,
     });
     const [loading, setLoading] = useState(false);
+    const [isShowCreatePlaylist, setIsShowCreatePlaylist] = useState(false);
 
     const { data, refetch, fetchMore } = useQuery<Query>(GET_LIKEABLES_QUERY, {
         variables: {
@@ -118,12 +125,18 @@ export default function LibraryHomeScreen() {
                     <ArtistListItem artist={params.item.artist} />
                 </TouchableOpacity>
             )}
+            {params.item.playlist && (
+                <TouchableOpacity onPress={() => goToArtist(params.item.artist!)}>
+                    <PlaylistListItem playlist={params.item.playlist} />
+                </TouchableOpacity>
+            )}
             <VerticalPadding />
         </>
     );
 
     return (
         <SafeAreaView style={styles.container}>
+            <Button onPress={() => setIsShowCreatePlaylist(true)}></Button>
             <InfiniteFlatList
                 data={data?.likeables?.items || []}
                 renderItem={renderItem}
@@ -131,6 +144,10 @@ export default function LibraryHomeScreen() {
                 isLoading={loading}
                 isFinished={false}
                 keyExtractor={item => item.likeableType + item.likeableId}
+            />
+            <CreateNewPlaylist
+                visible={isShowCreatePlaylist}
+                setVisible={setIsShowCreatePlaylist}
             />
         </SafeAreaView>
     );

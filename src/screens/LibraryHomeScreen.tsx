@@ -1,59 +1,21 @@
+import AlbumListItem from "@/shared/components/AlbumListItem";
+import ArtistListItem from "@/shared/components/ArtistListItem";
+import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
+import PlaylistListItem from "@/shared/components/PlaylistListItem";
+import SafeAreaView from "@/shared/components/SafeAreaView";
+import TracksListItem from "@/shared/components/TrackListItem";
 import VerticalPadding from "@/shared/components/VerticalPadding";
-import { gql, useQuery } from "@apollo/client";
+import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
+import { usePlayerStore } from "@/store/player.store";
+import { Album, Artist, Likeable, PaginationMeta, Query } from "@/types/graphql";
+import { useQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/core";
-import { Button, Text } from "native-base";
+import { Button } from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { RenderItemParams } from "react-native-draggable-flatlist";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import AlbumListItem, { AlbumListItemFragment } from "@/shared/components/AlbumListItem";
-import ArtistListItem, { ArtistListItemFragment } from "@/shared/components/ArtistListItem";
-import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
-import SafeAreaView from "@/shared/components/SafeAreaView";
-import TracksListItem, { TrackListItemFragment } from "@/shared/components/TrackListItem";
-import { Album, Artist, Likeable, PaginationMeta, Query } from "@/types/graphql";
-import { PaginationFragment } from "@/shared/fragments/pagination.fragment";
-import { usePlayerStore } from "@/store/player.store";
-import { SoundMetaFragment } from "@/shared/fragments/sound-meta.fragment";
 import CreateNewPlaylist from "./playlist/CreateNewPlaylist";
-import PlaylistListItem, { PlaylistListItemFragment } from "@/shared/components/PlaylistListItem";
-
-export const GET_LIKEABLES_QUERY = gql`
-    ${AlbumListItemFragment}
-    ${TrackListItemFragment}
-    ${ArtistListItemFragment}
-    ${PlaylistListItemFragment}
-    ${SoundMetaFragment}
-    ${PaginationFragment}
-    query getLikeables($page: Int!, $limit: Int = 15) {
-        likeables(page: $page, limit: $limit) {
-            items {
-                likeableId
-                likeableType
-                album {
-                    ...AlbumListItemFragment
-                }
-                track {
-                    ...TrackListItemFragment
-                    sound {
-                        meta {
-                            ...SoundMetaFragment
-                        }
-                    }
-                }
-                artist {
-                    ...ArtistListItemFragment
-                }
-                playlist {
-                    ...PlaylistListItemFragment
-                }
-            }
-            pageInfo {
-                ...PaginationFragment
-            }
-        }
-    }
-`;
 
 export default function LibraryHomeScreen() {
     const insets = useSafeAreaInsets();
@@ -136,7 +98,7 @@ export default function LibraryHomeScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Button onPress={() => setIsShowCreatePlaylist(true)}></Button>
+            <Button onPress={() => setIsShowCreatePlaylist(true)}>Create playlist</Button>
             <InfiniteFlatList
                 data={data?.likeables?.items || []}
                 renderItem={renderItem}

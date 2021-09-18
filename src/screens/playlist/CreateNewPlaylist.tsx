@@ -1,5 +1,6 @@
 import HorizontalPadding from "@/shared/components/HorizontalPadding";
 import VerticalPadding from "@/shared/components/VerticalPadding";
+import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
 import { useCommonStore } from "@/store/common.store";
 import { Mutation } from "@/types/graphql";
 import { gql, useMutation } from "@apollo/client";
@@ -22,7 +23,9 @@ export const CREATE_PLAYLIST_MUTATION = gql`
 
 export default function CreateNewPlaylist({ visible, setVisible }: CreateNewPlaylistProps) {
     const [name, setName] = useState("");
-    const [doCreate] = useMutation<Mutation>(CREATE_PLAYLIST_MUTATION);
+    const [doCreate] = useMutation<Mutation>(CREATE_PLAYLIST_MUTATION, {
+        refetchQueries: [GET_LIKEABLES_QUERY],
+    });
     const actionSetToastMessage = useCommonStore(store => store.actionSetToastMessage);
 
     const onSubmit = () => {

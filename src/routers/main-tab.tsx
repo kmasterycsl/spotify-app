@@ -7,6 +7,8 @@ import { useCommonStore } from "@/store/common.store";
 import { Ionicons } from "@expo/vector-icons";
 import { useColorModeValue, useTheme, Text } from "native-base";
 
+export const TAB_BAR_HEIGHT = 75;
+
 function getTabIconName(screenName: string, props: any): React.ReactNode {
     let iconName: typeof Ionicons["name"];
     switch (screenName) {
@@ -75,6 +77,7 @@ export default function MainTab() {
                 tabBarStyle: {
                     backgroundColor: bg,
                     paddingTop: 10,
+                    height: TAB_BAR_HEIGHT,
                 },
                 tabBarLabel: props => getTabName(route.name, props),
                 header: () => null,

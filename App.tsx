@@ -1,14 +1,15 @@
+import PlayerBar from "@/shared/components/PlayerBar";
 import { ApolloProvider } from "@apollo/client";
 import { NavigationContainer } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
 import * as SplashScreen from "expo-splash-screen";
-import { NativeBaseProvider } from "native-base";
+import { Box, NativeBaseProvider } from "native-base";
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { apolloClient } from "./src/config/apollo";
 import theme, { colorModeManager } from "./src/config/theme";
 import useAppStartup from "./src/hooks/useAppStartup";
-import MainTab from "./src/routers/main-tab";
+import MainTab, { TAB_BAR_HEIGHT } from "./src/routers/main-tab";
 import GlobalToast from "./src/shared/components/GlobalToast";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -33,7 +34,10 @@ function AppBoostraper() {
     }
 
     return (
-        <SafeAreaProvider>
+        <SafeAreaProvider style={{ position: "relative" }}>
+            <Box position="absolute" bottom={TAB_BAR_HEIGHT} width="100%" zIndex={1}>
+                <PlayerBar />
+            </Box>
             <MainTab />
             <GlobalToast />
         </SafeAreaProvider>

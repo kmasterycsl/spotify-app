@@ -247,7 +247,13 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
             produce<PlayerState>(state => {
                 if (state.soundController) {
                     // resume when songs end -> play from start
-                    if (state.soundControllerStatus?.isLoaded && !state.soundControllerStatus.isPlaying) {
+                    if (
+                        state.soundControllerStatus?.isLoaded &&
+                        !state.soundControllerStatus.isPlaying &&
+                        state.soundControllerStatus.durationMillis &&
+                        state.soundControllerStatus.positionMillis >=
+                        state.soundControllerStatus.durationMillis * ENDING_CAP
+                    ) {
                         state.soundController.setPositionAsync(0);
                     }
                     state.soundController.playAsync();

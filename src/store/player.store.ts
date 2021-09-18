@@ -89,6 +89,14 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
     actionPlay: async (track: Track) => {
         const state = get();
 
+        // Replay manually
+        if (track.id === state.playingTrack?.id) {
+            if (state.soundController) {
+                await state.soundController.setPositionAsync(0);
+            }
+            return;
+        }
+
         if (state.soundController) {
             await state.soundController.unloadAsync();
         }
@@ -238,6 +246,10 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
         set(
             produce<PlayerState>(state => {
                 if (state.soundController) {
+                    // resume when songs end -> play from start
+                    if (state.soundControllerStatus?.isLoaded && !state.soundControllerStatus.isPlaying) {
+                        state.soundController.setPositionAsync(0);
+                    }
                     state.soundController.playAsync();
                 }
             })

@@ -1,11 +1,10 @@
-import { usePlayerStore } from "@/store/player.store";
-import { Playlist, ImageMeta } from "@/types/graphql";
+import { Playlist } from "@/types/graphql";
 import { gql } from "@apollo/client";
-import { Box, HStack, Text, VStack } from "native-base";
+import { Ionicons } from "@expo/vector-icons";
+import { Box, Flex, HStack, Text, useTheme, VStack } from "native-base";
 import React, { useState } from "react";
-import { Image, ViewStyle } from "react-native";
+import { ViewStyle } from "react-native";
 import { ImageMetaFragment } from "../fragments/image-meta.fragment";
-import ArtistNames from "./ArtistNames";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export interface IPlaylistsListItemProps {
@@ -24,6 +23,7 @@ export const PlaylistListItemFragment = gql`
 
 export default React.memo(function PlaylistListItem({ playlist, style }: IPlaylistsListItemProps) {
     const [menuVisible, setMenuVisible] = useState(false);
+    const { colors } = useTheme();
 
     const onOpenMenu = () => {
         setMenuVisible(true);
@@ -32,6 +32,20 @@ export default React.memo(function PlaylistListItem({ playlist, style }: IPlayli
     return (
         <HorizontalPadding>
             <HStack alignItems="center" style={style} space={DEFAULT_HORIZONTAL_PADDING}>
+                <Flex
+                    width={50}
+                    height={50}
+                    justifyContent="center"
+                    alignItems="center"
+                    borderWidth={1}
+                    borderColor={colors.primary[500]}
+                >
+                    <Ionicons
+                        name={"musical-notes-outline"}
+                        size={28}
+                        color={colors.primary[500]}
+                    />
+                </Flex>
                 <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
                     <Text numberOfLines={1} bold>
                         {playlist.name}

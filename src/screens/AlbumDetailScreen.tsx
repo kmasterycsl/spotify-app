@@ -150,7 +150,7 @@ export default function AlbumDetailScreen() {
                 onLoadMore={() => {}}
                 tracks={data.album.tracks}
             />
-            <PlayerBar />
+            {/* <PlayerBar /> */}
         </SafeAreaView>
     ) : null;
 }

@@ -21,6 +21,7 @@ interface TrackMenuProps {
     track: Track;
     visible: boolean;
     setVisible: (visible: boolean) => void;
+    onViewArtists?: () => void;
 }
 
 export const LIKE_MUTATION = gql`
@@ -29,7 +30,7 @@ export const LIKE_MUTATION = gql`
     }
 `;
 
-export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps) {
+export default function TrackMenu({ track, visible, onViewArtists, setVisible }: TrackMenuProps) {
     const [doLike, { data, error }] = useMutation<Mutation>(LIKE_MUTATION, {
         refetchQueries: [GET_ARTIST_BY_ID_QUERY],
     });
@@ -87,7 +88,7 @@ export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps
 
     return (
         <Modal
-            animationType="slide"
+            animationType="fade"
             presentationStyle="overFullScreen"
             visible={visible}
             style={{ zIndex: -1 }}
@@ -174,6 +175,7 @@ export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps
                                     </TouchableOpacity>
                                 )}
                                 <VerticalPadding />
+
                                 {/* Go to album */}
                                 <TouchableOpacity onPress={goToAlbum}>
                                     <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
@@ -182,6 +184,15 @@ export default function TrackMenu({ track, visible, setVisible }: TrackMenuProps
                                             as={<Ionicons name="musical-note" />}
                                         ></Icon>
                                         <Text ml={DEFAULT_HORIZONTAL_PADDING}>Go to album</Text>
+                                    </HStack>
+                                </TouchableOpacity>
+                                <VerticalPadding />
+
+                                {/* View artists */}
+                                <TouchableOpacity onPress={onViewArtists}>
+                                    <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                                        <Icon size="sm" as={<Ionicons name="people" />}></Icon>
+                                        <Text ml={DEFAULT_HORIZONTAL_PADDING}>View artists</Text>
                                     </HStack>
                                 </TouchableOpacity>
                             </VStack>

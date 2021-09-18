@@ -15,14 +15,18 @@ export default function ArtistNames({ artists, color }: { artists: Artist[]; col
     const nav = useNavigation();
 
     const goToArtist = (artist: Artist) => {
-        nav.navigate("ArtistDetail", { artistId: artist.id });
+        nav.navigate({
+            name: "ArtistDetail",
+            key: `ArtistDetail${artist.id}`,
+            params: { artistId: artist.id },
+        });
     };
 
     return (
         <Text>
             {artists.map((artist, index) => (
-                <Text key={artist.id}>
-                    <Text fontSize="xs" color={color} onPress={() => goToArtist(artist)}>
+                <Text key={artist.id} onPress={() => goToArtist(artist)}>
+                    <Text fontSize="xs" color={color}>
                         {artist.name}
                     </Text>
                     {index !== artists.length - 1 && (

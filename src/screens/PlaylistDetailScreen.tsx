@@ -56,7 +56,7 @@ export default function PlaylistDetailScreen() {
     });
     const [waitingToAdd, setWaitingToAdd] = useState(false);
     const actionBulkAddToQueue = usePlayerStore(store => store.actionBulkAddToQueue);
-    const actionPlayArtist = usePlayerStore(store => store.actionPlayArtist);
+    const actionPlayPlaylist = usePlayerStore(store => store.actionPlayPlaylist);
     const actionPause = usePlayerStore(store => store.actionPause);
     const isPlaying = usePlayerStore(
         state => state.soundControllerStatus?.isLoaded && state.soundControllerStatus.isPlaying
@@ -87,7 +87,8 @@ export default function PlaylistDetailScreen() {
 
     useEffect(() => {
         if (waitingToAdd && fullData) {
-            actionBulkAddToQueue(fullData.artist.tracks.items);
+            console.log({ fullData });
+            actionBulkAddToQueue(fullData.playlist.tracks.items);
             setWaitingToAdd(false);
         }
     }, [waitingToAdd, fullData]);
@@ -97,9 +98,9 @@ export default function PlaylistDetailScreen() {
     };
 
     const onPlay = () => {
-        if (!data?.artist) return;
+        if (!data?.playlist) return;
         // add current loaded
-        actionPlayArtist(data.artist.id, data.artist.tracks.items);
+        actionPlayPlaylist(data.playlist.id, data.playlist.tracks.items);
         // then fetch all and add later
         setWaitingToAdd(true);
         getFullData();
@@ -115,7 +116,7 @@ export default function PlaylistDetailScreen() {
             },
         });
         fetched.then(({ data }) => {
-            setPaginationMeta(data.artist.tracks.pageInfo);
+            setPaginationMeta(data.playlist.tracks.pageInfo);
         });
         fetched.finally(() => {
             setLoading(false);
@@ -136,7 +137,7 @@ export default function PlaylistDetailScreen() {
                     <HorizontalPadding>
                         <HStack w="100%" justifyContent="space-between">
                             {/* <ArtistStats artist={data.artist} /> */}
-                            {isPlaying && playingPlaylistId === data.artist.id ? (
+                            {isPlaying && playingPlaylistId === data.playlist.id ? (
                                 <IconButton
                                     size="sm"
                                     variant="ghost"
@@ -163,11 +164,6 @@ export default function PlaylistDetailScreen() {
                             )}
                         </HStack>
                     </HorizontalPadding>
-                    <HorizontalPadding>
-                        <Text fontSize="lg" bold>
-                            Popular
-                        </Text>
-                    </HorizontalPadding>
                     <VerticalPadding />
                 </VStack>
             ) : null,
@@ -178,13 +174,9 @@ export default function PlaylistDetailScreen() {
         <SafeAreaView style={styles.container} edges={["bottom"]}>
             {/* Hidden header */}
             <Animated.View style={[styles.hiddenHeaderContainer, hiddenHeaderStyle]}>
-                {/* <HStack
-                    paddingTop={insets.top}
-                    style={styles.hiddenHeader}
-                    bg={(data?.artist?.coverImage?.meta as ImageMeta)?.dominantColor}
-                >
-                    <Text>{data.artist.name}</Text>
-                </HStack> */}
+                <HStack paddingTop={insets.top} style={styles.hiddenHeader} bg={"gray.500"}>
+                    <Text>{data.playlist.name}</Text>
+                </HStack>
             </Animated.View>
 
             {/* Hidden back icon */}
@@ -202,11 +194,33 @@ export default function PlaylistDetailScreen() {
             </Box>
 
             {/* Cover image */}
-            {/* <Animated.View style={[{ position: "absolute", zIndex: 0 }, coverImgStyle]}>
-                <FullWidthSquareImage
-                    url={data?.artist?.coverImage?.meta?.source}
-                ></FullWidthSquareImage>
-            </Animated.View> */}
+            <Animated.View style={[{ position: "absolute", zIndex: 0 }, coverImgStyle]}>
+                <HStack
+                    style={{
+                        width: screenWidth,
+                        height: screenWidth,
+                    }}
+                    bg={"gray.500"}
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <HStack
+                        style={{
+                            width: screenWidth / 2,
+                            height: screenWidth / 2,
+                        }}
+                        bg={"gray.700"}
+                        justifyContent="center"
+                        alignItems="center"
+                    >
+                        <Icon
+                            color="gray.200"
+                            size={50}
+                            as={<Ionicons name={"musical-notes-outline"} />}
+                        ></Icon>
+                    </HStack>
+                </HStack>
+            </Animated.View>
 
             {/* Tracks list */}
             <TracksList

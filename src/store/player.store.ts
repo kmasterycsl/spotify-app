@@ -11,6 +11,7 @@ export interface PlayerState {
     playingTrack?: Track;
     playingAlbumId?: string;
     playingArtistId?: string;
+    playingPlaylistId?: string;
     soundController?: Audio.Sound;
     soundControllerStatus?: AVPlaybackStatus;
     shuffle: boolean;
@@ -22,6 +23,7 @@ export interface PlayerState {
     actionPlay: (track: Track) => void;
     actionPlayAlbum: (album: Album) => void;
     actionPlayArtist: (artistId: string, tracks: Track[]) => void;
+    actionPlayPlaylist: (playlistId: string, tracks: Track[]) => void;
     actionUpdateQueue: (queue: Track[]) => void;
     actionPause: () => void;
     actionResume: () => void;
@@ -188,6 +190,26 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
             state.actionPlay(tracks[0]);
         }
     },
+    actionPlayPlaylist: async (playlistId: string, tracks: Track[]) => {
+        const state = get();
+
+        // re-play same artist
+        if (playlistId === state.playingPlaylistId) {
+            state.actionResume();
+        } else {
+            // play new artist
+            if (state.soundController) {
+                await state.soundController.unloadAsync();
+            }
+
+            set({
+                playingPlaylistId: playlistId,
+                tracksQueue: tracks,
+            });
+
+            state.actionPlay(tracks[0]);
+        }
+    },
     actionUpdateQueue: (tracks: Track[]) =>
         set(
             produce<PlayerState>(state => {
@@ -252,7 +274,7 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                         !state.soundControllerStatus.isPlaying &&
                         state.soundControllerStatus.durationMillis &&
                         state.soundControllerStatus.positionMillis >=
-                        state.soundControllerStatus.durationMillis * ENDING_CAP
+                            state.soundControllerStatus.durationMillis * ENDING_CAP
                     ) {
                         state.soundController.setPositionAsync(0);
                     }

@@ -13,14 +13,6 @@ export interface IPlaylistsListItemProps {
     style?: ViewStyle;
 }
 
-export const PlaylistListItemFragment = gql`
-    ${ImageMetaFragment}
-    fragment PlaylistListItemFragment on Playlist {
-        id
-        name
-    }
-`;
-
 export default React.memo(function PlaylistListItem({ playlist, style }: IPlaylistsListItemProps) {
     const [menuVisible, setMenuVisible] = useState(false);
     const { colors } = useTheme();

@@ -1,4 +1,3 @@
-import { gql } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { Box, HStack, Icon, IconButton, Text, useTheme, VStack } from "native-base";
 import React from "react";
@@ -7,26 +6,12 @@ import { Image, ViewStyle } from "react-native";
 import { usePlayerStore } from "@/store/player.store";
 import { ImageMeta, Artist } from "@/types/graphql";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
-import { ImageMetaFragment } from "../fragments/image-meta.fragment";
 
 export interface IArtistsListItemProps {
     artist: Artist;
     index?: number;
     style?: ViewStyle;
 }
-
-export const ArtistListItemFragment = gql`
-    ${ImageMetaFragment}
-    fragment ArtistListItemFragment on Artist {
-        id
-        name
-        avatarImage {
-            meta {
-                ...ImageMetaFragment
-            }
-        }
-    }
-`;
 
 export default React.memo(function ArtistListItem({ artist, style }: IArtistsListItemProps) {
     const [menuVisible, setMenuVisible] = useState(false);

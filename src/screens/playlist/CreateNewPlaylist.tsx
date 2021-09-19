@@ -1,13 +1,15 @@
 import HorizontalPadding from "@/shared/components/HorizontalPadding";
+import SafeAreaView from "@/shared/components/SafeAreaView";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
 import { GET_OWN_PLAYLISTS_QUERY } from "@/shared/queries/GET_OWN_PLAYLISTS_QUERY";
 import { useCommonStore } from "@/store/common.store";
 import { Mutation } from "@/types/graphql";
 import { gql, useMutation } from "@apollo/client";
-import { Button, Input, Text } from "native-base";
+import { Box, Button, HStack, Icon, IconButton, Input, Text, VStack } from "native-base";
 import React, { useState } from "react";
-import { Modal, SafeAreaView } from "react-native";
+import { Modal } from "react-native";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
 
 interface CreateNewPlaylistProps {
     visible: boolean;
@@ -30,6 +32,7 @@ export default function CreateNewPlaylist({ visible, setVisible }: CreateNewPlay
     const actionSetToastMessage = useCommonStore(store => store.actionSetToastMessage);
 
     const onSubmit = () => {
+        if (!name) return;
         const created = doCreate({
             variables: {
                 name,
@@ -54,16 +57,40 @@ export default function CreateNewPlaylist({ visible, setVisible }: CreateNewPlay
     };
 
     return (
-        <Modal animationType="slide" visible={visible} onRequestClose={() => setVisible(false)}>
-            <SafeAreaView style={{ flex: 1, justifyContent: "flex-end" }}>
-                <HorizontalPadding>
-                    <Text fontSize="xl" fontWeight="600">
-                        Artists
-                    </Text>
-                </HorizontalPadding>
-                <VerticalPadding />
-                <Input onChangeText={setName}></Input>
-                <Button onPress={onSubmit}>Create</Button>
+        <Modal
+            animationType="slide"
+            presentationStyle="fullScreen"
+            visible={visible}
+            onRequestClose={() => setVisible(false)}
+        >
+            <SafeAreaView style={{ flex: 1 }}>
+                <IconButton
+                    alignSelf="flex-end"
+                    onPress={() => setVisible(false)}
+                    icon={<Icon as={<Ionicons name="close-outline" />}></Icon>}
+                />
+                <VStack justifyContent="center" flexGrow={1}>
+                    <HorizontalPadding>
+                        <Input
+                            onChangeText={setName}
+                            placeholder="My playlist"
+                            autoFocus
+                            fontSize="2xl"
+                            variant="underlined"
+                            onEndEditing={onSubmit}
+                        ></Input>
+                        <VerticalPadding />
+                        <Button
+                            disabled={!name}
+                            alignSelf="center"
+                            variant="outline"
+                            onPress={onSubmit}
+                        >
+                            Create
+                        </Button>
+                    </HorizontalPadding>
+                </VStack>
+                <Box></Box>
             </SafeAreaView>
         </Modal>
     );

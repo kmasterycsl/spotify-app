@@ -1,3 +1,13 @@
+import HorizontalPadding, {
+    _DEFAULT_HORIZONTAL_PADDING,
+} from "@/shared/components/HorizontalPadding";
+import SafeAreaView from "@/shared/components/SafeAreaView";
+import TracksList from "@/shared/components/TracksList";
+import VerticalPadding from "@/shared/components/VerticalPadding";
+import { GET_PLAYLIST_BY_ID_QUERY } from "@/shared/queries/GET_PLAYLIST_BY_ID_QUERY";
+import { usePlayerStore } from "@/store/player.store";
+import { PaginationMeta, Query } from "@/types/graphql";
+import { RootStackParamList } from "@/types/routes.types";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
@@ -11,19 +21,6 @@ import Animated, {
     useSharedValue,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import FullWidthSquareImage from "@/shared/components/FullWidthSquareImage";
-import HorizontalPadding, {
-    _DEFAULT_HORIZONTAL_PADDING,
-} from "@/shared/components/HorizontalPadding";
-import SafeAreaView from "@/shared/components/SafeAreaView";
-import TracksList from "@/shared/components/TracksList";
-import VerticalPadding from "@/shared/components/VerticalPadding";
-import { GET_ARTIST_BY_ID_QUERY } from "@/shared/queries/GET_ARTIST_BY_ID_QUERY";
-import { usePlayerStore } from "@/store/player.store";
-import { ImageMeta, PaginationMeta, Query } from "@/types/graphql";
-import { RootStackParamList } from "@/types/routes.types";
-import ArtistStats from "./artist/ArtistStats";
-import { GET_PLAYLIST_BY_ID_QUERY } from "@/shared/queries/GET_PLAYLIST_BY_ID_QUERY";
 
 type PlaylistDetailScreenRouteProp = RouteProp<RootStackParamList, "PlaylistDetail">;
 

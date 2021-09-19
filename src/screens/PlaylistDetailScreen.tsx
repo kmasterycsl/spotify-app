@@ -11,7 +11,7 @@ import { RootStackParamList } from "@/types/routes.types";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
+import { Box, HStack, Icon, IconButton, Text, useTheme, VStack } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import Animated, {
@@ -29,6 +29,7 @@ const screenWidth = Dimensions.get("screen").width;
 export default function PlaylistDetailScreen() {
     const insets = useSafeAreaInsets();
     const nav = useNavigation();
+    const { colors } = useTheme();
     const { params } = useRoute<PlaylistDetailScreenRouteProp>();
     const [paginationMeta, setPaginationMeta] = useState<
         Pick<PaginationMeta, "currentPage" | "totalPages">
@@ -72,6 +73,14 @@ export default function PlaylistDetailScreen() {
 
     const coverImgStyle = useAnimatedStyle(() => ({
         opacity: 1 - scrollOffsetY.value / screenWidth,
+    }));
+
+    const coverImgInnerStyle = useAnimatedStyle(() => ({
+        transform: [
+            {
+                scale: 1 - scrollOffsetY.value / (screenWidth * 1.5),
+            },
+        ],
     }));
 
     const hiddenHeaderStyle = useAnimatedStyle(() => ({
@@ -201,21 +210,24 @@ export default function PlaylistDetailScreen() {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <HStack
-                        style={{
-                            width: screenWidth / 2,
-                            height: screenWidth / 2,
-                        }}
-                        bg={"gray.700"}
-                        justifyContent="center"
-                        alignItems="center"
+                    <Animated.View
+                        style={[
+                            {
+                                width: screenWidth / 2,
+                                height: screenWidth / 2,
+                                backgroundColor: colors.gray["700"],
+                                justifyContent: "center",
+                                alignItems: "center",
+                            },
+                            coverImgInnerStyle,
+                        ]}
                     >
                         <Icon
                             color="gray.200"
                             size={50}
                             as={<Ionicons name={"musical-notes-outline"} />}
                         ></Icon>
-                    </HStack>
+                    </Animated.View>
                 </HStack>
             </Animated.View>
 

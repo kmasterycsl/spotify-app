@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
-import { AlbumListItemFragment } from "../components/AlbumListItem";
-import { ArtistListItemFragment } from "../components/ArtistListItem";
-import { PlaylistListItemFragment } from "../components/PlaylistListItem";
-import { TrackListItemFragment } from "../components/TrackListItem";
+import { AlbumListItemFragment } from "../components/AlbumListItem.fragment";
+import { ArtistListItemFragment } from "../components/ArtistListItem.fragment";
+import { PlaylistListItemFragment } from "../components/PlaylistListItem.fragment";
+import { TrackListItemFragment } from "../components/TrackListItem.fragment";
 import { PaginationFragment } from "../fragments/pagination.fragment";
 import { SoundMetaFragment } from "../fragments/sound-meta.fragment";
 

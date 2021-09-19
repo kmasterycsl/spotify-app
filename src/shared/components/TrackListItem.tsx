@@ -1,18 +1,17 @@
-import { gql } from "@apollo/client";
-import { Ionicons } from "@expo/vector-icons";
-import { Box, HStack, Icon, IconButton, Text, useTheme, VStack } from "native-base";
-import React from "react";
-import { useState } from "react";
-import { Image, ViewStyle } from "react-native";
 import { usePlayerStore } from "@/store/player.store";
 import { ImageMeta, Track } from "@/types/graphql";
+import { gql } from "@apollo/client";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
+import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
+import React, { useState } from "react";
+import { Image, ViewStyle } from "react-native";
+import { ImageMetaFragment } from "../fragments/image-meta.fragment";
+import AddTrackToPlaylistModal from "./AddTrackToPlaylistModal";
 import ArtistNames, { ArtistNamesFragment } from "./ArtistNames";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
-import TrackMenu from "./TrackMenu";
-import { ImageMetaFragment } from "../fragments/image-meta.fragment";
 import TrackArtists from "./TrackArtists";
-import { useNavigation } from "@react-navigation/core";
-import AddTrackToPlaylistModal from "./AddTrackToPlaylistModal";
+import TrackMenu from "./TrackMenu";
 
 export interface ITracksListItemProps {
     track: Track;

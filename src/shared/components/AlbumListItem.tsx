@@ -14,23 +14,6 @@ export interface IAlbumsListItemProps {
     style?: ViewStyle;
 }
 
-export const AlbumListItemFragment = gql`
-    ${ImageMetaFragment}
-    fragment AlbumListItemFragment on Album {
-        id
-        name
-        allArtists {
-            id
-            name
-        }
-        coverImage {
-            meta {
-                ...ImageMetaFragment
-            }
-        }
-    }
-`;
-
 export default React.memo(function AlbumListItem({ album, style }: IAlbumsListItemProps) {
     const [menuVisible, setMenuVisible] = useState(false);
     const playingAlbumId = usePlayerStore(state => state.playingAlbumId);

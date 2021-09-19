@@ -6,5 +6,6 @@ export const PlaylistListItemFragment = gql`
     fragment PlaylistListItemFragment on Playlist {
         id
         name
+        tracksCount
     }
 `;

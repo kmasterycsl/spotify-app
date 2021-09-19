@@ -7,7 +7,7 @@ import TracksListItem from "@/shared/components/TrackListItem";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
 import { usePlayerStore } from "@/store/player.store";
-import { Album, Artist, Likeable, PaginationMeta, Query } from "@/types/graphql";
+import { Album, Artist, Likeable, PaginationMeta, Playlist, Query } from "@/types/graphql";
 import { useQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/core";
 import { Button } from "native-base";
@@ -70,6 +70,10 @@ export default function LibraryHomeScreen() {
         navigation.navigate("ArtistDetail", { artistId: artist.id });
     };
 
+    const goToPlaylist = (playlist: Playlist) => {
+        navigation.navigate("PlaylistDetail", { playlistId: playlist.id });
+    };
+
     const renderItem = (params: RenderItemParams<Likeable>) => (
         <>
             {params.item.track && (
@@ -88,7 +92,7 @@ export default function LibraryHomeScreen() {
                 </TouchableOpacity>
             )}
             {params.item.playlist && (
-                <TouchableOpacity onPress={() => goToArtist(params.item.artist!)}>
+                <TouchableOpacity onPress={() => goToPlaylist(params.item.playlist!)}>
                     <PlaylistListItem playlist={params.item.playlist} />
                 </TouchableOpacity>
             )}

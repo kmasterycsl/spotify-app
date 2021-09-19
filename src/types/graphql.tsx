@@ -155,6 +155,13 @@ export type Playlist = {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   tracksCount: Scalars['Float'];
+  tracks: PaginatedTrack;
+};
+
+
+export type PlaylistTracksArgs = {
+  page?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
 };
 
 export type Query = {
@@ -165,6 +172,7 @@ export type Query = {
   likeables: PaginatedLikeable;
   album: Album;
   getOwnPlaylists: Array<Playlist>;
+  playlist: Playlist;
   whoAmI: User;
   user: User;
 };
@@ -193,6 +201,11 @@ export type QueryLikeablesArgs = {
 
 
 export type QueryAlbumArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryPlaylistArgs = {
   id: Scalars['String'];
 };
 

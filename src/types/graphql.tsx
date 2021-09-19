@@ -94,6 +94,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   like: Scalars['Boolean'];
   createPlaylist: Playlist;
+  addTrackToPlaylist: Playlist;
   loginBySocialProvider: UserWithAccessToken;
 };
 
@@ -106,6 +107,12 @@ export type MutationLikeArgs = {
 
 export type MutationCreatePlaylistArgs = {
   name: Scalars['String'];
+};
+
+
+export type MutationAddTrackToPlaylistArgs = {
+  playlistId: Scalars['String'];
+  trackId: Scalars['String'];
 };
 
 
@@ -147,6 +154,7 @@ export type Playlist = {
   name: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+  tracksCount: Scalars['Float'];
 };
 
 export type Query = {
@@ -156,6 +164,7 @@ export type Query = {
   track: Track;
   likeables: PaginatedLikeable;
   album: Album;
+  getOwnPlaylists: Array<Playlist>;
   whoAmI: User;
   user: User;
 };

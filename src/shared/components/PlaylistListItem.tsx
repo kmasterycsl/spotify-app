@@ -52,7 +52,7 @@ export default React.memo(function PlaylistListItem({ playlist, style }: IPlayli
                     </Text>
                     <Box pt={1} overflow="hidden">
                         <Text fontSize="xs" color="gray.200">
-                            Playlist
+                            Playlist · {playlist.tracksCount} songs
                         </Text>
                     </Box>
                 </VStack>

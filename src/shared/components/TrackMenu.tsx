@@ -22,6 +22,7 @@ interface TrackMenuProps {
     visible: boolean;
     setVisible: (visible: boolean) => void;
     onViewArtists?: () => void;
+    onAddTrackToPlaylist?: () => void;
 }
 
 export const LIKE_MUTATION = gql`
@@ -30,7 +31,13 @@ export const LIKE_MUTATION = gql`
     }
 `;
 
-export default function TrackMenu({ track, visible, onViewArtists, setVisible }: TrackMenuProps) {
+export default function TrackMenu({
+    track,
+    visible,
+    onViewArtists,
+    onAddTrackToPlaylist,
+    setVisible,
+}: TrackMenuProps) {
     const [doLike, { data, error }] = useMutation<Mutation>(LIKE_MUTATION, {
         refetchQueries: [GET_ARTIST_BY_ID_QUERY],
     });
@@ -175,6 +182,27 @@ export default function TrackMenu({ track, visible, onViewArtists, setVisible }:
                                     </TouchableOpacity>
                                 )}
                                 <VerticalPadding />
+
+                                {/* Add to playlist */}
+                                {currentUser && (
+                                    <>
+                                        <TouchableOpacity onPress={onAddTrackToPlaylist}>
+                                            <HStack
+                                                px={DEFAULT_HORIZONTAL_PADDING}
+                                                alignItems="center"
+                                            >
+                                                <Icon
+                                                    size="sm"
+                                                    as={<Ionicons name="add-circle-outline" />}
+                                                ></Icon>
+                                                <Text ml={DEFAULT_HORIZONTAL_PADDING}>
+                                                    Add to playlist
+                                                </Text>
+                                            </HStack>
+                                        </TouchableOpacity>
+                                        <VerticalPadding />
+                                    </>
+                                )}
 
                                 {/* Go to album */}
                                 <TouchableOpacity onPress={goToAlbum}>

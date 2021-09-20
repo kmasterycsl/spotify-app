@@ -1,4 +1,4 @@
-import { FlatList, Text, VStack } from "native-base";
+import { FlatList, Text, useColorMode, useColorModeValue, VStack } from "native-base";
 import React, { useCallback, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
@@ -6,6 +6,7 @@ import { usePlayerStore } from "@/store/player.store";
 import { Track } from "@/types/graphql";
 import TracksListItem from "./TrackListItem";
 import VerticalPadding from "./VerticalPadding";
+import Empty from "./Empty";
 
 const AnimatedFlatlist = Animated.createAnimatedComponent(FlatList);
 
@@ -31,6 +32,7 @@ export default function TracksList({
 }) {
     const [callOnScrollEnd, setCallOnScrollEnd] = useState(false);
     const actionPlay = usePlayerStore(store => store.actionPlay);
+    const bgColor = useColorModeValue("white", "black");
 
     const onPressItem = (track: Track) => {
         actionPlay(track);
@@ -50,7 +52,11 @@ export default function TracksList({
         <AnimatedFlatlist
             style={styles?.listContainer}
             onScroll={onScroll}
+            contentContainerStyle={{
+                backgroundColor: bgColor,
+            }}
             ListHeaderComponent={headerComponent}
+            ListEmptyComponent={<Empty text="There is no song." />}
             data={tracks}
             scrollEventThrottle={16}
             renderItem={renderItem}

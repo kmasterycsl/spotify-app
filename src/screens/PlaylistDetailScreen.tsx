@@ -1,3 +1,4 @@
+import Empty from "@/shared/components/Empty";
 import HorizontalPadding, {
     _DEFAULT_HORIZONTAL_PADDING,
 } from "@/shared/components/HorizontalPadding";
@@ -75,6 +76,11 @@ export default function PlaylistDetailScreen() {
         opacity: 1 - scrollOffsetY.value / screenWidth,
     }));
 
+    const titleStyle = useAnimatedStyle(() => ({
+        top: screenWidth - 80 - scrollOffsetY.value,
+        opacity: 1 - (scrollOffsetY.value * 2) / screenWidth,
+    }));
+
     const coverImgInnerStyle = useAnimatedStyle(() => ({
         transform: [
             {
@@ -133,42 +139,40 @@ export default function PlaylistDetailScreen() {
         () =>
             data?.playlist ? (
                 <VStack>
-                    <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-                        <Text fontSize="3xl" color="white">
-                            {data.playlist.name}
-                        </Text>
-                    </HorizontalPadding>
                     <VerticalPadding multiple={1} style={{ backgroundColor: "transparent" }} />
-                    <HorizontalPadding>
-                        <HStack w="100%" justifyContent="space-between">
-                            {/* <ArtistStats artist={data.artist} /> */}
-                            {isPlaying && playingPlaylistId === data.playlist.id ? (
-                                <IconButton
-                                    size="sm"
-                                    variant="ghost"
-                                    onPress={actionPause}
-                                    icon={
-                                        <Icon
-                                            color="gray.400"
-                                            as={<Ionicons name="pause-circle-outline" />}
-                                        ></Icon>
-                                    }
-                                />
-                            ) : (
-                                <IconButton
-                                    size="sm"
-                                    variant="ghost"
-                                    onPress={onPlay}
-                                    icon={
-                                        <Icon
-                                            color="gray.400"
-                                            as={<Ionicons name="play-circle-outline" />}
-                                        ></Icon>
-                                    }
-                                />
-                            )}
-                        </HStack>
-                    </HorizontalPadding>
+                    {data.playlist.tracks.items.length > 0 && (
+                        <HorizontalPadding>
+                            <HStack w="100%" justifyContent="space-between">
+                                {/* <ArtistStats artist={data.artist} /> */}
+                                {isPlaying && playingPlaylistId === data.playlist.id ? (
+                                    <IconButton
+                                        size="sm"
+                                        variant="ghost"
+                                        onPress={actionPause}
+                                        icon={
+                                            <Icon
+                                                color="gray.400"
+                                                as={<Ionicons name="pause-circle-outline" />}
+                                            ></Icon>
+                                        }
+                                    />
+                                ) : (
+                                    <IconButton
+                                        size="sm"
+                                        variant="ghost"
+                                        onPress={onPlay}
+                                        icon={
+                                            <Icon
+                                                color="gray.400"
+                                                as={<Ionicons name="play-circle-outline" />}
+                                            ></Icon>
+                                        }
+                                    />
+                                )}
+                            </HStack>
+                        </HorizontalPadding>
+                    )}
+
                     <VerticalPadding />
                 </VStack>
             ) : null,
@@ -230,6 +234,14 @@ export default function PlaylistDetailScreen() {
                 </HStack>
             </Animated.View>
 
+            <Animated.View style={[styles.trackTitle, titleStyle]}>
+                <HorizontalPadding style={{ backgroundColor: "transparent" }}>
+                    <Text fontSize="3xl" color="white">
+                        {data.playlist.name}
+                    </Text>
+                </HorizontalPadding>
+            </Animated.View>
+
             {/* Tracks list */}
             <TracksList
                 styles={{
@@ -268,6 +280,13 @@ const styles = StyleSheet.create({
     backIcon: {
         backgroundColor: "gray",
         borderRadius: 100,
+    },
+    trackTitle: {
+        position: "absolute",
+        top: screenWidth - 80,
+        left: 0,
+        zIndex: 2,
+        width: "100%",
     },
     tracksListContainer: {
         position: "absolute",

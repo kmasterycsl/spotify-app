@@ -2,6 +2,7 @@ import Empty from "@/shared/components/Empty";
 import HorizontalPadding, {
     _DEFAULT_HORIZONTAL_PADDING,
 } from "@/shared/components/HorizontalPadding";
+import PlaylistMenu from "@/shared/components/PlaylistMenu";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import TracksList from "@/shared/components/TracksList";
 import VerticalPadding from "@/shared/components/VerticalPadding";
@@ -61,6 +62,7 @@ export default function PlaylistDetailScreen() {
         state => state.soundControllerStatus?.isLoaded && state.soundControllerStatus.isPlaying
     );
     const playingPlaylistId = usePlayerStore(store => store.playingPlaylistId);
+    const [menuVisible, setMenuVisible] = useState(false);
 
     useEffect(() => {
         refetch();
@@ -99,7 +101,9 @@ export default function PlaylistDetailScreen() {
 
     useEffect(() => {
         if (waitingToAdd && fullData) {
-            actionBulkAddToQueue(fullData.playlist.tracks.items);
+            if (fullData.playlist) {
+                actionBulkAddToQueue(fullData.playlist.tracks.items);
+            }
             setWaitingToAdd(false);
         }
     }, [waitingToAdd, fullData]);
@@ -117,6 +121,10 @@ export default function PlaylistDetailScreen() {
         getFullData();
     };
 
+    const onOpenMenu = () => {
+        setMenuVisible(true);
+    };
+
     const onLoadMore = () => {
         if (loading) return;
         if (paginationMeta.currentPage >= paginationMeta.totalPages) return;
@@ -127,7 +135,9 @@ export default function PlaylistDetailScreen() {
             },
         });
         fetched.then(({ data }) => {
-            setPaginationMeta(data.playlist.tracks.pageInfo);
+            if (data.playlist) {
+                setPaginationMeta(data.playlist.tracks.pageInfo);
+            }
         });
         fetched.finally(() => {
             setLoading(false);
@@ -143,7 +153,7 @@ export default function PlaylistDetailScreen() {
                     {data.playlist.tracks.items.length > 0 && (
                         <HorizontalPadding>
                             <HStack w="100%" justifyContent="space-between">
-                                {/* <ArtistStats artist={data.artist} /> */}
+                                {/* Play btn */}
                                 {isPlaying && playingPlaylistId === data.playlist.id ? (
                                     <IconButton
                                         size="sm"
@@ -169,6 +179,18 @@ export default function PlaylistDetailScreen() {
                                         }
                                     />
                                 )}
+
+                                {/* Menu btn */}
+                                <IconButton
+                                    variant="ghost"
+                                    onPress={onOpenMenu}
+                                    icon={
+                                        <Icon
+                                            size="xs"
+                                            as={<Ionicons name="ellipsis-horizontal-outline" />}
+                                        />
+                                    }
+                                />
                             </HStack>
                         </HorizontalPadding>
                     )}
@@ -254,6 +276,11 @@ export default function PlaylistDetailScreen() {
                 isLoading={loading}
                 onLoadMore={onLoadMore}
                 tracks={data.playlist.tracks.items}
+            />
+            <PlaylistMenu
+                playlist={data.playlist}
+                visible={menuVisible}
+                setVisible={setMenuVisible}
             />
         </SafeAreaView>
     ) : null;

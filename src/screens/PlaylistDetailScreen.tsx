@@ -93,7 +93,6 @@ export default function PlaylistDetailScreen() {
 
     useEffect(() => {
         if (waitingToAdd && fullData) {
-            console.log({ fullData });
             actionBulkAddToQueue(fullData.playlist.tracks.items);
             setWaitingToAdd(false);
         }
@@ -277,6 +276,7 @@ const styles = StyleSheet.create({
         left: 0,
         height: "100%",
         zIndex: 2,
+        width: "100%",
     },
     tracksListFooter: {
         paddingBottom: screenWidth + 80 - 40,

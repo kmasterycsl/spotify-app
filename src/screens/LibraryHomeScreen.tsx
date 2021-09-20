@@ -1,5 +1,8 @@
 import AlbumListItem from "@/shared/components/AlbumListItem";
 import ArtistListItem from "@/shared/components/ArtistListItem";
+import HorizontalPadding, {
+    DEFAULT_HORIZONTAL_PADDING,
+} from "@/shared/components/HorizontalPadding";
 import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import SafeAreaView from "@/shared/components/SafeAreaView";
@@ -9,8 +12,9 @@ import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
 import { usePlayerStore } from "@/store/player.store";
 import { Album, Artist, Likeable, PaginationMeta, Playlist, Query } from "@/types/graphql";
 import { useQuery } from "@apollo/client";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
 import { useNavigation } from "@react-navigation/core";
-import { Button } from "native-base";
+import { Button, HStack, Icon, IconButton, Text } from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { RenderItemParams } from "react-native-draggable-flatlist";
@@ -102,7 +106,20 @@ export default function LibraryHomeScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Button onPress={() => setIsShowCreatePlaylist(true)}>Create playlist</Button>
+            <HStack
+                alignItems="center"
+                justifyContent="space-between"
+                pl={DEFAULT_HORIZONTAL_PADDING}
+            >
+                <Text fontSize="2xl">Your library</Text>
+                <IconButton
+                    size="sm"
+                    variant="ghost"
+                    onPress={() => setIsShowCreatePlaylist(true)}
+                    icon={<Icon color="gray.400" as={<Ionicons name="add-outline" />}></Icon>}
+                />
+            </HStack>
+            <VerticalPadding />
             <InfiniteFlatList
                 data={data?.likeables?.items || []}
                 renderItem={renderItem}

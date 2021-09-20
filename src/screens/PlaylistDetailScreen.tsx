@@ -2,6 +2,7 @@ import Empty from "@/shared/components/Empty";
 import HorizontalPadding, {
     _DEFAULT_HORIZONTAL_PADDING,
 } from "@/shared/components/HorizontalPadding";
+import PlaylistCoverImage from "@/shared/components/PlaylistCoverImage";
 import PlaylistMenu from "@/shared/components/PlaylistMenu";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import TracksList from "@/shared/components/TracksList";
@@ -226,34 +227,7 @@ export default function PlaylistDetailScreen() {
 
             {/* Cover image */}
             <Animated.View style={[{ position: "absolute", zIndex: 0 }, coverImgStyle]}>
-                <HStack
-                    style={{
-                        width: screenWidth,
-                        height: screenWidth,
-                    }}
-                    bg={"gray.500"}
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <Animated.View
-                        style={[
-                            {
-                                width: screenWidth / 2,
-                                height: screenWidth / 2,
-                                backgroundColor: colors.gray["700"],
-                                justifyContent: "center",
-                                alignItems: "center",
-                            },
-                            coverImgInnerStyle,
-                        ]}
-                    >
-                        <Icon
-                            color="gray.200"
-                            size={50}
-                            as={<Ionicons name={"musical-notes-outline"} />}
-                        ></Icon>
-                    </Animated.View>
-                </HStack>
+                <PlaylistCoverImage style={coverImgInnerStyle} />
             </Animated.View>
 
             <Animated.View style={[styles.trackTitle, titleStyle]}>

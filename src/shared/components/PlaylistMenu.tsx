@@ -18,6 +18,7 @@ import SafeAreaView from "./SafeAreaView";
 import VerticalPadding from "./VerticalPadding";
 import Confirm from "./Confirm";
 import EditPlaylist from "@/screens/playlist/EditPlaylist";
+import PlaylistCoverImage from "./PlaylistCoverImage";
 
 interface PlaylistMenuProps {
     playlist: Playlist;
@@ -97,15 +98,7 @@ export default function PlaylistMenu({
                     <ScrollView>
                         <VStack>
                             {/* Image */}
-                            {/* <HStack
-                                justifyContent="center"
-                                style={{ paddingTop: dimessions.height * 0.2 }}
-                            >
-                                <FullWidthSquareImage
-                                    padding={dimessions.width * 0.3}
-                                    url={track.album.coverImage.meta.source}
-                                ></FullWidthSquareImage>
-                            </HStack> */}
+                            <PlaylistCoverImage />
 
                             <VerticalPadding />
 

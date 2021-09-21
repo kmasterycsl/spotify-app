@@ -47,14 +47,11 @@ export default function ArtistStats({ artist }: IArtistStatsProps) {
         <VerticalPadding>
             <HStack justifyContent="space-between">
                 <VStack space={2}>
-                    <Text fontSize="sm">{Math.floor(Math.random() * 10000)} monthly listeners</Text>
+                    <Text fontSize="sm" fontWeight="300">
+                        {Math.floor(Math.random() * 10000)} monthly listeners
+                    </Text>
                     {currentUser && (
-                        <Button
-                            size="xs"
-                            alignSelf="flex-start"
-                            onPress={like}
-                            variant={artist.isLiked ? "outline" : "solid"}
-                        >
+                        <Button size="xs" alignSelf="flex-start" onPress={like} variant={"outline"}>
                             {artist.isLiked ? "Unfollow" : "Follow"}
                         </Button>
                     )}

@@ -133,7 +133,7 @@ export default function ArtistDetailScreen() {
                 <VStack>
                     <VerticalPadding multiple={0.5} style={{ backgroundColor: "transparent" }} />
                     <HorizontalPadding>
-                        <HStack w="100%" justifyContent="space-between">
+                        <HStack w="100%" justifyContent="space-between" alignItems="center">
                             <ArtistStats artist={data.artist} />
                             {isPlaying && playingArtistId === data.artist.id ? (
                                 <Icon
@@ -155,7 +155,7 @@ export default function ArtistDetailScreen() {
                         </HStack>
                     </HorizontalPadding>
                     <HorizontalPadding>
-                        <Text fontSize="lg" bold>
+                        <Text fontSize="lg" fontWeight="500">
                             Popular
                         </Text>
                     </HorizontalPadding>

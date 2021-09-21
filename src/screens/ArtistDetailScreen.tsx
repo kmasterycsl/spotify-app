@@ -16,6 +16,10 @@ import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import Animated, {
+    Extrapolate,
+    interpolate,
+    max,
+    min,
     useAnimatedProps,
     useAnimatedScrollHandler,
     useAnimatedStyle,
@@ -89,6 +93,12 @@ export default function ArtistDetailScreen() {
         opacity: 1 - (scrollOffsetY.value * 2) / screenWidth,
     }));
 
+    const playBtnWrapperStyle = useAnimatedStyle(() => {
+        return {
+            top: Math.max(screenWidth - 30 - scrollOffsetY.value, 55),
+        };
+    });
+
     useEffect(() => {
         if (waitingToAdd && fullData) {
             actionBulkAddToQueue(fullData.artist.tracks.items);
@@ -135,23 +145,6 @@ export default function ArtistDetailScreen() {
                     <HorizontalPadding>
                         <HStack w="100%" justifyContent="space-between" alignItems="center">
                             <ArtistStats artist={data.artist} />
-                            {isPlaying && playingArtistId === data.artist.id ? (
-                                <Icon
-                                    onPress={actionPause}
-                                    size={54}
-                                    p={0}
-                                    color="primary.400"
-                                    as={<Ionicons name="pause-circle-outline" />}
-                                ></Icon>
-                            ) : (
-                                <Icon
-                                    onPress={onPlay}
-                                    size={54}
-                                    p={0}
-                                    color="primary.400"
-                                    as={<Ionicons name="play-circle-outline" />}
-                                ></Icon>
-                            )}
                         </HStack>
                     </HorizontalPadding>
                     <HorizontalPadding>
@@ -170,8 +163,7 @@ export default function ArtistDetailScreen() {
             {/* Hidden header */}
             <Animated.View style={[styles.hiddenHeaderContainer, hiddenHeaderStyle]}>
                 <HStack
-                    paddingTop={insets.top}
-                    style={styles.hiddenHeader}
+                    style={[{ paddingTop: insets.top }, styles.hiddenHeader]}
                     bg={(data?.artist?.coverImage?.meta as ImageMeta)?.dominantColor}
                 >
                     <Text>{data.artist.name}</Text>
@@ -206,6 +198,27 @@ export default function ArtistDetailScreen() {
                         {data.artist.name}
                     </Text>
                 </HorizontalPadding>
+            </Animated.View>
+
+            {/* Play btn */}
+            <Animated.View style={[styles.playBtnWrapper, playBtnWrapperStyle]}>
+                {isPlaying && playingArtistId === data.artist.id ? (
+                    <Icon
+                        onPress={actionPause}
+                        size={54}
+                        p={0}
+                        color="primary.400"
+                        as={<Ionicons name="pause-circle" />}
+                    ></Icon>
+                ) : (
+                    <Icon
+                        onPress={onPlay}
+                        size={54}
+                        p={0}
+                        color="primary.400"
+                        as={<Ionicons name="play-circle" />}
+                    ></Icon>
+                )}
             </Animated.View>
 
             {/* Tracks list */}
@@ -257,6 +270,13 @@ const styles = StyleSheet.create({
         top: screenWidth - 80,
         left: 0,
         zIndex: 2,
+        width: "100%",
+    },
+    playBtnWrapper: {
+        position: "absolute",
+        top: screenWidth - 30,
+        left: screenWidth - 60,
+        zIndex: 3,
         width: "100%",
     },
     tracksListContainer: {

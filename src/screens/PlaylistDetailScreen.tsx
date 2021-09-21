@@ -80,7 +80,7 @@ export default function PlaylistDetailScreen() {
     }));
 
     const titleStyle = useAnimatedStyle(() => ({
-        top: screenWidth - 80 - scrollOffsetY.value,
+        top: screenWidth - 95 - scrollOffsetY.value,
         opacity: 1 - (scrollOffsetY.value * 2) / screenWidth,
     }));
 
@@ -230,9 +230,10 @@ export default function PlaylistDetailScreen() {
                 <PlaylistCoverImage style={coverImgInnerStyle} />
             </Animated.View>
 
+            {/* Playlist name */}
             <Animated.View style={[styles.trackTitle, titleStyle]}>
                 <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-                    <Text fontSize="3xl" color="white">
+                    <Text fontSize="4xl" fontWeight="500" color="white">
                         {data.playlist.name}
                     </Text>
                 </HorizontalPadding>

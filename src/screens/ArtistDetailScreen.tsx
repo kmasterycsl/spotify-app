@@ -84,6 +84,11 @@ export default function ArtistDetailScreen() {
         backgroundColor: scrollOffsetY.value / screenWidth > 0.5 ? "transparent" : "gray",
     }));
 
+    const titleStyle = useAnimatedStyle(() => ({
+        top: screenWidth - 95 - scrollOffsetY.value,
+        opacity: 1 - (scrollOffsetY.value * 2) / screenWidth,
+    }));
+
     useEffect(() => {
         if (waitingToAdd && fullData) {
             actionBulkAddToQueue(fullData.artist.tracks.items);
@@ -126,39 +131,26 @@ export default function ArtistDetailScreen() {
         () =>
             data?.artist ? (
                 <VStack>
-                    <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-                        <Text fontSize="3xl" color="white">
-                            {data.artist.name}
-                        </Text>
-                    </HorizontalPadding>
-                    <VerticalPadding multiple={1} style={{ backgroundColor: "transparent" }} />
+                    <VerticalPadding multiple={0.5} style={{ backgroundColor: "transparent" }} />
                     <HorizontalPadding>
                         <HStack w="100%" justifyContent="space-between">
                             <ArtistStats artist={data.artist} />
                             {isPlaying && playingArtistId === data.artist.id ? (
-                                <IconButton
-                                    size="sm"
-                                    variant="ghost"
+                                <Icon
                                     onPress={actionPause}
-                                    icon={
-                                        <Icon
-                                            color="gray.400"
-                                            as={<Ionicons name="pause-circle-outline" />}
-                                        ></Icon>
-                                    }
-                                />
+                                    size={54}
+                                    p={0}
+                                    color="primary.400"
+                                    as={<Ionicons name="pause-circle-outline" />}
+                                ></Icon>
                             ) : (
-                                <IconButton
-                                    size="sm"
-                                    variant="ghost"
+                                <Icon
                                     onPress={onPlay}
-                                    icon={
-                                        <Icon
-                                            color="gray.400"
-                                            as={<Ionicons name="play-circle-outline" />}
-                                        ></Icon>
-                                    }
-                                />
+                                    size={54}
+                                    p={0}
+                                    color="primary.400"
+                                    as={<Ionicons name="play-circle-outline" />}
+                                ></Icon>
                             )}
                         </HStack>
                     </HorizontalPadding>
@@ -207,6 +199,15 @@ export default function ArtistDetailScreen() {
                 ></FullWidthSquareImage>
             </Animated.View>
 
+            {/* Artist name */}
+            <Animated.View style={[styles.artistName, titleStyle]}>
+                <HorizontalPadding style={{ backgroundColor: "transparent" }}>
+                    <Text fontSize="4xl" fontWeight="500" color="white">
+                        {data.artist.name}
+                    </Text>
+                </HorizontalPadding>
+            </Animated.View>
+
             {/* Tracks list */}
             <TracksList
                 styles={{
@@ -250,6 +251,13 @@ const styles = StyleSheet.create({
     backIcon: {
         backgroundColor: "gray",
         borderRadius: 100,
+    },
+    artistName: {
+        position: "absolute",
+        top: screenWidth - 80,
+        left: 0,
+        zIndex: 2,
+        width: "100%",
     },
     tracksListContainer: {
         position: "absolute",

@@ -21,6 +21,7 @@ export default {
         bundleIdentifier: "com.kmasteryc.spotify-app",
     },
     android: {
+        package: "com.kmasteryc.spotifyapp",
         adaptiveIcon: {
             foregroundImage: "./assets/adaptive-icon.png",
             backgroundColor: "#FFFFFF",

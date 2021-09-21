@@ -58,20 +58,20 @@ const theme = extendTheme({
     fontConfig: {
         Raleway: {
             300: {
-                normal: 'Raleway_300Light',
-                italic: 'Raleway_300Light_Italic',
+                normal: "Raleway_300Light",
+                italic: "Raleway_300Light_Italic",
             },
             400: {
-                normal: 'Raleway_400Regular',
-                italic: 'Raleway_400Regular_Italic',
+                normal: "Raleway_400Regular",
+                italic: "Raleway_400Regular_Italic",
             },
             500: {
-                normal: 'Raleway_500Medium',
-                italic: 'Raleway_500Medium_Italic',
+                normal: "Raleway_500Medium",
+                italic: "Raleway_500Medium_Italic",
             },
             600: {
-                normal: 'Raleway_600SemiBold',
-                italic: 'Raleway_600SemiBold_Italic',
+                normal: "Raleway_600SemiBold",
+                italic: "Raleway_600SemiBold_Italic",
             },
         },
     },

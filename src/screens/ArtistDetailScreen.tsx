@@ -95,7 +95,7 @@ export default function ArtistDetailScreen() {
 
     const playBtnWrapperStyle = useAnimatedStyle(() => {
         return {
-            top: Math.max(screenWidth - 30 - scrollOffsetY.value, 55),
+            top: Math.max(screenWidth - 30 - scrollOffsetY.value, 52),
         };
     });
 
@@ -205,7 +205,7 @@ export default function ArtistDetailScreen() {
                 {isPlaying && playingArtistId === data.artist.id ? (
                     <Icon
                         onPress={actionPause}
-                        size={54}
+                        size={68}
                         p={0}
                         color="primary.400"
                         as={<Ionicons name="pause-circle" />}
@@ -213,7 +213,7 @@ export default function ArtistDetailScreen() {
                 ) : (
                     <Icon
                         onPress={onPlay}
-                        size={54}
+                        size={68}
                         p={0}
                         color="primary.400"
                         as={<Ionicons name="play-circle" />}
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
     playBtnWrapper: {
         position: "absolute",
         top: screenWidth - 30,
-        left: screenWidth - 60,
+        left: screenWidth - 70,
         zIndex: 3,
         width: "100%",
     },

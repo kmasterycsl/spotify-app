@@ -63,6 +63,21 @@ export type Asset = {
 export type AssetMetaUnion = ImageMeta | SoundMeta;
 
 
+export type Genre = {
+  __typename?: 'Genre';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  coverImageId: Scalars['String'];
+  coverImage: Asset;
+  playlists: PaginatedPlaylist;
+};
+
+
+export type GenrePlaylistsArgs = {
+  page?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
 export type ImageMeta = {
   __typename?: 'ImageMeta';
   source: Scalars['String'];
@@ -146,6 +161,12 @@ export type PaginatedLikeable = {
   pageInfo: PaginationMeta;
 };
 
+export type PaginatedPlaylist = {
+  __typename?: 'PaginatedPlaylist';
+  items: Array<Playlist>;
+  pageInfo: PaginationMeta;
+};
+
 export type PaginatedTrack = {
   __typename?: 'PaginatedTrack';
   items: Array<Track>;
@@ -166,6 +187,8 @@ export type Playlist = {
   id: Scalars['ID'];
   name: Scalars['String'];
   userId: Scalars['String'];
+  coverImageId?: Maybe<Scalars['String']>;
+  coverImage?: Maybe<Asset>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   tracksCount: Scalars['Float'];
@@ -187,6 +210,8 @@ export type Query = {
   album: Album;
   getOwnPlaylists: Array<Playlist>;
   playlist?: Maybe<Playlist>;
+  genres: Array<Genre>;
+  genre: Genre;
   whoAmI: User;
   user: User;
 };
@@ -220,6 +245,11 @@ export type QueryAlbumArgs = {
 
 
 export type QueryPlaylistArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryGenreArgs = {
   id: Scalars['String'];
 };
 

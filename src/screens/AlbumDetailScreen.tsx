@@ -38,9 +38,6 @@ export default function AlbumDetailScreen() {
             id: params.albumId,
         },
     });
-    if (error) {
-        console.error(error);
-    }
     useEffect(() => {
         refetch();
     }, [params.albumId]);

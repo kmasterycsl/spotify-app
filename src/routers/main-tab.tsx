@@ -6,6 +6,7 @@ import LibraryStackScreen from "./library-stack";
 import { useCommonStore } from "@/store/common.store";
 import { Ionicons } from "@expo/vector-icons";
 import { useColorModeValue, useTheme, Text } from "native-base";
+import SearchStackScreen from "./search-stack";
 
 export const TAB_BAR_HEIGHT = 75;
 
@@ -15,7 +16,7 @@ function getTabIconName(screenName: string, props: any): React.ReactNode {
         case "HomeStack":
             iconName = `home${props.focused ? "-sharp" : "-outline"}`;
             break;
-        case "Search":
+        case "SearchStack":
             iconName = `search${props.focused ? "-sharp" : "-outline"}`;
             break;
         case "LibraryStack":
@@ -37,7 +38,7 @@ function getTabName(screenName: string, props: any): React.ReactNode {
                     Home
                 </Text>
             );
-        case "Search":
+        case "SearchStack":
             return (
                 <Text fontSize="sm" color={props.color}>
                     Search
@@ -52,14 +53,6 @@ function getTabName(screenName: string, props: any): React.ReactNode {
         default:
             return <Text></Text>;
     }
-}
-
-function SettingsScreen() {
-    return (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-            <Text>Settings!</Text>
-        </View>
-    );
 }
 
 const Tab = createBottomTabNavigator();
@@ -84,7 +77,7 @@ export default function MainTab() {
             })}
         >
             <Tab.Screen name="HomeStack" component={HomeStackScreen} />
-            <Tab.Screen name="Search" component={SettingsScreen} />
+            <Tab.Screen name="SearchStack" component={SearchStackScreen} />
             {currentUser && <Tab.Screen name="LibraryStack" component={LibraryStackScreen} />}
         </Tab.Navigator>
     );

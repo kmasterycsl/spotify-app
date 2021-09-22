@@ -6,6 +6,7 @@ export type RootStackParamList = {
     AlbumDetail: { albumId: string };
     PlaylistDetail: { playlistId: string };
     LibraryHome: {};
+    GenreList: {};
 };
 
 declare global {

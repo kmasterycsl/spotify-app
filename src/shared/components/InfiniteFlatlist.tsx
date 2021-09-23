@@ -11,6 +11,7 @@ export default function InfiniteFlatList<T>({
     isLoading,
     isFinished,
     onReorderList,
+    numColumns,
 }: {
     data: T[];
     onLoadMore: () => void;
@@ -19,6 +20,7 @@ export default function InfiniteFlatList<T>({
     isLoading: boolean;
     isFinished: boolean;
     onReorderList?: (items: T[]) => void;
+    numColumns?: number;
 }) {
     const [callOnScrollEnd, setCallOnScrollEnd] = useState(false);
 
@@ -26,6 +28,7 @@ export default function InfiniteFlatList<T>({
         <DraggableFlatList
             data={data}
             renderItem={renderItem}
+            numColumns={numColumns}
             keyExtractor={keyExtractor}
             onDragEnd={({ data }) => onReorderList && onReorderList(data)}
             initialNumToRender={10}
@@ -36,6 +39,13 @@ export default function InfiniteFlatList<T>({
                 }
                 setCallOnScrollEnd(false);
             }}
+            columnWrapperStyle={
+                numColumns && numColumns > 1
+                    ? {
+                          justifyContent: "space-around",
+                      }
+                    : undefined
+            }
             onEndReachedThreshold={0.7}
             ListFooterComponent={
                 <>

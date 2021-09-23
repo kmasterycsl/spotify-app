@@ -24,6 +24,7 @@ export default React.memo(function PlaylistCardListItem({
                     justifyContent: "center",
                     display: "flex",
                     padding: 10,
+                    width: "50%",
                 },
             ]}
         >

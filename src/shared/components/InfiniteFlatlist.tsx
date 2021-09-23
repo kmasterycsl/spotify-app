@@ -42,7 +42,8 @@ export default function InfiniteFlatList<T>({
             columnWrapperStyle={
                 numColumns && numColumns > 1
                     ? {
-                          justifyContent: "space-around",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
                       }
                     : undefined
             }

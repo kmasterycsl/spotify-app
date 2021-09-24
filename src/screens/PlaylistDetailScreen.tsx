@@ -227,7 +227,7 @@ export default function PlaylistDetailScreen() {
 
             {/* Cover image */}
             <Animated.View style={[{ position: "absolute", zIndex: 0 }, coverImgStyle]}>
-                <PlaylistCoverImage style={coverImgInnerStyle} />
+                <PlaylistCoverImage playlist={data.playlist} style={coverImgInnerStyle} />
             </Animated.View>
 
             {/* Playlist name */}

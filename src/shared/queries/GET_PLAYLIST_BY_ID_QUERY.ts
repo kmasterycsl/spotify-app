@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { PlaylistImageFragment } from "../components/PlaylistImage.fragment";
 import { PlaylistMenuFragment } from "../components/PlaylistMenu.fragment";
 import { ImageMetaFragment } from "../fragments/image-meta.fragment";
 import { PaginationFragment } from "../fragments/pagination.fragment";
@@ -9,9 +10,11 @@ export const GET_PLAYLIST_BY_ID_QUERY = gql`
     ${SoundMetaFragment}
     ${ImageMetaFragment}
     ${PlaylistMenuFragment}
+    ${PlaylistImageFragment}
     query getPlaylistById($id: String!, $page: Int!, $limit: Int = 15) {
         playlist(id: $id) {
             ...PlaylistMenuFragment
+            ...PlaylistImageFragment
             id
             name
             tracks(page: $page, limit: $limit) {

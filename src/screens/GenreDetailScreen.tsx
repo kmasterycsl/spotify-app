@@ -1,18 +1,23 @@
-import { _DEFAULT_HORIZONTAL_PADDING } from "@/shared/components/HorizontalPadding";
+import HorizontalPadding, {
+    _DEFAULT_HORIZONTAL_PADDING,
+} from "@/shared/components/HorizontalPadding";
 import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import PlaylistCardListItem from "@/shared/components/PlaylistCardListItem";
 import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_GENRE_BY_ID_QUERY } from "@/shared/queries/GET_GENRE_BY_ID_QUERY";
-import { PaginationMeta, Playlist, Query } from "@/types/graphql";
+import { ImageMeta, PaginationMeta, Playlist, Query } from "@/types/graphql";
 import { RootStackParamList } from "@/types/routes.types";
 import { useQuery } from "@apollo/client";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { HStack, Icon, IconButton, Text } from "native-base";
 import React, { useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
 import { RenderItemParams } from "react-native-draggable-flatlist";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
 
 type GenreDetailScreenRouteProp = RouteProp<RootStackParamList, "GenreDetail">;
 
@@ -45,8 +50,7 @@ export default function GenreDetailScreen() {
             onPress={() => goToPlaylist(params.item)}
             playlist={params.item}
             style={{
-                width: (screenWidth * 0.9) / 2,
-                marginBottom: _DEFAULT_HORIZONTAL_PADDING,
+                width: screenWidth / 2 - _DEFAULT_HORIZONTAL_PADDING * 2,
             }}
         />
     );
@@ -71,6 +75,36 @@ export default function GenreDetailScreen() {
 
     return data?.genre ? (
         <SafeAreaView style={{ flex: 1 }}>
+            <LinearGradient
+                colors={[(data.genre.coverImage.meta as ImageMeta).dominantColor, "black"]}
+                style={styles.background}
+            />
+            <HStack>
+                <IconButton
+                    hitSlop={10}
+                    variant="ghost"
+                    onPress={nav.goBack}
+                    borderRadius={100}
+                    icon={
+                        <Icon
+                            size="sm"
+                            color="gray.400"
+                            as={<Ionicons name="chevron-back-outline" />}
+                        ></Icon>
+                    }
+                />
+            </HStack>
+            <HorizontalPadding style={{ backgroundColor: "transparent" }}>
+                <Text fontSize="2xl" fontWeight="600">
+                    {data.genre.name}
+                </Text>
+            </HorizontalPadding>
+            <VerticalPadding style={{ backgroundColor: "transparent" }} />
+            <HorizontalPadding style={{ backgroundColor: "transparent" }}>
+                <Text mb={5} fontWeight="600">
+                    Popular playlists
+                </Text>
+            </HorizontalPadding>
             <InfiniteFlatList
                 data={data?.genre?.playlists?.items || []}
                 renderItem={renderItem}
@@ -84,4 +118,12 @@ export default function GenreDetailScreen() {
     ) : null;
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    background: {
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: 0,
+        height: 170,
+    },
+});

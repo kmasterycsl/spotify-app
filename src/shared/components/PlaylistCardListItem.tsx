@@ -23,9 +23,9 @@ export default React.memo(function PlaylistCardListItem({
                     borderRadius: 5,
                     justifyContent: "center",
                     display: "flex",
-                    padding: 10,
-                    width: "50%",
+                    alignItems: "center",
                 },
+                style,
             ]}
         >
             <Image

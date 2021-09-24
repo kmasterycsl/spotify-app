@@ -1,7 +1,7 @@
-import { ImageMeta, Playlist } from "@/types/graphql";
+import { Playlist } from "@/types/graphql";
 import { Box, Text } from "native-base";
 import React from "react";
-import { Image, TouchableOpacity, ViewStyle } from "react-native";
+import { TouchableOpacity, ViewStyle } from "react-native";
 import PlaylistImage from "./PlaylistImage";
 
 export interface IPlaylistsCardListItemProps {
@@ -11,11 +11,7 @@ export interface IPlaylistsCardListItemProps {
     style: ViewStyle & { width: number };
 }
 
-export default React.memo(function PlaylistCardListItem({
-    playlist,
-    style,
-    onPress,
-}: IPlaylistsCardListItemProps) {
+function PlaylistCardListItem({ playlist, style, onPress }: IPlaylistsCardListItemProps) {
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -43,4 +39,6 @@ export default React.memo(function PlaylistCardListItem({
             </Box>
         </TouchableOpacity>
     );
-});
+}
+
+export default React.memo(PlaylistCardListItem);

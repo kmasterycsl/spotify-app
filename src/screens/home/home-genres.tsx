@@ -36,43 +36,41 @@ export default function HomeGenres() {
     };
 
     return data?.genres ? (
-        <SafeAreaView style={{ flex: 1 }}>
-            <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-                <HStack flexWrap="wrap" justifyContent="space-between">
-                    {data?.genres.map(genre => (
-                        <VStack key={genre.id}>
-                            <TouchableOpacity key={genre.id} onPress={goToGenre(genre)}>
-                                <HorizontalPadding>
-                                    <Text fontSize="2xl" fontWeight="500" numberOfLines={1}>
-                                        {genre.name}
-                                    </Text>
-                                </HorizontalPadding>
-                            </TouchableOpacity>
-                            <VerticalPadding />
-                            <ScrollView
-                                horizontal
-                                contentContainerStyle={{
-                                    alignItems: "flex-start",
-                                    marginLeft: _DEFAULT_HORIZONTAL_PADDING,
-                                    marginBottom: _DEFAULT_HORIZONTAL_PADDING * 1.5,
-                                }}
-                            >
-                                {genre.playlists.items.map(playlist => (
-                                    <PlaylistCardListItem
-                                        onPress={() => goToPlaylist(playlist)}
-                                        key={playlist.id}
-                                        playlist={playlist}
-                                        style={{
-                                            width: screenWidth / 2.5,
-                                            marginRight: _DEFAULT_HORIZONTAL_PADDING,
-                                        }}
-                                    />
-                                ))}
-                            </ScrollView>
-                        </VStack>
-                    ))}
-                </HStack>
-            </ScrollView>
-        </SafeAreaView>
+        <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+            <HStack flexWrap="wrap" justifyContent="space-between">
+                {data?.genres.map(genre => (
+                    <VStack key={genre.id}>
+                        <TouchableOpacity key={genre.id} onPress={goToGenre(genre)}>
+                            <HorizontalPadding>
+                                <Text fontSize="2xl" fontWeight="500" numberOfLines={1}>
+                                    {genre.name}
+                                </Text>
+                            </HorizontalPadding>
+                        </TouchableOpacity>
+                        <VerticalPadding />
+                        <ScrollView
+                            horizontal
+                            contentContainerStyle={{
+                                alignItems: "flex-start",
+                                marginLeft: _DEFAULT_HORIZONTAL_PADDING,
+                                marginBottom: _DEFAULT_HORIZONTAL_PADDING * 1.5,
+                            }}
+                        >
+                            {genre.playlists.items.map(playlist => (
+                                <PlaylistCardListItem
+                                    onPress={() => goToPlaylist(playlist)}
+                                    key={playlist.id}
+                                    playlist={playlist}
+                                    style={{
+                                        width: screenWidth / 2.5,
+                                        marginRight: _DEFAULT_HORIZONTAL_PADDING,
+                                    }}
+                                />
+                            ))}
+                        </ScrollView>
+                    </VStack>
+                ))}
+            </HStack>
+        </ScrollView>
     ) : null;
 }

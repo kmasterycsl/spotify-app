@@ -7,10 +7,10 @@ import SafeAreaView from "@/shared/components/SafeAreaView";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_GENRES_QUERY } from "@/shared/queries/GET_GENRES_QUERY";
 import { GET_HOME_GENRES_QUERY } from "@/shared/queries/GET_HOME_GENRES_QUERY";
-import { Genre, Query } from "@/types/graphql";
+import { Genre, Playlist, Query } from "@/types/graphql";
 import { useQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
-import { HStack, ScrollView, Text } from "native-base";
+import { HStack, ScrollView, Text, VStack } from "native-base";
 import React from "react";
 import { Dimensions, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -27,8 +27,12 @@ export default function HomeGenres() {
         },
     });
 
-    const goToDetail = (genre: Genre) => () => {
+    const goToGenre = (genre: Genre) => () => {
         nav.navigate("GenreDetail", { genreId: genre.id });
+    };
+
+    const goToPlaylist = (playlist: Playlist) => {
+        nav.navigate("PlaylistDetail", { playlistId: playlist.id });
     };
 
     return data?.genres ? (
@@ -36,23 +40,26 @@ export default function HomeGenres() {
             <ScrollView contentContainerStyle={{ alignItems: "center" }}>
                 <HStack flexWrap="wrap" justifyContent="space-between">
                     {data?.genres.map(genre => (
-                        <TouchableOpacity key={genre.id} onPress={goToDetail(genre)}>
-                            <HorizontalPadding>
-                                <Text fontSize="2xl" fontWeight="500" numberOfLines={1}>
-                                    {genre.name}
-                                </Text>
-                            </HorizontalPadding>
+                        <VStack key={genre.id}>
+                            <TouchableOpacity key={genre.id} onPress={goToGenre(genre)}>
+                                <HorizontalPadding>
+                                    <Text fontSize="2xl" fontWeight="500" numberOfLines={1}>
+                                        {genre.name}
+                                    </Text>
+                                </HorizontalPadding>
+                            </TouchableOpacity>
                             <VerticalPadding />
                             <ScrollView
                                 horizontal
                                 contentContainerStyle={{
                                     alignItems: "flex-start",
                                     marginLeft: _DEFAULT_HORIZONTAL_PADDING,
+                                    marginBottom: _DEFAULT_HORIZONTAL_PADDING * 1.5,
                                 }}
                             >
                                 {genre.playlists.items.map(playlist => (
                                     <PlaylistCardListItem
-                                        onPress={() => {}}
+                                        onPress={() => goToPlaylist(playlist)}
                                         key={playlist.id}
                                         playlist={playlist}
                                         style={{
@@ -62,8 +69,7 @@ export default function HomeGenres() {
                                     />
                                 ))}
                             </ScrollView>
-                            <VerticalPadding />
-                        </TouchableOpacity>
+                        </VStack>
                     ))}
                 </HStack>
             </ScrollView>

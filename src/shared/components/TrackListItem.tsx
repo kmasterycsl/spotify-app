@@ -22,26 +22,6 @@ export interface ITracksListItemProps {
     showType?: boolean;
 }
 
-export const TrackListItemFragment = gql`
-    ${ArtistNamesFragment}
-    ${ImageMetaFragment}
-    fragment TrackListItemFragment on Track {
-        id
-        name
-        album {
-            id
-            coverImage {
-                meta {
-                    ...ImageMetaFragment
-                }
-            }
-        }
-        artists {
-            ...ArtistNamesFragment
-        }
-    }
-`;
-
 export default React.memo(function TracksListItem({
     track,
     index,

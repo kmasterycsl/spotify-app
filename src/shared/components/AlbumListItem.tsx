@@ -12,9 +12,14 @@ export interface IAlbumsListItemProps {
     album: Album;
     index?: number;
     style?: ViewStyle;
+    hideSubtitle?: boolean;
 }
 
-export default React.memo(function AlbumListItem({ album, style }: IAlbumsListItemProps) {
+export default React.memo(function AlbumListItem({
+    album,
+    style,
+    hideSubtitle,
+}: IAlbumsListItemProps) {
     const [menuVisible, setMenuVisible] = useState(false);
     const playingAlbumId = usePlayerStore(state => state.playingAlbumId);
 
@@ -44,11 +49,13 @@ export default React.memo(function AlbumListItem({ album, style }: IAlbumsListIt
                             {album.name}
                         </Text>
                     )}
-                    <Box pt={1} overflow="hidden">
-                        <Text fontSize="xs" color="gray.200">
-                            Album · <ArtistNames artists={album.allArtists} />
-                        </Text>
-                    </Box>
+                    {!hideSubtitle && (
+                        <Box pt={1} overflow="hidden">
+                            <Text fontSize="xs" color="gray.200">
+                                Album · <ArtistNames artists={album.allArtists} />
+                            </Text>
+                        </Box>
+                    )}
                 </VStack>
                 {/* <IconButton
                     variant="ghost"

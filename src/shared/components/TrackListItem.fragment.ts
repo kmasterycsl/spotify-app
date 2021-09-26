@@ -9,6 +9,7 @@ export const TrackListItemFragment = gql`
         id
         name
         album {
+            id
             coverImage {
                 meta {
                     ...ImageMetaFragment

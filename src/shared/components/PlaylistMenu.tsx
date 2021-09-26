@@ -98,7 +98,7 @@ export default function PlaylistMenu({
                     <ScrollView>
                         <VStack>
                             {/* Image */}
-                            <PlaylistCoverImage />
+                            <PlaylistCoverImage playlist={playlist} />
 
                             <VerticalPadding />
 

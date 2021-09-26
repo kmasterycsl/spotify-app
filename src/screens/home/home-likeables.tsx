@@ -41,7 +41,7 @@ export default function HomeLikeables() {
             )}
             {params.item.album && (
                 <TouchableOpacity onPress={() => goToAlbum(params.item.album?.id!)}>
-                    <AlbumListItem album={params.item.album} />
+                    <AlbumListItem hideSubtitle album={params.item.album} />
                 </TouchableOpacity>
             )}
             {params.item.artist && (

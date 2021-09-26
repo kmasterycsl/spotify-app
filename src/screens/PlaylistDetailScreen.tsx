@@ -233,7 +233,7 @@ export default function PlaylistDetailScreen() {
             {/* Playlist name */}
             <Animated.View style={[styles.trackTitle, titleStyle]}>
                 <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-                    <Text fontSize="4xl" fontWeight="500" color="white">
+                    <Text fontSize="4xl" fontWeight="500" color="white" numberOfLines={1}>
                         {data.playlist.name}
                     </Text>
                 </HorizontalPadding>

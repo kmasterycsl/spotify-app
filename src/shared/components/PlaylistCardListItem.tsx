@@ -32,8 +32,8 @@ function PlaylistCardListItem({ playlist, style, onPress }: IPlaylistsCardListIt
                     height: style.width,
                 }}
             />
-            <Box alignSelf="flex-start" mt={1}>
-                <Text numberOfLines={1} fontWeight="600">
+            <Box alignSelf="flex-start" mt={2}>
+                <Text numberOfLines={2} fontWeight="600">
                     {playlist.name}
                 </Text>
             </Box>

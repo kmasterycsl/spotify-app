@@ -1,5 +1,7 @@
 import GenreListItem from "@/shared/components/GenreListItem";
-import { _DEFAULT_HORIZONTAL_PADDING } from "@/shared/components/HorizontalPadding";
+import HorizontalPadding, {
+    _DEFAULT_HORIZONTAL_PADDING,
+} from "@/shared/components/HorizontalPadding";
 import PlaylistCardListItem from "@/shared/components/PlaylistCardListItem";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import VerticalPadding from "@/shared/components/VerticalPadding";
@@ -35,10 +37,19 @@ export default function HomeGenres() {
                 <HStack flexWrap="wrap" justifyContent="space-between">
                     {data?.genres.map(genre => (
                         <TouchableOpacity key={genre.id} onPress={goToDetail(genre)}>
-                            <Text fontSize="2xl" fontWeight="500">
-                                {genre.name}
-                            </Text>
-                            <ScrollView horizontal>
+                            <HorizontalPadding>
+                                <Text fontSize="2xl" fontWeight="500" numberOfLines={1}>
+                                    {genre.name}
+                                </Text>
+                            </HorizontalPadding>
+                            <VerticalPadding />
+                            <ScrollView
+                                horizontal
+                                contentContainerStyle={{
+                                    alignItems: "flex-start",
+                                    marginLeft: _DEFAULT_HORIZONTAL_PADDING,
+                                }}
+                            >
                                 {genre.playlists.items.map(playlist => (
                                     <PlaylistCardListItem
                                         onPress={() => {}}
@@ -46,6 +57,7 @@ export default function HomeGenres() {
                                         playlist={playlist}
                                         style={{
                                             width: screenWidth / 2.5,
+                                            marginRight: _DEFAULT_HORIZONTAL_PADDING,
                                         }}
                                     />
                                 ))}

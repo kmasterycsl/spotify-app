@@ -3,16 +3,15 @@ import ArtistListItem from "@/shared/components/ArtistListItem";
 import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import TracksListItem from "@/shared/components/TrackListItem";
-import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
 import { usePlayerStore } from "@/store/player.store";
 import { Album, Artist, Likeable, PaginationMeta, Playlist, Query } from "@/types/graphql";
 import { useQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/core";
+import { Box } from "native-base";
 import React, { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { RenderItemParams } from "react-native-draggable-flatlist";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function HomeLikeables() {
     const [paginationMeta, setPaginationMeta] = useState<
@@ -21,7 +20,6 @@ export default function HomeLikeables() {
         currentPage: 1,
         totalPages: Infinity,
     });
-    const insets = useSafeAreaInsets();
     const navigation = useNavigation();
     const actionPlay = usePlayerStore(store => store.actionPlay);
 
@@ -35,29 +33,28 @@ export default function HomeLikeables() {
     });
 
     const renderItem = (params: RenderItemParams<Likeable>) => (
-        <>
+        <Box width="50%">
             {params.item.track && (
-                <TouchableOpacity onPress={() => actionPlay(params.item.track!)}>
-                    <TracksListItem showType hideMenu track={params.item.track} />
+                <TouchableOpacity onPress={() => goToAlbum(params.item.track?.album.id!)}>
+                    <TracksListItem hideArtistName showType hideMenu track={params.item.track} />
                 </TouchableOpacity>
             )}
             {params.item.album && (
-                <TouchableOpacity onPress={() => goToAlbum(params.item.album!)}>
+                <TouchableOpacity onPress={() => goToAlbum(params.item.album?.id!)}>
                     <AlbumListItem album={params.item.album} />
                 </TouchableOpacity>
             )}
             {params.item.artist && (
                 <TouchableOpacity onPress={() => goToArtist(params.item.artist!)}>
-                    <ArtistListItem artist={params.item.artist} />
+                    <ArtistListItem hideSubtitle artist={params.item.artist} />
                 </TouchableOpacity>
             )}
             {params.item.playlist && (
                 <TouchableOpacity onPress={() => goToPlaylist(params.item.playlist!)}>
-                    <PlaylistListItem playlist={params.item.playlist} />
+                    <PlaylistListItem hideSubtitle playlist={params.item.playlist} />
                 </TouchableOpacity>
             )}
-            <VerticalPadding />
-        </>
+        </Box>
     );
 
     const onLoadMore = () => {
@@ -78,8 +75,8 @@ export default function HomeLikeables() {
         return fetched;
     };
 
-    const goToAlbum = (album: Album) => {
-        navigation.navigate("AlbumDetail", { albumId: album.id });
+    const goToAlbum = (albumId: string) => {
+        navigation.navigate("AlbumDetail", { albumId });
     };
 
     const goToArtist = (artist: Artist) => {

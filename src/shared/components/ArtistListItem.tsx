@@ -1,25 +1,24 @@
-import { Ionicons } from "@expo/vector-icons";
-import { Box, HStack, Icon, IconButton, Text, useTheme, VStack } from "native-base";
-import React from "react";
-import { useState } from "react";
-import { Image, ViewStyle } from "react-native";
 import { usePlayerStore } from "@/store/player.store";
-import { ImageMeta, Artist } from "@/types/graphql";
+import { Artist, ImageMeta } from "@/types/graphql";
+import { Box, HStack, Text, VStack } from "native-base";
+import React, { useState } from "react";
+import { Image, ViewStyle } from "react-native";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export interface IArtistsListItemProps {
     artist: Artist;
     index?: number;
     style?: ViewStyle;
+    hideSubtitle?: boolean;
 }
 
-export default React.memo(function ArtistListItem({ artist, style }: IArtistsListItemProps) {
+export default React.memo(function ArtistListItem({
+    artist,
+    style,
+    hideSubtitle,
+}: IArtistsListItemProps) {
     const [menuVisible, setMenuVisible] = useState(false);
     const playingArtistId = usePlayerStore(state => state.playingArtistId);
-
-    const onOpenMenu = () => {
-        setMenuVisible(true);
-    };
 
     return (
         <HorizontalPadding>
@@ -35,17 +34,21 @@ export default React.memo(function ArtistListItem({ artist, style }: IArtistsLis
                 ></Image>
                 <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
                     {playingArtistId === artist.id ? (
-                        <Text bold color="primary.500">
+                        <Text bold color="primary.500" numberOfLines={1}>
                             {artist.name}
                         </Text>
                     ) : (
-                        <Text bold>{artist.name}</Text>
-                    )}
-                    <Box pt={1} overflow="hidden">
-                        <Text fontSize="xs" color="gray.200">
-                            Artist
+                        <Text bold numberOfLines={1}>
+                            {artist.name}
                         </Text>
-                    </Box>
+                    )}
+                    {!hideSubtitle && (
+                        <Box pt={1} overflow="hidden">
+                            <Text fontSize="xs" color="gray.200">
+                                Artist
+                            </Text>
+                        </Box>
+                    )}
                 </VStack>
                 {/* <IconButton
                     variant="ghost"

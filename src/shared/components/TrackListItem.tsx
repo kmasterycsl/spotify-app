@@ -18,6 +18,7 @@ export interface ITracksListItemProps {
     index?: number;
     style?: ViewStyle;
     hideMenu?: boolean;
+    hideArtistName?: boolean;
     showType?: boolean;
 }
 
@@ -28,6 +29,7 @@ export const TrackListItemFragment = gql`
         id
         name
         album {
+            id
             coverImage {
                 meta {
                     ...ImageMetaFragment
@@ -45,6 +47,7 @@ export default React.memo(function TracksListItem({
     index,
     style,
     hideMenu,
+    hideArtistName,
     showType,
 }: ITracksListItemProps) {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -96,18 +99,22 @@ export default React.memo(function TracksListItem({
                 ></Image>
                 <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
                     {playingTrack?.id === track.id ? (
-                        <Text fontWeight="500" color="primary.500">
+                        <Text fontWeight="500" color="primary.500" numberOfLines={1}>
                             {track.name}
                         </Text>
                     ) : (
-                        <Text fontWeight="500">{track.name}</Text>
-                    )}
-                    <Box pt={1} overflow="hidden">
-                        <Text>
-                            {showType && <Text fontSize="xs">Song · </Text>}
-                            <ArtistNames artists={track.artists} />
+                        <Text fontWeight="500" numberOfLines={1}>
+                            {track.name}
                         </Text>
-                    </Box>
+                    )}
+                    {!hideArtistName && (
+                        <Box pt={1} overflow="hidden">
+                            <Text>
+                                {showType && <Text fontSize="xs">Song · </Text>}
+                                <ArtistNames artists={track.artists} />
+                            </Text>
+                        </Box>
+                    )}
                 </VStack>
                 {!hideMenu && (
                     <IconButton

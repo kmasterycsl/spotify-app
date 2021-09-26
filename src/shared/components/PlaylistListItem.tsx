@@ -1,19 +1,22 @@
 import { Playlist } from "@/types/graphql";
-import { gql } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { Box, Flex, HStack, Text, useTheme, VStack } from "native-base";
 import React, { useState } from "react";
 import { ViewStyle } from "react-native";
-import { ImageMetaFragment } from "../fragments/image-meta.fragment";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export interface IPlaylistsListItemProps {
     playlist: Playlist;
     index?: number;
     style?: ViewStyle;
+    hideSubtitle?: boolean;
 }
 
-export default React.memo(function PlaylistListItem({ playlist, style }: IPlaylistsListItemProps) {
+export default React.memo(function PlaylistListItem({
+    playlist,
+    style,
+    hideSubtitle,
+}: IPlaylistsListItemProps) {
     const [menuVisible, setMenuVisible] = useState(false);
     const { colors } = useTheme();
 
@@ -42,11 +45,13 @@ export default React.memo(function PlaylistListItem({ playlist, style }: IPlayli
                     <Text numberOfLines={1} bold>
                         {playlist.name}
                     </Text>
-                    <Box pt={1} overflow="hidden">
-                        <Text fontSize="xs" color="gray.200">
-                            Playlist · {playlist.tracksCount} songs
-                        </Text>
-                    </Box>
+                    {!hideSubtitle && (
+                        <Box pt={1} overflow="hidden">
+                            <Text fontSize="xs" color="gray.200">
+                                Playlist · {playlist.tracksCount} songs
+                            </Text>
+                        </Box>
+                    )}
                 </VStack>
                 {/* <IconButton
                     variant="ghost"

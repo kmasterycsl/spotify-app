@@ -5,7 +5,7 @@ import React from "react";
 
 export default function HomeHeader() {
     return (
-        <HStack alignItems="center" justifyContent="space-between" pl={DEFAULT_HORIZONTAL_PADDING}>
+        <HStack alignItems="center" justifyContent="space-between" px={DEFAULT_HORIZONTAL_PADDING}>
             <Text fontSize="2xl">Good evening</Text>
             <IconButton
                 size="sm"

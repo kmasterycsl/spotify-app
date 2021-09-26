@@ -6,31 +6,19 @@ import { RootStackParamList } from "@/types/routes.types";
 import LoginScreen from "@/screens/LoginScreen";
 import ProfileScreen from "@/screens/ProfileScreen";
 import AlbumDetailScreen from "@/screens/AlbumDetailScreen";
+import PlaylistDetailScreen from "@/screens/PlaylistDetailScreen";
 
 const HomeStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function HomeStackScreen() {
     return (
-        <HomeStack.Navigator initialRouteName="Home">
+        <HomeStack.Navigator initialRouteName="Home" screenOptions={{ header: () => null }}>
             <HomeStack.Screen name="Home" component={HomeScreen} options={{ header: () => null }} />
             <HomeStack.Screen name="Login" component={LoginScreen} />
             <HomeStack.Screen name="Profile" component={ProfileScreen} />
-            <HomeStack.Screen
-                name="ArtistDetail"
-                component={ArtistDetailScreen}
-                options={{
-                    headerTitle: () => null,
-                    headerShown: false,
-                }}
-            />
-            <HomeStack.Screen
-                name="AlbumDetail"
-                component={AlbumDetailScreen}
-                options={{
-                    headerTitle: () => null,
-                    headerShown: false,
-                }}
-            />
+            <HomeStack.Screen name="AlbumDetail" component={AlbumDetailScreen} />
+            <HomeStack.Screen name="ArtistDetail" component={ArtistDetailScreen} />
+            <HomeStack.Screen name="PlaylistDetail" component={PlaylistDetailScreen} />
         </HomeStack.Navigator>
     );
 }

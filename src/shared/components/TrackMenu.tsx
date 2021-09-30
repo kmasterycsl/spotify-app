@@ -1,3 +1,7 @@
+import { GET_ARTIST_BY_ID_QUERY } from "@/shared/queries/GET_ARTIST_BY_ID_QUERY";
+import { useCommonStore } from "@/store/common.store";
+import { usePlayerStore } from "@/store/player.store";
+import { Mutation, Track } from "@/types/graphql";
 import { useMutation } from "@apollo/client";
 import { gql } from "@apollo/client/core";
 import { Ionicons } from "@expo/vector-icons";
@@ -7,10 +11,6 @@ import React from "react";
 import { Modal, TouchableOpacity, useWindowDimensions } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
 import shallow from "zustand/shallow";
-import { useCommonStore } from "@/store/common.store";
-import { usePlayerStore } from "@/store/player.store";
-import { Mutation, Track } from "@/types/graphql";
-import { GET_ARTIST_BY_ID_QUERY } from "@/shared/queries/GET_ARTIST_BY_ID_QUERY";
 import ArtistNames from "./ArtistNames";
 import FullWidthSquareImage from "./FullWidthSquareImage";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";

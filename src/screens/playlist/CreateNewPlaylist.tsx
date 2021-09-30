@@ -6,10 +6,10 @@ import { GET_OWN_PLAYLISTS_QUERY } from "@/shared/queries/GET_OWN_PLAYLISTS_QUER
 import { useCommonStore } from "@/store/common.store";
 import { Mutation } from "@/types/graphql";
 import { gql, useMutation } from "@apollo/client";
-import { Box, Button, HStack, Icon, IconButton, Input, Text, VStack } from "native-base";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
+import { Box, Button, Icon, IconButton, Input, VStack } from "native-base";
 import React, { useState } from "react";
 import { Modal } from "react-native";
-import Ionicons from "@expo/vector-icons/build/Ionicons";
 
 interface CreateNewPlaylistProps {
     visible: boolean;

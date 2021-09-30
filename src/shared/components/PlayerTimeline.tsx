@@ -1,7 +1,7 @@
-import React from "react";
 import { usePlayerStore } from "@/store/player.store";
 import { milisToMinAndSec } from "@/utils/convert";
 import { HStack, Text } from "native-base";
+import React from "react";
 
 export default function PlayerTimeline() {
     const soundControllerStatus = usePlayerStore(state => state.soundControllerStatus);

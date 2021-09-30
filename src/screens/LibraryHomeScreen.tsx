@@ -1,8 +1,6 @@
 import AlbumListItem from "@/shared/components/AlbumListItem";
 import ArtistListItem from "@/shared/components/ArtistListItem";
-import HorizontalPadding, {
-    DEFAULT_HORIZONTAL_PADDING,
-} from "@/shared/components/HorizontalPadding";
+import { DEFAULT_HORIZONTAL_PADDING } from "@/shared/components/HorizontalPadding";
 import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import SafeAreaView from "@/shared/components/SafeAreaView";
@@ -14,7 +12,7 @@ import { Album, Artist, Likeable, PaginationMeta, Playlist, Query } from "@/type
 import { useQuery } from "@apollo/client";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
 import { useNavigation } from "@react-navigation/core";
-import { Button, HStack, Icon, IconButton, Text } from "native-base";
+import { HStack, Icon, IconButton, Text } from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { RenderItemParams } from "react-native-draggable-flatlist";

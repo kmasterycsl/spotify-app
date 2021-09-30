@@ -1,11 +1,11 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
-import { RootStackParamList } from "@/types/routes.types";
 import AlbumDetailScreen from "@/screens/AlbumDetailScreen";
 import ArtistDetailScreen from "@/screens/ArtistDetailScreen";
-import PlaylistDetailScreen from "@/screens/PlaylistDetailScreen";
-import GenreListScreen from "@/screens/GenreListScreen";
 import GenreDetailScreen from "@/screens/GenreDetailScreen";
+import GenreListScreen from "@/screens/GenreListScreen";
+import PlaylistDetailScreen from "@/screens/PlaylistDetailScreen";
+import { RootStackParamList } from "@/types/routes.types";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
 
 const SearchStack = createNativeStackNavigator<RootStackParamList>();
 

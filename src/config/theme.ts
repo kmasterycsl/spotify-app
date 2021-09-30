@@ -1,5 +1,5 @@
-import { extendTheme, themeTools, StorageManager, ColorMode } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ColorMode, extendTheme, StorageManager } from "native-base";
 
 export const colorModeManager: StorageManager = {
     get: async () => {

@@ -1,6 +1,5 @@
 import { Box, useColorModeValue } from "native-base";
-import React from "react";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { ViewStyle } from "react-native";
 
 export const DEFAULT_HORIZONTAL_PADDING = 4;

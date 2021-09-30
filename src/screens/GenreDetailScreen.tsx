@@ -3,21 +3,20 @@ import HorizontalPadding, {
 } from "@/shared/components/HorizontalPadding";
 import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import PlaylistCardListItem from "@/shared/components/PlaylistCardListItem";
-import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_GENRE_BY_ID_QUERY } from "@/shared/queries/GET_GENRE_BY_ID_QUERY";
 import { ImageMeta, PaginationMeta, Playlist, Query } from "@/types/graphql";
 import { RootStackParamList } from "@/types/routes.types";
 import { useQuery } from "@apollo/client";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 import { HStack, Icon, IconButton, Text } from "native-base";
 import React, { useState } from "react";
-import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { RenderItemParams } from "react-native-draggable-flatlist";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { LinearGradient } from "expo-linear-gradient";
-import Ionicons from "@expo/vector-icons/build/Ionicons";
 
 type GenreDetailScreenRouteProp = RouteProp<RootStackParamList, "GenreDetail">;
 

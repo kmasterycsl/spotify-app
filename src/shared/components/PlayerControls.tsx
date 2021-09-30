@@ -1,8 +1,8 @@
+import { usePlayerStore } from "@/store/player.store";
 import { Ionicons } from "@expo/vector-icons";
 import { Box, HStack, Icon, IconButton, Text } from "native-base";
 import React from "react";
 import shallow from "zustand/shallow";
-import { usePlayerStore } from "@/store/player.store";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export default function PlayerControls() {

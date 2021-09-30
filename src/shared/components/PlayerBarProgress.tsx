@@ -1,9 +1,9 @@
+import { usePlayerStore } from "@/store/player.store";
 import Slider from "@react-native-community/slider";
 import { useTheme } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import shallow from "zustand/shallow";
-import { usePlayerStore } from "@/store/player.store";
 
 export default function PlayerBarProgress() {
     const { colors } = useTheme();

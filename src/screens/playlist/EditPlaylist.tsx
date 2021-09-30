@@ -3,14 +3,14 @@ import SafeAreaView from "@/shared/components/SafeAreaView";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
 import { GET_OWN_PLAYLISTS_QUERY } from "@/shared/queries/GET_OWN_PLAYLISTS_QUERY";
+import { GET_PLAYLIST_BY_ID_QUERY } from "@/shared/queries/GET_PLAYLIST_BY_ID_QUERY";
 import { useCommonStore } from "@/store/common.store";
 import { Mutation, Playlist } from "@/types/graphql";
 import { gql, useMutation } from "@apollo/client";
-import { Box, Button, HStack, Icon, IconButton, Input, Text, VStack } from "native-base";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
+import { Box, Button, Icon, IconButton, Input, VStack } from "native-base";
 import React, { useState } from "react";
 import { Modal } from "react-native";
-import Ionicons from "@expo/vector-icons/build/Ionicons";
-import { GET_PLAYLIST_BY_ID_QUERY } from "@/shared/queries/GET_PLAYLIST_BY_ID_QUERY";
 
 interface EditPlaylistProps {
     playlist: Playlist;

@@ -1,11 +1,8 @@
-import GenreListItem from "@/shared/components/GenreListItem";
 import HorizontalPadding, {
     _DEFAULT_HORIZONTAL_PADDING,
 } from "@/shared/components/HorizontalPadding";
 import PlaylistCardListItem from "@/shared/components/PlaylistCardListItem";
-import SafeAreaView from "@/shared/components/SafeAreaView";
 import VerticalPadding from "@/shared/components/VerticalPadding";
-import { GET_GENRES_QUERY } from "@/shared/queries/GET_GENRES_QUERY";
 import { GET_HOME_GENRES_QUERY } from "@/shared/queries/GET_HOME_GENRES_QUERY";
 import { Genre, Playlist, Query } from "@/types/graphql";
 import { useQuery } from "@apollo/client";

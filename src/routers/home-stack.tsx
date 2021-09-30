@@ -1,13 +1,13 @@
-import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ArtistDetailScreen from "@/screens/ArtistDetailScreen";
-import HomeScreen from "@/screens/HomeScreen";
-import { RootStackParamList } from "@/types/routes.types";
-import LoginScreen from "@/screens/LoginScreen";
-import ProfileScreen from "@/screens/ProfileScreen";
 import AlbumDetailScreen from "@/screens/AlbumDetailScreen";
-import PlaylistDetailScreen from "@/screens/PlaylistDetailScreen";
+import ArtistDetailScreen from "@/screens/ArtistDetailScreen";
 import GenreDetailScreen from "@/screens/GenreDetailScreen";
+import HomeScreen from "@/screens/HomeScreen";
+import LoginScreen from "@/screens/LoginScreen";
+import PlaylistDetailScreen from "@/screens/PlaylistDetailScreen";
+import ProfileScreen from "@/screens/ProfileScreen";
+import { RootStackParamList } from "@/types/routes.types";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
 
 const HomeStack = createNativeStackNavigator<RootStackParamList>();
 

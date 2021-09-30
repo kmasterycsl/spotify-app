@@ -12,14 +12,10 @@ import { RootStackParamList } from "@/types/routes.types";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
+import { Box, HStack, Icon, Text, VStack } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import Animated, {
-    Extrapolate,
-    interpolate,
-    max,
-    min,
     useAnimatedProps,
     useAnimatedScrollHandler,
     useAnimatedStyle,

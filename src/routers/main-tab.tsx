@@ -1,11 +1,10 @@
-import * as React from "react";
-import { View } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeStackScreen from "./home-stack";
-import LibraryStackScreen from "./library-stack";
 import { useCommonStore } from "@/store/common.store";
 import { Ionicons } from "@expo/vector-icons";
-import { useColorModeValue, useTheme, Text } from "native-base";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Text, useColorModeValue, useTheme } from "native-base";
+import * as React from "react";
+import HomeStackScreen from "./home-stack";
+import LibraryStackScreen from "./library-stack";
 import SearchStackScreen from "./search-stack";
 
 export const TAB_BAR_HEIGHT = 75;

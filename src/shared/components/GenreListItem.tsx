@@ -1,7 +1,7 @@
 import { Genre, ImageMeta } from "@/types/graphql";
-import { Box, Text, VStack } from "native-base";
+import { Box, Text } from "native-base";
 import React from "react";
-import { Image, ImageBackground, ImageStyle, ViewStyle } from "react-native";
+import { Image, ViewStyle } from "react-native";
 
 export interface IGenresListItemProps {
     genre: Genre;

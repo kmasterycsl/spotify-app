@@ -1,9 +1,8 @@
+import { usePlayerStore } from "@/store/player.store";
 import { Ionicons } from "@expo/vector-icons";
 import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
 import React, { useState } from "react";
 import { Modal } from "react-native";
-import { usePlayerStore } from "@/store/player.store";
-import PlayerTimeline from "./PlayerTimeline";
 import FullWidthSquareImage from "./FullWidthSquareImage";
 import HorizontalPadding, {
     DEFAULT_HORIZONTAL_PADDING,
@@ -12,6 +11,7 @@ import HorizontalPadding, {
 import PlayerBarProgress from "./PlayerBarProgress";
 import PlayerControls from "./PlayerControls";
 import PlayerList from "./PlayerList";
+import PlayerTimeline from "./PlayerTimeline";
 import SafeAreaView from "./SafeAreaView";
 import VerticalPadding from "./VerticalPadding";
 

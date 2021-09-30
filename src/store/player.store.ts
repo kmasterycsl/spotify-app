@@ -1,8 +1,8 @@
-import { Audio, AVPlaybackStatus } from "expo-av";
 import { Album, Track } from "@/types/graphql";
-import create from "zustand";
+import { Audio, AVPlaybackStatus } from "expo-av";
 import produce from "immer";
 import _shuffle from "lodash.shuffle";
+import create from "zustand";
 import { useCommonStore } from "./common.store";
 const commonStoreState = useCommonStore.getState();
 

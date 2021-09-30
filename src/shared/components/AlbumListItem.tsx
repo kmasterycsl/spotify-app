@@ -1,10 +1,8 @@
 import { usePlayerStore } from "@/store/player.store";
 import { Album, ImageMeta } from "@/types/graphql";
-import { gql } from "@apollo/client";
 import { Box, HStack, Text, VStack } from "native-base";
 import React, { useState } from "react";
 import { Image, ViewStyle } from "react-native";
-import { ImageMetaFragment } from "../fragments/image-meta.fragment";
 import ArtistNames from "./ArtistNames";
 import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 

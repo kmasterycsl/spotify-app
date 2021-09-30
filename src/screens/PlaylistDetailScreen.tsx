@@ -1,4 +1,3 @@
-import Empty from "@/shared/components/Empty";
 import HorizontalPadding, {
     _DEFAULT_HORIZONTAL_PADDING,
 } from "@/shared/components/HorizontalPadding";

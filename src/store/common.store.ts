@@ -1,8 +1,8 @@
+import { User } from "@/types/graphql";
+import storage from "@/utils/storage";
 import produce from "immer";
 import create from "zustand";
-import { User } from "@/types/graphql";
 import { persist } from "zustand/middleware";
-import storage from "@/utils/storage";
 
 export interface CommonState {
     currentUser?: User;

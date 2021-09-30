@@ -1,6 +1,4 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, Image } from "react-native";
 
 export default function FullWidthImage({ url }: { url: string }) {

@@ -1,4 +1,4 @@
-import { VStack, Text, HStack, Button, useColorModeValue } from "native-base";
+import { Button, HStack, Text, useColorModeValue, VStack } from "native-base";
 import React from "react";
 import { Dimensions, Modal } from "react-native";
 const screenWidth = Dimensions.get("screen").width;

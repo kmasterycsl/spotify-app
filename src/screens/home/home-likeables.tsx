@@ -1,18 +1,15 @@
 import AlbumListItem from "@/shared/components/AlbumListItem";
 import ArtistListItem from "@/shared/components/ArtistListItem";
-import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import TracksListItem from "@/shared/components/TrackListItem";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
-import { usePlayerStore } from "@/store/player.store";
-import { Album, Artist, Likeable, PaginationMeta, Playlist, Query } from "@/types/graphql";
+import { Artist, Likeable, PaginationMeta, Playlist, Query } from "@/types/graphql";
 import { useQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/core";
 import { Box, HStack } from "native-base";
 import React, { useState } from "react";
-import { TouchableOpacity, ScrollView } from "react-native";
-import { RenderItemParams } from "react-native-draggable-flatlist";
+import { TouchableOpacity } from "react-native";
 
 export default function HomeLikeables() {
     const [paginationMeta, setPaginationMeta] = useState<
@@ -22,11 +19,10 @@ export default function HomeLikeables() {
         totalPages: Infinity,
     });
     const navigation = useNavigation();
-    const actionPlay = usePlayerStore(store => store.actionPlay);
 
     const [loading, setLoading] = useState(false);
 
-    const { data, refetch, fetchMore } = useQuery<Query>(GET_LIKEABLES_QUERY, {
+    const { data, fetchMore } = useQuery<Query>(GET_LIKEABLES_QUERY, {
         variables: {
             page: 1,
             limit: 6,

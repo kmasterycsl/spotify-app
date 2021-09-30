@@ -1,9 +1,9 @@
+import { usePlayerStore } from "@/store/player.store";
+import { Track } from "@/types/graphql";
 import { Text } from "native-base";
 import React, { useState } from "react";
 import { ActivityIndicator, TouchableOpacity } from "react-native";
 import DraggableFlatList, { RenderItemParams } from "react-native-draggable-flatlist";
-import { usePlayerStore } from "@/store/player.store";
-import { Track } from "@/types/graphql";
 import TracksListItem from "./TrackListItem";
 import VerticalPadding from "./VerticalPadding";
 

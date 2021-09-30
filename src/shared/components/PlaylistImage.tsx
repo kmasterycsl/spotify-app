@@ -1,8 +1,8 @@
 import { ImageMeta, Playlist } from "@/types/graphql";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
-import { HStack, Icon, useTheme } from "native-base";
+import { Icon, useTheme } from "native-base";
 import React from "react";
-import { Image, Dimensions, ViewStyle } from "react-native";
+import { Dimensions, Image, ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
 
 const screenWidth = Dimensions.get("screen").width;

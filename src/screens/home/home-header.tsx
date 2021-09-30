@@ -1,6 +1,6 @@
 import { DEFAULT_HORIZONTAL_PADDING } from "@/shared/components/HorizontalPadding";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
-import { HStack, IconButton, Icon, Text } from "native-base";
+import { HStack, Icon, IconButton, Text } from "native-base";
 import React from "react";
 
 export default function HomeHeader() {

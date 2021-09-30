@@ -1,8 +1,5 @@
-import React from "react";
-import { ReactNode } from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { Dimensions, Image, ImageBackground } from "react-native";
+import React, { ReactNode, useState } from "react";
+import { Dimensions, ImageBackground } from "react-native";
 
 export default function FullWidthSquareImage({
     url,

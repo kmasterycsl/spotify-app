@@ -1,12 +1,12 @@
-import { FlatList, Text, useColorMode, useColorModeValue, VStack } from "native-base";
+import { usePlayerStore } from "@/store/player.store";
+import { Track } from "@/types/graphql";
+import { FlatList, Text, useColorModeValue, VStack } from "native-base";
 import React, { useCallback, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
-import { usePlayerStore } from "@/store/player.store";
-import { Track } from "@/types/graphql";
+import Empty from "./Empty";
 import TracksListItem from "./TrackListItem";
 import VerticalPadding from "./VerticalPadding";
-import Empty from "./Empty";
 
 const AnimatedFlatlist = Animated.createAnimatedComponent(FlatList);
 

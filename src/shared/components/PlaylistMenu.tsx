@@ -1,3 +1,6 @@
+import EditPlaylist from "@/screens/playlist/EditPlaylist";
+import { useCommonStore } from "@/store/common.store";
+import { Mutation, Playlist } from "@/types/graphql";
 import { useMutation } from "@apollo/client";
 import { gql } from "@apollo/client/core";
 import { Ionicons } from "@expo/vector-icons";
@@ -6,19 +9,11 @@ import { Button, HStack, Icon, ScrollView, Text, VStack } from "native-base";
 import React, { useState } from "react";
 import { Modal, TouchableOpacity, useWindowDimensions } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
-import shallow from "zustand/shallow";
-import { useCommonStore } from "@/store/common.store";
-import { usePlayerStore } from "@/store/player.store";
-import { Mutation, Playlist, Track } from "@/types/graphql";
-import { GET_ARTIST_BY_ID_QUERY } from "@/shared/queries/GET_ARTIST_BY_ID_QUERY";
-import ArtistNames from "./ArtistNames";
-import FullWidthSquareImage from "./FullWidthSquareImage";
+import Confirm from "./Confirm";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
+import PlaylistCoverImage from "./PlaylistCoverImage";
 import SafeAreaView from "./SafeAreaView";
 import VerticalPadding from "./VerticalPadding";
-import Confirm from "./Confirm";
-import EditPlaylist from "@/screens/playlist/EditPlaylist";
-import PlaylistCoverImage from "./PlaylistCoverImage";
 
 interface PlaylistMenuProps {
     playlist: Playlist;

@@ -1,18 +1,9 @@
+import { usePlayerStore } from "@/store/player.store";
 import { Ionicons } from "@expo/vector-icons";
-import {
-    HStack,
-    Icon,
-    IconButton,
-    Spinner,
-    Text,
-    useColorMode,
-    useColorModeValue,
-    VStack,
-} from "native-base";
+import { HStack, Icon, IconButton, Spinner, Text, useColorModeValue, VStack } from "native-base";
 import React, { useState } from "react";
 import { Image, TouchableOpacity } from "react-native";
 import shallow from "zustand/shallow";
-import { usePlayerStore } from "@/store/player.store";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 import Player from "./Player";
 import PlayerBarProgress from "./PlayerBarProgress";

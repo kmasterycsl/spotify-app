@@ -1,9 +1,8 @@
-import { gql, useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
 import { useCommonStore } from "@/store/common.store";
 import { Query } from "@/types/graphql";
+import { gql, useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
 import useCustomFonts from "./useCustomFonts";
-import useDebugStore from "./useDebugStore";
 import useIgnoreLogs from "./useIgnoreLogs";
 
 export const WHOAMI_QUERY = gql`

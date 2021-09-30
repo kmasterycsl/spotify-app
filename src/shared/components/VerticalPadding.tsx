@@ -1,7 +1,7 @@
 import { Box, useColorModeValue } from "native-base";
 import React from "react";
 import { ViewStyle } from "react-native";
-import { DEFAULT_HORIZONTAL_PADDING, _DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
+import { _DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export default function VerticalPadding(
     {

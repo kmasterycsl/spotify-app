@@ -1,3 +1,4 @@
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -154,6 +155,12 @@ export type PaginatedArtist = {
   pageInfo: PaginationMeta;
 };
 
+export type PaginatedGenre = {
+  __typename?: 'PaginatedGenre';
+  items: Array<Genre>;
+  pageInfo: PaginationMeta;
+};
+
 export type PaginatedLikeable = {
   __typename?: 'PaginatedLikeable';
   items: Array<Likeable>;
@@ -209,7 +216,7 @@ export type Query = {
   album: Album;
   getOwnPlaylists: Array<Playlist>;
   playlist?: Maybe<Playlist>;
-  genres: Array<Genre>;
+  genres: PaginatedGenre;
   genre: Genre;
   whoAmI: User;
   user: User;
@@ -245,6 +252,12 @@ export type QueryAlbumArgs = {
 
 export type QueryPlaylistArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryGenresArgs = {
+  page?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
 };
 
 

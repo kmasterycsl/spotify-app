@@ -20,7 +20,7 @@ export default function HomeGenres() {
     const { data, refetch, fetchMore } = useQuery<Query>(GET_HOME_GENRES_QUERY, {
         variables: {
             page: 1,
-            limit: 10,
+            limit: 5,
         },
     });
 
@@ -35,7 +35,7 @@ export default function HomeGenres() {
     return data?.genres ? (
         <ScrollView contentContainerStyle={{ alignItems: "center" }}>
             <HStack flexWrap="wrap" justifyContent="space-between">
-                {data?.genres.map(genre => (
+                {data?.genres.items.map(genre => (
                     <VStack key={genre.id}>
                         <TouchableOpacity key={genre.id} onPress={goToGenre(genre)}>
                             <HorizontalPadding>

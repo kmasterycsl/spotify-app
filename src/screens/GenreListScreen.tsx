@@ -17,6 +17,7 @@ export default function GenreListScreen() {
     const { data, refetch, fetchMore } = useQuery<Query>(GET_GENRES_QUERY, {
         variables: {
             page: 1,
+            limit: 9999,
         },
     });
 
@@ -28,7 +29,7 @@ export default function GenreListScreen() {
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView contentContainerStyle={{ alignItems: "center" }}>
                 <HStack flexWrap="wrap" justifyContent="space-between">
-                    {data?.genres.map(genre => (
+                    {data.genres.items.map(genre => (
                         <TouchableOpacity key={genre.id} onPress={goToDetail(genre)}>
                             <GenreListItem
                                 style={{

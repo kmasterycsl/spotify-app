@@ -35,7 +35,7 @@
     "immer": "^9.0.5",
     "lodash.keyby": "^4.6.0",
     "lodash.shuffle": "^4.2.0",
-    "native-base": "^3.1.0",
+    "native-base": "3.2.1-RC-1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",

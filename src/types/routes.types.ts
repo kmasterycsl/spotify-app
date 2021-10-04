@@ -1,13 +1,14 @@
 export type RootStackParamList = {
-    Home: {};
-    Login: {};
-    Profile: {};
+    Home: undefined;
+    Login: undefined;
+    Profile: undefined;
     ArtistDetail: { artistId: string };
     AlbumDetail: { albumId: string };
     PlaylistDetail: { playlistId: string };
-    LibraryHome: {};
-    GenreList: {};
+    LibraryHome: undefined;
+    GenreList: undefined;
     GenreDetail: { genreId: string };
+    Search: undefined;
 };
 
 declare global {

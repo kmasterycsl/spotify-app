@@ -1,4 +1,5 @@
 import PlayerBar from "@/shared/components/PlayerBar";
+import { usePlayerStore } from "@/store/player.store";
 import { ApolloProvider } from "@apollo/client";
 import { NavigationContainer } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
@@ -28,6 +29,7 @@ export default function App() {
 
 function AppBoostraper() {
     const appIsReady = useAppStartup();
+    const isPlayerVisible = usePlayerStore(store => store.isPlayerVisible);
 
     if (!appIsReady) {
         return <AppLoading />;
@@ -35,7 +37,12 @@ function AppBoostraper() {
 
     return (
         <SafeAreaProvider style={{ position: "relative" }}>
-            <Box position="absolute" bottom={TAB_BAR_HEIGHT} width="100%" zIndex={1}>
+            <Box
+                position="absolute"
+                bottom={isPlayerVisible() ? TAB_BAR_HEIGHT : 0}
+                width="100%"
+                zIndex={1}
+            >
                 <PlayerBar />
             </Box>
             <MainTab />

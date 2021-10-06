@@ -17,6 +17,7 @@ export interface PlayerState {
     shuffle: boolean;
     repeatMode: "none" | "once" | "all";
     tracksQueue: Track[];
+    isPlayerVisible: () => boolean;
     actionBulkAddToQueue: (tracks: Track[]) => void;
     actionAddToQueue: (track: Track) => void;
     actionRemoveFromQueue: (track: Track) => void;
@@ -43,6 +44,9 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
     repeatMode: "none",
     shuffle: false,
     tracksQueue: [],
+    isPlayerVisible: () => {
+        return !!get().playingTrack;
+    },
     actionAddToQueue: (track: Track) =>
         set(
             produce<PlayerState>(state => {

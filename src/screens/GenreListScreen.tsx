@@ -29,7 +29,7 @@ export default function GenreListScreen() {
         nav.navigate("GenreDetail", { genreId: genre.id });
     };
 
-    const goToSearch = () => () => {
+    const goToSearch = () => {
         nav.navigate("Search");
     };
 

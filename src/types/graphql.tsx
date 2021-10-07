@@ -51,6 +51,7 @@ export type Artist = {
 export type ArtistTracksArgs = {
   page?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
+  query?: Maybe<Scalars['String']>;
 };
 
 export type Asset = {
@@ -149,6 +150,12 @@ export type MutationLoginBySocialProviderArgs = {
   providerId: Scalars['String'];
 };
 
+export type PaginatedAlbum = {
+  __typename?: 'PaginatedAlbum';
+  items: Array<Album>;
+  pageInfo: PaginationMeta;
+};
+
 export type PaginatedArtist = {
   __typename?: 'PaginatedArtist';
   items: Array<Artist>;
@@ -205,15 +212,19 @@ export type Playlist = {
 export type PlaylistTracksArgs = {
   page?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
+  query?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
   __typename?: 'Query';
   artists: PaginatedArtist;
   artist: Artist;
+  tracks: PaginatedTrack;
   track: Track;
   likeables: PaginatedLikeable;
+  albums: PaginatedAlbum;
   album: Album;
+  playlists: PaginatedPlaylist;
   getOwnPlaylists: Array<Playlist>;
   playlist?: Maybe<Playlist>;
   genres: PaginatedGenre;
@@ -226,11 +237,19 @@ export type Query = {
 export type QueryArtistsArgs = {
   page?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
+  query?: Maybe<Scalars['String']>;
 };
 
 
 export type QueryArtistArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryTracksArgs = {
+  page?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  query?: Maybe<Scalars['String']>;
 };
 
 
@@ -245,8 +264,22 @@ export type QueryLikeablesArgs = {
 };
 
 
+export type QueryAlbumsArgs = {
+  page?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  query?: Maybe<Scalars['String']>;
+};
+
+
 export type QueryAlbumArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryPlaylistsArgs = {
+  page?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  query?: Maybe<Scalars['String']>;
 };
 
 

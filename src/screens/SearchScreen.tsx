@@ -1,12 +1,13 @@
+import useDebounce from "@/hooks/useDebounce";
 import HorizontalPadding from "@/shared/components/HorizontalPadding";
 import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
+import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import SafeAreaView from "@/shared/components/SafeAreaView";
-import useDebounce from "@/hooks/useDebounce";
 import TracksListItem from "@/shared/components/TrackListItem";
-import VerticalPadding from "@/shared/components/VerticalPadding";
+import { GET_PLAYLISTS_QUERY } from "@/shared/queries/GET_PLAYLISTS_QUERY";
 import { GET_TRACKS_QUERY } from "@/shared/queries/GET_TRACKS_QUERY";
-import { PaginationMeta, Query, Track } from "@/types/graphql";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { PaginationMeta, Query } from "@/types/graphql";
+import { useLazyQuery } from "@apollo/client";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Badge, Box, HStack, Icon, Input, Text } from "native-base";
@@ -43,13 +44,39 @@ export default function SearchScreen() {
         }
     );
 
-    useEffect(() => {
-        getTracks({
+    const [getPlaylists, { data: playlistsData, fetchMore: fetchMorePlaylists }] =
+        useLazyQuery<Query>(GET_PLAYLISTS_QUERY, {
             variables: {
-                query: debouncedQuery,
+                page: 1,
+                limit: 20,
             },
         });
-    }, [debouncedQuery]);
+
+    useEffect(() => {
+        setPaginationMeta({
+            currentPage: 1,
+            totalPages: Infinity,
+        });
+    }, [activedType]);
+
+    useEffect(() => {
+        switch (activedType) {
+            case "Tracks":
+                getTracks({
+                    variables: {
+                        query: debouncedQuery,
+                    },
+                });
+                break;
+            case "Playlists":
+                getPlaylists({
+                    variables: {
+                        query: debouncedQuery,
+                    },
+                });
+                break;
+        }
+    }, [debouncedQuery, activedType]);
 
     const onChangeQuery = (q: string) => {
         setQuery(q);
@@ -67,27 +94,61 @@ export default function SearchScreen() {
         if (loading) return;
         if (paginationMeta.currentPage >= paginationMeta.totalPages) return;
         setLoading(true);
-        if (!fetchMoreTracks) return;
-        const fetched = fetchMoreTracks({
-            variables: {
-                page: paginationMeta.currentPage + 1,
-            },
-        });
-        fetched.then(({ data }) => {
-            setPaginationMeta(data.tracks.pageInfo);
-        });
-        fetched.finally(() => {
+        let fetched;
+        switch (activedType) {
+            case "Tracks":
+                if (!fetchMoreTracks) return;
+                fetched = fetchMoreTracks({
+                    variables: {
+                        page: paginationMeta.currentPage + 1,
+                    },
+                }).then(({ data }) => {
+                    setPaginationMeta(data.tracks.pageInfo);
+                });
+                break;
+            case "Playlists":
+                if (!fetchMorePlaylists) return;
+                fetched = fetchMorePlaylists({
+                    variables: {
+                        page: paginationMeta.currentPage + 1,
+                    },
+                }).then(({ data }) => {
+                    setPaginationMeta(data.playlists.pageInfo);
+                });
+                break;
+        }
+        fetched?.finally(() => {
             setLoading(false);
         });
         return fetched;
     };
 
-    const renderItem = (params: RenderItemParams<Track>) => {
+    const renderItem = (params: RenderItemParams<any>) => {
         return (
-            <TouchableOpacity>
-                <TracksListItem showType hideMenu track={params.item} />
-            </TouchableOpacity>
+            <>
+                {activedType === "Tracks" && (
+                    <TouchableOpacity>
+                        <TracksListItem showType hideMenu track={params.item} />
+                    </TouchableOpacity>
+                )}
+                {activedType === "Playlists" && (
+                    <TouchableOpacity>
+                        <PlaylistListItem playlist={params.item} />
+                    </TouchableOpacity>
+                )}
+            </>
         );
+    };
+
+    const items: () => any[] = () => {
+        switch (activedType) {
+            case "Tracks":
+                return tracksData?.tracks?.items || [];
+            case "Playlists":
+                return playlistsData?.playlists?.items || [];
+        }
+
+        return [];
     };
 
     return (
@@ -137,8 +198,9 @@ export default function SearchScreen() {
                     ))}
                 </HStack>
             </HorizontalPadding>
+            <Text>{items().length}</Text>
             <InfiniteFlatList
-                data={tracksData?.tracks?.items || []}
+                data={items()}
                 renderItem={renderItem}
                 onLoadMore={onLoadMore}
                 isLoading={loading}

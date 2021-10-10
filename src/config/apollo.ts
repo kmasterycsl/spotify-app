@@ -66,7 +66,10 @@ const apolloCache = new InMemoryCache({
         },
         Query: {
             fields: {
-                tracks: mergePaginatedResult,
+                tracks: {
+                    ...mergePaginatedResult,
+                    keyArgs: ["query"],
+                },
             },
         },
     },

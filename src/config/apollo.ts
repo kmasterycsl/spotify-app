@@ -1,6 +1,6 @@
 import { useCommonStore } from "@/store/common.store";
 import { PaginatedTrack } from "@/types/graphql";
-import { ApolloClient, createHttpLink, from, InMemoryCache } from "@apollo/client";
+import { ApolloClient, createHttpLink, FieldPolicy, from, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import Constants from "expo-constants";
@@ -42,41 +42,31 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
     }
 });
 
+const mergePaginatedResult: FieldPolicy<any> = {
+    keyArgs: false,
+    // @TODO: extract common paginated object
+    merge(existing: PaginatedTrack | undefined, incoming: PaginatedTrack) {
+        if (existing?.pageInfo.currentPage === incoming.pageInfo.currentPage) {
+            return existing;
+        }
+
+        return {
+            items: [...(existing?.items || []), ...incoming.items],
+            pageInfo: incoming.pageInfo,
+        };
+    },
+};
+
 const apolloCache = new InMemoryCache({
     typePolicies: {
         Artist: {
             fields: {
-                tracks: {
-                    keyArgs: false,
-                    merge(existing: PaginatedTrack | undefined, incoming: PaginatedTrack) {
-                        if (existing?.pageInfo.currentPage === incoming.pageInfo.currentPage) {
-                            return existing;
-                        }
-
-                        return {
-                            items: [...(existing?.items || []), ...incoming.items],
-                            pageInfo: incoming.pageInfo,
-                        };
-                    },
-                },
+                tracks: mergePaginatedResult,
             },
         },
         Query: {
             fields: {
-                tracks: {
-                    keyArgs: false,
-                    merge(existing: PaginatedTrack | undefined, incoming: PaginatedTrack) {
-                        console.log({ existing, incoming });
-                        if (existing?.pageInfo.currentPage === incoming.pageInfo.currentPage) {
-                            return existing;
-                        }
-
-                        return {
-                            items: [...(existing?.items || []), ...incoming.items],
-                            pageInfo: incoming.pageInfo,
-                        };
-                    },
-                },
+                tracks: mergePaginatedResult,
             },
         },
     },

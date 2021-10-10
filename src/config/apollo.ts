@@ -61,6 +61,24 @@ const apolloCache = new InMemoryCache({
                 },
             },
         },
+        Query: {
+            fields: {
+                tracks: {
+                    keyArgs: false,
+                    merge(existing: PaginatedTrack | undefined, incoming: PaginatedTrack) {
+                        console.log({ existing, incoming });
+                        if (existing?.pageInfo.currentPage === incoming.pageInfo.currentPage) {
+                            return existing;
+                        }
+
+                        return {
+                            items: [...(existing?.items || []), ...incoming.items],
+                            pageInfo: incoming.pageInfo,
+                        };
+                    },
+                },
+            },
+        },
     },
 });
 

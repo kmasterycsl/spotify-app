@@ -40,7 +40,6 @@ export default function SearchScreen() {
                 page: 1,
                 limit: 20,
             },
-            fetchPolicy: "no-cache",
         }
     );
 
@@ -48,7 +47,7 @@ export default function SearchScreen() {
         // console.log({ debouncedQuery });
         getTracks({
             variables: {
-                debouncedQuery,
+                query: debouncedQuery,
             },
         });
     }, [debouncedQuery]);
@@ -69,7 +68,6 @@ export default function SearchScreen() {
         if (loading) return;
         if (paginationMeta.currentPage >= paginationMeta.totalPages) return;
         setLoading(true);
-        console.log({ fetchMoreTracks });
         if (!fetchMoreTracks) return;
         const fetched = fetchMoreTracks({
             variables: {

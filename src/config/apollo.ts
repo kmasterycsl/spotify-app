@@ -74,6 +74,14 @@ const apolloCache = new InMemoryCache({
                     ...mergePaginatedResult,
                     keyArgs: ["query"],
                 },
+                albums: {
+                    ...mergePaginatedResult,
+                    keyArgs: ["query"],
+                },
+                artists: {
+                    ...mergePaginatedResult,
+                    keyArgs: ["query"],
+                },
             },
         },
     },

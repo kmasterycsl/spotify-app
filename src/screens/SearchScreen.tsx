@@ -1,9 +1,11 @@
 import useDebounce from "@/hooks/useDebounce";
+import AlbumListItem from "@/shared/components/AlbumListItem";
 import HorizontalPadding from "@/shared/components/HorizontalPadding";
 import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import TracksListItem from "@/shared/components/TrackListItem";
+import { GET_ALBUMS_QUERY } from "@/shared/queries/GET_ALBUMS_QUERY";
 import { GET_PLAYLISTS_QUERY } from "@/shared/queries/GET_PLAYLISTS_QUERY";
 import { GET_TRACKS_QUERY } from "@/shared/queries/GET_TRACKS_QUERY";
 import { PaginationMeta, Query } from "@/types/graphql";
@@ -52,6 +54,16 @@ export default function SearchScreen() {
             },
         });
 
+    const [getAlbums, { data: albumsData, fetchMore: fetchMoreAlbums }] = useLazyQuery<Query>(
+        GET_ALBUMS_QUERY,
+        {
+            variables: {
+                page: 1,
+                limit: 20,
+            },
+        }
+    );
+
     useEffect(() => {
         setPaginationMeta({
             currentPage: 1,
@@ -70,6 +82,13 @@ export default function SearchScreen() {
                 break;
             case "Playlists":
                 getPlaylists({
+                    variables: {
+                        query: debouncedQuery,
+                    },
+                });
+                break;
+            case "Albums":
+                getAlbums({
                     variables: {
                         query: debouncedQuery,
                     },
@@ -116,6 +135,16 @@ export default function SearchScreen() {
                     setPaginationMeta(data.playlists.pageInfo);
                 });
                 break;
+            case "Albums":
+                if (!fetchMoreAlbums) return;
+                fetched = fetchMoreAlbums({
+                    variables: {
+                        page: paginationMeta.currentPage + 1,
+                    },
+                }).then(({ data }) => {
+                    setPaginationMeta(data.albums.pageInfo);
+                });
+                break;
         }
         fetched?.finally(() => {
             setLoading(false);
@@ -136,6 +165,11 @@ export default function SearchScreen() {
                         <PlaylistListItem playlist={params.item} />
                     </TouchableOpacity>
                 )}
+                {activedType === "Albums" && (
+                    <TouchableOpacity>
+                        <AlbumListItem album={params.item} />
+                    </TouchableOpacity>
+                )}
             </>
         );
     };
@@ -146,6 +180,8 @@ export default function SearchScreen() {
                 return tracksData?.tracks?.items || [];
             case "Playlists":
                 return playlistsData?.playlists?.items || [];
+            case "Albums":
+                return albumsData?.albums?.items || [];
         }
 
         return [];

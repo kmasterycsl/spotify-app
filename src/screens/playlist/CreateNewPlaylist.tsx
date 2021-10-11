@@ -67,7 +67,7 @@ export default function CreateNewPlaylist({ visible, setVisible }: CreateNewPlay
                 <IconButton
                     alignSelf="flex-end"
                     onPress={() => setVisible(false)}
-                    icon={<Icon as={<Ionicons name="close-outline" />}></Icon>}
+                    icon={<Icon name="close-outline" as={Ionicons} color="white"></Icon>}
                 />
                 <VStack justifyContent="center" flexGrow={1}>
                     <HorizontalPadding>

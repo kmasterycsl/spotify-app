@@ -3,12 +3,13 @@ import { ColorMode, extendTheme, StorageManager, v3CompatibleTheme } from "nativ
 
 export const colorModeManager: StorageManager = {
     get: async () => {
-        try {
-            let val = await AsyncStorage.getItem("@color-mode");
-            return val === "dark" ? "dark" : "light";
-        } catch (e) {
-            return "dark";
-        }
+        return 'dark';
+        // try {
+        //     let val = await AsyncStorage.getItem("@color-mode");
+        //     return val === "dark" ? "dark" : "light";
+        // } catch (e) {
+        //     return "dark";
+        // }
     },
     set: async (value: ColorMode) => {
         try {

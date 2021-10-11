@@ -48,7 +48,7 @@ export default React.memo(function PlaylistListItem({
                     {!hideSubtitle && (
                         <Box pt={1} overflow="hidden">
                             <Text fontSize="xs" color="gray.200">
-                                Playlist · {playlist.tracksCount} songs
+                                Playlist · {playlist.tracksCount || 0} songs
                             </Text>
                         </Box>
                     )}

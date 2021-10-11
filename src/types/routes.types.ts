@@ -10,6 +10,7 @@ export type RootStackParamList = {
     GenreList: undefined;
     GenreDetail: { genreId: string };
     Search: undefined;
+    Account: undefined;
 };
 
 declare global {

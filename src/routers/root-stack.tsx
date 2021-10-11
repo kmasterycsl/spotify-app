@@ -1,3 +1,4 @@
+import AccountScreen from "@/screens/AccountScreen";
 import AlbumDetailScreen from "@/screens/AlbumDetailScreen";
 import ArtistDetailScreen from "@/screens/ArtistDetailScreen";
 import GenreDetailScreen from "@/screens/GenreDetailScreen";
@@ -17,15 +18,22 @@ export default function RootStackScreens() {
     const currentUser = useCommonStore(state => state.currentUser);
 
     return (
-        <RootStack.Navigator initialRouteName="Login" screenOptions={{ header: () => null }}>
+        <RootStack.Navigator initialRouteName="Login">
             {!currentUser && (
-                <>
+                <RootStack.Group screenOptions={{ header: () => null }}>
                     <RootStack.Screen name="Login" component={LoginScreen} />
-                </>
+                </RootStack.Group>
             )}
             {currentUser && (
                 <>
-                    <RootStack.Screen name="MainTab" component={MainTab} />
+                    <RootStack.Group screenOptions={{ header: () => null }}>
+                        <RootStack.Screen name="MainTab" component={MainTab} />
+                    </RootStack.Group>
+                    <RootStack.Screen
+                        name="Account"
+                        component={AccountScreen}
+                        options={{ headerShown: true }}
+                    />
                 </>
             )}
         </RootStack.Navigator>

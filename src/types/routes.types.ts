@@ -2,6 +2,7 @@ export type RootStackParamList = {
     Home: undefined;
     Login: undefined;
     Profile: undefined;
+    MainTab: undefined;
     ArtistDetail: { artistId: string };
     AlbumDetail: { albumId: string };
     PlaylistDetail: { playlistId: string };
@@ -13,6 +14,6 @@ export type RootStackParamList = {
 
 declare global {
     namespace ReactNavigation {
-        interface RootParamList extends RootStackParamList {}
+        interface RootParamList extends RootStackParamList { }
     }
 }

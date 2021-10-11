@@ -1,3 +1,4 @@
+import RootStackScreens from "@/routers/root-stack";
 import PlayerBar from "@/shared/components/PlayerBar";
 import { usePlayerStore } from "@/store/player.store";
 import { ApolloProvider } from "@apollo/client";
@@ -10,7 +11,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { apolloClient } from "./src/config/apollo";
 import theme, { colorModeManager } from "./src/config/theme";
 import useAppStartup from "./src/hooks/useAppStartup";
-import MainTab, { TAB_BAR_HEIGHT } from "./src/routers/main-tab";
+import { TAB_BAR_HEIGHT } from "./src/routers/main-tab";
 import GlobalToast from "./src/shared/components/GlobalToast";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -45,7 +46,7 @@ function AppBoostraper() {
             >
                 <PlayerBar />
             </Box>
-            <MainTab />
+            <RootStackScreens />
             <GlobalToast />
         </SafeAreaProvider>
     );

@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { DarkTheme } from "@react-navigation/native";
 import { ColorMode, extendTheme, StorageManager, v3CompatibleTheme } from "native-base";
 
 export const colorModeManager: StorageManager = {
@@ -21,6 +22,14 @@ export const colorModeManager: StorageManager = {
         }
     },
 };
+
+export const navigationTheme = {
+    ...DarkTheme,
+    colors: {
+        ...DarkTheme.colors,
+        primary: '#39e074',
+    },
+}
 
 const theme = extendTheme(v3CompatibleTheme, {
     colors: {

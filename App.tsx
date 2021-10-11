@@ -9,7 +9,7 @@ import { Box, NativeBaseProvider } from "native-base";
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { apolloClient } from "./src/config/apollo";
-import theme, { colorModeManager } from "./src/config/theme";
+import theme, { colorModeManager, navigationTheme } from "./src/config/theme";
 import useAppStartup from "./src/hooks/useAppStartup";
 import { TAB_BAR_HEIGHT } from "./src/routers/main-tab";
 import GlobalToast from "./src/shared/components/GlobalToast";
@@ -20,7 +20,7 @@ export default function App() {
     return (
         <NativeBaseProvider theme={theme} colorModeManager={colorModeManager}>
             <ApolloProvider client={apolloClient}>
-                <NavigationContainer>
+                <NavigationContainer theme={navigationTheme}>
                     <AppBoostraper />
                 </NavigationContainer>
             </ApolloProvider>

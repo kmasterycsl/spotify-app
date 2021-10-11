@@ -1,20 +1,14 @@
-import GenreListItem from "@/shared/components/GenreListItem";
-import HorizontalPadding, {
-    _DEFAULT_HORIZONTAL_PADDING,
-} from "@/shared/components/HorizontalPadding";
+import useLogout from "@/hooks/useLogout";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import { GET_GENRES_QUERY } from "@/shared/queries/GET_GENRES_QUERY";
 import { Genre, Query } from "@/types/graphql";
 import { useQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
-import { HStack, Icon, Text, ScrollView } from "native-base";
+import { HStack, ScrollView, Text } from "native-base";
 import React from "react";
 import { Dimensions, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 const screenWidth = Dimensions.get("screen").width;
-import { MaterialIcons } from "@expo/vector-icons";
-import VerticalPadding from "@/shared/components/VerticalPadding";
-import useLogout from "@/hooks/useLogout";
 
 export default function AccountScreen() {
     const insets = useSafeAreaInsets();

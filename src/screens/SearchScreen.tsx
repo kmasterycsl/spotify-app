@@ -1,11 +1,13 @@
 import useDebounce from "@/hooks/useDebounce";
 import AlbumListItem from "@/shared/components/AlbumListItem";
 import ArtistListItem from "@/shared/components/ArtistListItem";
+import Empty from "@/shared/components/Empty";
 import HorizontalPadding from "@/shared/components/HorizontalPadding";
 import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import TracksListItem from "@/shared/components/TrackListItem";
+import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_ALBUMS_QUERY } from "@/shared/queries/GET_ALBUMS_QUERY";
 import { GET_ARTISTS_QUERY } from "@/shared/queries/GET_ARTISTS_QUERY";
 import { GET_PLAYLISTS_QUERY } from "@/shared/queries/GET_PLAYLISTS_QUERY";
@@ -38,43 +40,41 @@ export default function SearchScreen() {
     });
     const debouncedQuery = useDebounce(query, 500);
 
-    const [getTracks, { data: tracksData, fetchMore: fetchMoreTracks }] = useLazyQuery<Query>(
-        GET_TRACKS_QUERY,
-        {
-            variables: {
-                page: 1,
-                limit: 20,
-            },
-        }
-    );
-
-    const [getPlaylists, { data: playlistsData, fetchMore: fetchMorePlaylists }] =
-        useLazyQuery<Query>(GET_PLAYLISTS_QUERY, {
+    const [getTracks, { data: tracksData, fetchMore: fetchMoreTracks, loading: loadingTracks }] =
+        useLazyQuery<Query>(GET_TRACKS_QUERY, {
             variables: {
                 page: 1,
                 limit: 20,
             },
         });
 
-    const [getAlbums, { data: albumsData, fetchMore: fetchMoreAlbums }] = useLazyQuery<Query>(
-        GET_ALBUMS_QUERY,
-        {
-            variables: {
-                page: 1,
-                limit: 20,
-            },
-        }
-    );
+    const [
+        getPlaylists,
+        { data: playlistsData, fetchMore: fetchMorePlaylists, loading: loadingPlaylists },
+    ] = useLazyQuery<Query>(GET_PLAYLISTS_QUERY, {
+        variables: {
+            page: 1,
+            limit: 20,
+        },
+    });
 
-    const [getArtists, { data: artistsData, fetchMore: fetchMoreArtists }] = useLazyQuery<Query>(
-        GET_ARTISTS_QUERY,
-        {
+    const [getAlbums, { data: albumsData, fetchMore: fetchMoreAlbums, loading: loadingAlbums }] =
+        useLazyQuery<Query>(GET_ALBUMS_QUERY, {
             variables: {
                 page: 1,
                 limit: 20,
             },
-        }
-    );
+        });
+
+    const [
+        getArtists,
+        { data: artistsData, fetchMore: fetchMoreArtists, loading: loadingArtists },
+    ] = useLazyQuery<Query>(GET_ARTISTS_QUERY, {
+        variables: {
+            page: 1,
+            limit: 20,
+        },
+    });
 
     useEffect(() => {
         setPaginationMeta({
@@ -84,6 +84,7 @@ export default function SearchScreen() {
     }, [activedType]);
 
     useEffect(() => {
+        if (!debouncedQuery) return;
         switch (activedType) {
             case "Tracks":
                 getTracks({
@@ -204,6 +205,7 @@ export default function SearchScreen() {
                         <ArtistListItem artist={params.item} />
                     </TouchableOpacity>
                 )}
+                <VerticalPadding />
             </>
         );
     };
@@ -219,8 +221,19 @@ export default function SearchScreen() {
             case "Artists":
                 return artistsData?.artists?.items || [];
         }
+    };
 
-        return [];
+    const isLoading: () => boolean = () => {
+        switch (activedType) {
+            case "Tracks":
+                return loadingTracks;
+            case "Playlists":
+                return loadingPlaylists;
+            case "Albums":
+                return loadingAlbums;
+            case "Artists":
+                return loadingArtists;
+        }
     };
 
     return (
@@ -253,7 +266,7 @@ export default function SearchScreen() {
                 </HStack>
             </HorizontalPadding>
             <HorizontalPadding>
-                <HStack mt={2}>
+                <HStack mt={2} mb={2}>
                     {SEARCH_TYPES.map(type => (
                         <TouchableOpacity key={type} onPress={() => onChangeType(type)}>
                             <Badge
@@ -270,14 +283,23 @@ export default function SearchScreen() {
                     ))}
                 </HStack>
             </HorizontalPadding>
-            <InfiniteFlatList
-                data={items()}
-                renderItem={renderItem}
-                onLoadMore={onLoadMore}
-                isLoading={loading}
-                isFinished={false}
-                keyExtractor={item => item.id}
-            />
+
+            {items().length > 0 && (
+                <InfiniteFlatList
+                    data={items()}
+                    renderItem={renderItem}
+                    onLoadMore={onLoadMore}
+                    isLoading={loading}
+                    isFinished={false}
+                    keyExtractor={item => item.id}
+                />
+            )}
+
+            {!isLoading() && items().length === 0 && debouncedQuery !== "" && (
+                <Box mt={5}>
+                    <Empty text={`No result matchs: "${debouncedQuery}"`} />
+                </Box>
+            )}
         </SafeAreaView>
     );
 }

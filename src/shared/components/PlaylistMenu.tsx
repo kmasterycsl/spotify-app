@@ -119,6 +119,7 @@ export default function PlaylistMenu({
                                             >
                                                 <Icon
                                                     size="sm"
+                                                    color="white"
                                                     as={<Ionicons name="remove-circle-outline" />}
                                                 ></Icon>
                                                 <Text ml={DEFAULT_HORIZONTAL_PADDING}>
@@ -136,6 +137,7 @@ export default function PlaylistMenu({
                                             >
                                                 <Icon
                                                     size="sm"
+                                                    color="white"
                                                     as={<Ionicons name="trash-outline" />}
                                                 ></Icon>
                                                 <Text ml={DEFAULT_HORIZONTAL_PADDING}>

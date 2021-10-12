@@ -160,6 +160,7 @@ export default function TrackMenu({
                                     <TouchableOpacity onPress={onAddToQueue}>
                                         <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
                                             <Icon
+                                                color="white"
                                                 size="sm"
                                                 as={<Ionicons name="list-outline" />}
                                             ></Icon>
@@ -172,6 +173,7 @@ export default function TrackMenu({
                                     <TouchableOpacity onPress={onRemoveFromQueue}>
                                         <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
                                             <Icon
+                                                color="white"
                                                 size="sm"
                                                 as={<Ionicons name="list-outline" />}
                                             ></Icon>
@@ -192,6 +194,7 @@ export default function TrackMenu({
                                                 alignItems="center"
                                             >
                                                 <Icon
+                                                    color="white"
                                                     size="sm"
                                                     as={<Ionicons name="add-circle-outline" />}
                                                 ></Icon>
@@ -208,6 +211,7 @@ export default function TrackMenu({
                                 <TouchableOpacity onPress={goToAlbum}>
                                     <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
                                         <Icon
+                                            color="white"
                                             size="sm"
                                             as={<Ionicons name="musical-note" />}
                                         ></Icon>
@@ -219,7 +223,11 @@ export default function TrackMenu({
                                 {/* View artists */}
                                 <TouchableOpacity onPress={onViewArtists}>
                                     <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
-                                        <Icon size="sm" as={<Ionicons name="people" />}></Icon>
+                                        <Icon
+                                            color="white"
+                                            size="sm"
+                                            as={<Ionicons name="people" />}
+                                        ></Icon>
                                         <Text ml={DEFAULT_HORIZONTAL_PADDING}>View artists</Text>
                                     </HStack>
                                 </TouchableOpacity>

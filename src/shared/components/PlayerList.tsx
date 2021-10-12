@@ -26,7 +26,7 @@ export default function PlayerList({
                         <IconButton
                             alignSelf="flex-start"
                             onPress={() => setVisible(false)}
-                            icon={<Icon as={<Ionicons name="close-outline" />}></Icon>}
+                            icon={<Icon color="white" as={<Ionicons name="close-outline" />}></Icon>}
                         />
 
                         {tracksQueue.length === 0 && <Empty text="Empty tracks queue" />}

@@ -79,7 +79,7 @@ export default function LibraryHomeScreen() {
     const renderItem = (params: RenderItemParams<Likeable>) => (
         <>
             {params.item.track && (
-                <TouchableOpacity onPress={() => actionPlay(params.item.track!)}>
+                <TouchableOpacity onPress={() => goToAlbum(params.item.track?.album!)}>
                     <TracksListItem showType hideMenu track={params.item.track} />
                 </TouchableOpacity>
             )}

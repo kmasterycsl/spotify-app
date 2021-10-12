@@ -98,7 +98,14 @@ export default React.memo(function TracksListItem({
                     <IconButton
                         variant="ghost"
                         onPress={onOpenMenu}
-                        icon={<Icon size="xs" as={Ionicons} name="ellipsis-horizontal-outline" />}
+                        icon={
+                            <Icon
+                                size="xs"
+                                as={Ionicons}
+                                name="ellipsis-horizontal-outline"
+                                color="gray.400"
+                            />
+                        }
                     />
                 )}
             </HStack>

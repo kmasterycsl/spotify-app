@@ -82,7 +82,8 @@ export default function AlbumDetailScreen() {
                             <Icon
                                 size="sm"
                                 color="gray.400"
-                                as={<Ionicons name="chevron-back-outline" />}
+                                name="chevron-back-outline"
+                                as={Ionicons}
                             ></Icon>
                         }
                     />
@@ -120,8 +121,9 @@ export default function AlbumDetailScreen() {
                             onPress={onPause}
                             icon={
                                 <Icon
+                                    name="pause-circle-outline"
                                     color="gray.400"
-                                    as={<Ionicons name="pause-circle-outline" />}
+                                    as={Ionicons}
                                 ></Icon>
                             }
                         />
@@ -132,8 +134,9 @@ export default function AlbumDetailScreen() {
                             onPress={onPlay}
                             icon={
                                 <Icon
+                                    name="play-circle-outline"
                                     color="gray.400"
-                                    as={<Ionicons name="play-circle-outline" />}
+                                    as={Ionicons}
                                 ></Icon>
                             }
                         />

@@ -161,8 +161,9 @@ export default function PlaylistDetailScreen() {
                                         onPress={actionPause}
                                         icon={
                                             <Icon
+                                                name="pause-circle-outline"
                                                 color="gray.400"
-                                                as={<Ionicons name="pause-circle-outline" />}
+                                                as={Ionicons}
                                             ></Icon>
                                         }
                                     />
@@ -173,8 +174,9 @@ export default function PlaylistDetailScreen() {
                                         onPress={onPlay}
                                         icon={
                                             <Icon
+                                                name="play-circle-outline"
                                                 color="gray.400"
-                                                as={<Ionicons name="play-circle-outline" />}
+                                                as={Ionicons}
                                             ></Icon>
                                         }
                                     />
@@ -186,8 +188,10 @@ export default function PlaylistDetailScreen() {
                                     onPress={onOpenMenu}
                                     icon={
                                         <Icon
+                                            name="ellipsis-horizontal-outline"
                                             size="xs"
-                                            as={<Ionicons name="ellipsis-horizontal-outline" />}
+                                            color="gray.400"
+                                            as={Ionicons}
                                         />
                                     }
                                 />
@@ -217,8 +221,9 @@ export default function PlaylistDetailScreen() {
                         <Icon
                             onPress={goBack}
                             size={5}
+                            name="chevron-back-outline"
                             color="gray.400"
-                            as={<Ionicons name="chevron-back-outline" />}
+                            as={Ionicons}
                         ></Icon>
                     </Animated.View>
                 </Animated.View>

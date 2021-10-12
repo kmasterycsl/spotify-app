@@ -12,7 +12,7 @@ import { GET_ALBUMS_QUERY } from "@/shared/queries/GET_ALBUMS_QUERY";
 import { GET_ARTISTS_QUERY } from "@/shared/queries/GET_ARTISTS_QUERY";
 import { GET_PLAYLISTS_QUERY } from "@/shared/queries/GET_PLAYLISTS_QUERY";
 import { GET_TRACKS_QUERY } from "@/shared/queries/GET_TRACKS_QUERY";
-import { PaginationMeta, Query } from "@/types/graphql";
+import { Album, Artist, PaginationMeta, Playlist, Query } from "@/types/graphql";
 import { useLazyQuery } from "@apollo/client";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -182,26 +182,38 @@ export default function SearchScreen() {
         return fetched;
     };
 
+    const goToAlbum = (album: Album) => {
+        nav.navigate("AlbumDetail", { albumId: album.id });
+    };
+
+    const goToArtist = (artist: Artist) => {
+        nav.navigate("ArtistDetail", { artistId: artist.id });
+    };
+
+    const goToPlaylist = (playlist: Playlist) => {
+        nav.navigate("PlaylistDetail", { playlistId: playlist.id });
+    };
+
     const renderItem = (params: RenderItemParams<any>) => {
         return (
             <>
                 {activedType === "Tracks" && (
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => goToAlbum(params.item.album)}>
                         <TracksListItem showType hideMenu track={params.item} />
                     </TouchableOpacity>
                 )}
                 {activedType === "Playlists" && (
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => goToPlaylist(params.item)}>
                         <PlaylistListItem playlist={params.item} />
                     </TouchableOpacity>
                 )}
                 {activedType === "Albums" && (
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => goToAlbum(params.item)}>
                         <AlbumListItem album={params.item} />
                     </TouchableOpacity>
                 )}
                 {activedType === "Artists" && (
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => goToArtist(params.item)}>
                         <ArtistListItem artist={params.item} />
                     </TouchableOpacity>
                 )}

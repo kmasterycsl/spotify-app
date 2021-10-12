@@ -49,7 +49,7 @@ export default function PlayerControls() {
                     icon={
                         <Icon
                             size="sm"
-                            color={shuffle ? "primary.500" : undefined}
+                            color={shuffle ? "primary.500" : "white"}
                             as={<Ionicons name="shuffle-outline" />}
                         />
                     }
@@ -59,7 +59,7 @@ export default function PlayerControls() {
                 <IconButton
                     onPress={actionPrev}
                     disabled={playingIndex === undefined ? true : playingIndex < 1}
-                    icon={<Icon size="sm" as={<Ionicons name="play-skip-back" />} />}
+                    icon={<Icon color="white" size="sm" as={<Ionicons name="play-skip-back" />} />}
                 ></IconButton>
 
                 {/* play/pause */}
@@ -68,20 +68,34 @@ export default function PlayerControls() {
                         {soundControllerStatusIsPlaying && (
                             <IconButton
                                 onPress={actionPause}
-                                icon={<Icon size="2xl" as={<Ionicons name="pause-circle" />} />}
+                                icon={
+                                    <Icon
+                                        color="white"
+                                        size="2xl"
+                                        as={<Ionicons name="pause-circle" />}
+                                    />
+                                }
                             ></IconButton>
                         )}
                         {!soundControllerStatusIsPlaying && (
                             <IconButton
                                 onPress={actionResume}
-                                icon={<Icon size="2xl" as={<Ionicons name="play-circle" />} />}
+                                icon={
+                                    <Icon
+                                        color="white"
+                                        size="2xl"
+                                        as={<Ionicons name="play-circle" />}
+                                    />
+                                }
                             ></IconButton>
                         )}
                     </>
                 ) : (
                     <IconButton
                         disabled
-                        icon={<Icon size="2xl" as={<Ionicons name="play-circle" />} />}
+                        icon={
+                            <Icon color="white" size="2xl" as={<Ionicons name="play-circle" />} />
+                        }
                     ></IconButton>
                 )}
 
@@ -91,14 +105,18 @@ export default function PlayerControls() {
                     disabled={
                         playingIndex === undefined ? true : playingIndex >= tracksQueue.length - 1
                     }
-                    icon={<Icon size="sm" as={<Ionicons name="play-skip-forward" />} />}
+                    icon={
+                        <Icon color="white" size="sm" as={<Ionicons name="play-skip-forward" />} />
+                    }
                 ></IconButton>
 
                 {/* repeat */}
                 {repeatMode === "none" && (
                     <IconButton
                         onPress={actionToggleRepeatMode}
-                        icon={<Icon size="sm" as={<Ionicons name="repeat-outline" />} />}
+                        icon={
+                            <Icon color="white" size="sm" as={<Ionicons name="repeat-outline" />} />
+                        }
                     ></IconButton>
                 )}
                 {repeatMode === "once" && (

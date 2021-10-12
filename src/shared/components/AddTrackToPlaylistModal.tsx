@@ -69,7 +69,9 @@ export default function AddTrackToPlaylistModal({
                         <IconButton
                             alignSelf="flex-start"
                             onPress={() => setVisible(false)}
-                            icon={<Icon as={<Ionicons name="close-outline" />}></Icon>}
+                            icon={
+                                <Icon color="white" as={<Ionicons name="close-outline" />}></Icon>
+                            }
                         />
                         <Text fontSize="xl" fontWeight="600">
                             Playlists

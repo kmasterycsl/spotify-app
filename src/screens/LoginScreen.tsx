@@ -44,7 +44,14 @@ export default function LoginScreen() {
                     borderRadius="50"
                 >
                     <HStack alignItems="center">
-                        <Icon as={FontAwesome} name="google" ml="2" color="white" mr={2} />
+                        <Icon
+                            color="white"
+                            as={FontAwesome}
+                            name="google"
+                            ml="2"
+                            color="white"
+                            mr={2}
+                        />
                         <Text fontWeight="600">Continue with Google</Text>
                     </HStack>
                 </Button>

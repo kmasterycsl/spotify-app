@@ -70,7 +70,7 @@ export default function EditPlaylist({ visible, setVisible, playlist }: EditPlay
                 <IconButton
                     alignSelf="flex-end"
                     onPress={() => setVisible(false)}
-                    icon={<Icon as={<Ionicons name="close-outline" />}></Icon>}
+                    icon={<Icon color="white" as={<Ionicons name="close-outline" />}></Icon>}
                 />
                 <VStack justifyContent="center" flexGrow={1}>
                     <HorizontalPadding>

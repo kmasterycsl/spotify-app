@@ -57,7 +57,14 @@ export default function PlayerBar() {
                             variant="ghost"
                             size="lg"
                             onPress={actionResume}
-                            icon={<Icon size="sm" as={Ionicons} name="play-circle-outline"></Icon>}
+                            icon={
+                                <Icon
+                                    size="sm"
+                                    as={Ionicons}
+                                    color="primary.400"
+                                    name="play-circle-outline"
+                                ></Icon>
+                            }
                         />
                     )}
                     {soundControllerStatusIsLoaded && soundControllerStatusIsPlaying && (
@@ -65,7 +72,14 @@ export default function PlayerBar() {
                             variant="ghost"
                             size="lg"
                             onPress={actionPause}
-                            icon={<Icon size="sm" as={Ionicons} name="pause-circle-outline"></Icon>}
+                            icon={
+                                <Icon
+                                    size="sm"
+                                    as={Ionicons}
+                                    color="primary.400"
+                                    name="pause-circle-outline"
+                                ></Icon>
+                            }
                         />
                     )}
                     {!soundControllerStatusIsLoaded && (

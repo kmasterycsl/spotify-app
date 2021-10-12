@@ -40,7 +40,12 @@ export default React.memo(function Player({
                     <Box style={{ backgroundColor: "transparent", alignSelf: "flex-start" }}>
                         <IconButton
                             onPress={() => setVisible(false)}
-                            icon={<Icon as={<Ionicons name="chevron-down-outline" />}></Icon>}
+                            icon={
+                                <Icon
+                                    color="white"
+                                    as={<Ionicons name="chevron-down-outline" />}
+                                ></Icon>
+                            }
                         />
                     </Box>
 
@@ -86,7 +91,13 @@ export default React.memo(function Player({
                         <HStack justifyContent="flex-end">
                             <IconButton
                                 onPress={onShowPlaylist}
-                                icon={<Icon size="sm" as={<Ionicons name="list-outline" />} />}
+                                icon={
+                                    <Icon
+                                        color="white"
+                                        size="sm"
+                                        as={<Ionicons name="list-outline" />}
+                                    />
+                                }
                             ></IconButton>
                         </HStack>
                     </HorizontalPadding>

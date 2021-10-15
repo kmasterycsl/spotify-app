@@ -11,17 +11,20 @@ export interface CommonState {
         title: string;
         status: "warning" | "info" | "error";
     };
+    bottomTabHeight: number;
     actionSetCurrentUser: (user?: User) => void;
     actionSetAccessToken: (accessToken?: string) => void;
     actionSetToastMessage: (toastMessage?: {
         title: string;
         status: "warning" | "info" | "error";
     }) => void;
+    actionSetBottomTabHeight: (height: number) => void;
 }
 
 const useCommonStore = create<CommonState>(
     persist(
         (set, get) => ({
+            bottomTabHeight: 50,
             actionSetCurrentUser: (user?: User) =>
                 set(
                     produce<CommonState>(state => {
@@ -41,6 +44,12 @@ const useCommonStore = create<CommonState>(
                 set(
                     produce<CommonState>(state => {
                         state.toastMessage = toastMessage;
+                    })
+                ),
+            actionSetBottomTabHeight: (height) =>
+                set(
+                    produce<CommonState>(state => {
+                        state.bottomTabHeight = height;
                     })
                 ),
         }),

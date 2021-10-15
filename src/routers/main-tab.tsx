@@ -7,8 +7,6 @@ import HomeStackScreen from "./home-stack";
 import LibraryStackScreen from "./library-stack";
 import SearchStackScreen from "./search-stack";
 
-export const TAB_BAR_HEIGHT = 75;
-
 function getTabIconName(screenName: string, props: any): React.ReactNode {
     let iconName: typeof Ionicons["name"];
     switch (screenName) {
@@ -69,7 +67,6 @@ export default function MainTab() {
                 tabBarStyle: {
                     backgroundColor: bg,
                     paddingTop: 10,
-                    height: TAB_BAR_HEIGHT,
                 },
                 tabBarLabel: props => getTabName(route.name, props),
                 header: () => null,

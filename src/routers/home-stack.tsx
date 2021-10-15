@@ -1,3 +1,4 @@
+import AccountScreen from "@/screens/AccountScreen";
 import AlbumDetailScreen from "@/screens/AlbumDetailScreen";
 import ArtistDetailScreen from "@/screens/ArtistDetailScreen";
 import GenreDetailScreen from "@/screens/GenreDetailScreen";
@@ -13,14 +14,43 @@ const HomeStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function HomeStackScreen() {
     return (
-        <HomeStack.Navigator initialRouteName="Home" screenOptions={{ header: () => null }}>
+        <HomeStack.Navigator initialRouteName="Home">
             <HomeStack.Screen name="Home" component={HomeScreen} options={{ header: () => null }} />
-            <HomeStack.Screen name="Login" component={LoginScreen} />
-            <HomeStack.Screen name="Profile" component={ProfileScreen} />
-            <HomeStack.Screen name="AlbumDetail" component={AlbumDetailScreen} />
-            <HomeStack.Screen name="ArtistDetail" component={ArtistDetailScreen} />
-            <HomeStack.Screen name="GenreDetail" component={GenreDetailScreen} />
-            <HomeStack.Screen name="PlaylistDetail" component={PlaylistDetailScreen} />
+            <HomeStack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{ header: () => null }}
+            />
+            <HomeStack.Screen
+                name="Profile"
+                component={ProfileScreen}
+                options={{ header: () => null }}
+            />
+            <HomeStack.Screen
+                name="AlbumDetail"
+                component={AlbumDetailScreen}
+                options={{ header: () => null }}
+            />
+            <HomeStack.Screen
+                name="ArtistDetail"
+                component={ArtistDetailScreen}
+                options={{ header: () => null }}
+            />
+            <HomeStack.Screen
+                name="GenreDetail"
+                component={GenreDetailScreen}
+                options={{ header: () => null }}
+            />
+            <HomeStack.Screen
+                name="PlaylistDetail"
+                component={PlaylistDetailScreen}
+                options={{ header: () => null }}
+            />
+            <HomeStack.Screen
+                name="Account"
+                component={AccountScreen}
+                options={{ headerShown: true }}
+            />
         </HomeStack.Navigator>
     );
 }

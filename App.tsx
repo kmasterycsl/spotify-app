@@ -33,8 +33,6 @@ function AppBoostraper() {
     const appIsReady = useAppStartup();
     const bottomHeight = useCommonStore(store => store.bottomTabHeight);
 
-    console.log({ bottomHeight });
-
     if (!appIsReady) {
         return <AppLoading />;
     }

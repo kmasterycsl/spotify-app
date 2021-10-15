@@ -29,11 +29,6 @@ export default function RootStackScreens() {
                     <RootStack.Group screenOptions={{ header: () => null }}>
                         <RootStack.Screen name="MainTab" component={MainTab} />
                     </RootStack.Group>
-                    <RootStack.Screen
-                        name="Account"
-                        component={AccountScreen}
-                        options={{ headerShown: true }}
-                    />
                 </>
             )}
         </RootStack.Navigator>

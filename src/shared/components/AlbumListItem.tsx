@@ -38,11 +38,11 @@ export default React.memo(function AlbumListItem({
             ></Image>
             <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
                 {playingAlbumId === album.id ? (
-                    <Text numberOfLines={1} bold color="primary.500">
+                    <Text numberOfLines={2} bold color="primary.500">
                         {album.name}
                     </Text>
                 ) : (
-                    <Text numberOfLines={1} bold>
+                    <Text numberOfLines={2} bold>
                         {album.name}
                     </Text>
                 )}

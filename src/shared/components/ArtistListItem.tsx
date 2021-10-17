@@ -33,11 +33,11 @@ export default React.memo(function ArtistListItem({
             ></Image>
             <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
                 {playingArtistId === artist.id ? (
-                    <Text bold color="primary.500" numberOfLines={1}>
+                    <Text bold color="primary.500" numberOfLines={2}>
                         {artist.name}
                     </Text>
                 ) : (
-                    <Text bold numberOfLines={1}>
+                    <Text bold numberOfLines={2}>
                         {artist.name}
                     </Text>
                 )}

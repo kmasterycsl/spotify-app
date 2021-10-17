@@ -26,7 +26,7 @@ export default React.memo(function AlbumListItem({
     };
 
     return (
-        <HStack alignItems="center" style={style} space={DEFAULT_HORIZONTAL_PADDING}>
+        <HStack alignItems="center" style={style} space={2}>
             <Image
                 style={{
                     width: 50,

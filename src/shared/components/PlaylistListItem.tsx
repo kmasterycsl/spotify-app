@@ -25,7 +25,7 @@ export default React.memo(function PlaylistListItem({
     };
 
     return (
-        <HStack alignItems="center" style={style} space={DEFAULT_HORIZONTAL_PADDING}>
+        <HStack alignItems="center" style={style} space={2}>
             <Flex
                 width={50}
                 height={50}

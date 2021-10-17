@@ -60,7 +60,7 @@ export default React.memo(function TracksListItem({
 
     return (
         <>
-            <HStack alignItems="center" style={style} space={DEFAULT_HORIZONTAL_PADDING}>
+            <HStack alignItems="center" style={style} space={2}>
                 {index !== undefined && (
                     <HStack minWidth={DEFAULT_HORIZONTAL_PADDING} justifyContent="flex-start">
                         <Text fontFamily="mono">{(index + 1).toString().padStart(2, "0")}</Text>

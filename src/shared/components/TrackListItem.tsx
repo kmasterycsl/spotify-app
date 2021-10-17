@@ -77,11 +77,11 @@ export default React.memo(function TracksListItem({
                 ></Image>
                 <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
                     {playingTrack?.id === track.id ? (
-                        <Text fontWeight="500" color="primary.500" numberOfLines={2}>
+                        <Text fontSize="sm" color="primary.500" numberOfLines={2}>
                             {track.name}
                         </Text>
                     ) : (
-                        <Text fontWeight="500" numberOfLines={2}>
+                        <Text fontSize="sm" numberOfLines={2}>
                             {track.name}
                         </Text>
                     )}

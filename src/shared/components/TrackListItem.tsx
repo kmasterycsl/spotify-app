@@ -59,7 +59,7 @@ export default React.memo(function TracksListItem({
     };
 
     return (
-        <HorizontalPadding>
+        <>
             <HStack alignItems="center" style={style} space={DEFAULT_HORIZONTAL_PADDING}>
                 {index !== undefined && (
                     <HStack minWidth={DEFAULT_HORIZONTAL_PADDING} justifyContent="flex-start">
@@ -126,6 +126,6 @@ export default React.memo(function TracksListItem({
                 visible={viewAddToPlaylistVisible}
                 setVisible={setViewAddToPlaylistVisible}
             />
-        </HorizontalPadding>
+        </>
     );
 });

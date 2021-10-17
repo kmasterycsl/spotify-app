@@ -21,41 +21,39 @@ export default React.memo(function ArtistListItem({
     const playingArtistId = usePlayerStore(state => state.playingArtistId);
 
     return (
-        <HorizontalPadding>
-            <HStack alignItems="center" style={style} space={DEFAULT_HORIZONTAL_PADDING}>
-                <Image
-                    style={{
-                        width: 50,
-                        height: 50,
-                    }}
-                    source={{
-                        uri: (artist.avatarImage.meta as ImageMeta).source,
-                    }}
-                ></Image>
-                <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
-                    {playingArtistId === artist.id ? (
-                        <Text bold color="primary.500" numberOfLines={1}>
-                            {artist.name}
+        <HStack alignItems="center" style={style} space={DEFAULT_HORIZONTAL_PADDING}>
+            <Image
+                style={{
+                    width: 50,
+                    height: 50,
+                }}
+                source={{
+                    uri: (artist.avatarImage.meta as ImageMeta).source,
+                }}
+            ></Image>
+            <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
+                {playingArtistId === artist.id ? (
+                    <Text bold color="primary.500" numberOfLines={1}>
+                        {artist.name}
+                    </Text>
+                ) : (
+                    <Text bold numberOfLines={1}>
+                        {artist.name}
+                    </Text>
+                )}
+                {!hideSubtitle && (
+                    <Box pt={1} overflow="hidden">
+                        <Text fontSize="xs" color="gray.200">
+                            Artist
                         </Text>
-                    ) : (
-                        <Text bold numberOfLines={1}>
-                            {artist.name}
-                        </Text>
-                    )}
-                    {!hideSubtitle && (
-                        <Box pt={1} overflow="hidden">
-                            <Text fontSize="xs" color="gray.200">
-                                Artist
-                            </Text>
-                        </Box>
-                    )}
-                </VStack>
-                {/* <IconButton
+                    </Box>
+                )}
+            </VStack>
+            {/* <IconButton
                     variant="ghost"
                     onPress={onOpenMenu}
                     icon={<Icon size="xs" as={<Ionicons name="ellipsis-horizontal-outline" />} />}
                 /> */}
-            </HStack>
-        </HorizontalPadding>
+        </HStack>
     );
 });

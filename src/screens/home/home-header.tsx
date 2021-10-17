@@ -15,7 +15,7 @@ export default function HomeHeader() {
         <HStack alignItems="center" justifyContent="space-between" px={DEFAULT_HORIZONTAL_PADDING}>
             <Text fontSize="2xl">Good evening</Text>
             <IconButton
-                size="sm"
+                p={0}
                 variant="ghost"
                 onPress={goToAccount}
                 icon={

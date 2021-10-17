@@ -1,5 +1,6 @@
 import AlbumListItem from "@/shared/components/AlbumListItem";
 import ArtistListItem from "@/shared/components/ArtistListItem";
+import HorizontalPadding from "@/shared/components/HorizontalPadding";
 import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import TracksListItem from "@/shared/components/TrackListItem";
 import VerticalPadding from "@/shared/components/VerticalPadding";
@@ -85,5 +86,9 @@ export default function HomeLikeables() {
         navigation.navigate("PlaylistDetail", { playlistId: playlist.id });
     };
 
-    return <HStack flexWrap="wrap">{(data?.likeables?.items || []).map(renderItem)}</HStack>;
+    return (
+        <HorizontalPadding>
+            <HStack flexWrap="wrap">{(data?.likeables?.items || []).map(renderItem)}</HStack>
+        </HorizontalPadding>
+    );
 }

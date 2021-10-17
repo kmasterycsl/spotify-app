@@ -37,7 +37,7 @@ export default React.memo(function PlaylistListItem({
                 <Ionicons name={"musical-notes-outline"} size={28} color={colors.primary[500]} />
             </Flex>
             <VStack justifyContent="space-between" flexGrow={1} flexShrink={1}>
-                <Text numberOfLines={2} bold>
+                <Text numberOfLines={2} fontSize="sm">
                     {playlist.name}
                 </Text>
                 {!hideSubtitle && (

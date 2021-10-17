@@ -5,7 +5,7 @@ import { Image, ViewStyle } from "react-native";
 
 export interface IGenresListItemProps {
     genre: Genre;
-    style: ViewStyle & { width: number; height: number };
+    style: ViewStyle;
 }
 
 export default React.memo(function GenreListItem({ genre, style }: IGenresListItemProps) {
@@ -31,10 +31,10 @@ export default React.memo(function GenreListItem({ genre, style }: IGenresListIt
                 style={[
                     {
                         position: "absolute",
-                        bottom: 0.05 * style.height,
-                        right: -(0.1 * style.width),
-                        width: 0.35 * style.width,
-                        height: 0.75 * style.height,
+                        bottom: "-10%",
+                        right: "-15%",
+                        width: "35%",
+                        height: "75%",
                         justifyContent: "center",
                         alignItems: "center",
                         transform: [{ rotate: "25deg" }],

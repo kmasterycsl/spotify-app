@@ -11,6 +11,7 @@ export type RootStackParamList = {
     GenreDetail: { genreId: string };
     Search: undefined;
     Account: undefined;
+    TrackMenu: { trackId: string };
 };
 
 declare global {

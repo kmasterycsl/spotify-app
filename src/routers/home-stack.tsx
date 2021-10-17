@@ -6,6 +6,7 @@ import HomeScreen from "@/screens/HomeScreen";
 import LoginScreen from "@/screens/LoginScreen";
 import PlaylistDetailScreen from "@/screens/PlaylistDetailScreen";
 import ProfileScreen from "@/screens/ProfileScreen";
+import TrackMenuScreen from "@/screens/track/TrackMenuScreen";
 import { RootStackParamList } from "@/types/routes.types";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
@@ -51,6 +52,13 @@ export default function HomeStackScreen() {
                 component={AccountScreen}
                 options={{ headerShown: true }}
             />
+            <HomeStack.Group screenOptions={{ presentation: "fullScreenModal" }}>
+                <HomeStack.Screen
+                    name="TrackMenu"
+                    component={TrackMenuScreen}
+                    options={{ header: () => null }}
+                />
+            </HomeStack.Group>
         </HomeStack.Navigator>
     );
 }

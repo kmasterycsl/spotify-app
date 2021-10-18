@@ -1,6 +1,8 @@
 import AlbumListItem from "@/shared/components/AlbumListItem";
 import ArtistListItem from "@/shared/components/ArtistListItem";
-import { DEFAULT_HORIZONTAL_PADDING } from "@/shared/components/HorizontalPadding";
+import HorizontalPadding, {
+    DEFAULT_HORIZONTAL_PADDING,
+} from "@/shared/components/HorizontalPadding";
 import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import SafeAreaView from "@/shared/components/SafeAreaView";
@@ -77,7 +79,7 @@ export default function LibraryHomeScreen() {
     };
 
     const renderItem = (params: RenderItemParams<Likeable>) => (
-        <>
+        <HorizontalPadding>
             {params.item.track && (
                 <TouchableOpacity onPress={() => goToAlbum(params.item.track?.album!)}>
                     <TracksListItem showType hideMenu track={params.item.track} />
@@ -99,7 +101,7 @@ export default function LibraryHomeScreen() {
                 </TouchableOpacity>
             )}
             <VerticalPadding />
-        </>
+        </HorizontalPadding>
     );
 
     return (

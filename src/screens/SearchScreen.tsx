@@ -196,7 +196,7 @@ export default function SearchScreen() {
 
     const renderItem = (params: RenderItemParams<any>) => {
         return (
-            <>
+            <HorizontalPadding>
                 {activedType === "Tracks" && (
                     <TouchableOpacity onPress={() => goToAlbum(params.item.album)}>
                         <TracksListItem showType hideMenu track={params.item} />
@@ -218,7 +218,7 @@ export default function SearchScreen() {
                     </TouchableOpacity>
                 )}
                 <VerticalPadding />
-            </>
+            </HorizontalPadding>
         );
     };
 

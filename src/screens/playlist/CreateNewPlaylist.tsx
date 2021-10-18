@@ -7,14 +7,9 @@ import { useCommonStore } from "@/store/common.store";
 import { Mutation } from "@/types/graphql";
 import { gql, useMutation } from "@apollo/client";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
+import { useNavigation } from "@react-navigation/core";
 import { Box, Button, Icon, IconButton, Input, VStack } from "native-base";
 import React, { useState } from "react";
-import { Modal } from "react-native";
-
-interface CreateNewPlaylistProps {
-    visible: boolean;
-    setVisible: (visible: boolean) => void;
-}
 
 export const CREATE_PLAYLIST_MUTATION = gql`
     mutation createPlaylist($name: String!) {
@@ -24,12 +19,13 @@ export const CREATE_PLAYLIST_MUTATION = gql`
     }
 `;
 
-export default function CreateNewPlaylist({ visible, setVisible }: CreateNewPlaylistProps) {
+export default function CreateNewPlaylist() {
     const [name, setName] = useState("");
     const [doCreate] = useMutation<Mutation>(CREATE_PLAYLIST_MUTATION, {
         refetchQueries: [GET_LIKEABLES_QUERY, GET_OWN_PLAYLISTS_QUERY],
     });
     const actionSetToastMessage = useCommonStore(store => store.actionSetToastMessage);
+    const nav = useNavigation();
 
     const onSubmit = () => {
         if (!name) return;
@@ -40,7 +36,7 @@ export default function CreateNewPlaylist({ visible, setVisible }: CreateNewPlay
         });
 
         created.then(res => {
-            setVisible(false);
+            nav.goBack();
             actionSetToastMessage({
                 title: "Created",
                 status: "info",
@@ -57,41 +53,34 @@ export default function CreateNewPlaylist({ visible, setVisible }: CreateNewPlay
     };
 
     return (
-        <Modal
-            animationType="slide"
-            presentationStyle="fullScreen"
-            visible={visible}
-            onRequestClose={() => setVisible(false)}
-        >
-            <SafeAreaView style={{ flex: 1 }}>
-                <IconButton
-                    alignSelf="flex-end"
-                    onPress={() => setVisible(false)}
-                    icon={<Icon name="close-outline" as={Ionicons} color="white"></Icon>}
-                />
-                <VStack justifyContent="center" flexGrow={1}>
-                    <HorizontalPadding>
-                        <Input
-                            onChangeText={setName}
-                            placeholder="My playlist"
-                            autoFocus
-                            fontSize="2xl"
-                            variant="underlined"
-                            onEndEditing={onSubmit}
-                        ></Input>
-                        <VerticalPadding />
-                        <Button
-                            disabled={!name}
-                            alignSelf="center"
-                            variant="outline"
-                            onPress={onSubmit}
-                        >
-                            Create
-                        </Button>
-                    </HorizontalPadding>
-                </VStack>
-                <Box></Box>
-            </SafeAreaView>
-        </Modal>
+        <SafeAreaView style={{ flex: 1 }}>
+            <IconButton
+                alignSelf="flex-end"
+                onPress={() => nav.goBack()}
+                icon={<Icon name="close-outline" as={Ionicons} color="white"></Icon>}
+            />
+            <VStack justifyContent="center" flexGrow={1}>
+                <HorizontalPadding>
+                    <Input
+                        onChangeText={setName}
+                        placeholder="My playlist"
+                        autoFocus
+                        fontSize="2xl"
+                        variant="underlined"
+                        onEndEditing={onSubmit}
+                    ></Input>
+                    <VerticalPadding />
+                    <Button
+                        disabled={!name}
+                        alignSelf="center"
+                        variant="outline"
+                        onPress={onSubmit}
+                    >
+                        Create
+                    </Button>
+                </HorizontalPadding>
+            </VStack>
+            <Box></Box>
+        </SafeAreaView>
     );
 }

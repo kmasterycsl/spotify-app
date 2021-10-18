@@ -13,6 +13,7 @@ export type RootStackParamList = {
     Account: undefined;
     TrackMenu: { trackId: string };
     PlaylistMenu: { playlistId: string };
+    CreatePlaylist: undefined;
 };
 
 declare global {

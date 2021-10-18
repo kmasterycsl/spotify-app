@@ -5,6 +5,7 @@ import React, { useCallback, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
 import Empty from "./Empty";
+import HorizontalPadding from "./HorizontalPadding";
 import TracksListItem from "./TrackListItem";
 import VerticalPadding from "./VerticalPadding";
 
@@ -41,8 +42,10 @@ export default function TracksList({
     const renderItem = useCallback(
         ({ item, index }: { item: Track; index: number }) => (
             <TouchableOpacity key={item.id} onPress={() => onPressItem(item)}>
-                <TracksListItem track={item} index={index!}></TracksListItem>
-                <VerticalPadding />
+                <HorizontalPadding>
+                    <TracksListItem track={item} index={index!}></TracksListItem>
+                    <VerticalPadding />
+                </HorizontalPadding>
             </TouchableOpacity>
         ),
         []

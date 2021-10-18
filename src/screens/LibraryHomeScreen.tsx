@@ -9,7 +9,6 @@ import SafeAreaView from "@/shared/components/SafeAreaView";
 import TracksListItem from "@/shared/components/TrackListItem";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
-import { usePlayerStore } from "@/store/player.store";
 import { Album, Artist, Likeable, PaginationMeta, Playlist, Query } from "@/types/graphql";
 import { useQuery } from "@apollo/client";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
@@ -18,13 +17,9 @@ import { HStack, Icon, IconButton, Text } from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { RenderItemParams } from "react-native-draggable-flatlist";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import CreateNewPlaylist from "./playlist/CreateNewPlaylist";
 
 export default function LibraryHomeScreen() {
-    const insets = useSafeAreaInsets();
     const navigation = useNavigation();
-    const actionPlay = usePlayerStore(store => store.actionPlay);
     const [paginationMeta, setPaginationMeta] = useState<
         Pick<PaginationMeta, "currentPage" | "totalPages">
     >({
@@ -32,7 +27,6 @@ export default function LibraryHomeScreen() {
         totalPages: Infinity,
     });
     const [loading, setLoading] = useState(false);
-    const [isShowCreatePlaylist, setIsShowCreatePlaylist] = useState(false);
 
     const { data, refetch, fetchMore } = useQuery<Query>(GET_LIKEABLES_QUERY, {
         variables: {
@@ -78,6 +72,10 @@ export default function LibraryHomeScreen() {
         navigation.navigate("PlaylistDetail", { playlistId: playlist.id });
     };
 
+    const goToCreatePlaylist = () => {
+        navigation.navigate("CreatePlaylist");
+    };
+
     const renderItem = (params: RenderItemParams<Likeable>) => (
         <HorizontalPadding>
             {params.item.track && (
@@ -115,7 +113,7 @@ export default function LibraryHomeScreen() {
                 <IconButton
                     size="sm"
                     variant="ghost"
-                    onPress={() => setIsShowCreatePlaylist(true)}
+                    onPress={goToCreatePlaylist}
                     icon={<Icon color="gray.400" as={<Ionicons name="add-outline" />}></Icon>}
                 />
             </HStack>
@@ -127,10 +125,6 @@ export default function LibraryHomeScreen() {
                 isLoading={loading}
                 isFinished={false}
                 keyExtractor={item => item.likeableType + item.likeableId}
-            />
-            <CreateNewPlaylist
-                visible={isShowCreatePlaylist}
-                setVisible={setIsShowCreatePlaylist}
             />
         </SafeAreaView>
     );

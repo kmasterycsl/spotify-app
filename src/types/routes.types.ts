@@ -12,6 +12,7 @@ export type RootStackParamList = {
     Search: undefined;
     Account: undefined;
     TrackMenu: { trackId: string };
+    PlaylistMenu: { playlistId: string };
 };
 
 declare global {

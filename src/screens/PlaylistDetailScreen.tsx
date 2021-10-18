@@ -2,7 +2,6 @@ import HorizontalPadding, {
     _DEFAULT_HORIZONTAL_PADDING,
 } from "@/shared/components/HorizontalPadding";
 import PlaylistCoverImage from "@/shared/components/PlaylistCoverImage";
-import PlaylistMenu from "@/shared/components/PlaylistMenu";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import TracksList from "@/shared/components/TracksList";
 import VerticalPadding from "@/shared/components/VerticalPadding";
@@ -13,7 +12,7 @@ import { RootStackParamList } from "@/types/routes.types";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { Box, HStack, Icon, IconButton, Text, useTheme, VStack } from "native-base";
+import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import Animated, {
@@ -31,7 +30,6 @@ const screenWidth = Dimensions.get("screen").width;
 export default function PlaylistDetailScreen() {
     const insets = useSafeAreaInsets();
     const nav = useNavigation();
-    const { colors } = useTheme();
     const { params } = useRoute<PlaylistDetailScreenRouteProp>();
     const [paginationMeta, setPaginationMeta] = useState<
         Pick<PaginationMeta, "currentPage" | "totalPages">
@@ -62,7 +60,6 @@ export default function PlaylistDetailScreen() {
         state => state.soundControllerStatus?.isLoaded && state.soundControllerStatus.isPlaying
     );
     const playingPlaylistId = usePlayerStore(store => store.playingPlaylistId);
-    const [menuVisible, setMenuVisible] = useState(false);
 
     useEffect(() => {
         refetch();
@@ -122,7 +119,7 @@ export default function PlaylistDetailScreen() {
     };
 
     const onOpenMenu = () => {
-        setMenuVisible(true);
+        nav.navigate("PlaylistMenu", { playlistId: params.playlistId });
     };
 
     const onLoadMore = () => {
@@ -255,11 +252,6 @@ export default function PlaylistDetailScreen() {
                 isLoading={loading}
                 onLoadMore={onLoadMore}
                 tracks={data.playlist.tracks.items}
-            />
-            <PlaylistMenu
-                playlist={data.playlist}
-                visible={menuVisible}
-                setVisible={setMenuVisible}
             />
         </SafeAreaView>
     ) : null;

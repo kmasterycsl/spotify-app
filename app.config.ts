@@ -1,8 +1,8 @@
 import "dotenv/config";
 
 export default {
-    name: "spotify-app",
-    slug: "spotify-app",
+    name: "open-spotify",
+    slug: "open-spotify",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/icon.png",
@@ -18,7 +18,7 @@ export default {
     assetBundlePatterns: ["**/*"],
     ios: {
         supportsTablet: true,
-        bundleIdentifier: "com.kmasteryc.spotify-app",
+        bundleIdentifier: "com.kmasteryc.open-spotify",
     },
     android: {
         package: "com.kmasteryc.spotifyapp",

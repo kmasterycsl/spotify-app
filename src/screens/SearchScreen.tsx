@@ -118,7 +118,7 @@ export default function SearchScreen() {
     }, [debouncedQuery, activedType]);
 
     const onChangeQuery = (q: string) => {
-        setQuery(q);
+        setQuery(q?.trim());
     };
 
     const onCancel = () => {

@@ -112,6 +112,9 @@ export default function GenreDetailScreen() {
                 isLoading={loading}
                 isFinished={false}
                 keyExtractor={playlist => playlist.id}
+                contentContainerStyle={{
+                    paddingHorizontal: _DEFAULT_HORIZONTAL_PADDING,
+                }}
             />
         </SafeAreaView>
     ) : null;

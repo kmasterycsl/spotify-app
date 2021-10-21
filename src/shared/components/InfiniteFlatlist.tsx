@@ -1,6 +1,6 @@
 import { Text } from "native-base";
 import React, { ReactNode, useState } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, ViewStyle } from "react-native";
 import DraggableFlatList, { RenderItemParams } from "react-native-draggable-flatlist";
 
 export default function InfiniteFlatList<T>({
@@ -12,6 +12,7 @@ export default function InfiniteFlatList<T>({
     isFinished,
     onReorderList,
     numColumns,
+    contentContainerStyle,
 }: {
     data: T[];
     onLoadMore: () => void;
@@ -21,6 +22,7 @@ export default function InfiniteFlatList<T>({
     isFinished: boolean;
     onReorderList?: (items: T[]) => void;
     numColumns?: number;
+    contentContainerStyle?: ViewStyle;
 }) {
     const [callOnScrollEnd, setCallOnScrollEnd] = useState(false);
 
@@ -42,12 +44,13 @@ export default function InfiniteFlatList<T>({
             columnWrapperStyle={
                 numColumns && numColumns > 1
                     ? {
-                          justifyContent: "space-around",
+                          justifyContent: "space-between",
                           alignItems: "flex-start",
                           marginBottom: 15,
                       }
                     : undefined
             }
+            contentContainerStyle={contentContainerStyle}
             onEndReachedThreshold={0.7}
             ListFooterComponent={
                 <>

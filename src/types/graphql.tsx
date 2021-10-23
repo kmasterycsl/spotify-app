@@ -146,7 +146,8 @@ export type MutationAddTrackToPlaylistArgs = {
 
 
 export type MutationLoginBySocialProviderArgs = {
-  idToken: Scalars['String'];
+  idToken?: Maybe<Scalars['String']>;
+  accessToken?: Maybe<Scalars['String']>;
   providerId: Scalars['String'];
 };
 

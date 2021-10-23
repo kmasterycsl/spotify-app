@@ -10,8 +10,12 @@ import { useEffect } from "react";
 WebBrowser.maybeCompleteAuthSession();
 
 const LOGIN_GOOGLE_MUTATION = gql`
-    mutation loginBySocialProvider($idToken: String!, $providerId: String!) {
-        loginBySocialProvider(idToken: $idToken, providerId: $providerId) {
+    mutation loginBySocialProvider($idToken: String, $accessToken: String, $providerId: String!) {
+        loginBySocialProvider(
+            idToken: $idToken
+            accessToken: $accessToken
+            providerId: $providerId
+        ) {
             user {
                 id
                 name
@@ -32,14 +36,14 @@ export default function useLoginByGoogle() {
         iosClientId: Constants?.manifest?.extra?.GOOGLE_IOS_CLIENT_ID,
         androidClientId: Constants?.manifest?.extra?.GOOGLE_ANDROID_CLIENT_ID,
         webClientId: Constants?.manifest?.extra?.GOOGLE_WEB_CLIENT_ID,
-        responseType: ResponseType.IdToken,
+        responseType: ResponseType.Token,
     });
 
     useEffect(() => {
         if (response?.type === "success") {
             loginByGoogle({
                 variables: {
-                    idToken: response.params.id_token,
+                    accessToken: response.params.access_token,
                     providerId: "GOOGLE",
                 },
             });

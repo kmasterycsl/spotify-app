@@ -31,19 +31,19 @@ export default function useLoginByGoogle() {
     const actionSetToastMessage = useCommonStore(state => state.actionSetToastMessage);
     const [loginByGoogle, { data, error }] = useMutation<Mutation>(LOGIN_GOOGLE_MUTATION);
 
-    const [request, response, promptAsync] = Google.useAuthRequest({
+    const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
         expoClientId: Constants?.manifest?.extra?.GOOGLE_EXPO_CLIENT_ID,
         iosClientId: Constants?.manifest?.extra?.GOOGLE_IOS_CLIENT_ID,
         androidClientId: Constants?.manifest?.extra?.GOOGLE_ANDROID_CLIENT_ID,
         webClientId: Constants?.manifest?.extra?.GOOGLE_WEB_CLIENT_ID,
-        responseType: ResponseType.Token,
+        responseType: ResponseType.IdToken,
     });
 
     useEffect(() => {
         if (response?.type === "success") {
             loginByGoogle({
                 variables: {
-                    accessToken: response.params.access_token,
+                    idToken: response.params.id_token,
                     providerId: "GOOGLE",
                 },
             });

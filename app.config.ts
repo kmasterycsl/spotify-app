@@ -10,7 +10,7 @@ export default {
     splash: {
         image: "./assets/splash.png",
         resizeMode: "contain",
-        backgroundColor: "#ffffff",
+        backgroundColor: "#000000",
     },
     updates: {
         fallbackToCacheTimeout: 0,
@@ -24,7 +24,7 @@ export default {
         package: "com.kmasteryc.openspotify",
         adaptiveIcon: {
             foregroundImage: "./assets/adaptive-icon.png",
-            backgroundColor: "#FFFFFF",
+            backgroundColor: "#000000",
         },
     },
     web: {

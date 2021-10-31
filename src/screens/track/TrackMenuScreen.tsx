@@ -5,6 +5,7 @@ import { DEFAULT_HORIZONTAL_PADDING } from "@/shared/components/HorizontalPaddin
 import TrackArtists from "@/shared/components/TrackArtists";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_ARTIST_BY_ID_QUERY } from "@/shared/queries/GET_ARTIST_BY_ID_QUERY";
+import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
 import { GET_TRACK_BY_ID_QUERY } from "@/shared/queries/GET_TRACK_BY_ID_QUERY";
 import { useCommonStore } from "@/store/common.store";
 import { usePlayerStore } from "@/store/player.store";
@@ -30,7 +31,7 @@ type TrackMenuScreenRouteProp = RouteProp<RootStackParamList, "TrackMenu">;
 
 export default function TrackMenuScreen() {
     const [doLike, { data, error }] = useMutation<Mutation>(LIKE_MUTATION, {
-        refetchQueries: [GET_ARTIST_BY_ID_QUERY],
+        refetchQueries: [GET_TRACK_BY_ID_QUERY, GET_LIKEABLES_QUERY],
     });
     const { params } = useRoute<TrackMenuScreenRouteProp>();
 
@@ -84,12 +85,14 @@ export default function TrackMenuScreen() {
     const onAddToQueue = () => {
         if (trackData?.track) {
             actionAddToQueue(trackData.track);
+            nav.goBack();
         }
     };
 
     const onRemoveFromQueue = () => {
         if (trackData?.track) {
             actionRemoveFromQueue(trackData.track);
+            nav.goBack();
         }
     };
 
@@ -120,6 +123,7 @@ export default function TrackMenuScreen() {
 
     const goToAlbum = () => {
         if (trackData?.track) {
+            nav.goBack();
             nav.navigate("AlbumDetail", { albumId: trackData.track.album.id });
         }
     };

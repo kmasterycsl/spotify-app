@@ -7,6 +7,7 @@ export const TrackListItemFragment = gql`
     ${ImageMetaFragment}
     fragment TrackListItemFragment on Track {
         id
+        isLiked
         name
         album {
             id

@@ -43,7 +43,7 @@ export default function PlayerBar() {
                             height: 50,
                         }}
                         source={{
-                            uri: `https://picsum.photos/id/${playingTrack.id}/${50}/${50}`,
+                            uri: playingTrack.album.coverImage.meta.source,
                         }}
                     ></Image>
                     <VStack justifyContent="space-between" flexGrow={1}>

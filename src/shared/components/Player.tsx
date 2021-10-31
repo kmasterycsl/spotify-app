@@ -49,56 +49,56 @@ export default React.memo(function Player({
                         />
                     </Box>
 
-                    {/* Image */}
-                    <HStack justifyContent="center">
-                        <FullWidthSquareImage
-                            padding={_DEFAULT_HORIZONTAL_PADDING * 3}
-                            url={`https://picsum.photos/id/${playingTrack.id}/${350}/${350}`}
-                        ></FullWidthSquareImage>
-                    </HStack>
-
-                    <VerticalPadding multiple={2} />
-
-                    {/* Song name */}
-                    <HStack>
-                        <HorizontalPadding>
-                            <VStack>
-                                <Text fontSize="2xl" fontWeight="600">
-                                    {playingTrack.name}
-                                </Text>
-                                <Text>{playingTrack.name}</Text>
-                            </VStack>
-                        </HorizontalPadding>
-                    </HStack>
-
-                    <VerticalPadding />
-
-                    <HorizontalPadding>
-                        {/* Song progress bar */}
-                        <PlayerBarProgress />
-                        {/* Song time */}
-                        <PlayerTimeline />
-                    </HorizontalPadding>
-
-                    <VerticalPadding />
-
-                    <PlayerControls />
-
-                    {/* Bottom bar */}
-                    <HorizontalPadding multiple={(4 + 1.5) / DEFAULT_HORIZONTAL_PADDING}>
-                        <HStack justifyContent="flex-end">
-                            <IconButton
-                                onPress={onShowPlaylist}
-                                icon={
-                                    <Icon
-                                        color="white"
-                                        size="sm"
-                                        as={<Ionicons name="list-outline" />}
-                                    />
-                                }
-                            ></IconButton>
+                    <VStack flexGrow={1} justifyContent="center">
+                        {/* Image */}
+                        <HStack justifyContent="center">
+                            <FullWidthSquareImage
+                                padding={_DEFAULT_HORIZONTAL_PADDING * 3}
+                                url={playingTrack.album.coverImage.meta.source}
+                            ></FullWidthSquareImage>
                         </HStack>
-                    </HorizontalPadding>
+
+                        <VerticalPadding multiple={2} />
+
+                        {/* Song name */}
+                        <HStack>
+                            <HorizontalPadding>
+                                <VStack>
+                                    <Text fontSize="2xl" fontWeight="600">
+                                        {playingTrack.name}
+                                    </Text>
+                                    <Text>{playingTrack.name}</Text>
+                                </VStack>
+                            </HorizontalPadding>
+                        </HStack>
+
+                        <VerticalPadding />
+
+                        <HorizontalPadding>
+                            <PlayerBarProgress />
+                            <PlayerTimeline />
+                        </HorizontalPadding>
+
+                        <VerticalPadding />
+
+                        <PlayerControls />
+
+                        {/* Bottom bar */}
+                        <HorizontalPadding multiple={(4 + 1.5) / DEFAULT_HORIZONTAL_PADDING}>
+                            <HStack justifyContent="flex-end">
+                                <IconButton
+                                    onPress={onShowPlaylist}
+                                    icon={
+                                        <Icon
+                                            color="white"
+                                            size="sm"
+                                            as={<Ionicons name="list-outline" />}
+                                        />
+                                    }
+                                ></IconButton>
+                            </HStack>
+                        </HorizontalPadding>
+                    </VStack>
                 </VStack>
             </SafeAreaView>
 

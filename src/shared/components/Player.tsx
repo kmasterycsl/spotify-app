@@ -49,12 +49,10 @@ export default React.memo(function Player({
                         />
                     </Box>
 
-                    <VerticalPadding />
-
                     {/* Image */}
                     <HStack justifyContent="center">
                         <FullWidthSquareImage
-                            padding={_DEFAULT_HORIZONTAL_PADDING}
+                            padding={_DEFAULT_HORIZONTAL_PADDING * 3}
                             url={`https://picsum.photos/id/${playingTrack.id}/${350}/${350}`}
                         ></FullWidthSquareImage>
                     </HStack>

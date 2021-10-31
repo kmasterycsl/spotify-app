@@ -38,10 +38,7 @@ export default function PlayerControls() {
     );
 
     return (
-        <HorizontalPadding
-            style={{ flexGrow: 1 }}
-            multiple={(1.5 + 4) / DEFAULT_HORIZONTAL_PADDING}
-        >
+        <HorizontalPadding multiple={(1.5 + 4) / DEFAULT_HORIZONTAL_PADDING}>
             <HStack justifyContent="space-between" alignItems="center">
                 {/* shuffle */}
                 <IconButton

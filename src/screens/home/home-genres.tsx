@@ -50,7 +50,7 @@ export default function HomeGenres() {
                             contentContainerStyle={{
                                 alignItems: "flex-start",
                                 marginLeft: _DEFAULT_HORIZONTAL_PADDING,
-                                marginBottom: _DEFAULT_HORIZONTAL_PADDING * 1.5,
+                                marginBottom: _DEFAULT_HORIZONTAL_PADDING,
                             }}
                         >
                             {genre.playlists.items.map(playlist => (

@@ -45,6 +45,7 @@ export default function ArtistDetailScreen() {
             page: 1,
         },
     });
+
     const [getFullData, { data: fullData }] = useLazyQuery<Query>(GET_ARTIST_BY_ID_QUERY, {
         variables: {
             id: params.artistId,

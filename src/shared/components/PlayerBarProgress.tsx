@@ -40,8 +40,8 @@ export default function PlayerBarProgress() {
             maximumValue={
                 soundControllerStatus?.isLoaded ? soundControllerStatus?.durationMillis || 0 : 0
             }
-            minimumTrackTintColor={colors.primary["300"]}
-            maximumTrackTintColor={colors.primary["100"]}
+            minimumTrackTintColor={colors.primary["600"]}
+            maximumTrackTintColor={colors.primary["50"]}
         />
     );
 }
@@ -49,6 +49,6 @@ export default function PlayerBarProgress() {
 const styles = StyleSheet.create({
     slider: {
         opacity: 1,
-        height: 10,
+        height: 5,
     },
 });

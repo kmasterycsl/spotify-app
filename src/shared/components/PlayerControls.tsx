@@ -59,7 +59,18 @@ export default function PlayerControls() {
                 <IconButton
                     onPress={actionPrev}
                     disabled={playingIndex === undefined ? true : playingIndex < 1}
-                    icon={<Icon color="white" size="sm" as={<Ionicons name="play-skip-back" />} />}
+                    icon={
+                        <Icon
+                            color={
+                                (playingIndex === undefined ? true : playingIndex < 1)
+                                    ? "gray.400"
+                                    : "white"
+                            }
+                            size="sm"
+                            name="play-skip-back"
+                            as={Ionicons}
+                        />
+                    }
                 ></IconButton>
 
                 {/* play/pause */}
@@ -106,7 +117,20 @@ export default function PlayerControls() {
                         playingIndex === undefined ? true : playingIndex >= tracksQueue.length - 1
                     }
                     icon={
-                        <Icon color="white" size="sm" as={<Ionicons name="play-skip-forward" />} />
+                        <Icon
+                            color={
+                                (
+                                    playingIndex === undefined
+                                        ? true
+                                        : playingIndex >= tracksQueue.length - 1
+                                )
+                                    ? "gray.400"
+                                    : "white"
+                            }
+                            size="sm"
+                            name="play-skip-forward"
+                            as={Ionicons}
+                        />
                     }
                 ></IconButton>
 

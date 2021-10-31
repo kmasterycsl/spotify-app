@@ -6,6 +6,7 @@ import { Modal } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
 import DraggableTracksList from "./DraggableTrackList";
 import Empty from "./Empty";
+import HorizontalPadding from "./HorizontalPadding";
 import SafeAreaView from "./SafeAreaView";
 
 export default function PlayerList({
@@ -26,18 +27,22 @@ export default function PlayerList({
                         <IconButton
                             alignSelf="flex-start"
                             onPress={() => setVisible(false)}
-                            icon={<Icon color="white" as={<Ionicons name="close-outline" />}></Icon>}
+                            icon={
+                                <Icon color="white" as={<Ionicons name="close-outline" />}></Icon>
+                            }
                         />
 
                         {tracksQueue.length === 0 && <Empty text="Empty tracks queue" />}
 
-                        <DraggableTracksList
-                            onReorderList={actionUpdateQueue}
-                            tracks={tracksQueue}
-                            onLoadMore={() => {}}
-                            isLoading={false}
-                            isFinished={false}
-                        />
+                        <HorizontalPadding style={{ flexGrow: 1 }}>
+                            <DraggableTracksList
+                                onReorderList={actionUpdateQueue}
+                                tracks={tracksQueue}
+                                onLoadMore={() => {}}
+                                isLoading={false}
+                                isFinished={false}
+                            />
+                        </HorizontalPadding>
                     </VStack>
                 </SafeAreaView>
             </RootSiblingParent>

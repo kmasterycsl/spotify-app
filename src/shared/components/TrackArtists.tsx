@@ -1,5 +1,4 @@
 import { Artist } from "@/types/graphql";
-import { useNavigation } from "@react-navigation/core";
 import { Text } from "native-base";
 import React from "react";
 import { Modal, TouchableOpacity } from "react-native";
@@ -11,20 +10,18 @@ interface TrackArtistsProps {
     artists: Artist[];
     visible: boolean;
     setVisible: (visible: boolean) => void;
+    onPressArtist: (artist: Artist) => void;
 }
 
-export default function TrackArtists({ artists, visible, setVisible }: TrackArtistsProps) {
-    const nav = useNavigation();
-
+export default function TrackArtists({
+    artists,
+    visible,
+    setVisible,
+    onPressArtist,
+}: TrackArtistsProps) {
     const goToArtist = (artist: Artist) => {
-        nav.navigate({
-            name: "ArtistDetail",
-            key: `ArtistDetail${artist.id}`,
-            params: {
-                artistId: artist.id,
-            },
-        });
         setVisible(false);
+        onPressArtist(artist);
     };
 
     return (

@@ -8,7 +8,7 @@ import { GET_ARTIST_BY_ID_QUERY } from "@/shared/queries/GET_ARTIST_BY_ID_QUERY"
 import { GET_TRACK_BY_ID_QUERY } from "@/shared/queries/GET_TRACK_BY_ID_QUERY";
 import { useCommonStore } from "@/store/common.store";
 import { usePlayerStore } from "@/store/player.store";
-import { Mutation, Query, Track } from "@/types/graphql";
+import { Artist, Mutation, Query, Track } from "@/types/graphql";
 import { RootStackParamList } from "@/types/routes.types";
 import { useMutation, useQuery } from "@apollo/client";
 import { gql } from "@apollo/client/core";
@@ -58,16 +58,23 @@ export default function TrackMenuScreen() {
     const onViewArtists = () => {
         if (!trackData?.track) return;
         if (trackData.track.artists.length === 1) {
-            nav.navigate({
-                name: "ArtistDetail",
-                key: `ArtistDetail${trackData.track.artists[0].id}`,
-                params: {
-                    artistId: trackData.track.artists[0].id,
-                },
-            });
+            goToArtist(trackData.track.artists[0]);
         } else {
             setViewArtistsVisible(true);
         }
+    };
+
+    const goToArtist = (artist: Artist) => {
+        setTimeout(() => {
+            nav.goBack();
+
+            nav.navigate({
+                name: "ArtistDetail",
+                params: {
+                    artistId: artist.id,
+                },
+            });
+        });
     };
 
     const onViewAddToPlaylist = () => {
@@ -247,6 +254,7 @@ export default function TrackMenuScreen() {
                 artists={trackData.track.artists}
                 visible={viewArtistsVisible}
                 setVisible={setViewArtistsVisible}
+                onPressArtist={goToArtist}
             />
             <AddTrackToPlaylistModal
                 track={trackData.track}

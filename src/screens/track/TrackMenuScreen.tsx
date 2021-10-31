@@ -90,7 +90,7 @@ export default function TrackMenuScreen() {
         if (!trackData?.track) return;
         const liked = doLike({
             variables: {
-                likeableId: trackData.track,
+                likeableId: trackData.track.id,
                 likeableType: "TRACK",
             },
         });

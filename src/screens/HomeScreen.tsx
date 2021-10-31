@@ -29,18 +29,17 @@ export default function HomeScreen() {
     return (
         <SafeAreaView style={styles.container} edges={["top"]}>
             <HomeHeader />
-            <VerticalPadding />
 
             <ScrollView>
                 {currentUser && (
                     <>
-                        <HomeLikeables />
                         <VerticalPadding />
+                        <HomeLikeables />
                     </>
                 )}
 
                 <HomeGenres />
-                <VerticalPadding />
+                {/* <VerticalPadding /> */}
             </ScrollView>
         </SafeAreaView>
     );

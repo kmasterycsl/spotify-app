@@ -32,7 +32,7 @@ export default function DraggableTracksList({
             onPress={() => onPressItem(params.item)}
             onLongPress={onReorderList ? params.drag : undefined}
         >
-            <TracksListItem track={params.item} index={params.index!}></TracksListItem>
+            <TracksListItem track={params.item} hideMenu index={params.index!}></TracksListItem>
             <VerticalPadding />
         </TouchableOpacity>
     );

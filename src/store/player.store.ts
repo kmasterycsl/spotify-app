@@ -242,6 +242,7 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                     nextIndex = (get().playingIndex || 0) + 1;
                 } else if (state.repeatMode === "once") {
                     nextIndex = get().playingIndex || 0;
+                    state.actionUpdatePosition(0);
                 } else if (state.repeatMode === "all") {
                     nextIndex = 0;
                 }

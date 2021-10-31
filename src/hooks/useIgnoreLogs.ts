@@ -6,6 +6,7 @@ export default function useIgnoreLogs() {
         LogBox.ignoreLogs([
             'Expected style "lineHeight: 68" to contain units',
             "NativeBase: The contrast",
+            "Linking requires a build-time setting",
             "ReactNativeFiberHostComponent: Calling getNode() on the ref of an Animated component is no longer necessary. You can now directly use the ref instead. This method will be removed in a future release.",
         ]);
     }, []);

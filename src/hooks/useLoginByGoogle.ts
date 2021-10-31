@@ -53,7 +53,6 @@ export default function useLoginByGoogle() {
     useEffect(() => {
         if (!error) {
             if (data) {
-                console.log("Token: ", data.loginBySocialProvider.accessToken);
                 actionSetCurrentUser(data.loginBySocialProvider.user);
                 actionSetAccessToken(data.loginBySocialProvider.accessToken);
                 actionSetToastMessage({ title: "Login successfully.", status: "info" });

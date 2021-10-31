@@ -22,6 +22,7 @@ import Animated, {
     useSharedValue,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { paddingTop } from "styled-system";
 
 type PlaylistDetailScreenRouteProp = RouteProp<RootStackParamList, "PlaylistDetail">;
 
@@ -206,7 +207,7 @@ export default function PlaylistDetailScreen() {
         <SafeAreaView style={styles.container} edges={["bottom"]}>
             {/* Hidden header */}
             <Animated.View style={[styles.hiddenHeaderContainer, hiddenHeaderStyle]}>
-                <HStack paddingTop={insets.top} style={styles.hiddenHeader} bg={"gray.500"}>
+                <HStack style={[styles.hiddenHeader, { paddingTop: insets.top }]} bg={"gray.500"}>
                     <Text>{data.playlist.name}</Text>
                 </HStack>
             </Animated.View>

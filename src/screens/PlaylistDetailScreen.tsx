@@ -207,14 +207,25 @@ export default function PlaylistDetailScreen() {
         <SafeAreaView style={styles.container} edges={["bottom"]}>
             {/* Hidden header */}
             <Animated.View style={[styles.hiddenHeaderContainer, hiddenHeaderStyle]}>
-                <HStack style={[styles.hiddenHeader, { paddingTop: insets.top }]} bg={"gray.500"}>
+                <HStack
+                    style={[
+                        styles.hiddenHeader,
+                        { paddingTop: insets.top + _DEFAULT_HORIZONTAL_PADDING / 2 },
+                    ]}
+                    bg={"gray.500"}
+                >
                     <Text>{data.playlist.name}</Text>
                 </HStack>
             </Animated.View>
 
             {/* Hidden back icon */}
-            <Box style={styles.backIconContainer}>
-                <Animated.View style={[styles.backIconInner, { top: insets.top }]}>
+            <Box
+                style={[
+                    styles.backIconContainer,
+                    { marginTop: insets.top + _DEFAULT_HORIZONTAL_PADDING / 2 },
+                ]}
+            >
+                <Animated.View style={[styles.backIconInner]}>
                     <Animated.View style={[styles.backIcon, backIconStyle]}>
                         <Icon
                             onPress={goBack}
@@ -269,7 +280,7 @@ const styles = StyleSheet.create({
     hiddenHeader: {
         paddingLeft: _DEFAULT_HORIZONTAL_PADDING,
         paddingRight: _DEFAULT_HORIZONTAL_PADDING,
-        paddingBottom: _DEFAULT_HORIZONTAL_PADDING,
+        paddingBottom: _DEFAULT_HORIZONTAL_PADDING / 2,
         justifyContent: "center",
         width: "100%",
         position: "absolute",

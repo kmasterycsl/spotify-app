@@ -2,9 +2,9 @@ import React from "react";
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { StyleSheet, View, ViewStyle } from "react-native";
-import { HStack, Text, Icon } from "native-base";
+import { HStack, Text, Icon, IconButton } from "native-base";
 import { _DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export const PLAY_BTN_HEIGHT = 50;
 
@@ -23,21 +23,37 @@ export default function FloatingPlayBtn({
         <Animated.View style={[styles.playBtnWrapper, style]}>
             <View style={[styles.playBtnWrapperInner]}>
                 {isPlaying ? (
-                    <Icon
+                    <IconButton
+                        variant="ghost"
+                        size={12}
                         onPress={onPause}
-                        size={12}
-                        name="pause-circle"
-                        color="primary.400"
-                        as={Ionicons}
-                    ></Icon>
+                        justifyContent="center"
+                        alignItems="center"
+                        icon={
+                            <Icon
+                                size={12}
+                                name="pause-circle-outline"
+                                color="primary.400"
+                                as={MaterialIcons}
+                            ></Icon>
+                        }
+                    />
                 ) : (
-                    <Icon
-                        onPress={onPlay}
+                    <IconButton
+                        variant="ghost"
                         size={12}
-                        name="play-circle"
-                        color="primary.400"
-                        as={Ionicons}
-                    ></Icon>
+                        onPress={onPlay}
+                        justifyContent="center"
+                        alignItems="center"
+                        icon={
+                            <Icon
+                                size={12}
+                                name="play-circle-outline"
+                                color="primary.400"
+                                as={MaterialIcons}
+                            ></Icon>
+                        }
+                    />
                 )}
             </View>
         </Animated.View>

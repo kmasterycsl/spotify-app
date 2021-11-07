@@ -60,10 +60,8 @@ export default React.memo(function TracksListItem({
                 )}
                 {!hideArtistName && (
                     <Box pt={1} overflow="hidden">
-                        <Text>
-                            {showType && <Text fontSize="xs">Song · </Text>}
-                            <ArtistNames artists={track.artists} />
-                        </Text>
+                        {showType && <Text fontSize="xs">Song · </Text>}
+                        <ArtistNames artists={track.artists} />
                     </Box>
                 )}
             </VStack>

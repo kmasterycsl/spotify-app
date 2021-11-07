@@ -1,9 +1,19 @@
 import { usePlayerStore } from "@/store/player.store";
 import { Ionicons } from "@expo/vector-icons";
-import { HStack, Icon, IconButton, Spinner, Text, useColorModeValue, VStack } from "native-base";
+import {
+    Box,
+    HStack,
+    Icon,
+    IconButton,
+    Spinner,
+    Text,
+    useColorModeValue,
+    VStack,
+} from "native-base";
 import React, { useState } from "react";
 import { Image, TouchableOpacity } from "react-native";
 import shallow from "zustand/shallow";
+import ArtistNames from "./ArtistNames";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 import Player from "./Player";
 import PlayerBarProgress from "./PlayerBarProgress";
@@ -46,45 +56,50 @@ export default function PlayerBar() {
                             uri: playingTrack.album.coverImage.meta.source,
                         }}
                     ></Image>
-                    <VStack justifyContent="space-between" flexGrow={1}>
+                    <VStack
+                        justifyContent="space-between"
+                        flexShrink={1}
+                        flexGrow={1}
+                        overflow="hidden"
+                    >
                         <Text bold>{playingTrack.name}</Text>
-                        <Text fontSize="sm" pt={1}>
-                            {+playingTrack.id * 10000}
-                        </Text>
+                        <ArtistNames color="white" artists={playingTrack.artists} />
                     </VStack>
-                    {soundControllerStatusIsLoaded && !soundControllerStatusIsPlaying && (
-                        <IconButton
-                            variant="ghost"
-                            size="lg"
-                            onPress={actionResume}
-                            icon={
-                                <Icon
-                                    size="sm"
-                                    as={Ionicons}
-                                    color="primary.400"
-                                    name="play-circle-outline"
-                                ></Icon>
-                            }
-                        />
-                    )}
-                    {soundControllerStatusIsLoaded && soundControllerStatusIsPlaying && (
-                        <IconButton
-                            variant="ghost"
-                            size="lg"
-                            onPress={actionPause}
-                            icon={
-                                <Icon
-                                    size="sm"
-                                    as={Ionicons}
-                                    color="primary.400"
-                                    name="pause-circle-outline"
-                                ></Icon>
-                            }
-                        />
-                    )}
-                    {!soundControllerStatusIsLoaded && (
-                        <IconButton variant="ghost" size="lg" icon={<Spinner size="sm" />} />
-                    )}
+                    <Box>
+                        {soundControllerStatusIsLoaded && !soundControllerStatusIsPlaying && (
+                            <IconButton
+                                variant="ghost"
+                                size="lg"
+                                onPress={actionResume}
+                                icon={
+                                    <Icon
+                                        size="sm"
+                                        as={Ionicons}
+                                        color="primary.400"
+                                        name="play-circle-outline"
+                                    ></Icon>
+                                }
+                            />
+                        )}
+                        {soundControllerStatusIsLoaded && soundControllerStatusIsPlaying && (
+                            <IconButton
+                                variant="ghost"
+                                size="lg"
+                                onPress={actionPause}
+                                icon={
+                                    <Icon
+                                        size="sm"
+                                        as={Ionicons}
+                                        color="primary.400"
+                                        name="pause-circle-outline"
+                                    ></Icon>
+                                }
+                            />
+                        )}
+                        {!soundControllerStatusIsLoaded && (
+                            <IconButton variant="ghost" size="lg" icon={<Spinner size="sm" />} />
+                        )}
+                    </Box>
                 </HStack>
             </TouchableOpacity>
             <PlayerBarProgress />

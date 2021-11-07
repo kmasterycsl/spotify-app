@@ -1,5 +1,5 @@
 import { Box, useColorModeValue } from "native-base";
-import React from "react";
+import React, { ReactNode } from "react";
 import { ViewStyle } from "react-native";
 import { _DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
@@ -8,7 +8,7 @@ export default function VerticalPadding(
         multiple,
         style,
         children,
-    }: { multiple?: number; style?: ViewStyle; children?: React.ReactElement } = {
+    }: { multiple?: number; style?: ViewStyle; children?: ReactNode } = {
         multiple: 1,
     }
 ) {

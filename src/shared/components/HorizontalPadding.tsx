@@ -16,7 +16,7 @@ export default function HorizontalPadding({
     style?: ViewStyle;
     multiple?: number;
 }) {
-    const bgColor = useColorModeValue("white", "black");
+    const bgColor = useColorModeValue("white", "transparent");
 
     return (
         <Box px={(multiple || 1) * DEFAULT_HORIZONTAL_PADDING} bgColor={bgColor} style={style}>

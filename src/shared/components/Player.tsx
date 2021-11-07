@@ -1,4 +1,6 @@
 import { usePlayerStore } from "@/store/player.store";
+import { ImageMeta } from "@/types/graphql";
+import { adjustColor } from "@/utils/convert";
 import { Ionicons } from "@expo/vector-icons";
 import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
 import React, { useState } from "react";
@@ -32,12 +34,23 @@ export default React.memo(function Player({
         setIsPlaylistOpen(true);
     };
 
+    const bgColor = adjustColor(
+        (playingTrack.album.coverImage.meta as ImageMeta).dominantColor,
+        -50
+    );
+
     return (
         <Modal animationType="slide" presentationStyle="fullScreen" visible={visible}>
-            <SafeAreaView style={{ flexGrow: 1 }} mode="padding">
+            <SafeAreaView
+                style={{
+                    flexGrow: 1,
+                    backgroundColor: bgColor,
+                }}
+                mode="padding"
+            >
                 <VStack flexGrow={1}>
                     {/* Top btns */}
-                    <Box style={{ backgroundColor: "transparent", alignSelf: "flex-start" }}>
+                    <Box style={{ alignSelf: "flex-start" }}>
                         <IconButton
                             onPress={() => setVisible(false)}
                             icon={

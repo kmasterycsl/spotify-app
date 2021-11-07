@@ -1,4 +1,5 @@
 import FullWidthSquareImage from "@/shared/components/FullWidthSquareImage";
+import HiddenHeader from "@/shared/components/HiddenHeader";
 import HorizontalPadding, {
     _DEFAULT_HORIZONTAL_PADDING,
 } from "@/shared/components/HorizontalPadding";
@@ -165,21 +166,16 @@ export default function ArtistDetailScreen() {
     return data?.artist ? (
         <SafeAreaView style={styles.container} edges={["bottom"]}>
             {/* Hidden header */}
-            <Animated.View
+            <HiddenHeader
+                title={data.artist.name}
                 style={[
+                    hiddenHeaderStyle,
                     {
-                        height: insets.top + HEADER_HEIGHT,
                         backgroundColor: (data?.artist?.coverImage?.meta as ImageMeta)
                             ?.dominantColor,
                     },
-                    styles.hiddenHeaderContainer,
-                    hiddenHeaderStyle,
                 ]}
-            >
-                <HStack style={[{ paddingTop: insets.top }, styles.hiddenHeader]}>
-                    <Text>{data.artist.name}</Text>
-                </HStack>
-            </Animated.View>
+            />
 
             {/* Hidden back icon */}
             <Animated.View style={[styles.backIconInner, { height: insets.top + HEADER_HEIGHT }]}>

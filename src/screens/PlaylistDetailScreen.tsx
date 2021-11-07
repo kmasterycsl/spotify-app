@@ -1,3 +1,4 @@
+import HiddenHeader from "@/shared/components/HiddenHeader";
 import HorizontalPadding, {
     _DEFAULT_HORIZONTAL_PADDING,
 } from "@/shared/components/HorizontalPadding";
@@ -7,7 +8,7 @@ import TracksList from "@/shared/components/TracksList";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_PLAYLIST_BY_ID_QUERY } from "@/shared/queries/GET_PLAYLIST_BY_ID_QUERY";
 import { usePlayerStore } from "@/store/player.store";
-import { PaginationMeta, Query } from "@/types/graphql";
+import { ImageMeta, PaginationMeta, Query } from "@/types/graphql";
 import { RootStackParamList } from "@/types/routes.types";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
@@ -206,17 +207,16 @@ export default function PlaylistDetailScreen() {
     return data?.playlist ? (
         <SafeAreaView style={styles.container} edges={["bottom"]}>
             {/* Hidden header */}
-            <Animated.View style={[styles.hiddenHeaderContainer, hiddenHeaderStyle]}>
-                <HStack
-                    style={[
-                        styles.hiddenHeader,
-                        { paddingTop: insets.top + _DEFAULT_HORIZONTAL_PADDING / 2 },
-                    ]}
-                    bg={"gray.500"}
-                >
-                    <Text>{data.playlist.name}</Text>
-                </HStack>
-            </Animated.View>
+            <HiddenHeader
+                title={data.playlist.name}
+                style={[
+                    hiddenHeaderStyle,
+                    {
+                        backgroundColor: (data?.playlist?.coverImage?.meta as ImageMeta)
+                            ?.dominantColor,
+                    },
+                ]}
+            />
 
             {/* Hidden back icon */}
             <Box

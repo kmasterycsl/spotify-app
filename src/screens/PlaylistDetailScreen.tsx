@@ -154,9 +154,8 @@ export default function PlaylistDetailScreen() {
     const ListHeaderComponent = useMemo(
         () =>
             data?.playlist ? (
-                <VStack>
-                    <VerticalPadding />
-                    {data.playlist.tracks.items.length > 0 && (
+                <VStack style={{ paddingVertical: _DEFAULT_HORIZONTAL_PADDING }}>
+                    {data.playlist.tracks.items.length > 0 ? (
                         <HorizontalPadding>
                             <HStack w="100%" justifyContent="space-between">
                                 {/* Menu btn */}
@@ -167,16 +166,14 @@ export default function PlaylistDetailScreen() {
                                         <Icon
                                             name="ellipsis-horizontal-outline"
                                             size="xs"
-                                            color="gray.400"
+                                            color="white"
                                             as={Ionicons}
                                         />
                                     }
                                 />
                             </HStack>
                         </HorizontalPadding>
-                    )}
-
-                    <VerticalPadding />
+                    ) : null}
                 </VStack>
             ) : null,
         [data?.playlist, isPlaying, playingPlaylistId]

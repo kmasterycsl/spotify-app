@@ -29,7 +29,6 @@ export default React.memo(function TracksListItem({
     const nav = useNavigation();
 
     const onOpenMenu = () => {
-        console.log("track.id: ", track.id);
         nav.navigate("TrackMenu", { trackId: track.id });
     };
 

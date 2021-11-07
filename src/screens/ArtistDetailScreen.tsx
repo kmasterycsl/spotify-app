@@ -11,10 +11,9 @@ import { ImageMeta, PaginationMeta, Query } from "@/types/graphql";
 import { RootStackParamList } from "@/types/routes.types";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { Box, HStack, Icon, Text, VStack } from "native-base";
+import { HStack, Icon, Text, VStack } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import Animated, {
@@ -31,7 +30,7 @@ type ProfileScreenRouteProp = RouteProp<RootStackParamList, "ArtistDetail">;
 const screenWidth = Dimensions.get("screen").width;
 const HEADER_HEIGHT = 50;
 const ARTIST_NAME_HEIGHT = 35;
-const PLAY_BTN_HEIGHT = 80;
+const PLAY_BTN_HEIGHT = 50;
 
 export default function ArtistDetailScreen() {
     const insets = useSafeAreaInsets();
@@ -223,18 +222,18 @@ export default function ArtistDetailScreen() {
                     {isPlaying && playingArtistId === data.artist.id ? (
                         <Icon
                             onPress={actionPause}
-                            size={16}
-                            name="pausecircle"
+                            size={12}
+                            name="pause-circle"
                             color="primary.400"
-                            as={AntDesign}
+                            as={Ionicons}
                         ></Icon>
                     ) : (
                         <Icon
                             onPress={onPlay}
-                            size={16}
-                            name="play"
+                            size={12}
+                            name="play-circle"
                             color="primary.400"
-                            as={AntDesign}
+                            as={Ionicons}
                         ></Icon>
                     )}
                 </View>

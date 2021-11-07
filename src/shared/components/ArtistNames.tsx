@@ -1,8 +1,9 @@
 import { Artist } from "@/types/graphql";
 import { gql } from "@apollo/client";
 import { useNavigation } from "@react-navigation/core";
-import { Text } from "native-base";
+import { HStack, Text } from "native-base";
 import React from "react";
+import { TouchableOpacity } from "react-native";
 
 export const ArtistNamesFragment = gql`
     fragment ArtistNamesFragment on Artist {
@@ -23,19 +24,21 @@ export default function ArtistNames({ artists, color }: { artists: Artist[]; col
     };
 
     return (
-        <Text>
+        <HStack alignItems="flex-end">
             {artists.map((artist, index) => (
-                <Text key={artist.id} onPress={() => goToArtist(artist)}>
-                    <Text fontSize="xs" color={color}>
-                        {artist.name}
-                    </Text>
+                <>
+                    <TouchableOpacity key={artist.id} onPress={() => goToArtist(artist)}>
+                        <Text fontSize="xs" color={color}>
+                            {artist.name}
+                        </Text>
+                    </TouchableOpacity>
                     {index !== artists.length - 1 && (
                         <Text fontSize="xs" color={color}>
                             {" · "}
                         </Text>
                     )}
-                </Text>
+                </>
             ))}
-        </Text>
+        </HStack>
     );
 }

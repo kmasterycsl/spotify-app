@@ -95,6 +95,24 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
     actionPlay: async (track: Track) => {
         const state = get();
 
+        set({
+            soundControllerStatus: {
+                isLoaded: true,
+                uri: "",
+                progressUpdateIntervalMillis: 500,
+                positionMillis: 0,
+                shouldPlay: true,
+                isPlaying: true,
+                isBuffering: false,
+                rate: 1,
+                shouldCorrectPitch: true,
+                volume: 10,
+                isMuted: false,
+                isLooping: false,
+                didJustFinish: false,
+            },
+        });
+
         // Replay manually
         if (track.id === state.playingTrack?.id) {
             if (state.soundController) {

@@ -1,6 +1,7 @@
+import FloatingPlayBtn from "@/shared/components/FloatingPlayBtn";
 import FullWidthSquareImage from "@/shared/components/FullWidthSquareImage";
 import HiddenBackIcon from "@/shared/components/HiddenBackIcon";
-import HiddenHeader from "@/shared/components/HiddenHeader";
+import HiddenHeader, { HEADER_HEIGHT } from "@/shared/components/HiddenHeader";
 import HorizontalPadding, {
     _DEFAULT_HORIZONTAL_PADDING,
 } from "@/shared/components/HorizontalPadding";
@@ -12,10 +13,8 @@ import { usePlayerStore } from "@/store/player.store";
 import { ImageMeta, PaginationMeta, Query } from "@/types/graphql";
 import { RootStackParamList } from "@/types/routes.types";
 import { useLazyQuery, useQuery } from "@apollo/client";
-import { Ionicons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { HStack, Icon, Text, VStack } from "native-base";
+import { HStack, Text, VStack } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import Animated, {
@@ -30,7 +29,6 @@ import ArtistStats from "./artist/ArtistStats";
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, "ArtistDetail">;
 
 const screenWidth = Dimensions.get("screen").width;
-const HEADER_HEIGHT = 50;
 const ARTIST_NAME_HEIGHT = 35;
 const PLAY_BTN_HEIGHT = 50;
 
@@ -111,10 +109,6 @@ export default function ArtistDetailScreen() {
             setWaitingToAdd(false);
         }
     }, [waitingToAdd, fullData]);
-
-    const goBack = () => {
-        nav.goBack();
-    };
 
     const onPlay = () => {
         if (!data?.artist) return;
@@ -204,27 +198,12 @@ export default function ArtistDetailScreen() {
             </Animated.View>
 
             {/* Play btn */}
-            <Animated.View style={[styles.playBtnWrapper, playBtnWrapperStyle]}>
-                <View style={[styles.playBtnWrapperInner]}>
-                    {isPlaying && playingArtistId === data.artist.id ? (
-                        <Icon
-                            onPress={actionPause}
-                            size={12}
-                            name="pause-circle"
-                            color="primary.400"
-                            as={Ionicons}
-                        ></Icon>
-                    ) : (
-                        <Icon
-                            onPress={onPlay}
-                            size={12}
-                            name="play-circle"
-                            color="primary.400"
-                            as={Ionicons}
-                        ></Icon>
-                    )}
-                </View>
-            </Animated.View>
+            <FloatingPlayBtn
+                isPlaying={!!isPlaying && playingArtistId === data.artist.id}
+                onPause={actionPause}
+                onPlay={onPlay}
+                style={playBtnWrapperStyle}
+            />
 
             {/* Tracks list */}
             <TracksList

@@ -12,7 +12,7 @@ export default function VerticalPadding(
         multiple: 1,
     }
 ) {
-    const bgColor = useColorModeValue("white", "black");
+    const bgColor = useColorModeValue("white", "transparent");
 
     return (
         <Box

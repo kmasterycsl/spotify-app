@@ -1,4 +1,5 @@
 import FullWidthSquareImage from "@/shared/components/FullWidthSquareImage";
+import HiddenBackIcon from "@/shared/components/HiddenBackIcon";
 import HiddenHeader from "@/shared/components/HiddenHeader";
 import HorizontalPadding, {
     _DEFAULT_HORIZONTAL_PADDING,
@@ -178,17 +179,7 @@ export default function ArtistDetailScreen() {
             />
 
             {/* Hidden back icon */}
-            <Animated.View style={[styles.backIconInner, { height: insets.top + HEADER_HEIGHT }]}>
-                <Animated.View style={[{ marginTop: insets.top }, styles.backIcon, backIconStyle]}>
-                    <Icon
-                        onPress={goBack}
-                        size={5}
-                        color="gray.100"
-                        name="chevron-thin-left"
-                        as={Entypo}
-                    ></Icon>
-                </Animated.View>
-            </Animated.View>
+            <HiddenBackIcon style={backIconStyle} />
 
             {/* Cover image */}
             <Animated.View style={[styles.coverImgContainer, coverImgStyle]}>

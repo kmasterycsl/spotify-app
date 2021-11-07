@@ -1,3 +1,4 @@
+import HiddenBackIcon from "@/shared/components/HiddenBackIcon";
 import HiddenHeader from "@/shared/components/HiddenHeader";
 import HorizontalPadding, {
     _DEFAULT_HORIZONTAL_PADDING,
@@ -219,24 +220,7 @@ export default function PlaylistDetailScreen() {
             />
 
             {/* Hidden back icon */}
-            <Box
-                style={[
-                    styles.backIconContainer,
-                    { marginTop: insets.top + _DEFAULT_HORIZONTAL_PADDING / 2 },
-                ]}
-            >
-                <Animated.View style={[styles.backIconInner]}>
-                    <Animated.View style={[styles.backIcon, backIconStyle]}>
-                        <Icon
-                            onPress={goBack}
-                            size={5}
-                            name="chevron-back-outline"
-                            color="gray.400"
-                            as={Ionicons}
-                        ></Icon>
-                    </Animated.View>
-                </Animated.View>
-            </Box>
+            <HiddenBackIcon style={backIconStyle} />
 
             {/* Cover image */}
             <Animated.View style={[{ position: "absolute", zIndex: 0 }, coverImgStyle]}>

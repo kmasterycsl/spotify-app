@@ -76,7 +76,9 @@ export default React.memo(function Player({
 
                         <HorizontalPadding>
                             <PlayerBarProgress />
-                            <PlayerTimeline />
+                            <PlayerTimeline
+                                style={{ marginTop: _DEFAULT_HORIZONTAL_PADDING / 2 }}
+                            />
                         </HorizontalPadding>
 
                         <VerticalPadding />

@@ -3,9 +3,8 @@ import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { StyleSheet, ViewStyle } from "react-native";
 import { HStack, Text } from "native-base";
-import { useNavigation } from "@react-navigation/core";
 
-const HEADER_HEIGHT = 50;
+export const HEADER_HEIGHT = 50;
 
 export default function HiddenHeader({
     style,

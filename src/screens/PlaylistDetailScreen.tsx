@@ -1,5 +1,6 @@
+import FloatingPlayBtn, { PLAY_BTN_HEIGHT } from "@/shared/components/FloatingPlayBtn";
 import HiddenBackIcon from "@/shared/components/HiddenBackIcon";
-import HiddenHeader from "@/shared/components/HiddenHeader";
+import HiddenHeader, { HEADER_HEIGHT } from "@/shared/components/HiddenHeader";
 import HorizontalPadding, {
     _DEFAULT_HORIZONTAL_PADDING,
 } from "@/shared/components/HorizontalPadding";
@@ -14,9 +15,9 @@ import { RootStackParamList } from "@/types/routes.types";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { Box, HStack, Icon, IconButton, Text, VStack } from "native-base";
+import { HStack, Icon, IconButton, Text, VStack } from "native-base";
 import React, { useEffect, useMemo, useState } from "react";
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import Animated, {
     useAnimatedProps,
     useAnimatedScrollHandler,
@@ -24,11 +25,11 @@ import Animated, {
     useSharedValue,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { paddingTop } from "styled-system";
 
 type PlaylistDetailScreenRouteProp = RouteProp<RootStackParamList, "PlaylistDetail">;
 
 const screenWidth = Dimensions.get("screen").width;
+const ARTIST_NAME_HEIGHT = 35;
 
 export default function PlaylistDetailScreen() {
     const insets = useSafeAreaInsets();
@@ -79,7 +80,7 @@ export default function PlaylistDetailScreen() {
     }));
 
     const titleStyle = useAnimatedStyle(() => ({
-        top: screenWidth - 95 - scrollOffsetY.value,
+        top: screenWidth - ARTIST_NAME_HEIGHT - _DEFAULT_HORIZONTAL_PADDING - scrollOffsetY.value,
         opacity: 1 - (scrollOffsetY.value * 2) / screenWidth,
     }));
 
@@ -99,6 +100,15 @@ export default function PlaylistDetailScreen() {
         backgroundColor: scrollOffsetY.value / screenWidth > 0.5 ? "transparent" : "gray",
     }));
 
+    const playBtnWrapperStyle = useAnimatedStyle(() => {
+        return {
+            top: Math.max(
+                screenWidth + _DEFAULT_HORIZONTAL_PADDING - scrollOffsetY.value,
+                insets.top + HEADER_HEIGHT - PLAY_BTN_HEIGHT / 2
+            ),
+        };
+    });
+
     useEffect(() => {
         if (waitingToAdd && fullData) {
             if (fullData.playlist) {
@@ -107,10 +117,6 @@ export default function PlaylistDetailScreen() {
             setWaitingToAdd(false);
         }
     }, [waitingToAdd, fullData]);
-
-    const goBack = () => {
-        nav.goBack();
-    };
 
     const onPlay = () => {
         if (!data?.playlist) return;
@@ -149,39 +155,10 @@ export default function PlaylistDetailScreen() {
         () =>
             data?.playlist ? (
                 <VStack>
-                    <VerticalPadding multiple={1} style={{ backgroundColor: "transparent" }} />
+                    <VerticalPadding />
                     {data.playlist.tracks.items.length > 0 && (
                         <HorizontalPadding>
                             <HStack w="100%" justifyContent="space-between">
-                                {/* Play btn */}
-                                {isPlaying && playingPlaylistId === data.playlist.id ? (
-                                    <IconButton
-                                        size="sm"
-                                        variant="ghost"
-                                        onPress={actionPause}
-                                        icon={
-                                            <Icon
-                                                name="pause-circle-outline"
-                                                color="gray.400"
-                                                as={Ionicons}
-                                            ></Icon>
-                                        }
-                                    />
-                                ) : (
-                                    <IconButton
-                                        size="sm"
-                                        variant="ghost"
-                                        onPress={onPlay}
-                                        icon={
-                                            <Icon
-                                                name="play-circle-outline"
-                                                color="gray.400"
-                                                as={Ionicons}
-                                            ></Icon>
-                                        }
-                                    />
-                                )}
-
                                 {/* Menu btn */}
                                 <IconButton
                                     variant="ghost"
@@ -229,12 +206,25 @@ export default function PlaylistDetailScreen() {
 
             {/* Playlist name */}
             <Animated.View style={[styles.trackTitle, titleStyle]}>
-                <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-                    <Text fontSize="4xl" fontWeight="500" color="white" numberOfLines={1}>
+                <HorizontalPadding
+                    style={{
+                        height: ARTIST_NAME_HEIGHT,
+                        justifyContent: "center",
+                    }}
+                >
+                    <Text fontSize="3xl" fontWeight="500" color="white" numberOfLines={1}>
                         {data.playlist.name}
                     </Text>
                 </HorizontalPadding>
             </Animated.View>
+
+            {/* Play btn */}
+            <FloatingPlayBtn
+                isPlaying={!!isPlaying && playingPlaylistId === data.playlist.id}
+                onPause={actionPause}
+                onPlay={onPlay}
+                style={playBtnWrapperStyle}
+            />
 
             {/* Tracks list */}
             <TracksList
@@ -277,14 +267,13 @@ const styles = StyleSheet.create({
     },
     trackTitle: {
         position: "absolute",
-        top: screenWidth - 80,
         left: 0,
         zIndex: 2,
         width: "100%",
     },
     tracksListContainer: {
         position: "absolute",
-        paddingTop: screenWidth - 40,
+        paddingTop: screenWidth,
         top: 0,
         left: 0,
         height: "100%",
@@ -295,4 +284,15 @@ const styles = StyleSheet.create({
         paddingBottom: screenWidth + 80 - 40,
     },
     playerBarContainer: { position: "absolute", zIndex: 4, width: "100%" },
+    playBtnWrapper: {
+        position: "absolute",
+        right: _DEFAULT_HORIZONTAL_PADDING,
+        zIndex: 3,
+    },
+    playBtnWrapperInner: {
+        width: PLAY_BTN_HEIGHT,
+        height: PLAY_BTN_HEIGHT,
+        justifyContent: "center",
+        alignItems: "flex-end",
+    },
 });

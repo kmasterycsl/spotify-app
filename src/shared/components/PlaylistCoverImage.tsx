@@ -1,4 +1,5 @@
-import { Playlist } from "@/types/graphql";
+import { ImageMeta, Playlist } from "@/types/graphql";
+import { adjustColor } from "@/utils/convert";
 import { HStack, useTheme } from "native-base";
 import React from "react";
 import { Dimensions, ViewStyle } from "react-native";
@@ -13,7 +14,7 @@ export default function PlaylistCoverImage({
     style?: ViewStyle;
     playlist: Playlist;
 }) {
-    const { colors } = useTheme();
+    const bgColor = adjustColor((playlist.coverImage?.meta as ImageMeta)?.dominantColor, -70);
 
     return (
         <HStack
@@ -21,7 +22,7 @@ export default function PlaylistCoverImage({
                 width: screenWidth,
                 height: screenWidth,
             }}
-            bg={"gray.500"}
+            bg={bgColor}
             justifyContent="center"
             alignItems="center"
         >

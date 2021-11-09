@@ -1,4 +1,5 @@
 import AccountScreen from "@/screens/AccountScreen";
+import AlbumMenuScreen from "@/screens/album/AlbumMenuScreen";
 import AlbumDetailScreen from "@/screens/AlbumDetailScreen";
 import ArtistDetailScreen from "@/screens/ArtistDetailScreen";
 import GenreDetailScreen from "@/screens/GenreDetailScreen";
@@ -62,6 +63,11 @@ export default function HomeStackScreen() {
                 <HomeStack.Screen
                     name="PlaylistMenu"
                     component={PlaylistMenu}
+                    options={{ header: () => null }}
+                />
+                <HomeStack.Screen
+                    name="AlbumMenu"
+                    component={AlbumMenuScreen}
                     options={{ header: () => null }}
                 />
             </HomeStack.Group>

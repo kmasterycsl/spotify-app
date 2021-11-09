@@ -12,12 +12,13 @@ export type RootStackParamList = {
     Search: undefined;
     Account: undefined;
     TrackMenu: { trackId: string };
+    AlbumMenu: { albumId: string };
     PlaylistMenu: { playlistId: string };
     CreatePlaylist: undefined;
 };
 
 declare global {
     namespace ReactNavigation {
-        interface RootParamList extends RootStackParamList { }
+        interface RootParamList extends RootStackParamList {}
     }
 }

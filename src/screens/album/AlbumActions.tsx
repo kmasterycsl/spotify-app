@@ -1,9 +1,11 @@
+import { DEFAULT_HORIZONTAL_PADDING } from "@/shared/components/HorizontalPadding";
 import { GET_ALBUM_BY_ID_QUERY } from "@/shared/queries/GET_ALBUM_BY_ID_QUERY";
 import { useCommonStore } from "@/store/common.store";
 import { Album, Mutation } from "@/types/graphql";
 import { useMutation } from "@apollo/client";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
-import { HStack, Icon } from "native-base";
+import { useNavigation } from "@react-navigation/core";
+import { HStack, Icon, IconButton } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { LIKE_MUTATION } from "../track/TrackMenuScreen";
@@ -18,6 +20,7 @@ export default function AlbumActions({ album }: IAlbumActionsProp) {
     });
     const currentUser = useCommonStore(state => state.currentUser);
     const actionSetToastMessage = useCommonStore(store => store.actionSetToastMessage);
+    const nav = useNavigation();
 
     const like = () => {
         doLike({
@@ -41,23 +44,38 @@ export default function AlbumActions({ album }: IAlbumActionsProp) {
             });
     };
 
-    return (
-        <HStack>
-            {currentUser && (
-                <TouchableOpacity onPress={like}>
+    const onOpenMenu = () => {
+        nav.navigate("AlbumMenu", { albumId: album.id });
+    };
+
+    return currentUser ? (
+        <HStack space={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+            <TouchableOpacity onPress={like}>
+                <Icon
+                    size="sm"
+                    color="primary.400"
+                    as={
+                        album.isLiked ? (
+                            <Ionicons name="heart" />
+                        ) : (
+                            <Ionicons name="heart-outline" />
+                        )
+                    }
+                ></Icon>
+            </TouchableOpacity>
+
+            <IconButton
+                variant="ghost"
+                onPress={onOpenMenu}
+                icon={
                     <Icon
-                        size="sm"
-                        color="primary.400"
-                        as={
-                            album.isLiked ? (
-                                <Ionicons name="heart" />
-                            ) : (
-                                <Ionicons name="heart-outline" />
-                            )
-                        }
-                    ></Icon>
-                </TouchableOpacity>
-            )}
+                        name="ellipsis-horizontal-outline"
+                        size="xs"
+                        color="white"
+                        as={Ionicons}
+                    />
+                }
+            />
         </HStack>
-    );
+    ) : null;
 }

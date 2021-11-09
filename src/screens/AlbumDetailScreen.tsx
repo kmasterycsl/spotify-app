@@ -111,33 +111,22 @@ export default function AlbumDetailScreen() {
     const ListHeaderComponent = useMemo(
         () =>
             data?.album ? (
-                <VStack style={{ paddingVertical: _DEFAULT_HORIZONTAL_PADDING }}>
-                    {data.album.tracks.length > 0 ? (
-                        <HorizontalPadding>
-                            <HStack w="100%" justifyContent="space-between">
-                                {/* Menu btn */}
-                                <IconButton
-                                    variant="ghost"
-                                    // onPress={onOpenMenu}
-                                    icon={
-                                        <Icon
-                                            name="ellipsis-horizontal-outline"
-                                            size="xs"
-                                            color="white"
-                                            as={Ionicons}
-                                        />
-                                    }
-                                />
-                            </HStack>
-                        </HorizontalPadding>
-                    ) : null}
-                </VStack>
+                <HorizontalPadding>
+                    <VStack style={{ paddingVertical: _DEFAULT_HORIZONTAL_PADDING }}>
+                        <AlbumActions album={data.album} />
+                    </VStack>
+                </HorizontalPadding>
             ) : null,
         [data?.album, isPlaying, playingAlbumId]
     );
 
     return data?.album ? (
         <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
+            {/* <LinearGradient
+                    colors={[(data.album.coverImage.meta as ImageMeta).dominantColor, "gray"]}
+                    style={styles.background}
+                /> */}
+
             {/* Hidden header */}
             <HiddenHeader
                 title={data.album.name}
@@ -175,7 +164,7 @@ export default function AlbumDetailScreen() {
             {/* Play btn */}
             <FloatingPlayBtn
                 isPlaying={!!isPlaying && playingAlbumId === data.album.id}
-                onPause={actionPause}
+                onPause={onPause}
                 onPlay={onPlay}
                 style={playBtnWrapperStyle}
             />

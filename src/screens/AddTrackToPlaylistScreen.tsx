@@ -7,7 +7,7 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/core";
 import { Button, HStack, Icon, IconButton, ScrollView, Text, VStack } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { ADD_TRACK_TO_PLAYLIST_MUTATION } from "../shared/queries/ADD_TRACK_TO_PLAYLIST_MUTATION";
+import { ADD_TRACK_TO_PLAYLIST_MUTATION } from "../shared/mutations/ADD_TRACK_TO_PLAYLIST_MUTATION";
 import { GET_OWN_PLAYLISTS_QUERY } from "../shared/queries/GET_OWN_PLAYLISTS_QUERY";
 import Empty from "../shared/components/Empty";
 import PlaylistListItem from "../shared/components/PlaylistListItem";

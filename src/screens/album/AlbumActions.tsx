@@ -1,4 +1,5 @@
 import { DEFAULT_HORIZONTAL_PADDING } from "@/shared/components/HorizontalPadding";
+import { LIKE_MUTATION } from "@/shared/mutations/LIKE_MUTATION";
 import { GET_ALBUM_BY_ID_QUERY } from "@/shared/queries/GET_ALBUM_BY_ID_QUERY";
 import { useCommonStore } from "@/store/common.store";
 import { Album, Mutation } from "@/types/graphql";
@@ -8,7 +9,6 @@ import { useNavigation } from "@react-navigation/core";
 import { HStack, Icon, IconButton } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { LIKE_MUTATION } from "../track/TrackMenuScreen";
 
 export interface IAlbumActionsProp {
     album: Album;

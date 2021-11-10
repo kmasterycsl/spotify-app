@@ -1,10 +1,12 @@
 import AccountScreen from "@/screens/AccountScreen";
+import AddTrackToPlaylistScreen from "@/screens/AddTrackToPlaylistScreen";
 import AlbumMenuScreen from "@/screens/album/AlbumMenuScreen";
 import AlbumDetailScreen from "@/screens/AlbumDetailScreen";
 import ArtistDetailScreen from "@/screens/ArtistDetailScreen";
 import GenreDetailScreen from "@/screens/GenreDetailScreen";
 import HomeScreen from "@/screens/HomeScreen";
 import LoginScreen from "@/screens/LoginScreen";
+import CreatePlaylist from "@/screens/playlist/CreatePlaylist";
 import PlaylistMenu from "@/screens/playlist/PlaylistMenu";
 import PlaylistDetailScreen from "@/screens/PlaylistDetailScreen";
 import ProfileScreen from "@/screens/ProfileScreen";
@@ -68,6 +70,16 @@ export default function HomeStackScreen() {
                 <HomeStack.Screen
                     name="AlbumMenu"
                     component={AlbumMenuScreen}
+                    options={{ header: () => null }}
+                />
+                <HomeStack.Screen
+                    name="AddTrackToPlaylist"
+                    component={AddTrackToPlaylistScreen}
+                    options={{ header: () => null }}
+                />
+                <HomeStack.Screen
+                    name="CreatePlaylist"
+                    component={CreatePlaylist}
                     options={{ header: () => null }}
                 />
             </HomeStack.Group>

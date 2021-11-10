@@ -14,6 +14,7 @@ export type RootStackParamList = {
     TrackMenu: { trackId: string };
     AlbumMenu: { albumId: string };
     PlaylistMenu: { playlistId: string };
+    AddTrackToPlaylist: { trackId: string };
     CreatePlaylist: undefined;
 };
 

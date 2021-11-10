@@ -1,15 +1,13 @@
-import AddTrackToPlaylistModal from "@/shared/components/AddTrackToPlaylistModal";
 import ArtistNames from "@/shared/components/ArtistNames";
 import FullWidthSquareImage from "@/shared/components/FullWidthSquareImage";
 import { DEFAULT_HORIZONTAL_PADDING } from "@/shared/components/HorizontalPadding";
 import TrackArtists from "@/shared/components/TrackArtists";
 import VerticalPadding from "@/shared/components/VerticalPadding";
-import { GET_ARTIST_BY_ID_QUERY } from "@/shared/queries/GET_ARTIST_BY_ID_QUERY";
 import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
 import { GET_TRACK_BY_ID_QUERY } from "@/shared/queries/GET_TRACK_BY_ID_QUERY";
 import { useCommonStore } from "@/store/common.store";
 import { usePlayerStore } from "@/store/player.store";
-import { Artist, Mutation, Query, Track } from "@/types/graphql";
+import { Artist, Mutation, Query } from "@/types/graphql";
 import { RootStackParamList } from "@/types/routes.types";
 import { useMutation, useQuery } from "@apollo/client";
 import { gql } from "@apollo/client/core";
@@ -40,7 +38,6 @@ export default function TrackMenuScreen() {
             id: params.trackId,
         },
     });
-    const [viewAddToPlaylistVisible, setViewAddToPlaylistVisible] = useState(false);
     const [viewArtistsVisible, setViewArtistsVisible] = useState(false);
 
     const [actionAddToQueue, actionRemoveFromQueue, trackInQueue] = usePlayerStore(
@@ -78,8 +75,8 @@ export default function TrackMenuScreen() {
         });
     };
 
-    const onViewAddToPlaylist = () => {
-        setViewAddToPlaylistVisible(true);
+    const onViewAddTrackToPlaylist = () => {
+        nav.navigate("AddTrackToPlaylist", { trackId: params.trackId });
     };
 
     const onAddToQueue = () => {
@@ -208,7 +205,7 @@ export default function TrackMenuScreen() {
                         {/* Add to playlist */}
                         {currentUser && (
                             <>
-                                <TouchableOpacity onPress={onViewAddToPlaylist}>
+                                <TouchableOpacity onPress={onViewAddTrackToPlaylist}>
                                     <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
                                         <Icon
                                             color="white"
@@ -259,11 +256,6 @@ export default function TrackMenuScreen() {
                 visible={viewArtistsVisible}
                 setVisible={setViewArtistsVisible}
                 onPressArtist={goToArtist}
-            />
-            <AddTrackToPlaylistModal
-                track={trackData.track}
-                visible={viewAddToPlaylistVisible}
-                setVisible={setViewAddToPlaylistVisible}
             />
         </SafeAreaView>
     );

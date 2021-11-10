@@ -1,7 +1,7 @@
 import AlbumDetailScreen from "@/screens/AlbumDetailScreen";
 import ArtistDetailScreen from "@/screens/ArtistDetailScreen";
 import LibraryHomeScreen from "@/screens/LibraryHomeScreen";
-import CreateNewPlaylist from "@/screens/playlist/CreateNewPlaylist";
+import CreatePlaylist from "@/screens/playlist/CreatePlaylist";
 import PlaylistDetailScreen from "@/screens/PlaylistDetailScreen";
 import { RootStackParamList } from "@/types/routes.types";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -22,7 +22,7 @@ export default function LibraryStackScreen() {
             <LibraryStack.Group screenOptions={{ presentation: "fullScreenModal" }}>
                 <LibraryStack.Screen
                     name="CreatePlaylist"
-                    component={CreateNewPlaylist}
+                    component={CreatePlaylist}
                     options={{ header: () => null }}
                 />
             </LibraryStack.Group>

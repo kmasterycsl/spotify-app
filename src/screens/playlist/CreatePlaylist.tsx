@@ -19,7 +19,7 @@ export const CREATE_PLAYLIST_MUTATION = gql`
     }
 `;
 
-export default function CreateNewPlaylist() {
+export default function CreatePlaylist() {
     const [name, setName] = useState("");
     const [doCreate] = useMutation<Mutation>(CREATE_PLAYLIST_MUTATION, {
         refetchQueries: [GET_LIKEABLES_QUERY, GET_OWN_PLAYLISTS_QUERY],

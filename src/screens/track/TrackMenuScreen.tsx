@@ -3,6 +3,7 @@ import FullWidthSquareImage from "@/shared/components/FullWidthSquareImage";
 import { DEFAULT_HORIZONTAL_PADDING } from "@/shared/components/HorizontalPadding";
 import TrackArtists from "@/shared/components/TrackArtists";
 import VerticalPadding from "@/shared/components/VerticalPadding";
+import { LIKE_MUTATION } from "@/shared/mutations/LIKE_MUTATION";
 import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
 import { GET_TRACK_BY_ID_QUERY } from "@/shared/queries/GET_TRACK_BY_ID_QUERY";
 import { useCommonStore } from "@/store/common.store";
@@ -10,7 +11,6 @@ import { usePlayerStore } from "@/store/player.store";
 import { Artist, Mutation, Query } from "@/types/graphql";
 import { RootStackParamList } from "@/types/routes.types";
 import { useMutation, useQuery } from "@apollo/client";
-import { gql } from "@apollo/client/core";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { RouteProp, useRoute } from "@react-navigation/native";
@@ -18,12 +18,6 @@ import { Button, HStack, Icon, ScrollView, Text, VStack } from "native-base";
 import React, { useState } from "react";
 import { SafeAreaView, TouchableOpacity, useWindowDimensions } from "react-native";
 import shallow from "zustand/shallow";
-
-export const LIKE_MUTATION = gql`
-    mutation like($likeableType: LikeableType!, $likeableId: String!) {
-        like(likeableType: $likeableType, likeableId: $likeableId)
-    }
-`;
 
 type TrackMenuScreenRouteProp = RouteProp<RootStackParamList, "TrackMenu">;
 

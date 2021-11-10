@@ -1,11 +1,11 @@
 import VerticalPadding from "@/shared/components/VerticalPadding";
+import { LIKE_MUTATION } from "@/shared/mutations/LIKE_MUTATION";
 import { GET_ARTIST_BY_ID_QUERY } from "@/shared/queries/GET_ARTIST_BY_ID_QUERY";
 import { useCommonStore } from "@/store/common.store";
 import { Artist, Mutation } from "@/types/graphql";
 import { useMutation } from "@apollo/client";
 import { Button, HStack, Text, VStack } from "native-base";
 import React from "react";
-import { LIKE_MUTATION } from "../track/TrackMenuScreen";
 
 export interface IArtistStatsProps {
     artist: Artist;

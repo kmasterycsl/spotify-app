@@ -1,29 +1,25 @@
 import { usePlayerStore } from "@/store/player.store";
 import { Album, ImageMeta } from "@/types/graphql";
 import { Box, HStack, Text, VStack } from "native-base";
-import React, { useState } from "react";
+import React from "react";
 import { Image, ViewStyle } from "react-native";
 import ArtistNames from "./ArtistNames";
-import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export interface IAlbumsListItemProps {
     album: Album;
     index?: number;
     style?: ViewStyle;
     hideSubtitle?: boolean;
+    showType?: boolean;
 }
 
 export default React.memo(function AlbumListItem({
     album,
     style,
     hideSubtitle,
+    showType,
 }: IAlbumsListItemProps) {
-    const [menuVisible, setMenuVisible] = useState(false);
     const playingAlbumId = usePlayerStore(state => state.playingAlbumId);
-
-    const onOpenMenu = () => {
-        setMenuVisible(true);
-    };
 
     return (
         <HStack alignItems="center" style={style} space={2}>
@@ -49,16 +45,12 @@ export default React.memo(function AlbumListItem({
                 {!hideSubtitle && (
                     <Box pt={1} overflow="hidden">
                         <Text fontSize="xs" color="gray.200">
-                            Album · <ArtistNames artists={album.allArtists} />
+                            {showType && <Text fontSize="xs">Album · </Text>}
+                            <ArtistNames artists={album.allArtists} />
                         </Text>
                     </Box>
                 )}
             </VStack>
-            {/* <IconButton
-                    variant="ghost"
-                    onPress={onOpenMenu}
-                    icon={<Icon size="xs" as={<Ionicons name="ellipsis-horizontal-outline" />} />}
-                /> */}
         </HStack>
     );
 });

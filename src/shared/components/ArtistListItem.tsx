@@ -1,23 +1,21 @@
 import { usePlayerStore } from "@/store/player.store";
 import { Artist, ImageMeta } from "@/types/graphql";
 import { Box, HStack, Text, VStack } from "native-base";
-import React, { useState } from "react";
+import React from "react";
 import { Image, ViewStyle } from "react-native";
-import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export interface IArtistsListItemProps {
     artist: Artist;
     index?: number;
     style?: ViewStyle;
-    hideSubtitle?: boolean;
+    showType?: boolean;
 }
 
 export default React.memo(function ArtistListItem({
     artist,
     style,
-    hideSubtitle,
+    showType,
 }: IArtistsListItemProps) {
-    const [menuVisible, setMenuVisible] = useState(false);
     const playingArtistId = usePlayerStore(state => state.playingArtistId);
 
     return (
@@ -41,7 +39,7 @@ export default React.memo(function ArtistListItem({
                         {artist.name}
                     </Text>
                 )}
-                {!hideSubtitle && (
+                {showType && (
                     <Box pt={1} overflow="hidden">
                         <Text fontSize="xs" color="gray.200">
                             Artist
@@ -49,11 +47,6 @@ export default React.memo(function ArtistListItem({
                     </Box>
                 )}
             </VStack>
-            {/* <IconButton
-                    variant="ghost"
-                    onPress={onOpenMenu}
-                    icon={<Icon size="xs" as={<Ionicons name="ellipsis-horizontal-outline" />} />}
-                /> */}
         </HStack>
     );
 });

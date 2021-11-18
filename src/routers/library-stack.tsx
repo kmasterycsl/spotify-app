@@ -3,6 +3,7 @@ import AlbumMenuScreen from "@/screens/album/AlbumMenuScreen";
 import AlbumDetailScreen from "@/screens/AlbumDetailScreen";
 import ArtistDetailScreen from "@/screens/ArtistDetailScreen";
 import LibraryHomeScreen from "@/screens/LibraryHomeScreen";
+import PlayerScreen from "@/screens/PlayerScreen";
 import CreatePlaylist from "@/screens/playlist/CreatePlaylist";
 import PlaylistMenu from "@/screens/playlist/PlaylistMenu";
 import PlaylistDetailScreen from "@/screens/PlaylistDetailScreen";

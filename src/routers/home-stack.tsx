@@ -6,6 +6,7 @@ import ArtistDetailScreen from "@/screens/ArtistDetailScreen";
 import GenreDetailScreen from "@/screens/GenreDetailScreen";
 import HomeScreen from "@/screens/HomeScreen";
 import LoginScreen from "@/screens/LoginScreen";
+import PlayerScreen from "@/screens/PlayerScreen";
 import CreatePlaylist from "@/screens/playlist/CreatePlaylist";
 import PlaylistMenu from "@/screens/playlist/PlaylistMenu";
 import PlaylistDetailScreen from "@/screens/PlaylistDetailScreen";

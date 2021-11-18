@@ -4,8 +4,10 @@ import ArtistDetailScreen from "@/screens/ArtistDetailScreen";
 import GenreDetailScreen from "@/screens/GenreDetailScreen";
 import HomeScreen from "@/screens/HomeScreen";
 import LoginScreen from "@/screens/LoginScreen";
+import PlayerScreen from "@/screens/PlayerScreen";
 import PlaylistDetailScreen from "@/screens/PlaylistDetailScreen";
 import ProfileScreen from "@/screens/ProfileScreen";
+import PlayerPlaylistScreen from "@/shared/components/PlayerListScreen";
 import { useCommonStore } from "@/store/common.store";
 import { RootStackParamList } from "@/types/routes.types";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -31,6 +33,18 @@ export default function RootStackScreens() {
                     </RootStack.Group>
                 </>
             )}
+            <RootStack.Group screenOptions={{ presentation: "fullScreenModal" }}>
+                <RootStack.Screen
+                    name="Player"
+                    component={PlayerScreen}
+                    options={{ header: () => null }}
+                />
+                <RootStack.Screen
+                    name="PlayerPlaylist"
+                    component={PlayerPlaylistScreen}
+                    options={{ header: () => null }}
+                />
+            </RootStack.Group>
         </RootStack.Navigator>
     );
 }

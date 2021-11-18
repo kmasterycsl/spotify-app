@@ -28,7 +28,7 @@ type SEARCH_TYPE = OBJ_TYPE;
 export default function SearchScreen() {
     const nav = useNavigation();
     const [loading, setLoading] = useState(false);
-    const [activedType, setActivedType] = useState<SEARCH_TYPE>("Tracks");
+    const [activedType, setActivedType] = useState<SEARCH_TYPE>("TRACK");
     const [query, setQuery] = useState("");
     const [paginationMeta, setPaginationMeta] = useState<
         Pick<PaginationMeta, "currentPage" | "totalPages">
@@ -84,28 +84,28 @@ export default function SearchScreen() {
     useEffect(() => {
         if (!debouncedQuery) return;
         switch (activedType) {
-            case "Tracks":
+            case "TRACK":
                 getTracks({
                     variables: {
                         query: debouncedQuery,
                     },
                 });
                 break;
-            case "Playlists":
+            case "PLAYLIST":
                 getPlaylists({
                     variables: {
                         query: debouncedQuery,
                     },
                 });
                 break;
-            case "Albums":
+            case "ALBUM":
                 getAlbums({
                     variables: {
                         query: debouncedQuery,
                     },
                 });
                 break;
-            case "Artists":
+            case "ARTIST":
                 getArtists({
                     variables: {
                         query: debouncedQuery,
@@ -133,7 +133,7 @@ export default function SearchScreen() {
         setLoading(true);
         let fetched;
         switch (activedType) {
-            case "Tracks":
+            case "TRACK":
                 if (!fetchMoreTracks) return;
                 fetched = fetchMoreTracks({
                     variables: {
@@ -143,7 +143,7 @@ export default function SearchScreen() {
                     setPaginationMeta(data.tracks.pageInfo);
                 });
                 break;
-            case "Playlists":
+            case "PLAYLIST":
                 if (!fetchMorePlaylists) return;
                 fetched = fetchMorePlaylists({
                     variables: {
@@ -153,7 +153,7 @@ export default function SearchScreen() {
                     setPaginationMeta(data.playlists.pageInfo);
                 });
                 break;
-            case "Albums":
+            case "ALBUM":
                 if (!fetchMoreAlbums) return;
                 fetched = fetchMoreAlbums({
                     variables: {
@@ -163,7 +163,7 @@ export default function SearchScreen() {
                     setPaginationMeta(data.albums.pageInfo);
                 });
                 break;
-            case "Artists":
+            case "ARTIST":
                 if (!fetchMoreArtists) return;
                 fetched = fetchMoreArtists({
                     variables: {
@@ -195,22 +195,22 @@ export default function SearchScreen() {
     const renderItem = (params: RenderItemParams<any>) => {
         return (
             <HorizontalPadding>
-                {activedType === "Tracks" && (
+                {activedType === "TRACK" && (
                     <TouchableOpacity onPress={() => goToAlbum(params.item.album)}>
                         <TracksListItem showType hideMenu track={params.item} />
                     </TouchableOpacity>
                 )}
-                {activedType === "Playlists" && (
+                {activedType === "PLAYLIST" && (
                     <TouchableOpacity onPress={() => goToPlaylist(params.item)}>
                         <PlaylistListItem playlist={params.item} />
                     </TouchableOpacity>
                 )}
-                {activedType === "Albums" && (
+                {activedType === "ALBUM" && (
                     <TouchableOpacity onPress={() => goToAlbum(params.item)}>
                         <AlbumListItem album={params.item} />
                     </TouchableOpacity>
                 )}
-                {activedType === "Artists" && (
+                {activedType === "ARTIST" && (
                     <TouchableOpacity onPress={() => goToArtist(params.item)}>
                         <ArtistListItem artist={params.item} />
                     </TouchableOpacity>
@@ -222,26 +222,26 @@ export default function SearchScreen() {
 
     const items: () => any[] = () => {
         switch (activedType) {
-            case "Tracks":
+            case "TRACK":
                 return tracksData?.tracks?.items || [];
-            case "Playlists":
+            case "PLAYLIST":
                 return playlistsData?.playlists?.items || [];
-            case "Albums":
+            case "ALBUM":
                 return albumsData?.albums?.items || [];
-            case "Artists":
+            case "ARTIST":
                 return artistsData?.artists?.items || [];
         }
     };
 
     const isLoading: () => boolean = () => {
         switch (activedType) {
-            case "Tracks":
+            case "TRACK":
                 return loadingTracks;
-            case "Playlists":
+            case "PLAYLIST":
                 return loadingPlaylists;
-            case "Albums":
+            case "ALBUM":
                 return loadingAlbums;
-            case "Artists":
+            case "ARTIST":
                 return loadingArtists;
         }
     };

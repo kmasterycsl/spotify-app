@@ -13,8 +13,8 @@ export const GET_LIKEABLES_QUERY = gql`
     ${PlaylistListItemFragment}
     ${SoundMetaFragment}
     ${PaginationFragment}
-    query getLikeables($page: Int!, $limit: Int = 15) {
-        likeables(page: $page, limit: $limit) {
+    query getLikeables($page: Int!, $limit: Int = 15, $likeableType: LikeableType) {
+        likeables(page: $page, limit: $limit, likeableType: $likeableType) {
             items {
                 likeableId
                 likeableType

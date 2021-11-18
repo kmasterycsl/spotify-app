@@ -1,9 +1,10 @@
+import { LikeableType } from "@/types/graphql";
 import { HStack, Badge } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 
-export type OBJ_TYPE = "Tracks" | "Playlists" | "Albums" | "Artists";
-const TYPES: OBJ_TYPE[] = ["Tracks", "Playlists", "Albums", "Artists"];
+export type OBJ_TYPE = LikeableType;
+const TYPES: OBJ_TYPE[] = ["TRACK", "ALBUM", "ARTIST", "PLAYLIST"];
 
 export default function TypesList({
     value,
@@ -23,8 +24,11 @@ export default function TypesList({
                         mr={2}
                         px={2}
                         py={1}
+                        _text={{
+                            textTransform: "capitalize",
+                        }}
                     >
-                        {type}
+                        {type + "s"}
                     </Badge>
                 </TouchableOpacity>
             ))}

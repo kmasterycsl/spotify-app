@@ -7,6 +7,7 @@ import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import TracksListItem from "@/shared/components/TrackListItem";
+import TypesList, { OBJ_TYPE } from "@/shared/components/TypesList";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_LIKEABLES_QUERY } from "@/shared/queries/GET_LIKEABLES_QUERY";
 import { Album, Artist, Likeable, PaginationMeta, Playlist, Query } from "@/types/graphql";
@@ -27,10 +28,12 @@ export default function LibraryHomeScreen() {
         totalPages: Infinity,
     });
     const [loading, setLoading] = useState(false);
+    const [activedType, setActivedType] = useState<OBJ_TYPE>("TRACK");
 
     const { data, refetch, fetchMore } = useQuery<Query>(GET_LIKEABLES_QUERY, {
         variables: {
             page: 1,
+            likeableType: activedType,
         },
     });
 
@@ -117,7 +120,13 @@ export default function LibraryHomeScreen() {
                     icon={<Icon color="gray.400" as={<Ionicons name="add-outline" />}></Icon>}
                 />
             </HStack>
-            <VerticalPadding />
+
+            <HorizontalPadding>
+                <VerticalPadding>
+                    <TypesList value={activedType} onChange={setActivedType} />
+                </VerticalPadding>
+            </HorizontalPadding>
+
             <InfiniteFlatList
                 data={data?.likeables?.items || []}
                 renderItem={renderItem}

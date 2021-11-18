@@ -219,17 +219,19 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
         if (playlistId === state.playingPlaylistId) {
             state.actionResume();
         } else {
-            // play new artist
-            if (state.soundController) {
-                await state.soundController.unloadAsync();
+            if (tracks.length > 0) {
+                // play new artist
+                if (state.soundController) {
+                    await state.soundController.unloadAsync();
+                }
+
+                set({
+                    playingPlaylistId: playlistId,
+                    tracksQueue: tracks,
+                });
+
+                state.actionPlay(tracks[0]);
             }
-
-            set({
-                playingPlaylistId: playlistId,
-                tracksQueue: tracks,
-            });
-
-            state.actionPlay(tracks[0]);
         }
     },
     actionUpdateQueue: (tracks: Track[]) =>

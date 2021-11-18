@@ -7,6 +7,7 @@ import InfiniteFlatList from "@/shared/components/InfiniteFlatlist";
 import PlaylistListItem from "@/shared/components/PlaylistListItem";
 import SafeAreaView from "@/shared/components/SafeAreaView";
 import TracksListItem from "@/shared/components/TrackListItem";
+import TypesList from "@/shared/components/TypesList";
 import VerticalPadding from "@/shared/components/VerticalPadding";
 import { GET_ALBUMS_QUERY } from "@/shared/queries/GET_ALBUMS_QUERY";
 import { GET_ARTISTS_QUERY } from "@/shared/queries/GET_ARTISTS_QUERY";
@@ -16,18 +17,15 @@ import { Album, Artist, PaginationMeta, Playlist, Query } from "@/types/graphql"
 import { useLazyQuery } from "@apollo/client";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Badge, Box, HStack, Icon, Input, Text } from "native-base";
+import { Box, HStack, Icon, Input, Text } from "native-base";
 import React, { useEffect, useState } from "react";
-import { Dimensions, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { RenderItemParams } from "react-native-draggable-flatlist";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-const screenWidth = Dimensions.get("screen").width;
+import type { OBJ_TYPE } from "../shared/components/TypesList";
 
-type SEARCH_TYPE = "Tracks" | "Playlists" | "Albums" | "Artists";
-const SEARCH_TYPES: SEARCH_TYPE[] = ["Tracks", "Playlists", "Albums", "Artists"];
+type SEARCH_TYPE = OBJ_TYPE;
 
 export default function SearchScreen() {
-    const insets = useSafeAreaInsets();
     const nav = useNavigation();
     const [loading, setLoading] = useState(false);
     const [activedType, setActivedType] = useState<SEARCH_TYPE>("Tracks");
@@ -278,22 +276,9 @@ export default function SearchScreen() {
                 </HStack>
             </HorizontalPadding>
             <HorizontalPadding>
-                <HStack mt={2} mb={2}>
-                    {SEARCH_TYPES.map(type => (
-                        <TouchableOpacity key={type} onPress={() => onChangeType(type)}>
-                            <Badge
-                                colorScheme="primary"
-                                borderRadius="50"
-                                variant={type === activedType ? "solid" : "outline"}
-                                mr={2}
-                                px={2}
-                                py={1}
-                            >
-                                {type}
-                            </Badge>
-                        </TouchableOpacity>
-                    ))}
-                </HStack>
+                <VerticalPadding>
+                    <TypesList value={activedType} onChange={onChangeType} />
+                </VerticalPadding>
             </HorizontalPadding>
 
             {items().length > 0 && (

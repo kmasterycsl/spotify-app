@@ -1,5 +1,6 @@
 import AlbumListItem from "@/shared/components/AlbumListItem";
 import ArtistListItem from "@/shared/components/ArtistListItem";
+import Empty from "@/shared/components/Empty";
 import HorizontalPadding, {
     DEFAULT_HORIZONTAL_PADDING,
 } from "@/shared/components/HorizontalPadding";
@@ -126,6 +127,8 @@ export default function LibraryHomeScreen() {
                     <TypesList value={activedType} onChange={setActivedType} />
                 </VerticalPadding>
             </HorizontalPadding>
+
+            {!loading && data?.likeables?.items?.length === 0 && <Empty text="Nothing here." />}
 
             <InfiniteFlatList
                 data={data?.likeables?.items || []}

@@ -9,7 +9,7 @@ import { gql, useMutation } from "@apollo/client";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
 import { useNavigation } from "@react-navigation/core";
 import { Box, Button, Icon, IconButton, Input, VStack } from "native-base";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export const CREATE_PLAYLIST_MUTATION = gql`
     mutation createPlaylist($name: String!) {
@@ -26,6 +26,11 @@ export default function CreatePlaylist() {
     });
     const actionSetToastMessage = useCommonStore(store => store.actionSetToastMessage);
     const nav = useNavigation();
+    const inputRef = useRef<any>();
+
+    useEffect(() => {
+        inputRef?.current?.focus();
+    }, []);
 
     const onSubmit = () => {
         if (!name) return;
@@ -65,6 +70,7 @@ export default function CreatePlaylist() {
                         onChangeText={setName}
                         placeholder="My playlist"
                         autoFocus
+                        ref={inputRef}
                         fontSize="2xl"
                         variant="underlined"
                         onEndEditing={onSubmit}

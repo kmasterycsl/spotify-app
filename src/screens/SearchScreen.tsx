@@ -17,8 +17,8 @@ import { Album, Artist, PaginationMeta, Playlist, Query } from "@/types/graphql"
 import { useLazyQuery } from "@apollo/client";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Box, HStack, Icon, Input, Text } from "native-base";
-import React, { useEffect, useState } from "react";
+import { Box, HStack, Icon, IInputProps, Input, Text } from "native-base";
+import React, { useEffect, useRef, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { RenderItemParams } from "react-native-draggable-flatlist";
 import type { OBJ_TYPE } from "../shared/components/TypesList";
@@ -37,6 +37,7 @@ export default function SearchScreen() {
         totalPages: Infinity,
     });
     const debouncedQuery = useDebounce(query, 500);
+    const inputRef = useRef<any>();
 
     const [getTracks, { data: tracksData, fetchMore: fetchMoreTracks, loading: loadingTracks }] =
         useLazyQuery<Query>(GET_TRACKS_QUERY, {
@@ -73,6 +74,10 @@ export default function SearchScreen() {
             limit: 20,
         },
     });
+
+    useEffect(() => {
+        inputRef?.current?.focus();
+    }, []);
 
     useEffect(() => {
         setPaginationMeta({
@@ -249,7 +254,7 @@ export default function SearchScreen() {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <HorizontalPadding>
-                <HStack alignItems="center">
+                <HStack alignItems="stretch">
                     <TouchableOpacity style={{ flex: 1 }}>
                         <Input
                             InputLeftElement={
@@ -262,6 +267,7 @@ export default function SearchScreen() {
                                 />
                             }
                             autoFocus
+                            ref={inputRef}
                             onChangeText={onChangeQuery}
                             borderRadius={5}
                             py={3}
@@ -269,7 +275,7 @@ export default function SearchScreen() {
                         />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={onCancel}>
-                        <Box pl={2}>
+                        <Box pl={2} justifyContent="center" flexGrow={1}>
                             <Text>Cancel</Text>
                         </Box>
                     </TouchableOpacity>

@@ -84,7 +84,7 @@ export default function LibraryHomeScreen() {
         <HorizontalPadding>
             {params.item.track && (
                 <TouchableOpacity onPress={() => goToAlbum(params.item.track?.album!)}>
-                    <TracksListItem showType hideMenu track={params.item.track} />
+                    <TracksListItem hideMenu track={params.item.track} />
                 </TouchableOpacity>
             )}
             {params.item.album && (

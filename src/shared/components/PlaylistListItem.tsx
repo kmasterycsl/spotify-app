@@ -1,28 +1,24 @@
 import { Playlist } from "@/types/graphql";
 import { Ionicons } from "@expo/vector-icons";
 import { Box, Flex, HStack, Text, useTheme, VStack } from "native-base";
-import React, { useState } from "react";
+import React from "react";
 import { ViewStyle } from "react-native";
-import HorizontalPadding, { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 
 export interface IPlaylistsListItemProps {
     playlist: Playlist;
     index?: number;
     style?: ViewStyle;
     hideSubtitle?: boolean;
+    showType?: boolean;
 }
 
 export default React.memo(function PlaylistListItem({
     playlist,
     style,
     hideSubtitle,
+    showType,
 }: IPlaylistsListItemProps) {
-    const [menuVisible, setMenuVisible] = useState(false);
     const { colors } = useTheme();
-
-    const onOpenMenu = () => {
-        setMenuVisible(true);
-    };
 
     return (
         <HStack alignItems="center" style={style} space={2}>
@@ -43,16 +39,12 @@ export default React.memo(function PlaylistListItem({
                 {!hideSubtitle && (
                     <Box pt={1} overflow="hidden">
                         <Text fontSize="xs" color="gray.200">
-                            Playlist · {playlist.tracksCount || 0} songs
+                            {showType && <Text fontSize="xs">Playlist · </Text>}
+                            {playlist.tracksCount || 0} songs
                         </Text>
                     </Box>
                 )}
             </VStack>
-            {/* <IconButton
-                    variant="ghost"
-                    onPress={onOpenMenu}
-                    icon={<Icon size="xs" as={<Ionicons name="ellipsis-horizontal-outline" />} />}
-                /> */}
         </HStack>
     );
 });

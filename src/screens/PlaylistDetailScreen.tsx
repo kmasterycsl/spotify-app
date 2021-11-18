@@ -216,12 +216,14 @@ export default function PlaylistDetailScreen() {
             </Animated.View>
 
             {/* Play btn */}
-            <FloatingPlayBtn
-                isPlaying={!!isPlaying && playingPlaylistId === data.playlist.id}
-                onPause={actionPause}
-                onPlay={onPlay}
-                style={playBtnWrapperStyle}
-            />
+            {data.playlist.tracks.items.length > 0 && (
+                <FloatingPlayBtn
+                    isPlaying={!!isPlaying && playingPlaylistId === data.playlist.id}
+                    onPause={actionPause}
+                    onPlay={onPlay}
+                    style={playBtnWrapperStyle}
+                />
+            )}
 
             {/* Tracks list */}
             <TracksList

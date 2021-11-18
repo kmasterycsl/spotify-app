@@ -1,5 +1,6 @@
 import { usePlayerStore } from "@/store/player.store";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
 import {
     Box,
     HStack,
@@ -15,7 +16,6 @@ import { Image, TouchableOpacity } from "react-native";
 import shallow from "zustand/shallow";
 import ArtistNames from "./ArtistNames";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
-import Player from "./Player";
 import PlayerBarProgress from "./PlayerBarProgress";
 
 export default function PlayerBar() {
@@ -35,17 +35,18 @@ export default function PlayerBar() {
         ],
         shallow
     );
-
-    const [modalVisible, setModalVisible] = useState(false);
+    const nav = useNavigation();
     const bg = useColorModeValue("white", "black");
+
+    const goToPlayer = () => {
+        nav.navigate("Player");
+    };
 
     if (!playingTrack) return null;
 
     return (
         <VStack bg={bg}>
-            <Player visible={modalVisible} setVisible={setModalVisible} />
-
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <TouchableOpacity onPress={goToPlayer}>
                 <HStack alignItems="center" space={DEFAULT_HORIZONTAL_PADDING}>
                     <Image
                         style={{

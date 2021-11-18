@@ -16,6 +16,8 @@ export type RootStackParamList = {
     PlaylistMenu: { playlistId: string };
     AddTrackToPlaylist: { trackId: string };
     CreatePlaylist: undefined;
+    Player: undefined;
+    PlayerPlaylist: undefined;
 };
 
 declare global {

@@ -262,6 +262,7 @@ export type QueryTrackArgs = {
 export type QueryLikeablesArgs = {
   page?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
+  likeableType?: Maybe<LikeableType>;
 };
 
 

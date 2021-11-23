@@ -197,27 +197,27 @@ export default function SearchScreen() {
         nav.navigate("PlaylistDetail", { playlistId: playlist.id });
     };
 
-    const renderItem = (params: RenderItemParams<any>) => {
+    const renderItem = ({ item }: { item: any }) => {
         return (
             <HorizontalPadding>
                 {activedType === "TRACK" && (
-                    <TouchableOpacity onPress={() => goToAlbum(params.item.album)}>
-                        <TracksListItem showType hideMenu track={params.item} />
+                    <TouchableOpacity onPress={() => goToAlbum(item.album)}>
+                        <TracksListItem showType hideMenu track={item} />
                     </TouchableOpacity>
                 )}
                 {activedType === "PLAYLIST" && (
-                    <TouchableOpacity onPress={() => goToPlaylist(params.item)}>
-                        <PlaylistListItem playlist={params.item} />
+                    <TouchableOpacity onPress={() => goToPlaylist(item)}>
+                        <PlaylistListItem playlist={item} />
                     </TouchableOpacity>
                 )}
                 {activedType === "ALBUM" && (
-                    <TouchableOpacity onPress={() => goToAlbum(params.item)}>
-                        <AlbumListItem album={params.item} />
+                    <TouchableOpacity onPress={() => goToAlbum(item)}>
+                        <AlbumListItem album={item} />
                     </TouchableOpacity>
                 )}
                 {activedType === "ARTIST" && (
-                    <TouchableOpacity onPress={() => goToArtist(params.item)}>
-                        <ArtistListItem artist={params.item} />
+                    <TouchableOpacity onPress={() => goToArtist(item)}>
+                        <ArtistListItem artist={item} />
                     </TouchableOpacity>
                 )}
                 <VerticalPadding />

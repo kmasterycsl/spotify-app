@@ -16,11 +16,17 @@ import { HStack, Icon, IconButton, Text } from "native-base";
 import React, { useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import { RenderItemParams } from "react-native-draggable-flatlist";
+import Animated, {
+    useAnimatedScrollHandler,
+    useAnimatedStyle,
+    useSharedValue,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type GenreDetailScreenRouteProp = RouteProp<RootStackParamList, "GenreDetail">;
 
 const screenWidth = Dimensions.get("screen").width;
+const screenHeight = Dimensions.get("screen").height;
 
 export default function GenreDetailScreen() {
     const insets = useSafeAreaInsets();
@@ -39,15 +45,16 @@ export default function GenreDetailScreen() {
             page: 1,
         },
     });
+    const scrollOffsetY = useSharedValue(0);
 
     const goToPlaylist = (playlist: Playlist) => {
         nav.navigate("PlaylistDetail", { playlistId: playlist.id });
     };
 
-    const renderItem = (params: RenderItemParams<Playlist>) => (
+    const renderItem = ({ item }: { item: Playlist }) => (
         <PlaylistCardListItem
-            onPress={() => goToPlaylist(params.item)}
-            playlist={params.item}
+            onPress={() => goToPlaylist(item)}
+            playlist={item}
             style={{
                 width: screenWidth / 2 - _DEFAULT_HORIZONTAL_PADDING * 2,
             }}
@@ -72,13 +79,21 @@ export default function GenreDetailScreen() {
         return fetched;
     };
 
+    const titleStyle = useAnimatedStyle(() => ({
+        opacity: (scrollOffsetY.value * 4) / screenHeight,
+    }));
+
+    const scrollHandler = useAnimatedScrollHandler(event => {
+        scrollOffsetY.value = event.contentOffset.y;
+    });
+
     return data?.genre ? (
         <SafeAreaView style={{ flex: 1 }}>
             <LinearGradient
                 colors={[(data.genre.coverImage.meta as ImageMeta).dominantColor, "black"]}
                 style={styles.background}
             />
-            <HStack>
+            <HStack alignItems="center">
                 <IconButton
                     hitSlop={10}
                     variant="ghost"
@@ -92,18 +107,11 @@ export default function GenreDetailScreen() {
                         ></Icon>
                     }
                 />
+                <Animated.View style={[styles.titleStyle, titleStyle]}>
+                    <Text fontWeight="600">{data.genre.name}</Text>
+                </Animated.View>
             </HStack>
-            <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-                <Text fontSize="2xl" fontWeight="600">
-                    {data.genre.name}
-                </Text>
-            </HorizontalPadding>
-            <VerticalPadding style={{ backgroundColor: "transparent" }} />
-            <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-                <Text mb={5} fontWeight="600">
-                    Popular playlists
-                </Text>
-            </HorizontalPadding>
+
             <InfiniteFlatList
                 data={data?.genre?.playlists?.items || []}
                 renderItem={renderItem}
@@ -115,6 +123,18 @@ export default function GenreDetailScreen() {
                 contentContainerStyle={{
                     paddingHorizontal: _DEFAULT_HORIZONTAL_PADDING,
                 }}
+                onScroll={scrollHandler}
+                headerComponent={
+                    <>
+                        <Text fontSize="2xl" fontWeight="600">
+                            {data.genre.name}
+                        </Text>
+                        <VerticalPadding />
+                        <Text mb={5} fontWeight="600">
+                            Popular playlists
+                        </Text>
+                    </>
+                }
             />
         </SafeAreaView>
     ) : null;
@@ -127,5 +147,8 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0,
         height: 170,
+    },
+    titleStyle: {
+        opacity: 0,
     },
 });

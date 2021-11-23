@@ -68,7 +68,7 @@ export default function CreatePlaylist() {
                 <HorizontalPadding>
                     <Input
                         onChangeText={setName}
-                        placeholder="My playlist"
+                        placeholder="My new playlist"
                         autoFocus
                         ref={inputRef}
                         fontSize="2xl"

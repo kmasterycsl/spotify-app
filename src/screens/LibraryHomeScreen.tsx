@@ -80,26 +80,26 @@ export default function LibraryHomeScreen() {
         navigation.navigate("CreatePlaylist");
     };
 
-    const renderItem = (params: RenderItemParams<Likeable>) => (
+    const renderItem = ({ item }: { item: Likeable }) => (
         <HorizontalPadding>
-            {params.item.track && (
-                <TouchableOpacity onPress={() => goToAlbum(params.item.track?.album!)}>
-                    <TracksListItem hideMenu track={params.item.track} />
+            {item.track && (
+                <TouchableOpacity onPress={() => goToAlbum(item.track?.album!)}>
+                    <TracksListItem hideMenu track={item.track} />
                 </TouchableOpacity>
             )}
-            {params.item.album && (
-                <TouchableOpacity onPress={() => goToAlbum(params.item.album!)}>
-                    <AlbumListItem album={params.item.album} />
+            {item.album && (
+                <TouchableOpacity onPress={() => goToAlbum(item.album!)}>
+                    <AlbumListItem album={item.album} />
                 </TouchableOpacity>
             )}
-            {params.item.artist && (
-                <TouchableOpacity onPress={() => goToArtist(params.item.artist!)}>
-                    <ArtistListItem artist={params.item.artist} />
+            {item.artist && (
+                <TouchableOpacity onPress={() => goToArtist(item.artist!)}>
+                    <ArtistListItem artist={item.artist} />
                 </TouchableOpacity>
             )}
-            {params.item.playlist && (
-                <TouchableOpacity onPress={() => goToPlaylist(params.item.playlist!)}>
-                    <PlaylistListItem playlist={params.item.playlist} />
+            {item.playlist && (
+                <TouchableOpacity onPress={() => goToPlaylist(item.playlist!)}>
+                    <PlaylistListItem playlist={item.playlist} />
                 </TouchableOpacity>
             )}
             <VerticalPadding />

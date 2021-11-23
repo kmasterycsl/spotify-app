@@ -1,7 +1,8 @@
-import { Text } from "native-base";
-import React, { ReactNode, useState } from "react";
-import { ActivityIndicator, ViewStyle } from "react-native";
-import DraggableFlatList, { RenderItemParams } from "react-native-draggable-flatlist";
+import { Text, VStack } from "native-base";
+import React, { useState } from "react";
+import { ActivityIndicator, ListRenderItem, ViewStyle } from "react-native";
+import AnimatedFlatlist from "./AnimatedFlatlist";
+import Empty from "./Empty";
 
 export default function InfiniteFlatList<T>({
     data,
@@ -10,31 +11,39 @@ export default function InfiniteFlatList<T>({
     renderItem,
     isLoading,
     isFinished,
-    onReorderList,
     numColumns,
     contentContainerStyle,
+    onScroll,
+    headerComponent,
 }: {
     data: T[];
     onLoadMore: () => void;
     keyExtractor: (item: T) => string;
-    renderItem: (params: RenderItemParams<T>) => ReactNode;
+    renderItem: ListRenderItem<T>;
     isLoading: boolean;
     isFinished: boolean;
-    onReorderList?: (items: T[]) => void;
     numColumns?: number;
     contentContainerStyle?: ViewStyle;
+    onScroll?: any;
+    headerComponent?: React.ReactElement | null;
 }) {
     const [callOnScrollEnd, setCallOnScrollEnd] = useState(false);
 
     return (
-        <DraggableFlatList
+        <AnimatedFlatlist
+            contentContainerStyle={contentContainerStyle}
+            onScroll={onScroll}
+            ListHeaderComponent={headerComponent}
+            ListEmptyComponent={<Empty text="There is no data." />}
             data={data}
-            renderItem={renderItem}
+            scrollEventThrottle={16}
             numColumns={numColumns}
+            renderItem={renderItem}
             keyExtractor={keyExtractor}
-            onDragEnd={({ data }) => onReorderList && onReorderList(data)}
             initialNumToRender={10}
-            onEndReached={() => setCallOnScrollEnd(true)}
+            onEndReached={() => {
+                setCallOnScrollEnd(true);
+            }}
             onMomentumScrollEnd={() => {
                 if (callOnScrollEnd) {
                     onLoadMore();
@@ -50,17 +59,16 @@ export default function InfiniteFlatList<T>({
                       }
                     : undefined
             }
-            contentContainerStyle={contentContainerStyle}
             onEndReachedThreshold={0.7}
             ListFooterComponent={
-                <>
-                    {isLoading && <ActivityIndicator />}
+                <VStack>
+                    {isLoading && <ActivityIndicator key="indicator" />}
                     {isFinished && (
-                        <Text fontSize="sm" italic textAlign="center">
+                        <Text key="text" fontSize="sm" italic textAlign="center">
                             That's all for now
                         </Text>
                     )}
-                </>
+                </VStack>
             }
         />
     );

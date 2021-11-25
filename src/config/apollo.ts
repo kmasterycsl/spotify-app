@@ -46,6 +46,13 @@ const mergePaginatedResult: FieldPolicy<any> = {
     keyArgs: false,
     // @TODO: extract common paginated object
     merge(existing: PaginatedTrack | undefined, incoming: PaginatedTrack) {
+        if (existing?.pageInfo?.itemsPerPage !== incoming.pageInfo?.itemsPerPage) {
+            return {
+                items: incoming.items,
+                pageInfo: incoming.pageInfo,
+            };
+        }
+
         if (existing?.pageInfo.currentPage === incoming.pageInfo.currentPage) {
             return existing;
         }
@@ -62,6 +69,11 @@ const apolloCache = new InMemoryCache({
         Artist: {
             fields: {
                 tracks: mergePaginatedResult,
+            },
+        },
+        Genre: {
+            fields: {
+                playlists: mergePaginatedResult,
             },
         },
         Query: {

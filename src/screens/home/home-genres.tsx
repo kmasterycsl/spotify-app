@@ -20,7 +20,7 @@ export default function HomeGenres() {
     const { data, refetch, fetchMore } = useQuery<Query>(GET_HOME_GENRES_QUERY, {
         variables: {
             page: 1,
-            limit: 5,
+            limit: 6,
         },
     });
 

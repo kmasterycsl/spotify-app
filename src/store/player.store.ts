@@ -36,6 +36,7 @@ export interface PlayerState {
     actionNext: () => void;
     actionNextWithCheckRepeatMode: () => void;
     actionPrev: () => void;
+    actionSetPlayerVisible: (visible: boolean) => void;
 }
 
 const UPDATE_INTERVAL = 1000;
@@ -364,6 +365,12 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                         percentage * (state.soundControllerStatus.durationMillis || 0)
                     );
                 }
+            })
+        ),
+    actionSetPlayerVisible: visible =>
+        set(
+            produce<PlayerState>(state => {
+                state.isPlayerVisible = visible;
             })
         ),
 }));

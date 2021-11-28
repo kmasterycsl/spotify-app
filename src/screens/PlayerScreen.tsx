@@ -1,3 +1,4 @@
+import useHidePlayer from "@/hooks/useHidePlayer";
 import { usePlayerStore } from "@/store/player.store";
 import { ImageMeta } from "@/types/graphql";
 import { adjustColor } from "@/utils/convert";
@@ -17,6 +18,7 @@ import SafeAreaView from "../shared/components/SafeAreaView";
 import VerticalPadding from "../shared/components/VerticalPadding";
 
 export default React.memo(function PlayerScreen({}: {}) {
+    useHidePlayer();
     const playingTrack = usePlayerStore(state => state.playingTrack);
     const actionStop = usePlayerStore(state => state.actionStop);
     const nav = useNavigation();

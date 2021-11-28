@@ -22,6 +22,7 @@ export const PLAYER_BAR_HEIGHT = 50;
 
 export default function PlayerBar() {
     const [
+        isPlayerVisible,
         actionPause,
         actionResume,
         playingTrack,
@@ -29,6 +30,7 @@ export default function PlayerBar() {
         soundControllerStatusIsPlaying,
     ] = usePlayerStore(
         state => [
+            state.isPlayerVisible,
             state.actionPause,
             state.actionResume,
             state.playingTrack,
@@ -44,7 +46,7 @@ export default function PlayerBar() {
         nav.navigate("Player");
     };
 
-    if (!playingTrack) return null;
+    if (!isPlayerVisible || !playingTrack) return null;
 
     return (
         <VStack bg={bg}>

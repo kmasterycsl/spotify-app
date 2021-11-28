@@ -21,7 +21,7 @@ export default function App() {
         <NativeBaseProvider theme={theme} colorModeManager={colorModeManager}>
             <ApolloProvider client={apolloClient}>
                 <NavigationContainer theme={navigationTheme}>
-                    <StatusBar style="light" />
+                    <StatusBar style="light" backgroundColor="black" />
                     <AppBoostraper />
                 </NavigationContainer>
             </ApolloProvider>

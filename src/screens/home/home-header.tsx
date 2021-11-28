@@ -12,7 +12,12 @@ export default function HomeHeader() {
     };
 
     return (
-        <HStack alignItems="center" justifyContent="space-between" px={DEFAULT_HORIZONTAL_PADDING}>
+        <HStack
+            alignItems="center"
+            justifyContent="space-between"
+            px={DEFAULT_HORIZONTAL_PADDING}
+            py={DEFAULT_HORIZONTAL_PADDING / 2}
+        >
             <Text fontSize="2xl">Good evening</Text>
             <IconButton
                 p={0}

@@ -18,6 +18,8 @@ import ArtistNames from "./ArtistNames";
 import { DEFAULT_HORIZONTAL_PADDING } from "./HorizontalPadding";
 import PlayerBarProgress from "./PlayerBarProgress";
 
+export const PLAYER_BAR_HEIGHT = 50;
+
 export default function PlayerBar() {
     const [
         actionPause,
@@ -50,8 +52,8 @@ export default function PlayerBar() {
                 <HStack alignItems="center" space={DEFAULT_HORIZONTAL_PADDING}>
                     <Image
                         style={{
-                            width: 50,
-                            height: 50,
+                            width: PLAYER_BAR_HEIGHT,
+                            height: PLAYER_BAR_HEIGHT,
                         }}
                         source={{
                             uri: playingTrack.album.coverImage.meta.source,
@@ -64,7 +66,11 @@ export default function PlayerBar() {
                         overflow="hidden"
                     >
                         <Text bold>{playingTrack.name}</Text>
-                        <ArtistNames color="white" artists={playingTrack.artists} />
+                        <ArtistNames
+                            numberOfLines={1}
+                            color="white"
+                            artists={playingTrack.artists}
+                        />
                     </VStack>
                     <Box>
                         {soundControllerStatusIsLoaded && !soundControllerStatusIsPlaying && (

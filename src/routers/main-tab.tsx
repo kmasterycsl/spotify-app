@@ -1,4 +1,6 @@
+import { PLAYER_BAR_HEIGHT } from "@/shared/components/PlayerBar";
 import { useCommonStore } from "@/store/common.store";
+import { usePlayerStore } from "@/store/player.store";
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Text, useColorModeValue, useTheme } from "native-base";
@@ -56,6 +58,7 @@ const Tab = createBottomTabNavigator();
 
 export default function MainTab() {
     const currentUser = useCommonStore(state => state.currentUser);
+    const isPlayerVisible = usePlayerStore(state => state.isPlayerVisible);
     const bg = useColorModeValue("white", "black");
     const { colors } = useTheme();
 
@@ -67,6 +70,7 @@ export default function MainTab() {
                 tabBarStyle: {
                     backgroundColor: bg,
                     paddingTop: 10,
+                    marginTop: isPlayerVisible ? PLAYER_BAR_HEIGHT + 5 : 0,
                 },
                 tabBarLabel: props => getTabName(route.name, props),
                 header: () => null,

@@ -3,6 +3,7 @@ import Confirm from "@/shared/components/Confirm";
 import { DEFAULT_HORIZONTAL_PADDING } from "@/shared/components/HorizontalPadding";
 import PlaylistCoverImage from "@/shared/components/PlaylistCoverImage";
 import VerticalPadding from "@/shared/components/VerticalPadding";
+import { LIKE_MUTATION } from "@/shared/mutations/LIKE_MUTATION";
 import { GET_PLAYLIST_BY_ID_QUERY } from "@/shared/queries/GET_PLAYLIST_BY_ID_QUERY";
 import { useCommonStore } from "@/store/common.store";
 import { Mutation, Query } from "@/types/graphql";
@@ -26,6 +27,9 @@ export const DELETE_PLAYLIST_MUTATION = gql`
 type PlaylistMenuScreenRouteProp = RouteProp<RootStackParamList, "PlaylistMenu">;
 
 export default function PlaylistMenu() {
+    const [doLike] = useMutation<Mutation>(LIKE_MUTATION, {
+        refetchQueries: [GET_PLAYLIST_BY_ID_QUERY],
+    });
     const [doDelete] = useMutation<Mutation>(DELETE_PLAYLIST_MUTATION, {});
     const { params } = useRoute<PlaylistMenuScreenRouteProp>();
     const { data: dataPlaylist } = useQuery<Query>(GET_PLAYLIST_BY_ID_QUERY, {
@@ -74,6 +78,31 @@ export default function PlaylistMenu() {
         });
     };
 
+    const like = () => {
+        if (!dataPlaylist?.playlist) return;
+        const liked = doLike({
+            variables: {
+                likeableId: dataPlaylist.playlist.id,
+                likeableType: "PLAYLIST",
+            },
+        });
+
+        liked.then(res => {
+            actionSetToastMessage({
+                title: res.data?.like ? "Liked" : "Unliked",
+                status: "info",
+            });
+        });
+
+        liked.catch(e => {
+            actionSetToastMessage({
+                title: e.message,
+                status: "error",
+            });
+            console.error(e);
+        });
+    };
+
     if (!dataPlaylist?.playlist) return null;
 
     return (
@@ -96,6 +125,30 @@ export default function PlaylistMenu() {
 
                     {/* Actions */}
                     <VStack>
+                        {/* Non-owner actions */}
+                        {/* Like */}
+                        {currentUser && currentUser.id !== dataPlaylist.playlist.userId && (
+                            <>
+                                <TouchableOpacity onPress={like}>
+                                    <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                                        <Icon
+                                            size="sm"
+                                            color="primary.400"
+                                            as={
+                                                dataPlaylist.playlist.isLiked ? (
+                                                    <Ionicons name="heart" />
+                                                ) : (
+                                                    <Ionicons name="heart-outline" />
+                                                )
+                                            }
+                                        ></Icon>
+                                        <Text ml={DEFAULT_HORIZONTAL_PADDING}>Like</Text>
+                                    </HStack>
+                                </TouchableOpacity>
+                                <VerticalPadding />
+                            </>
+                        )}
+
                         {/* Owner actions */}
                         {currentUser && currentUser.id === dataPlaylist.playlist.userId && (
                             <>

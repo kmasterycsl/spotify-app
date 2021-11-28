@@ -6,6 +6,7 @@ export const PlaylistMenuFragment = gql`
     fragment PlaylistMenuFragment on Playlist {
         id
         userId
+        isLiked
         ...PlaylistCoverImageFragment
     }
 `;

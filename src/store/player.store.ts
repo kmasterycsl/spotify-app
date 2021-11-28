@@ -17,7 +17,7 @@ export interface PlayerState {
     shuffle: boolean;
     repeatMode: "none" | "once" | "all";
     tracksQueue: Track[];
-    isPlayerVisible: () => boolean;
+    isPlayerVisible: boolean;
     actionBulkAddToQueue: (tracks: Track[]) => void;
     actionAddToQueue: (track: Track) => void;
     actionRemoveFromQueue: (track: Track) => void;
@@ -45,9 +45,7 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
     repeatMode: "none",
     shuffle: false,
     tracksQueue: [],
-    isPlayerVisible: () => {
-        return !!get().playingTrack;
-    },
+    isPlayerVisible: false,
     actionAddToQueue: (track: Track) =>
         set(
             produce<PlayerState>(state => {
@@ -112,6 +110,7 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                 isLooping: false,
                 didJustFinish: false,
             },
+            isPlayerVisible: true,
         });
 
         // Replay manually
@@ -320,6 +319,7 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                 state.playingAlbumId = undefined;
                 state.playingArtistId = undefined;
                 state.playingPlaylistId = undefined;
+                state.isPlayerVisible = false;
             })
         ),
     actionUpdatePosition: (position: number) =>

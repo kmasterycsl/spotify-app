@@ -11,14 +11,22 @@ export const ArtistNamesFragment = gql`
     }
 `;
 
-export default function ArtistNames({ artists, color }: { artists: Artist[]; color?: string }) {
+export default function ArtistNames({
+    artists,
+    color,
+    numberOfLines,
+}: {
+    artists: Artist[];
+    color?: string;
+    numberOfLines?: number;
+}) {
     const nav = useNavigation();
 
     const text = artists.map(artist => artist.name).join(" · ");
 
     return (
         <HStack alignItems="flex-end">
-            <Text fontSize="xs" color={color}>
+            <Text fontSize="xs" color={color} numberOfLines={numberOfLines}>
                 {text}
             </Text>
         </HStack>

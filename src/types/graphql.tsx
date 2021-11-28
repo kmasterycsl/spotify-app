@@ -207,6 +207,7 @@ export type Playlist = {
   updatedAt: Scalars['DateTime'];
   tracksCount: Scalars['Float'];
   tracks: PaginatedTrack;
+  isLiked: Scalars['Boolean'];
 };
 
 

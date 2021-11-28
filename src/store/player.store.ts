@@ -28,6 +28,7 @@ export interface PlayerState {
     actionUpdateQueue: (queue: Track[]) => void;
     actionPause: () => void;
     actionResume: () => void;
+    actionStop: () => void;
     actionToggleShuffleMode: () => void;
     actionToggleRepeatMode: () => void;
     actionUpdatePosition: (position: number) => void;
@@ -305,6 +306,20 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
                     }
                     state.soundController.playAsync();
                 }
+            })
+        ),
+    actionStop: () =>
+        set(
+            produce<PlayerState>(state => {
+                if (state.soundController) {
+                    // state.soundController.unloadAsync();
+                    state.soundController.stopAsync();
+                }
+                state.playingTrack = undefined;
+                state.playingIndex = undefined;
+                state.playingAlbumId = undefined;
+                state.playingArtistId = undefined;
+                state.playingPlaylistId = undefined;
             })
         ),
     actionUpdatePosition: (position: number) =>

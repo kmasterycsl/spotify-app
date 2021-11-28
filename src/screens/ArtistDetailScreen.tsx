@@ -273,6 +273,6 @@ const styles = StyleSheet.create({
         zIndex: 2,
     },
     tracksListFooter: {
-        paddingBottom: screenWidth + 80 - 40,
+        paddingBottom: screenWidth,
     },
 });

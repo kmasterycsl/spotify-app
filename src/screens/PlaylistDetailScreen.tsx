@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     tracksListFooter: {
-        paddingBottom: screenWidth + 80 - 40,
+        paddingBottom: screenWidth,
     },
     playerBarContainer: { position: "absolute", zIndex: 4, width: "100%" },
     playBtnWrapper: {

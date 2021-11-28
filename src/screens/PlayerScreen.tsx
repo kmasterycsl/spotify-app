@@ -18,6 +18,7 @@ import VerticalPadding from "../shared/components/VerticalPadding";
 
 export default React.memo(function PlayerScreen({}: {}) {
     const playingTrack = usePlayerStore(state => state.playingTrack);
+    const actionStop = usePlayerStore(state => state.actionStop);
     const nav = useNavigation();
 
     if (!playingTrack) return null;
@@ -31,6 +32,11 @@ export default React.memo(function PlayerScreen({}: {}) {
         -50
     );
 
+    const onClose = () => {
+        actionStop();
+        nav.goBack();
+    };
+
     return (
         <SafeAreaView
             style={{
@@ -41,7 +47,13 @@ export default React.memo(function PlayerScreen({}: {}) {
         >
             <VStack flexGrow={1}>
                 {/* Top btns */}
-                <Box style={{ alignSelf: "flex-start" }}>
+                <Box
+                    style={{
+                        alignSelf: "stretch",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                    }}
+                >
                     <IconButton
                         onPress={nav.goBack}
                         icon={
@@ -50,6 +62,10 @@ export default React.memo(function PlayerScreen({}: {}) {
                                 as={<Ionicons name="chevron-down-outline" />}
                             ></Icon>
                         }
+                    />
+                    <IconButton
+                        onPress={onClose}
+                        icon={<Icon color="white" as={<Ionicons name="close-outline" />}></Icon>}
                     />
                 </Box>
 

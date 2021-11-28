@@ -169,55 +169,7 @@ export default function AlbumDetailScreen() {
                 style={playBtnWrapperStyle}
             />
 
-            {/* <HStack
-                    justifyContent="center"
-                    position="relative"
-                    mx={DEFAULT_HORIZONTAL_PADDING}
-                    style={{ marginTop: insets.top }}
-                >
-                    <IconButton
-                        position="absolute"
-                        hitSlop={10}
-                        top={0}
-                        left={0}
-                        variant="ghost"
-                        mr="auto"
-                        onPress={goBack}
-                        borderRadius={100}
-                        bg="gray.600"
-                        icon={
-                            <Icon
-                                size="sm"
-                                color="gray.400"
-                                name="chevron-back-outline"
-                                as={Ionicons}
-                            ></Icon>
-                        }
-                    />
-                    <Image
-                        shadow={2}
-                        alt={data.album.name}
-                        source={{ uri: data.album.coverImage.meta.source }}
-                        style={{ width: 250, height: 250 }}
-                    />
-                </HStack> */}
-
-            {/* <VerticalPadding style={{ backgroundColor: "transparent" }} />
-
-                <HorizontalPadding style={{ backgroundColor: "transparent" }}>
-                    <Text fontSize="2xl" color="white">
-                        {data.album.name}
-                    </Text>
-                    <ArtistNames color="white" artists={data.album.allArtists} />
-                    <Text>
-                        <Text color="white" textTransform="capitalize">
-                            {data.album.type}
-                        </Text>
-                        <Text color="white"> - {new Date(data.album.createdAt).getFullYear()}</Text>
-                    </Text>
-                    <VerticalPadding style={{ backgroundColor: "transparent" }} />
-                </HorizontalPadding> */}
-
+            {/* Tracks list */}
             <TracksList
                 styles={{
                     listContainer: styles.tracksListContainer,
@@ -258,6 +210,6 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     tracksListFooter: {
-        paddingBottom: screenWidth + 80 - 40,
+        paddingBottom: screenWidth,
     },
 });

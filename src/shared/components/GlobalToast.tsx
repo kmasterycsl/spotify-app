@@ -10,7 +10,7 @@ export default function GlobalToast() {
 
     useEffect(() => {
         if (toastMessage) {
-            const bgColor = theme.colors[toastMessage.status]["400"];
+            const bgColor = theme.colors[toastMessage.status]["600"];
             const textColor = theme.colors.white;
 
             Toast.show(toastMessage.title, {

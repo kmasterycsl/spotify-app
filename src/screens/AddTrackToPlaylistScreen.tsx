@@ -14,6 +14,7 @@ import PlaylistListItem from "../shared/components/PlaylistListItem";
 import SafeAreaView from "../shared/components/SafeAreaView";
 import VerticalPadding from "../shared/components/VerticalPadding";
 import HorizontalPadding from "@/shared/components/HorizontalPadding";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 type AddTrackToPlaylistProp = RouteProp<RootStackParamList, "AddTrackToPlaylist">;
 
@@ -39,7 +40,6 @@ export default function AddTrackToPlaylistScreen() {
                 title: "Added",
                 status: "info",
             });
-            nav.goBack();
         });
         added.catch(e => {
             actionSetToastMessage({
@@ -55,50 +55,56 @@ export default function AddTrackToPlaylistScreen() {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <HStack alignItems="center">
-                <IconButton
-                    alignSelf="flex-start"
-                    onPress={nav.goBack}
-                    icon={<Icon color="white" as={<Ionicons name="close-outline" />}></Icon>}
-                />
-                <Text fontSize="xl" fontWeight="600">
-                    Playlists
-                </Text>
-            </HStack>
+        <RootSiblingParent>
+            <SafeAreaView style={{ flex: 1 }}>
+                <HStack alignItems="center">
+                    <IconButton
+                        alignSelf="flex-start"
+                        onPress={nav.goBack}
+                        icon={<Icon color="white" as={<Ionicons name="close-outline" />}></Icon>}
+                    />
+                    <Text fontSize="xl" fontWeight="600">
+                        Playlists
+                    </Text>
+                </HStack>
 
-            <VerticalPadding />
+                <VerticalPadding />
 
-            <HStack justifyContent="center">
-                <Button
-                    size="sm"
-                    onPress={goToCreatePlaylist}
-                    startIcon={<Icon size="sm" as={<Ionicons name="add-circle-outline" />}></Icon>}
-                >
-                    New playlist
-                </Button>
-            </HStack>
+                <HStack justifyContent="center">
+                    <Button
+                        size="sm"
+                        onPress={goToCreatePlaylist}
+                        startIcon={
+                            <Icon size="sm" as={<Ionicons name="add-circle-outline" />}></Icon>
+                        }
+                    >
+                        New playlist
+                    </Button>
+                </HStack>
 
-            <VerticalPadding />
+                <VerticalPadding />
 
-            {loading && <Text>Loading...</Text>}
-            {!loading && data && data.getOwnPlaylists.length === 0 && (
-                <Empty text="You don't have any playlists" />
-            )}
-            {!loading && data && data.getOwnPlaylists.length > 0 && (
-                <ScrollView flexGrow={1}>
-                    {data.getOwnPlaylists.map(playlist => (
-                        <HorizontalPadding key={playlist.id}>
-                            <VStack>
-                                <TouchableOpacity onPress={() => onAddTrackToPlaylist(playlist)}>
-                                    <PlaylistListItem playlist={playlist} />
-                                </TouchableOpacity>
-                                <VerticalPadding />
-                            </VStack>
-                        </HorizontalPadding>
-                    ))}
-                </ScrollView>
-            )}
-        </SafeAreaView>
+                {loading && <Text>Loading...</Text>}
+                {!loading && data && data.getOwnPlaylists.length === 0 && (
+                    <Empty text="You don't have any playlists" />
+                )}
+                {!loading && data && data.getOwnPlaylists.length > 0 && (
+                    <ScrollView flexGrow={1}>
+                        {data.getOwnPlaylists.map(playlist => (
+                            <HorizontalPadding key={playlist.id}>
+                                <VStack>
+                                    <TouchableOpacity
+                                        onPress={() => onAddTrackToPlaylist(playlist)}
+                                    >
+                                        <PlaylistListItem playlist={playlist} />
+                                    </TouchableOpacity>
+                                    <VerticalPadding />
+                                </VStack>
+                            </HorizontalPadding>
+                        ))}
+                    </ScrollView>
+                )}
+            </SafeAreaView>
+        </RootSiblingParent>
     );
 }

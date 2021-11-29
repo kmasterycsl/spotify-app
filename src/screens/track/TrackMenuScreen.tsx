@@ -18,6 +18,7 @@ import { Button, HStack, Icon, ScrollView, Text, VStack } from "native-base";
 import React, { useState } from "react";
 import { SafeAreaView, TouchableOpacity, useWindowDimensions } from "react-native";
 import shallow from "zustand/shallow";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 type TrackMenuScreenRouteProp = RouteProp<RootStackParamList, "TrackMenu">;
 
@@ -122,135 +123,144 @@ export default function TrackMenuScreen() {
     if (!trackData?.track) return null;
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <ScrollView>
-                <VStack>
-                    {/* Image */}
-                    <HStack justifyContent="center" style={{ paddingTop: dimessions.height * 0.2 }}>
-                        <FullWidthSquareImage
-                            padding={dimessions.width * 0.3}
-                            url={trackData.track.album.coverImage.meta.source}
-                        ></FullWidthSquareImage>
-                    </HStack>
-
-                    <VerticalPadding />
-
-                    {/* Title */}
-                    <VStack alignItems="center">
-                        <Text fontWeight="600" fontSize="lg">
-                            {trackData.track.name}
-                        </Text>
-                        <ArtistNames artists={trackData.track.artists} />
-                    </VStack>
-
-                    <VerticalPadding multiple={3} />
-
-                    {/* Actions */}
+        <RootSiblingParent>
+            <SafeAreaView style={{ flex: 1 }}>
+                <ScrollView>
                     <VStack>
-                        {/* Like */}
-                        {currentUser && (
-                            <>
-                                <TouchableOpacity onPress={like}>
-                                    <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
-                                        <Icon
-                                            size="sm"
-                                            color="primary.400"
-                                            as={
-                                                trackData.track.isLiked ? (
-                                                    <Ionicons name="heart" />
-                                                ) : (
-                                                    <Ionicons name="heart-outline" />
-                                                )
-                                            }
-                                        ></Icon>
-                                        <Text ml={DEFAULT_HORIZONTAL_PADDING}>Like</Text>
-                                    </HStack>
-                                </TouchableOpacity>
-                                <VerticalPadding />
-                            </>
-                        )}
+                        {/* Image */}
+                        <HStack
+                            justifyContent="center"
+                            style={{ paddingTop: dimessions.height * 0.2 }}
+                        >
+                            <FullWidthSquareImage
+                                padding={dimessions.width * 0.3}
+                                url={trackData.track.album.coverImage.meta.source}
+                            ></FullWidthSquareImage>
+                        </HStack>
 
-                        {/* Add/remove from queue */}
-                        {!trackInQueue ? (
-                            <TouchableOpacity onPress={onAddToQueue}>
-                                <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
-                                    <Icon
-                                        color="white"
-                                        size="sm"
-                                        as={<Ionicons name="list-outline" />}
-                                    ></Icon>
-                                    <Text ml={DEFAULT_HORIZONTAL_PADDING}>Add to queue</Text>
-                                </HStack>
-                            </TouchableOpacity>
-                        ) : (
-                            <TouchableOpacity onPress={onRemoveFromQueue}>
-                                <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
-                                    <Icon
-                                        color="white"
-                                        size="sm"
-                                        as={<Ionicons name="list-outline" />}
-                                    ></Icon>
-                                    <Text ml={DEFAULT_HORIZONTAL_PADDING}>Remove from queue</Text>
-                                </HStack>
-                            </TouchableOpacity>
-                        )}
                         <VerticalPadding />
 
-                        {/* Add to playlist */}
-                        {currentUser && (
-                            <>
-                                <TouchableOpacity onPress={onViewAddTrackToPlaylist}>
+                        {/* Title */}
+                        <VStack alignItems="center">
+                            <Text fontWeight="600" fontSize="lg">
+                                {trackData.track.name}
+                            </Text>
+                            <ArtistNames artists={trackData.track.artists} />
+                        </VStack>
+
+                        <VerticalPadding multiple={3} />
+
+                        {/* Actions */}
+                        <VStack>
+                            {/* Like */}
+                            {currentUser && (
+                                <>
+                                    <TouchableOpacity onPress={like}>
+                                        <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                                            <Icon
+                                                size="sm"
+                                                color="primary.400"
+                                                as={
+                                                    trackData.track.isLiked ? (
+                                                        <Ionicons name="heart" />
+                                                    ) : (
+                                                        <Ionicons name="heart-outline" />
+                                                    )
+                                                }
+                                            ></Icon>
+                                            <Text ml={DEFAULT_HORIZONTAL_PADDING}>Like</Text>
+                                        </HStack>
+                                    </TouchableOpacity>
+                                    <VerticalPadding />
+                                </>
+                            )}
+
+                            {/* Add/remove from queue */}
+                            {!trackInQueue ? (
+                                <TouchableOpacity onPress={onAddToQueue}>
                                     <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
                                         <Icon
                                             color="white"
                                             size="sm"
-                                            as={<Ionicons name="add-circle-outline" />}
+                                            as={<Ionicons name="list-outline" />}
                                         ></Icon>
-                                        <Text ml={DEFAULT_HORIZONTAL_PADDING}>Add to playlist</Text>
+                                        <Text ml={DEFAULT_HORIZONTAL_PADDING}>Add to queue</Text>
                                     </HStack>
                                 </TouchableOpacity>
-                                <VerticalPadding />
-                            </>
-                        )}
+                            ) : (
+                                <TouchableOpacity onPress={onRemoveFromQueue}>
+                                    <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                                        <Icon
+                                            color="white"
+                                            size="sm"
+                                            as={<Ionicons name="list-outline" />}
+                                        ></Icon>
+                                        <Text ml={DEFAULT_HORIZONTAL_PADDING}>
+                                            Remove from queue
+                                        </Text>
+                                    </HStack>
+                                </TouchableOpacity>
+                            )}
+                            <VerticalPadding />
 
-                        {/* Go to album */}
-                        <TouchableOpacity onPress={goToAlbum}>
-                            <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
-                                <Icon
-                                    color="white"
-                                    size="sm"
-                                    as={<Ionicons name="musical-note" />}
-                                ></Icon>
-                                <Text ml={DEFAULT_HORIZONTAL_PADDING}>Go to album</Text>
-                            </HStack>
-                        </TouchableOpacity>
-                        <VerticalPadding />
+                            {/* Add to playlist */}
+                            {currentUser && (
+                                <>
+                                    <TouchableOpacity onPress={onViewAddTrackToPlaylist}>
+                                        <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                                            <Icon
+                                                color="white"
+                                                size="sm"
+                                                as={<Ionicons name="add-circle-outline" />}
+                                            ></Icon>
+                                            <Text ml={DEFAULT_HORIZONTAL_PADDING}>
+                                                Add to playlist
+                                            </Text>
+                                        </HStack>
+                                    </TouchableOpacity>
+                                    <VerticalPadding />
+                                </>
+                            )}
 
-                        {/* View artists */}
-                        <TouchableOpacity onPress={onViewArtists}>
-                            <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
-                                <Icon
-                                    color="white"
-                                    size="sm"
-                                    as={<Ionicons name="people" />}
-                                ></Icon>
-                                <Text ml={DEFAULT_HORIZONTAL_PADDING}>View artists</Text>
-                            </HStack>
-                        </TouchableOpacity>
+                            {/* Go to album */}
+                            <TouchableOpacity onPress={goToAlbum}>
+                                <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                                    <Icon
+                                        color="white"
+                                        size="sm"
+                                        as={<Ionicons name="musical-note" />}
+                                    ></Icon>
+                                    <Text ml={DEFAULT_HORIZONTAL_PADDING}>Go to album</Text>
+                                </HStack>
+                            </TouchableOpacity>
+                            <VerticalPadding />
+
+                            {/* View artists */}
+                            <TouchableOpacity onPress={onViewArtists}>
+                                <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                                    <Icon
+                                        color="white"
+                                        size="sm"
+                                        as={<Ionicons name="people" />}
+                                    ></Icon>
+                                    <Text ml={DEFAULT_HORIZONTAL_PADDING}>View artists</Text>
+                                </HStack>
+                            </TouchableOpacity>
+                        </VStack>
                     </VStack>
-                </VStack>
-            </ScrollView>
-            <HStack justifyContent="center">
-                <Button variant="ghost" onPress={() => nav.goBack()}>
-                    <Text>Close</Text>
-                </Button>
-            </HStack>
-            <TrackArtists
-                artists={trackData.track.artists}
-                visible={viewArtistsVisible}
-                setVisible={setViewArtistsVisible}
-                onPressArtist={goToArtist}
-            />
-        </SafeAreaView>
+                </ScrollView>
+                <HStack justifyContent="center">
+                    <Button variant="ghost" onPress={() => nav.goBack()}>
+                        <Text>Close</Text>
+                    </Button>
+                </HStack>
+                <TrackArtists
+                    artists={trackData.track.artists}
+                    visible={viewArtistsVisible}
+                    setVisible={setViewArtistsVisible}
+                    onPressArtist={goToArtist}
+                />
+            </SafeAreaView>
+        </RootSiblingParent>
     );
 }

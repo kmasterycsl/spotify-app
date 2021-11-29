@@ -15,6 +15,7 @@ import { RouteProp, StackActions, useNavigation, useRoute } from "@react-navigat
 import { Button, HStack, Icon, ScrollView, Text, VStack } from "native-base";
 import React, { useState } from "react";
 import { SafeAreaView, TouchableOpacity } from "react-native";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 export const DELETE_PLAYLIST_MUTATION = gql`
     mutation deletePlaylist($id: String!) {
@@ -106,99 +107,105 @@ export default function PlaylistMenu() {
     if (!dataPlaylist?.playlist) return null;
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <ScrollView>
-                <VStack>
-                    {/* Image */}
-                    <PlaylistCoverImage playlist={dataPlaylist.playlist} />
-
-                    <VerticalPadding />
-
-                    {/* Title */}
-                    <VStack alignItems="center">
-                        <Text fontWeight="600" fontSize="lg">
-                            {dataPlaylist.playlist.name}
-                        </Text>
-                    </VStack>
-
-                    <VerticalPadding multiple={3} />
-
-                    {/* Actions */}
+        <RootSiblingParent>
+            <SafeAreaView style={{ flex: 1 }}>
+                <ScrollView>
                     <VStack>
-                        {/* Non-owner actions */}
-                        {/* Like */}
-                        {currentUser && currentUser.id !== dataPlaylist.playlist.userId && (
-                            <>
-                                <TouchableOpacity onPress={like}>
-                                    <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
-                                        <Icon
-                                            size="sm"
-                                            color="primary.400"
-                                            as={
-                                                dataPlaylist.playlist.isLiked ? (
-                                                    <Ionicons name="heart" />
-                                                ) : (
-                                                    <Ionicons name="heart-outline" />
-                                                )
-                                            }
-                                        ></Icon>
-                                        <Text ml={DEFAULT_HORIZONTAL_PADDING}>Like</Text>
-                                    </HStack>
-                                </TouchableOpacity>
-                                <VerticalPadding />
-                            </>
-                        )}
+                        {/* Image */}
+                        <PlaylistCoverImage playlist={dataPlaylist.playlist} />
 
-                        {/* Owner actions */}
-                        {currentUser && currentUser.id === dataPlaylist.playlist.userId && (
-                            <>
-                                {/* Edit */}
-                                <TouchableOpacity onPress={onEdit}>
-                                    <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
-                                        <Icon
-                                            size="sm"
-                                            color="white"
-                                            as={<Ionicons name="remove-circle-outline" />}
-                                        ></Icon>
-                                        <Text ml={DEFAULT_HORIZONTAL_PADDING}>Edit playlist</Text>
-                                    </HStack>
-                                </TouchableOpacity>
-                                <VerticalPadding />
+                        <VerticalPadding />
 
-                                {/* Delete */}
-                                <TouchableOpacity onPress={onDelete}>
-                                    <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
-                                        <Icon
-                                            size="sm"
-                                            color="white"
-                                            as={<Ionicons name="trash-outline" />}
-                                        ></Icon>
-                                        <Text ml={DEFAULT_HORIZONTAL_PADDING}>Delete playlist</Text>
-                                    </HStack>
-                                </TouchableOpacity>
-                                <VerticalPadding />
-                            </>
-                        )}
+                        {/* Title */}
+                        <VStack alignItems="center">
+                            <Text fontWeight="600" fontSize="lg">
+                                {dataPlaylist.playlist.name}
+                            </Text>
+                        </VStack>
+
+                        <VerticalPadding multiple={3} />
+
+                        {/* Actions */}
+                        <VStack>
+                            {/* Non-owner actions */}
+                            {/* Like */}
+                            {currentUser && currentUser.id !== dataPlaylist.playlist.userId && (
+                                <>
+                                    <TouchableOpacity onPress={like}>
+                                        <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                                            <Icon
+                                                size="sm"
+                                                color="primary.400"
+                                                as={
+                                                    dataPlaylist.playlist.isLiked ? (
+                                                        <Ionicons name="heart" />
+                                                    ) : (
+                                                        <Ionicons name="heart-outline" />
+                                                    )
+                                                }
+                                            ></Icon>
+                                            <Text ml={DEFAULT_HORIZONTAL_PADDING}>Like</Text>
+                                        </HStack>
+                                    </TouchableOpacity>
+                                    <VerticalPadding />
+                                </>
+                            )}
+
+                            {/* Owner actions */}
+                            {currentUser && currentUser.id === dataPlaylist.playlist.userId && (
+                                <>
+                                    {/* Edit */}
+                                    <TouchableOpacity onPress={onEdit}>
+                                        <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                                            <Icon
+                                                size="sm"
+                                                color="white"
+                                                as={<Ionicons name="remove-circle-outline" />}
+                                            ></Icon>
+                                            <Text ml={DEFAULT_HORIZONTAL_PADDING}>
+                                                Edit playlist
+                                            </Text>
+                                        </HStack>
+                                    </TouchableOpacity>
+                                    <VerticalPadding />
+
+                                    {/* Delete */}
+                                    <TouchableOpacity onPress={onDelete}>
+                                        <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                                            <Icon
+                                                size="sm"
+                                                color="white"
+                                                as={<Ionicons name="trash-outline" />}
+                                            ></Icon>
+                                            <Text ml={DEFAULT_HORIZONTAL_PADDING}>
+                                                Delete playlist
+                                            </Text>
+                                        </HStack>
+                                    </TouchableOpacity>
+                                    <VerticalPadding />
+                                </>
+                            )}
+                        </VStack>
                     </VStack>
-                </VStack>
-            </ScrollView>
-            <HStack justifyContent="center">
-                <Button variant="ghost" onPress={() => nav.goBack()}>
-                    <Text>Close</Text>
-                </Button>
-            </HStack>
+                </ScrollView>
+                <HStack justifyContent="center">
+                    <Button variant="ghost" onPress={() => nav.goBack()}>
+                        <Text>Close</Text>
+                    </Button>
+                </HStack>
 
-            <Confirm
-                visible={isConfirmVisible}
-                onOk={onDeleteConfirm}
-                onCancel={() => setIsConfirmVisible(false)}
-            />
+                <Confirm
+                    visible={isConfirmVisible}
+                    onOk={onDeleteConfirm}
+                    onCancel={() => setIsConfirmVisible(false)}
+                />
 
-            <EditPlaylist
-                visible={isEditVisible}
-                playlist={dataPlaylist.playlist}
-                setVisible={setIsEditVisible}
-            />
-        </SafeAreaView>
+                <EditPlaylist
+                    visible={isEditVisible}
+                    playlist={dataPlaylist.playlist}
+                    setVisible={setIsEditVisible}
+                />
+            </SafeAreaView>
+        </RootSiblingParent>
     );
 }

@@ -16,6 +16,7 @@ import { RouteProp, useRoute } from "@react-navigation/native";
 import { Button, HStack, Icon, ScrollView, Text, VStack } from "native-base";
 import React, { useState } from "react";
 import { SafeAreaView, TouchableOpacity, useWindowDimensions } from "react-native";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 type AlbumMenuScreenRouteProp = RouteProp<RootStackParamList, "AlbumMenu">;
 
@@ -87,79 +88,84 @@ export default function AlbumMenuScreen() {
     if (!albumData?.album) return null;
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <ScrollView>
-                <VStack>
-                    {/* Image */}
-                    <HStack justifyContent="center" style={{ paddingTop: dimessions.height * 0.2 }}>
-                        <FullWidthSquareImage
-                            padding={dimessions.width * 0.3}
-                            url={albumData.album.coverImage.meta.source}
-                        ></FullWidthSquareImage>
-                    </HStack>
-
-                    <VerticalPadding />
-
-                    {/* Title */}
-                    <VStack alignItems="center" flexShrink={1} flexGrow={1} overflow="hidden">
-                        <Text fontWeight="600" fontSize="lg">
-                            {albumData.album.name}
-                        </Text>
-                        <ArtistNames artists={albumData.album.allArtists} />
-                    </VStack>
-
-                    <VerticalPadding multiple={3} />
-
-                    {/* Actions */}
+        <RootSiblingParent>
+            <SafeAreaView style={{ flex: 1 }}>
+                <ScrollView>
                     <VStack>
-                        {/* Like */}
-                        {currentUser && (
-                            <>
-                                <TouchableOpacity onPress={like}>
-                                    <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
-                                        <Icon
-                                            size="sm"
-                                            color="primary.400"
-                                            as={
-                                                albumData.album.isLiked ? (
-                                                    <Ionicons name="heart" />
-                                                ) : (
-                                                    <Ionicons name="heart-outline" />
-                                                )
-                                            }
-                                        ></Icon>
-                                        <Text ml={DEFAULT_HORIZONTAL_PADDING}>Like</Text>
-                                    </HStack>
-                                </TouchableOpacity>
-                                <VerticalPadding />
-                            </>
-                        )}
+                        {/* Image */}
+                        <HStack
+                            justifyContent="center"
+                            style={{ paddingTop: dimessions.height * 0.2 }}
+                        >
+                            <FullWidthSquareImage
+                                padding={dimessions.width * 0.3}
+                                url={albumData.album.coverImage.meta.source}
+                            ></FullWidthSquareImage>
+                        </HStack>
 
-                        {/* View artists */}
-                        <TouchableOpacity onPress={onViewArtists}>
-                            <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
-                                <Icon
-                                    color="white"
-                                    size="sm"
-                                    as={<Ionicons name="people" />}
-                                ></Icon>
-                                <Text ml={DEFAULT_HORIZONTAL_PADDING}>View artists</Text>
-                            </HStack>
-                        </TouchableOpacity>
+                        <VerticalPadding />
+
+                        {/* Title */}
+                        <VStack alignItems="center" flexShrink={1} flexGrow={1} overflow="hidden">
+                            <Text fontWeight="600" fontSize="lg">
+                                {albumData.album.name}
+                            </Text>
+                            <ArtistNames artists={albumData.album.allArtists} />
+                        </VStack>
+
+                        <VerticalPadding multiple={3} />
+
+                        {/* Actions */}
+                        <VStack>
+                            {/* Like */}
+                            {currentUser && (
+                                <>
+                                    <TouchableOpacity onPress={like}>
+                                        <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                                            <Icon
+                                                size="sm"
+                                                color="primary.400"
+                                                as={
+                                                    albumData.album.isLiked ? (
+                                                        <Ionicons name="heart" />
+                                                    ) : (
+                                                        <Ionicons name="heart-outline" />
+                                                    )
+                                                }
+                                            ></Icon>
+                                            <Text ml={DEFAULT_HORIZONTAL_PADDING}>Like</Text>
+                                        </HStack>
+                                    </TouchableOpacity>
+                                    <VerticalPadding />
+                                </>
+                            )}
+
+                            {/* View artists */}
+                            <TouchableOpacity onPress={onViewArtists}>
+                                <HStack px={DEFAULT_HORIZONTAL_PADDING} alignItems="center">
+                                    <Icon
+                                        color="white"
+                                        size="sm"
+                                        as={<Ionicons name="people" />}
+                                    ></Icon>
+                                    <Text ml={DEFAULT_HORIZONTAL_PADDING}>View artists</Text>
+                                </HStack>
+                            </TouchableOpacity>
+                        </VStack>
                     </VStack>
-                </VStack>
-            </ScrollView>
-            <HStack justifyContent="center">
-                <Button variant="ghost" onPress={() => nav.goBack()}>
-                    <Text>Close</Text>
-                </Button>
-            </HStack>
-            <TrackArtists
-                artists={albumData.album.allArtists}
-                visible={viewArtistsVisible}
-                setVisible={setViewArtistsVisible}
-                onPressArtist={goToArtist}
-            />
-        </SafeAreaView>
+                </ScrollView>
+                <HStack justifyContent="center">
+                    <Button variant="ghost" onPress={() => nav.goBack()}>
+                        <Text>Close</Text>
+                    </Button>
+                </HStack>
+                <TrackArtists
+                    artists={albumData.album.allArtists}
+                    visible={viewArtistsVisible}
+                    setVisible={setViewArtistsVisible}
+                    onPressArtist={goToArtist}
+                />
+            </SafeAreaView>
+        </RootSiblingParent>
     );
 }

@@ -88,7 +88,7 @@ export default function GenreDetailScreen() {
     });
 
     return data?.genre ? (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
             <LinearGradient
                 colors={[(data.genre.coverImage.meta as ImageMeta).dominantColor, "black"]}
                 style={styles.background}

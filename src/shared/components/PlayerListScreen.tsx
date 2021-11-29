@@ -16,7 +16,7 @@ export default function PlayerPlaylistScreen() {
 
     return (
         <RootSiblingParent>
-            <SafeAreaView style={{ flexGrow: 1 }} mode="padding">
+            <SafeAreaView style={{ flexGrow: 1 }}>
                 <VStack flexGrow={1}>
                     <IconButton
                         alignSelf="flex-start"

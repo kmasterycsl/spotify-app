@@ -252,7 +252,7 @@ export default function SearchScreen() {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
             <HorizontalPadding>
                 <HStack alignItems="stretch">
                     <TouchableOpacity style={{ flex: 1 }}>

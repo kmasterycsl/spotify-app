@@ -107,7 +107,7 @@ export default function LibraryHomeScreen() {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container} edges={["top"]}>
             <HStack
                 alignItems="center"
                 justifyContent="space-between"

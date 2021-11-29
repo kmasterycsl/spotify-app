@@ -34,7 +34,7 @@ export default function GenreListScreen() {
     };
 
     return data?.genres ? (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
             <HorizontalPadding>
                 <TouchableOpacity onPress={goToSearch}>
                     <HStack bg="white" px={2} py={2} borderRadius={5} alignItems="center">

@@ -1,0 +1,591 @@
+--------- beginning of kernel
+12-07 06:32:05.008     0     0 E [USBPD-PM]: usbpd_check_cp_psy: cp_psy not found
+12-07 06:32:05.008     0     0 E         : batt power supply prop 127 not supported
+12-07 06:32:05.020     0     0 W healthd : battery l=100 v=4458 t=29.7 h=2 st=2 c=-504882 fc=5220000 cc=6 chg=a
+12-07 06:32:05.023     0     0 I QCOM-STEPCHG: handle_jeita: handle_jeita:batt_soc=100
+12-07 06:32:05.023     0     0 E QCOM-STEPCHG: handle_jeita: handle_jeita:fastcharge_mode=0
+12-07 06:32:05.067     0     0 I         : [NVT-ts-spi] nvt_drm_notifier_callback 3091: (null): event:18446743524334157012,blank:2025005266
+12-07 06:32:05.193     0     0 I         : [NVT-ts-spi] nvt_drm_notifier_callback 3091: (null): event:18446743524334157012,blank:1600000000
+--------- beginning of main
+12-07 06:32:12.128   774  1021 I SDM     : HWDeviceDRM::UpdateMixerAttributes: Mixer WxH 1080x2400 for Peripheral
+12-07 06:32:12.128   774  1021 I SDM     : StrategyImpl::SetIdleTimeoutMs: Idle timeout: active = 70, inactive = 520
+12-07 06:32:12.128   774  1021 I SDM     : HWCDisplay::SubmitDisplayConfig: Active configuration changed to: 0
+--------- beginning of system
+12-07 06:32:12.140  1479  1574 I DisplayManagerService: Display device changed: DisplayDeviceInfo{"Built-in Screen": uniqueId="local:19260527152667265", 1080 x 2400, modeId 6, defaultModeId 6, supportedModes [{id=1, width=1080, height=2400, fps=30.000002}, {id=2, width=1080, height=2400, fps=48.000004}, {id=3, width=1080, height=2400, fps=50.0}, {id=4, width=1080, height=2400, fps=60.000004}, {id=5, width=1080, height=2400, fps=90.0}, {id=6, width=1080, height=2400, fps=120.00001}], colorMode 7, supportedColorModes [0, 7], HdrCapabilities HdrCapabilities{mSupportedHdrTypes=[2, 3, 4], mMaxLuminance=420.0, mMaxAverageLuminance=210.1615, mMinLuminance=0.323}, allmSupported false, gameContentTypeSupported false, density 440, 391.885 x 395.844 dpi, appVsyncOff 1000000, presDeadline 13333333, cutout DisplayCutout{insets=Rect(0, 91 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(504, 0 - 576, 91), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]}}, touch INTERNAL, rotation 0, type INTERNAL, address {port=129, model=0x446d58ef1f1a}, deviceProductInfo DeviceProductInfo{name=, manufacturerPnpId=QCM, productId=1, modelYear=null, manufactureDate=ManufactureDate{week=27, year=2006}, relativeAddress=null}, state ON, FLAG_DEFAULT_DISPLAY, FLAG_ROTATES_WITH_CONTENT, FLAG_SECURE, FLAG_SUPPORTS_PROTECTED_BUFFERS}
+12-07 06:32:12.247   774  1021 I SDM     : HWDeviceDRM::UpdateMixerAttributes: Mixer WxH 1080x2400 for Peripheral
+12-07 06:32:12.248   774  1021 I SDM     : StrategyImpl::SetIdleTimeoutMs: Idle timeout: active = 70, inactive = 520
+12-07 06:32:12.248   774  1021 I SDM     : HWCDisplay::SubmitDisplayConfig: Active configuration changed to: 2
+12-07 06:32:12.258   774  1021 I SDM     : StrategyImpl::SetIdleTimeoutMs: Idle timeout: active = 70, inactive = 520
+12-07 06:32:07.195     0     0 D logd    : logdr: UID=2000 GID=2000 PID=23732 b tail=0 logMask=99 pid=0 start=0ns timeout=0ns
+12-07 06:32:14.608   774  1021 I SDM     : HWDeviceDRM::UpdateMixerAttributes: Mixer WxH 1080x2400 for Peripheral
+12-07 06:32:14.608   774  1021 I SDM     : StrategyImpl::SetIdleTimeoutMs: Idle timeout: active = 70, inactive = 520
+12-07 06:32:14.608   774  1021 I SDM     : HWCDisplay::SubmitDisplayConfig: Active configuration changed to: 0
+12-07 06:32:07.544     0     0 I         : [NVT-ts-spi] nvt_drm_notifier_callback 3091: (null): event:18446743524334157012,blank:1600000000
+12-07 06:32:14.719  1479 10721 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.kmasteryc.openspotify/.MainActivity bnds=[438,2121][642,2426]} from uid 10169
+12-07 06:32:14.743  1479  1574 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10243; state: DISABLED
+12-07 06:32:14.743  1479  1574 D CompatibilityChangeReporter: Compat change id reported: 135754954; UID 10243; state: ENABLED
+12-07 06:32:14.743  1479  1583 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10243; state: ENABLED
+12-07 06:32:14.751  1479  1583 I ActivityManager: Start proc 16581:com.kmasteryc.openspotify/u0a243 for pre-top-activity {com.kmasteryc.openspotify/com.kmasteryc.openspotify.MainActivity}
+12-07 06:32:14.753  1149  1167 I adbd    : jdwp connection from 16581
+12-07 06:32:14.778 16581 16581 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+12-07 06:32:14.778 16581 16581 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+12-07 06:32:14.781 16581 16581 D SoLoader: init start
+12-07 06:32:14.782 16581 16581 D SoLoader: adding system library source: /vendor/lib64
+12-07 06:32:14.782 16581 16581 D SoLoader: adding system library source: /system/lib64
+12-07 06:32:14.782 16581 16581 D SoLoader: adding application source: com.facebook.soloader.DirectorySoSource[root = /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64 flags = 0]
+12-07 06:32:14.782 16581 16581 D SoLoader: adding backup source from : com.facebook.soloader.ApkSoSource[root = /data/data/com.kmasteryc.openspotify/lib-main flags = 1]
+12-07 06:32:14.782 16581 16581 D SoLoader: Preparing SO source: com.facebook.soloader.DirectorySoSource[root = /system/lib64 flags = 2]
+12-07 06:32:14.782 16581 16581 D SoLoader: Preparing SO source: com.facebook.soloader.DirectorySoSource[root = /vendor/lib64 flags = 2]
+12-07 06:32:14.782 16581 16581 D SoLoader: Preparing SO source: com.facebook.soloader.DirectorySoSource[root = /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64 flags = 0]
+12-07 06:32:14.782 16581 16581 D SoLoader: Preparing SO source: com.facebook.soloader.ApkSoSource[root = /data/data/com.kmasteryc.openspotify/lib-main flags = 1]
+12-07 06:32:14.783 16581 16581 V fb-UnpackingSoSource: locked dso store /data/user/0/com.kmasteryc.openspotify/lib-main
+12-07 06:32:14.783 16581 16581 I fb-UnpackingSoSource: dso store is up-to-date: /data/user/0/com.kmasteryc.openspotify/lib-main
+12-07 06:32:14.783 16581 16581 V fb-UnpackingSoSource: releasing dso store lock for /data/user/0/com.kmasteryc.openspotify/lib-main
+12-07 06:32:14.783 16581 16581 D SoLoader: init finish: 4 SO sources prepared
+12-07 06:32:14.783 16581 16581 D SoLoader: init exiting
+12-07 06:32:14.800 16581 16581 D SoLoader: init exiting
+12-07 06:32:14.800 16581 16581 D SoLoader: About to load: libjscexecutor.so
+12-07 06:32:14.801 16581 16581 D SoLoader: libjscexecutor.so not found on /data/data/com.kmasteryc.openspotify/lib-main
+12-07 06:32:14.801 16581 16581 D SoLoader: libjscexecutor.so found on /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64
+12-07 06:32:14.801 16581 16581 D SoLoader: Not resolving dependencies for libjscexecutor.so
+12-07 06:32:14.802 16581 16581 W System.err: java.lang.UnsatisfiedLinkError: dlopen failed: library "libjsc.so" not found: needed by /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64/libjscexecutor.so in namespace classloader-namespace
+12-07 06:32:14.802 16581 16581 W System.err: 	at java.lang.Runtime.load0(Runtime.java:939)
+12-07 06:32:14.802 16581 16581 W System.err: 	at java.lang.System.load(System.java:1628)
+12-07 06:32:14.802 16581 16581 W System.err: 	at com.facebook.soloader.SoLoader$1.load(SoLoader.java:400)
+12-07 06:32:14.802 16581 16581 W System.err: 	at com.facebook.soloader.DirectorySoSource.loadLibraryFrom(DirectorySoSource.java:77)
+12-07 06:32:14.802 16581 16581 W System.err: 	at com.facebook.soloader.DirectorySoSource.loadLibrary(DirectorySoSource.java:50)
+12-07 06:32:14.802 16581 16581 W System.err: 	at com.facebook.soloader.ApplicationSoSource.loadLibrary(ApplicationSoSource.java:89)
+12-07 06:32:14.802 16581 16581 W System.err: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:838)
+12-07 06:32:14.802 16581 16581 W System.err: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:725)
+12-07 06:32:14.803 16581 16581 W System.err: 	at com.facebook.soloader.SoLoader.loadLibraryBySoName(SoLoader.java:649)
+12-07 06:32:14.803 16581 16581 W System.err: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:629)
+12-07 06:32:14.803 16581 16581 W System.err: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:577)
+12-07 06:32:14.803 16581 16581 W System.err: 	at com.facebook.react.ReactInstanceManagerBuilder.getDefaultJSExecutorFactory(ReactInstanceManagerBuilder.java:297)
+12-07 06:32:14.803 16581 16581 W System.err: 	at com.facebook.react.ReactInstanceManagerBuilder.build(ReactInstanceManagerBuilder.java:270)
+12-07 06:32:14.803 16581 16581 W System.err: 	at com.facebook.react.ReactNativeHost.createReactInstanceManager(ReactNativeHost.java:87)
+12-07 06:32:14.803 16581 16581 W System.err: 	at com.facebook.react.ReactNativeHost.getReactInstanceManager(ReactNativeHost.java:39)
+12-07 06:32:14.803 16581 16581 W System.err: 	at com.kmasteryc.openspotify.MainApplication.onCreate(MainApplication.java:92)
+12-07 06:32:14.803 16581 16581 W System.err: 	at android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1192)
+12-07 06:32:14.803 16581 16581 W System.err: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:6719)
+12-07 06:32:14.803 16581 16581 W System.err: 	at android.app.ActivityThread.access$1300(ActivityThread.java:237)
+12-07 06:32:14.803 16581 16581 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1913)
+12-07 06:32:14.803 16581 16581 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+12-07 06:32:14.803 16581 16581 W System.err: 	at android.os.Looper.loop(Looper.java:223)
+12-07 06:32:14.803 16581 16581 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:7664)
+12-07 06:32:14.803 16581 16581 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+12-07 06:32:14.803 16581 16581 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:592)
+12-07 06:32:14.803 16581 16581 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:947)
+12-07 06:32:14.803 16581 16581 E SoLoader: couldn't find DSO to load: libjscexecutor.so caused by: dlopen failed: library "libjsc.so" not found: needed by /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64/libjscexecutor.so in namespace classloader-namespace result: 0
+12-07 06:32:14.804 16581 16581 D SoLoader: init exiting
+12-07 06:32:14.810   888   952 W DisplayIdentification: Invalid EDID: falling back to serial number due to missing display name.
+12-07 06:32:14.810   888   952 W DisplayIdentification: Invalid EDID: falling back to ASCII text due to missing serial number.
+12-07 06:32:14.822 16581 23758 D SoLoader: About to load: libhermes.so
+12-07 06:32:14.823 16581 23758 D SoLoader: libhermes.so not found on /data/data/com.kmasteryc.openspotify/lib-main
+12-07 06:32:14.823 16581 23758 D SoLoader: libhermes.so found on /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64
+12-07 06:32:14.823 16581 23758 D SoLoader: Not resolving dependencies for libhermes.so
+12-07 06:32:14.824 16581 23758 D SoLoader: Loaded: libhermes.so
+12-07 06:32:14.824 16581 23758 D SoLoader: About to load: libhermes-executor-debug.so
+12-07 06:32:14.825 16581 23758 D SoLoader: libhermes-executor-debug.so not found on /data/data/com.kmasteryc.openspotify/lib-main
+12-07 06:32:14.825 16581 23758 D SoLoader: libhermes-executor-debug.so found on /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64
+12-07 06:32:14.825 16581 23758 D SoLoader: Not resolving dependencies for libhermes-executor-debug.so
+12-07 06:32:14.827 16581 23758 W System.err: java.lang.UnsatisfiedLinkError: dlopen failed: cannot locate symbol "_ZN8facebook6hermes13HermesRuntime11getDebuggerEv" referenced by "/data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64/libhermes-executor-debug.so"...
+12-07 06:32:14.827 16581 23758 W System.err: 	at java.lang.Runtime.load0(Runtime.java:939)
+12-07 06:32:14.827 16581 23758 W System.err: 	at java.lang.System.load(System.java:1628)
+12-07 06:32:14.827 16581 23758 W System.err: 	at com.facebook.soloader.SoLoader$1.load(SoLoader.java:400)
+12-07 06:32:14.827 16581 23758 W System.err: 	at com.facebook.soloader.DirectorySoSource.loadLibraryFrom(DirectorySoSource.java:77)
+12-07 06:32:14.827 16581 23758 W System.err: 	at com.facebook.soloader.DirectorySoSource.loadLibrary(DirectorySoSource.java:50)
+12-07 06:32:14.827 16581 23758 W System.err: 	at com.facebook.soloader.ApplicationSoSource.loadLibrary(ApplicationSoSource.java:89)
+12-07 06:32:14.827 16581 23758 W System.err: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:838)
+12-07 06:32:14.827 16581 23758 W System.err: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:725)
+12-07 06:32:14.827 16581 23758 W System.err: 	at com.facebook.soloader.SoLoader.loadLibraryBySoName(SoLoader.java:649)
+12-07 06:32:14.827 16581 23758 W System.err: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:629)
+12-07 06:32:14.827 16581 23758 W System.err: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:577)
+12-07 06:32:14.827 16581 23758 W System.err: 	at com.facebook.hermes.reactexecutor.HermesExecutor.<clinit>(HermesExecutor.java:22)
+12-07 06:32:14.827 16581 23758 W System.err: 	at com.facebook.hermes.reactexecutor.HermesExecutorFactory.create(HermesExecutorFactory.java:29)
+12-07 06:32:14.827 16581 23758 W System.err: 	at com.facebook.react.ReactInstanceManager$5.run(ReactInstanceManager.java:1017)
+12-07 06:32:14.827 16581 23758 W System.err: 	at java.lang.Thread.run(Thread.java:923)
+12-07 06:32:14.828 16581 23758 E SoLoader: couldn't find DSO to load: libhermes-executor-debug.so caused by: dlopen failed: cannot locate symbol "_ZN8facebook6hermes13HermesRuntime11getDebuggerEv" referenced by "/data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64/libhermes-executor-debug.so"... result: 0
+12-07 06:32:14.828 16581 23758 D SoLoader: About to load: libhermes-executor-release.so
+12-07 06:32:14.828 16581 23758 D SoLoader: libhermes-executor-release.so not found on /data/data/com.kmasteryc.openspotify/lib-main
+12-07 06:32:14.828 16581 23758 D SoLoader: libhermes-executor-release.so found on /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64
+12-07 06:32:14.828 16581 23758 D SoLoader: Not resolving dependencies for libhermes-executor-release.so
+12-07 06:32:14.831 16581 23758 D SoLoader: Loaded: libhermes-executor-release.so
+12-07 06:32:14.831 16581 23758 D SoLoader: About to load: libfbjni.so
+12-07 06:32:14.831 16581 23758 D SoLoader: libfbjni.so not found on /data/data/com.kmasteryc.openspotify/lib-main
+12-07 06:32:14.831 16581 23758 D SoLoader: libfbjni.so found on /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64
+12-07 06:32:14.831 16581 23758 D SoLoader: Not resolving dependencies for libfbjni.so
+12-07 06:32:14.832 16581 23758 D SoLoader: Loaded: libfbjni.so
+12-07 06:32:14.840 16581 23758 D SoLoader: About to load: libreactnativejni.so
+12-07 06:32:14.841 16581 23758 D SoLoader: libreactnativejni.so not found on /data/data/com.kmasteryc.openspotify/lib-main
+12-07 06:32:14.841 16581 23758 D SoLoader: libreactnativejni.so found on /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64
+12-07 06:32:14.841 16581 23758 D SoLoader: Not resolving dependencies for libreactnativejni.so
+12-07 06:32:14.842 16581 23758 D SoLoader: Loaded: libreactnativejni.so
+12-07 06:32:14.845 16581 23762 E ReactNativeJNI: logMarker CREATE_REACT_CONTEXT_END
+12-07 06:32:14.845 16581 23758 E unknown:ReactNative: ReactInstanceManager.createReactContext: mJSIModulePackage not null
+12-07 06:32:14.850 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.art.ARTGroupViewManager
+12-07 06:32:14.850 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.art.ARTGroupShadowNode
+12-07 06:32:14.851 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.art.ARTShapeViewManager
+12-07 06:32:14.851 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.art.ARTShapeShadowNode
+12-07 06:32:14.852 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.art.ARTTextViewManager
+12-07 06:32:14.852 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.art.ARTTextShadowNode
+12-07 06:32:14.852 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.checkbox.ReactCheckBoxManager
+12-07 06:32:14.853 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.uimanager.LayoutShadowNode
+12-07 06:32:14.854 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.picker.ReactDialogPickerManager
+12-07 06:32:14.855 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.drawer.ReactDrawerLayoutManager
+12-07 06:32:14.856 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.picker.ReactDropdownPickerManager
+12-07 06:32:14.856 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollViewManager
+12-07 06:32:14.857 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollContainerViewManager
+12-07 06:32:14.858 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.progressbar.ReactProgressBarViewManager
+12-07 06:32:14.858 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.progressbar.ProgressBarShadowNode
+12-07 06:32:14.859 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.scroll.ReactScrollViewManager
+12-07 06:32:14.860 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.slider.ReactSliderManager
+12-07 06:32:14.861 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.slider.ReactSliderManager$ReactSliderShadowNode
+12-07 06:32:14.861 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchManager
+12-07 06:32:14.862 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchManager$ReactSwitchShadowNode
+12-07 06:32:14.862 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.swiperefresh.SwipeRefreshLayoutManager
+12-07 06:32:14.864 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.art.ARTSurfaceViewManager
+12-07 06:32:14.864 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.art.ARTSurfaceViewShadowNode
+12-07 06:32:14.864 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageViewManager
+12-07 06:32:14.864 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageShadowNode
+12-07 06:32:14.865 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.image.ReactImageManager
+12-07 06:32:14.866 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.modal.ReactModalHostManager
+12-07 06:32:14.866 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.modal.ModalHostShadowNode
+12-07 06:32:14.866 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactRawTextManager
+12-07 06:32:14.867 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactRawTextShadowNode
+12-07 06:32:14.868 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputManager
+12-07 06:32:14.869 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputShadowNode
+12-07 06:32:14.870 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactTextViewManager
+12-07 06:32:14.870 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactTextShadowNode
+12-07 06:32:14.870 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.view.ReactViewManager
+12-07 06:32:14.871 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.viewpager.ReactViewPagerManager
+12-07 06:32:14.872 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextViewManager
+12-07 06:32:14.872 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextShadowNode
+12-07 06:32:14.872 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.reactnativecommunity.slider.ReactSliderManager
+12-07 06:32:14.873 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.reactnativecommunity.slider.ReactSliderManager$ReactSliderShadowNode
+12-07 06:32:14.873 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.gesturehandler.react.RNGestureHandlerRootViewManager
+12-07 06:32:14.873 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.gesturehandler.react.RNGestureHandlerButtonViewManager
+12-07 06:32:14.874 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaProviderManager
+12-07 06:32:14.874 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaViewManager
+12-07 06:32:14.874 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaViewShadowNode
+12-07 06:32:14.875 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenContainerViewManager
+12-07 06:32:14.875 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenViewManager
+12-07 06:32:14.876 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenStackViewManager
+12-07 06:32:14.876 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenStackHeaderConfigViewManager
+12-07 06:32:14.876 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenStackHeaderSubviewManager
+12-07 06:32:14.877 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$GroupViewManager
+12-07 06:32:14.878 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$RenderableShadowNode
+12-07 06:32:14.879 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$PathViewManager
+12-07 06:32:14.879 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$CircleViewManager
+12-07 06:32:14.880 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$EllipseViewManager
+12-07 06:32:14.880 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$LineViewManager
+12-07 06:32:14.880 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$RectViewManager
+12-07 06:32:14.881 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$TextViewManager
+12-07 06:32:14.881 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$TSpanViewManager
+12-07 06:32:14.882 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$TextPathViewManager
+12-07 06:32:14.882 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$ImageViewManager
+12-07 06:32:14.883 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$ClipPathViewManager
+12-07 06:32:14.883 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$DefsViewManager
+12-07 06:32:14.883 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$UseViewManager
+12-07 06:32:14.883 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$SymbolManager
+12-07 06:32:14.884 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$LinearGradientManager
+12-07 06:32:14.884 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$RadialGradientManager
+12-07 06:32:14.885 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$PatternManager
+12-07 06:32:14.885 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$MaskManager
+12-07 06:32:14.886 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$ForeignObjectManager
+12-07 06:32:14.886 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$MarkerManager
+12-07 06:32:14.887 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.SvgViewManager
+12-07 06:32:14.888 16581 23758 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class org.unimodules.adapters.react.views.SimpleViewManagerAdapter
+12-07 06:32:14.893 16581 23758 D SoLoader: About to load: libturbomodulejsijni.so
+12-07 06:32:14.893 16581 23758 D SoLoader: libturbomodulejsijni.so not found on /data/data/com.kmasteryc.openspotify/lib-main
+12-07 06:32:14.893 16581 23758 D SoLoader: libturbomodulejsijni.so found on /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64
+12-07 06:32:14.893 16581 23758 D SoLoader: Not resolving dependencies for libturbomodulejsijni.so
+12-07 06:32:14.893 16581 23758 D SoLoader: Loaded: libturbomodulejsijni.so
+12-07 06:32:14.895 16581 23758 E unknown:ReactNative: ReactInstanceManager.createReactContext: ReactFeatureFlags.useTurboModules == false
+12-07 06:32:14.915 16581 23762 E ReactNativeJNI: logMarker RUN_JS_BUNDLE_START
+12-07 06:32:14.915 16581 23763 E unknown:ReactNative: ReactInstanceManager.attachRootViewToInstance()
+12-07 06:32:14.916 16581 23763 D SoLoader: About to load: libyoga.so
+12-07 06:32:14.916 16581 23763 D SoLoader: libyoga.so not found on /data/data/com.kmasteryc.openspotify/lib-main
+12-07 06:32:14.916 16581 23763 D SoLoader: libyoga.so found on /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64
+12-07 06:32:14.916 16581 23763 D SoLoader: Not resolving dependencies for libyoga.so
+12-07 06:32:14.917 16581 23763 D SoLoader: Loaded: libyoga.so
+12-07 06:32:14.919 16581 23763 E unknown:ReactRootView: runApplication: call AppRegistry.runApplication
+12-07 06:32:14.923 16581 23763 D SoLoader: init exiting
+12-07 06:32:14.928 16581 16581 E unknown:ReactNative: Unable to launch logbox because react was unable to create the root view
+12-07 06:32:14.934 16581 23755 I AdrenoGLES-0: QUALCOMM build                   : 42297a4, I9e9b240040
+12-07 06:32:14.934 16581 23755 I AdrenoGLES-0: Build Date                       : 03/19/21
+12-07 06:32:14.934 16581 23755 I AdrenoGLES-0: OpenGL ES Shader Compiler Version: EV031.32.02.07
+12-07 06:32:14.934 16581 23755 I AdrenoGLES-0: Local Branch                     : 
+12-07 06:32:14.934 16581 23755 I AdrenoGLES-0: Remote Branch                    : refs/tags/AU_LINUX_ANDROID_LA.UM.9.1.R1.11.00.00.604.070
+12-07 06:32:14.934 16581 23755 I AdrenoGLES-0: Remote Branch                    : NONE
+12-07 06:32:14.934 16581 23755 I AdrenoGLES-0: Reconstruct Branch               : NOTHING
+12-07 06:32:14.934 16581 23755 I AdrenoGLES-0: Build Config                     : S P 10.0.6 AArch64
+12-07 06:32:14.934 16581 23755 I AdrenoGLES-0: Driver Path                      : /vendor/lib64/egl/libGLESv2_adreno.so
+12-07 06:32:14.938 16581 23755 I AdrenoGLES-0: PFP: 0x016ee190, ME: 0x00000000
+12-07 06:32:14.940 16581 23755 W AdrenoUtils: <ReadGpuID_from_sysfs:197>: Failed to open /sys/class/kgsl/kgsl-3d0/gpu_model
+12-07 06:32:14.940 16581 23755 W AdrenoUtils: <ReadGpuID:221>: Failed to read chip ID from gpu_model. Fallback to use the GSL path
+12-07 06:32:14.940   588   588 I hwservicemanager: getTransport: Cannot find entry android.hardware.configstore@1.0::ISurfaceFlingerConfigs/default in either framework or device manifest.
+12-07 06:32:14.928 16581 16581 W RenderThread: type=1400 audit(0.0:71811): avc: denied { search } for name="2c00000.qcom,kgsl-3d0" dev="sysfs" ino=41014 scontext=u:r:untrusted_app:s0:c243,c256,c512,c768 tcontext=u:object_r:sysfs_msm_subsys:s0 tclass=dir permissive=0 app=com.kmasteryc.openspotify
+12-07 06:32:14.976 16581 23762 D SoLoader: About to load: libreactnativeblob.so
+12-07 06:32:14.976 16581 23762 D SoLoader: libreactnativeblob.so not found on /data/data/com.kmasteryc.openspotify/lib-main
+12-07 06:32:14.976 16581 23762 D SoLoader: libreactnativeblob.so found on /data/app/~~LmTAuTUGqSqpSgYbIX34aQ==/com.kmasteryc.openspotify-IEb-JopgyQFiutTPMYNkeg==/lib/arm64
+12-07 06:32:14.976 16581 23762 D SoLoader: Not resolving dependencies for libreactnativeblob.so
+12-07 06:32:14.977 16581 23762 D SoLoader: Loaded: libreactnativeblob.so
+12-07 06:32:14.979  1479  1581 I ActivityTaskManager: Displayed com.kmasteryc.openspotify/.MainActivity: +254ms
+12-07 06:32:14.993  3606  3606 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3293 
+12-07 06:32:14.994  3606  3606 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1981 
+12-07 06:32:14.995  3606  3606 I DeviceUnlockedTag: DeviceUnlockedTag.notifyDeviceLockStatusChanged():79 Notify device unlocked.
+12-07 06:32:15.100 16581 23762 E ReactNativeJNI: logMarker RUN_JS_BUNDLE_END
+12-07 06:32:15.100 16581 23762 I ReactNativeJS: Running "main" with {"rootTag":1}
+12-07 06:32:15.141 16581 23772 I WebViewFactory: Loading com.android.webview version 95.0.4638.50 (code 463805003)
+12-07 06:32:15.146 16581 23772 D nativeloader: classloader namespace configured for unbundled product apk. library_path=/product/app/webview/lib/arm64:/product/app/webview/webview.apk!/lib/arm64-v8a:/product/lib64:/system/product/lib64
+12-07 06:32:15.161 16581 23772 I cr_WVCFactoryProvider: Loaded version=95.0.4638.50 minSdkVersion=21 isBundle=false multiprocess=true packageId=2
+12-07 06:32:15.167 16581 23776 I cr_VariationsUtils: Failed reading seed file "/data/user/0/com.kmasteryc.openspotify/app_webview/variations_seed_new"
+12-07 06:32:15.169 16581 23772 I cr_LibraryLoader: Successfully loaded native library
+12-07 06:32:15.170 16581 23772 W ryc.openspotif: Accessing hidden field Ljava/util/Collections$SynchronizedCollection;->mutex:Ljava/lang/Object; (greylist-max-o, reflection, denied)
+12-07 06:32:15.170 16581 23772 W ryc.openspotif: Accessing hidden method Ljava/util/Collections$SynchronizedSet;-><init>(Ljava/util/Set;Ljava/lang/Object;)V (greylist-max-o, reflection, denied)
+12-07 06:32:15.170 16581 23772 W ryc.openspotif: Accessing hidden method Ljava/util/Collections$SynchronizedCollection;-><init>(Ljava/util/Collection;Ljava/lang/Object;)V (greylist-max-o, reflection, denied)
+12-07 06:32:15.170 16581 23772 I cr_CachingUmaRecorder: Flushed 7 samples from 7 histograms.
+12-07 06:32:15.234   888   888 E Layer   : [Surface(name=Task=1093)/@0x85dc45b - animation-leash#0] No local sync point found
+12-07 06:32:15.234   888   888 I chatty  : uid=1000(system) /system/bin/surfaceflinger identical 1 line
+12-07 06:32:15.234   888   888 E Layer   : [Surface(name=Task=1093)/@0x85dc45b - animation-leash#0] No local sync point found
+12-07 06:32:15.234   888   888 E Layer   : [Surface(name=Task=1)/@0x2771ce - animation-leash#0] No local sync point found
+12-07 06:32:15.256  1479  1537 I ActivityManager: Killing 22249:fr.playsoft.vnexpress/u0a184 (adj 985): empty #17
+12-07 06:32:15.257  1479  1537 I ActivityManager: Killing 22127:com.linkedin.android/u0a185 (adj 985): empty #18
+12-07 06:32:15.235   888   888 I chatty  : uid=1000(system) /system/bin/surfaceflinger identical 1 line
+12-07 06:32:15.235   888   888 E Layer   : [Surface(name=Task=1)/@0x2771ce - animation-leash#0] No local sync point found
+12-07 06:32:15.272  6227 23557 I PBSessionCacheImpl: Deleted sessionId[27388274426522411] from persistence.
+12-07 06:32:15.275 16581 23762 E ReactNativeJS: Error: [Immer] minified error nr: 18 'ES5'. Find the full error at: https://bit.ly/3cXEKWf
+12-07 06:32:15.275 16581 23762 E ReactNativeJS: 
+12-07 06:32:15.275 16581 23762 E ReactNativeJS: This error is located at:
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in w
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in ForwardRef
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in ForwardRef
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in p
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in f
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in RNCSafeAreaProvider
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in NativeBaseConfigProviderProvider
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in RCTView
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in View
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in k
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in Root
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in RCTView
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in View
+12-07 06:32:15.275 16581 23762 E ReactNativeJS:     in C, js engine: hermes
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: Error: [Immer] minified error nr: 18 'ES5'. Find the full error at: https://bit.ly/3cXEKWf
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: 
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: This error is located at:
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in w
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in ForwardRef
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in ForwardRef
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in p
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in f
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in RNCSafeAreaProvider
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in NativeBaseConfigProviderProvider
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in RCTView
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in View
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in k
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in Root
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in RCTView
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in View
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative:     in C, js engine: hermes, stack:
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: t@1:678316
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: A@1:679773
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: N@1:681465
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: anonymous@1:691192
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: anonymous@1:691525
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: c@1:692692
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: anonymous@1:696570
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: actionSetCurrentUser@1:671956
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: anonymous@1:2243690
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: hi@1:154911
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: Ul@1:167756
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: anonymous@1:279609
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: en@1:133889
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: Al@1:167572
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: anonymous@1:167516
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: G@1:278407
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: n@1:278748
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: anonymous@1:222405
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: y@1:221700
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: callTimers@1:223457
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: value@1:85193
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: anonymous@1:83833
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: value@1:84789
+12-07 06:32:15.278 16581 23763 E unknown:ReactNative: value@1:83791
+12-07 06:32:15.280 16581 23762 E ReactNativeJS: Error: [Immer] minified error nr: 18 'ES5'. Find the full error at: https://bit.ly/3cXEKWf
+12-07 06:32:15.280 16581 23762 E ReactNativeJS: 
+12-07 06:32:15.280 16581 23762 E ReactNativeJS: This error is located at:
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in w
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in ForwardRef
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in ForwardRef
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in p
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in f
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in RNCSafeAreaProvider
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in NativeBaseConfigProviderProvider
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in RCTView
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in View
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in Unknown
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in k
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in Root
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in RCTView
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in View
+12-07 06:32:15.280 16581 23762 E ReactNativeJS:     in C, js engine: hermes
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: CatalystInstanceImpl caught native exception
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: com.facebook.react.common.JavascriptException: Error: [Immer] minified error nr: 18 'ES5'. Find the full error at: https://bit.ly/3cXEKWf
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: This error is located at:
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in w
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in ForwardRef
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in ForwardRef
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in p
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in f
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in RNCSafeAreaProvider
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in NativeBaseConfigProviderProvider
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in RCTView
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in View
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in k
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in Root
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in RCTView
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in View
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative:     in C, js engine: hermes, stack:
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: t@1:678316
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: A@1:679773
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: N@1:681465
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: anonymous@1:691192
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: anonymous@1:691525
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: c@1:692692
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: anonymous@1:696570
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: actionSetCurrentUser@1:671956
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: anonymous@1:2243690
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: hi@1:154911
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: Ul@1:167756
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: anonymous@1:279609
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: en@1:133889
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: Al@1:167572
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: anonymous@1:167516
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: G@1:278407
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: n@1:278748
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: anonymous@1:222405
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: y@1:221700
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: callTimers@1:223457
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: value@1:85193
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: anonymous@1:83833
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: value@1:84789
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: value@1:83791
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 	at com.facebook.react.modules.core.ExceptionsManagerModule.reportException(ExceptionsManagerModule.java:83)
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 	at java.lang.reflect.Method.invoke(Native Method)
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 	at com.facebook.react.bridge.JavaMethodWrapper.invoke(JavaMethodWrapper.java:372)
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 	at com.facebook.react.bridge.JavaModuleWrapper.invoke(JavaModuleWrapper.java:151)
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 	at com.facebook.react.bridge.queue.NativeRunnable.run(Native Method)
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 	at android.os.Handler.handleCallback(Handler.java:938)
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 	at com.facebook.react.bridge.queue.MessageQueueThreadHandler.dispatchMessage(MessageQueueThreadHandler.java:27)
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 	at android.os.Looper.loop(Looper.java:223)
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$4.run(MessageQueueThreadImpl.java:226)
+12-07 06:32:15.283 16581 23763 E unknown:ReactNative: 	at java.lang.Thread.run(Thread.java:923)
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: Caught exception
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: com.facebook.react.common.JavascriptException: Error: [Immer] minified error nr: 18 'ES5'. Find the full error at: https://bit.ly/3cXEKWf
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: This error is located at:
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in w
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in ForwardRef
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in ForwardRef
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in p
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in f
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in RNCSafeAreaProvider
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in NativeBaseConfigProviderProvider
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in RCTView
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in View
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in Unknown
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in k
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in Root
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in RCTView
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in View
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager:     in C, js engine: hermes, stack:
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: t@1:678316
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: A@1:679773
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: N@1:681465
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: anonymous@1:691192
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: anonymous@1:691525
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: c@1:692692
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: anonymous@1:696570
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: actionSetCurrentUser@1:671956
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: anonymous@1:2243690
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: hi@1:154911
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: Ul@1:167756
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: anonymous@1:279609
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: en@1:133889
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: Al@1:167572
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: anonymous@1:167516
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: G@1:278407
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: n@1:278748
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: anonymous@1:222405
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: y@1:221700
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: callTimers@1:223457
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: value@1:85193
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: anonymous@1:83833
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: value@1:84789
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: value@1:83791
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 	at com.facebook.react.modules.core.ExceptionsManagerModule.reportException(ExceptionsManagerModule.java:83)
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 	at java.lang.reflect.Method.invoke(Native Method)
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 	at com.facebook.react.bridge.JavaMethodWrapper.invoke(JavaMethodWrapper.java:372)
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 	at com.facebook.react.bridge.JavaModuleWrapper.invoke(JavaModuleWrapper.java:151)
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 	at com.facebook.react.bridge.queue.NativeRunnable.run(Native Method)
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 	at android.os.Handler.handleCallback(Handler.java:938)
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 	at com.facebook.react.bridge.queue.MessageQueueThreadHandler.dispatchMessage(MessageQueueThreadHandler.java:27)
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 	at android.os.Looper.loop(Looper.java:223)
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$4.run(MessageQueueThreadImpl.java:226)
+12-07 06:32:15.283 16581 23763 E unknown:DisabledDevSupportManager: 	at java.lang.Thread.run(Thread.java:923)
+--------- beginning of crash
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: FATAL EXCEPTION: mqt_native_modules
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: Process: com.kmasteryc.openspotify, PID: 16581
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: com.facebook.react.common.JavascriptException: Error: [Immer] minified error nr: 18 'ES5'. Find the full error at: https://bit.ly/3cXEKWf
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: This error is located at:
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in w
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in Unknown
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in ForwardRef
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in Unknown
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in ForwardRef
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in Unknown
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in Unknown
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in Unknown
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in p
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in f
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in RNCSafeAreaProvider
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in Unknown
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in NativeBaseConfigProviderProvider
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in Unknown
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in Unknown
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in Unknown
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in Unknown
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in RCTView
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in View
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in Unknown
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in k
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in Root
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in RCTView
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in View
+12-07 06:32:15.284 16581 23763 E AndroidRuntime:     in C, js engine: hermes, stack:
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: t@1:678316
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: A@1:679773
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: N@1:681465
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: anonymous@1:691192
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: anonymous@1:691525
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: c@1:692692
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: anonymous@1:696570
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: actionSetCurrentUser@1:671956
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: anonymous@1:2243690
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: hi@1:154911
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: Ul@1:167756
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: anonymous@1:279609
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: en@1:133889
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: Al@1:167572
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: anonymous@1:167516
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: G@1:278407
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: n@1:278748
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: anonymous@1:222405
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: y@1:221700
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: callTimers@1:223457
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: value@1:85193
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: anonymous@1:83833
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: value@1:84789
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: value@1:83791
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 	at com.facebook.react.modules.core.ExceptionsManagerModule.reportException(ExceptionsManagerModule.java:83)
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 	at com.facebook.react.bridge.JavaMethodWrapper.invoke(JavaMethodWrapper.java:372)
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 	at com.facebook.react.bridge.JavaModuleWrapper.invoke(JavaModuleWrapper.java:151)
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 	at com.facebook.react.bridge.queue.NativeRunnable.run(Native Method)
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 	at android.os.Handler.handleCallback(Handler.java:938)
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 	at com.facebook.react.bridge.queue.MessageQueueThreadHandler.dispatchMessage(MessageQueueThreadHandler.java:27)
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:223)
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$4.run(MessageQueueThreadImpl.java:226)
+12-07 06:32:15.284 16581 23763 E AndroidRuntime: 	at java.lang.Thread.run(Thread.java:923)
+12-07 06:32:15.286  1479  1537 W ActivityTaskManager:   Force finishing activity com.kmasteryc.openspotify/.MainActivity
+12-07 06:32:15.287  1479 23783 I DropBoxManagerService: add tag=data_app_crash isTagEnabled=true flags=0x2
+12-07 06:32:15.298  6227  6406 W SearchServiceCore: Abort, client detached.
+12-07 06:32:15.300  6227  6406 I A       : cleanUpControllerScope(nowcards-15-16fd3d67-ce97)
+12-07 06:32:15.309  1479  1582 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.DROPBOX_ENTRY_ADDED flg=0x10 (has extras) } to com.google.android.gms/.stats.service.DropBoxEntryAddedReceiver
+12-07 06:32:15.310  1479  1582 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.DROPBOX_ENTRY_ADDED flg=0x10 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+12-07 06:32:15.319 16581 23763 I Process : Sending signal. PID: 16581 SIG: 9
+12-07 06:32:15.358   670   670 I Zygote  : Process 22249 exited due to signal 9 (Killed)
+12-07 06:32:08.298     0     0 I binder  : undelivered TRANSACTION_COMPLETE
+12-07 06:32:08.298     0     0 I binder  : undelivered transaction 103405701, process died.
+12-07 06:32:15.368  1479  2593 I ActivityManager: Process com.kmasteryc.openspotify (pid 16581) has died: prcp TOP 
+12-07 06:32:15.369  1479  3869 I WindowManager: WIN DEATH: Window{19eb83c u0 com.kmasteryc.openspotify/com.kmasteryc.openspotify.MainActivity}
+12-07 06:32:15.369  1479  3869 W InputDispatcher: Attempted to unregister already unregistered input channel '19eb83c com.kmasteryc.openspotify/com.kmasteryc.openspotify.MainActivity (server)'
+12-07 06:32:15.370   670   670 I Zygote  : Process 16581 exited due to signal 9 (Killed)
+12-07 06:32:08.302     0     0 I IRQ 6   : no longer affine to CPU6
+12-07 06:32:15.385  1479  1574 W ActivityManager: setHasOverlayUi called on unknown pid: 16581
+12-07 06:32:15.387  1479  1584 I libprocessgroup: Successfully killed process cgroup uid 10184 pid 22249 in 129ms
+12-07 06:32:15.403  1479  1536 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ TRACK_DEFAULT id=6007, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10185 AdministratorUids: [] RequestorUid: 10185 RequestorPackageName: com.linkedin.android] ], android.os.BinderProxy@91cc41b)
+12-07 06:32:15.403  1479  2593 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ LISTEN id=6008, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&FOREGROUND Uid: 10185 AdministratorUids: [] RequestorUid: 10185 RequestorPackageName: com.linkedin.android] ], android.os.BinderProxy@db6c391)
+12-07 06:32:15.404   670   670 I Zygote  : Process 22127 exited due to signal 9 (Killed)
+12-07 06:32:15.405  1479  3690 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ TRACK_DEFAULT id=6006, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10185 AdministratorUids: [] RequestorUid: 10185 RequestorPackageName: com.linkedin.android] ], android.os.BinderProxy@ce1e9b8)
+12-07 06:32:15.405  1479  2023 D ConnectivityService: releasing NetworkRequest [ TRACK_DEFAULT id=6007, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10185 AdministratorUids: [] RequestorUid: 10185 RequestorPackageName: com.linkedin.android] ] (release request)
+12-07 06:32:15.406  1479  2023 D ConnectivityService: releasing NetworkRequest [ TRACK_DEFAULT id=6006, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10185 AdministratorUids: [] RequestorUid: 10185 RequestorPackageName: com.linkedin.android] ] (release request)
+12-07 06:32:15.431  1479  1584 I libprocessgroup: Successfully killed process cgroup uid 10185 pid 22127 in 42ms
+12-07 06:32:15.432  1479  1584 I libprocessgroup: Successfully killed process cgroup uid 10243 pid 16581 in 0ms
+12-07 06:32:15.446  6227  6406 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+12-07 06:32:15.447  3606  3606 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3293 
+12-07 06:32:15.448  3606  3606 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1981 
+12-07 06:32:15.448  3606  3606 I DeviceUnlockedTag: DeviceUnlockedTag.notifyDeviceLockStatusChanged():79 Notify device unlocked.
+12-07 06:32:15.459  6227  6406 I A       : registerScope: nowcards-15-16fd3d67-ce97

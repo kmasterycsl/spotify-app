@@ -41,7 +41,7 @@ jobs:
                   MYAPP_UPLOAD_STORE_FILE_ENCRYPTED: ${{ secrets.MYAPP_UPLOAD_STORE_FILE_ENCRYPTED }}
                   MYAPP_UPLOAD_STORE_FILE: ${{ secrets.MYAPP_UPLOAD_STORE_FILE }}
               run: |
-                  cat "$MYAPP_UPLOAD_STORE_FILE_ENCRYPTED" | base64 --decode > ./android/app/"$MYAPP_UPLOAD_STORE_FILE".jks
+                  echo "$MYAPP_UPLOAD_STORE_FILE_ENCRYPTED" | base64 --decode > ./android/app/"$MYAPP_UPLOAD_STORE_FILE".jks
             - name: Build Android Release
               run: |
                   cd android && ./gradlew assembleRelease

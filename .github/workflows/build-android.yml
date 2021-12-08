@@ -27,10 +27,10 @@ jobs:
                   echo GOOGLE_WEB_CLIENT_ID="$GOOGLE_WEB_CLIENT_ID" >> .env
             - name: prepare gradle.properties file
               env:
-                  MYAPP_UPLOAD_STORE_FILE: ${{ secrets.GRAPHQL_ENDPOINT }}
-                  MYAPP_UPLOAD_KEY_ALIAS: ${{ secrets.GOOGLE_EXPO_CLIENT_ID }}
-                  MYAPP_UPLOAD_STORE_PASSWORD: ${{ secrets.GOOGLE_IOS_CLIENT_ID }}
-                  MYAPP_UPLOAD_KEY_PASSWORD: ${{ secrets.GOOGLE_ANDROID_CLIENT_ID }}
+                  MYAPP_UPLOAD_STORE_FILE: ${{ secrets.MYAPP_UPLOAD_STORE_FILE }}
+                  MYAPP_UPLOAD_KEY_ALIAS: ${{ secrets.MYAPP_UPLOAD_KEY_ALIAS }}
+                  MYAPP_UPLOAD_STORE_PASSWORD: ${{ secrets.MYAPP_UPLOAD_STORE_PASSWORD }}
+                  MYAPP_UPLOAD_KEY_PASSWORD: ${{ secrets.MYAPP_UPLOAD_KEY_PASSWORD }}
               run: |
                   echo MYAPP_UPLOAD_STORE_FILE="$MYAPP_UPLOAD_STORE_FILE" >> ./android/gradle.properties
                   echo MYAPP_UPLOAD_KEY_ALIAS="$MYAPP_UPLOAD_KEY_ALIAS" >> ./android/gradle.properties

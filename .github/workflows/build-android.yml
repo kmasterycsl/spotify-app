@@ -25,7 +25,6 @@ jobs:
                   echo GOOGLE_IOS_CLIENT_ID="$GOOGLE_IOS_CLIENT_ID" >> .env
                   echo GOOGLE_ANDROID_CLIENT_ID="$GOOGLE_ANDROID_CLIENT_ID" >> .env
                   echo GOOGLE_WEB_CLIENT_ID="$GOOGLE_WEB_CLIENT_ID" >> .env
-                  cat .env
             - name: prepare gradle.properties file
               env:
                   MYAPP_UPLOAD_STORE_FILE: ${{ secrets.MYAPP_UPLOAD_STORE_FILE }}
@@ -37,14 +36,12 @@ jobs:
                   echo MYAPP_UPLOAD_KEY_ALIAS="$MYAPP_UPLOAD_KEY_ALIAS" >> ./android/gradle.properties
                   echo MYAPP_UPLOAD_STORE_PASSWORD="$MYAPP_UPLOAD_STORE_PASSWORD" >> ./android/gradle.properties
                   echo MYAPP_UPLOAD_KEY_PASSWORD="$MYAPP_UPLOAD_KEY_PASSWORD" >> ./android/gradle.properties
-                  cat ./android/gradle.properties
             - name: prepare sign key
               env:
                   MYAPP_UPLOAD_STORE_FILE_ENCRYPTED: ${{ secrets.MYAPP_UPLOAD_STORE_FILE_ENCRYPTED }}
                   MYAPP_UPLOAD_STORE_FILE: ${{ secrets.MYAPP_UPLOAD_STORE_FILE }}
               run: |
                   echo "$MYAPP_UPLOAD_STORE_FILE_ENCRYPTED" | base64 --decode > ./android/app/"$MYAPP_UPLOAD_STORE_FILE"
-                  stat ./android/app/"$MYAPP_UPLOAD_STORE_FILE"
             - name: Build Android Release
               run: |
                   cd android && ./gradlew assembleRelease
